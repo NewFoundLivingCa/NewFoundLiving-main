@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Newfound Living{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <style>
+    body {
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: url("{{ url_for('static', filename='images/city.png') }}") no-repeat center center fixed;
+        background-size: cover;
+        color: #ffffff;
+        position: relative;
+    }
+
+    .overlay {
+        background: rgba(0, 0, 0, 0.6);
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+    }
+  </style>
+
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <ul class="nav-links">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        {# <li><a href="{{ url_for('rent') }}">Pay Rent</a></li> #}
+        <li><a href="{{ url_for('rental_application') }}" >Application</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="overlay"></div>
+
+
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+
+  <footer>
+    <div>Locally owned and operated in St. John's & surrounding areas</div>
+    <div class="email-link">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
+      <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+    </div>
+    <div class="social-link">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
+      <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
+    </div>
+    <div class="privacy">
+      We never share or sell your information. Your privacy is important to us.
+    </div>
+  </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}Rent Payments – Newfound Living{% endblock %}
+
+{% block content %}
+<div class="payment-page-wrapper">
+  <div class="payment-container">
+    <h1>Rent Payments</h1>
+    <p>To pay your rent, please send an Interac e-Transfer to:</p>
+    <div class="email-copy-container">
+        <span class="email-box" id="paymentEmail">newfoundlivingmanagement@gmail.com</span>
+        <button class="copy-btn" onclick="copyEmail()">Copy Email</button>
+    </div>
+
+
+    <p><strong>Note:</strong> Include your property address in the message field. Payments are auto-deposited — no password required.</p>
+
+    <form id="confirm-form" action="https://formspree.io/f/xldnwbqq" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="text" name="address" placeholder="Property Address" required />
+      <input type="date" name="payment-date" required />
+      <textarea name="notes" placeholder="Notes (optional)"></textarea>
+      <button type="submit">Submit Payment Confirmation</button>
+    </form>
+
+    <div class="confirmation-message" id="confirmationMessage">
+      ✅ Thank you! Your confirmation was sent.
+    </div>
+
+    <a href="{{ url_for('home') }}" class="home-btn">← Back to Home</a>
+
+    <div class="footer-note">
+      Questions? Email us at <strong>info.newfoundliving@gmail.com</strong>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function copyEmail() {
+    const email = document.getElementById('paymentEmail').innerText;
+    navigator.clipboard.writeText(email).then(() => {
+      alert('Email copied to clipboard!');
+    });
+
+  }
+    
+
+  const form = document.getElementById('confirm-form');
+  const confirmationMessage = document.getElementById('confirmationMessage');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    try {
+      await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      form.reset();
+      confirmationMessage.style.display = 'block';
+    } catch (err) {
+      alert('Something went wrong. Please try again later.');
+    }
+  });
+</script>
+{% endblock %}

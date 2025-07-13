@@ -1,0 +1,596 @@
+:root {
+  --green: #2e7d32;
+  --white: #ffffff;
+  --dark-overlay: rgba(0, 0, 0, 0.6);
+  --input-bg: rgba(255 255 255 / 0.15);
+  --input-border: rgba(255 255 255 / 0.3);
+  --form-bg: rgba(0, 0, 0, 0.85);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  background: url('city.png') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--white);
+  position: relative;
+}
+
+.overlay {
+  background: var(--dark-overlay);
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.logo {
+  width: 260px;
+  margin: 2rem auto 1rem;
+  display: block;
+  z-index: 1;
+  position: relative;
+}
+
+.rental-container {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 3rem auto 6rem;
+  padding: 2rem 2rem 3rem;
+  background-color: var(--form-bg);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  text-align: left;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 4rem 1rem 2rem;
+  max-width: 700px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 2rem;
+  font-family: Georgia, serif;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Remove borders from fieldsets */
+fieldset {
+  border: none;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="tel"],
+textarea,
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: var(--white);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.container textarea, .container input[type="email"]{
+  background-color: #ffffff;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin-right: 0.4rem;
+  transform: scale(1.1);
+  vertical-align: middle;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.checkbox-group label {
+  margin: 0;
+  font-weight: normal;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: var(--white);
+}
+
+button, /* normal buttons */
+.file-btn { /* file upload button styled */
+  background-color: var(--green);
+  color: var(--white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  max-width: 300px;
+  margin: 1rem auto 0;
+  display: block;
+  transition: background-color 0.3s;
+  text-align: center;
+  user-select: none;
+}
+
+button:hover,
+.file-btn:hover {
+  background-color: #388e3c;
+}
+
+/* Hide default file input */
+input[type="file"] {
+  display: none;
+}
+
+/* Custom file input label */
+label.file-label {
+  display: block;
+  max-width: 300px;
+  margin: 0.5rem auto 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--green);
+  color: var(--white);
+  text-align: center;
+  transition: background-color 0.3s;
+  user-select: none;
+}
+label.file-label:hover {
+  background-color: #388e3c;
+}
+
+#thank-you-rental {
+  display: none;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: lightgreen;
+  text-align: center;
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  margin-top: 3rem;
+  font-size: 1rem;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+footer a {
+  color: #ffffff;
+  text-decoration: underline;
+  margin-left: 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.social-link, .email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.social-link img, .email-link img {
+  width: 16px;
+  height: 16px;
+}
+
+.privacy {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #dddddd;
+  text-align: center;
+}
+
+.navbar {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1rem 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.nav-links li a:hover {
+  text-decoration: underline;
+  color: #a5d6a7;
+}
+
+
+/* Rent page styles */
+
+
+.features {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.feature-box {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 30%;
+  min-width: 180px;
+  text-align: center;
+}
+
+.feature-box h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.feature-box p {
+  font-size: 0.95rem;
+  color: #ddd;
+}
+
+/* .payment-container {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+} */
+
+.email-box {
+  background-color: #eef2ee;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--dark);
+}
+
+.copy-btn, .home-btn {
+  background-color: var(--green);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.copy-btn:hover, .home-btn:hover {
+  background-color: #388e3c;
+}
+
+form {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .payment-container {
+    padding: 2rem 1rem;
+  }
+}
+
+.confirmation-message {
+  color: green;
+  margin-top: 1rem;
+  font-weight: bold;
+  display: none;
+}
+
+button[type="submit"] {
+  background-color: var(--green);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+}
+
+button[type="submit"]:hover {
+  background-color: #388e3c;
+}
+
+h2 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 1.85rem;
+    font-family: Georgia, serif;
+    margin-bottom: 0.75rem;
+}
+
+
+.payment-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: url('city.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.payment-container {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  position: relative;
+  z-index: 1; /* ensure it's above .overlay */
+}
+
+.payment-container h1 {
+  color: #2e7d32;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.payment-container p {
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+/* .email-box {
+  background-color: #f3f3f3;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #000;
+  margin-bottom: 0.5rem;
+} */
+
+/* .email-copy-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; 
+  gap: 0.5rem; 
+  margin: 1rem 0;
+}
+
+.email-box {
+  background-color: #eef2ee;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+  flex-grow: 1;
+  max-width: 400px;
+  text-align: center;
+}
+
+
+.copy-btn {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 0.5rem;
+} */
+
+.email-copy-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: nowrap; /* force inline if space permits */
+  margin: 1.5rem auto;
+  max-width: 700px;
+}
+
+.email-box {
+  background-color: #eef2ee;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+  white-space: nowrap;
+}
+
+.copy-btn {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+
+
+.copy-btn:hover {
+  background-color: #388e3c;
+}
+
+form {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+input,textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+/* textarea {
+  resize: vertical;
+  min-height: 80px;
+} */
+
+button[type="submit"] {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #388e3c;
+}
+
+.home-btn {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.home-btn:hover {
+  background-color: #388e3c;
+}
+
+.confirmation-message {
+  color: green;
+  margin-top: 1rem;
+  font-weight: bold;
+  display: none;
+}
+
+.footer-note {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #444;
+}
+
+.payment-container input[type="date"] {
+  color: #000; /* ensures visible text */
+  background-color: #fff; /* ensures readable background */
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  width: 100%;
+  font-family: inherit;
+}
+
+.payment-container input,
+.payment-container textarea {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+}
+
+p {
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+    color: var(--gray);
+}

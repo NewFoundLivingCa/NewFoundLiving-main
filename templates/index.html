@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}Newfound Living - Rental Properties in St. John's{% endblock %}
+
+{% block content %}
+<div class="container">
+  <img src="{{ url_for('static', filename='images/logo-transparent.png') }}" alt="Newfound Living Logo" class="logo">
+  <h1>Welcome to Newfound Living</h1>
+  <h2>While all our rental units are currently filled, we’d love to keep you updated. Leave your email and be the first to know when a property becomes available.</h2>
+
+  <form id="notify-form" action="https://formspree.io/f/xldnwbqq" method="POST">
+    <input type="email" name="email" placeholder="Your email address" required />
+    <textarea name="message" placeholder="Your message (optional)"></textarea>
+    <button type="submit">Get Updates</button>
+  </form>
+
+  <div id="thank-you">Thanks for signing up! We'll be in touch soon.</div>
+
+  <div class="features">
+    <div class="feature-box"><div>🔧</div><h3>Stress-Free Renting</h3><p>Well-maintained homes with responsive service.</p></div>
+    <div class="feature-box"><div>💡</div><h3>Transparent Pricing</h3><p>Fair rates with no hidden fees.</p></div>
+    <div class="feature-box"><div>🏠</div><h3>Local Expertise</h3><p>Based in St. John's. We know the market.</p></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const form = document.getElementById('notify-form');
+  const thankYou = document.getElementById('thank-you');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    try {
+      await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      form.reset();
+      thankYou.style.display = 'block';
+    } catch (err) {
+      alert('Something went wrong. Please try again later.');
+    }
+  });
+</script>
+{% endblock %}
