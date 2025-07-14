@@ -12,7 +12,6 @@ This is a Flask-based web application for **Newfound Living**, a rental property
 ## 🚀 Features
 
 - 📄 **Rental Application Form** — Collects applicant, employment, and reference details
-- 💵 **Rent Payment Confirmation** — Allows tenants to submit payment proof
 - 📬 **Email Notification Signup** — Users can leave their email to be notified of new availability
 - ✉️ **Email Copy Button** — One-click to copy the rent payment address
 
