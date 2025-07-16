@@ -9,6 +9,21 @@ This is a Flask-based web application for **Newfound Living**, a rental property
 
 ---
 
+## 🌐 Live Site
+
+Access the site at: [https://www.newfoundliving.ca](https://www.newfoundliving.ca)
+---
+
+## 🖼️ Screenshots
+
+### Homepage
+![Homepage Screenshot](static/screenshots/screenshot-home.png)
+
+### Rental Application Page
+![Application Screenshot](static/screenshots/screenshot-application.png)
+
+---
+
 ## 🚀 Features
 
 - 📄 **Rental Application Form** — Collects applicant, employment, and reference details
@@ -22,7 +37,7 @@ This is a Flask-based web application for **Newfound Living**, a rental property
 - **Backend:** Python (Flask)
 - **Frontend:** HTML5, CSS3, Jinja2 templating
 - **Form Handling:** [Formspree](https://formspree.io/)
-- **Deployment Ready:** Works on Heroku, Render, or any WSGI-compatible platform
+- **Live Site:** [www.newfoundliving.ca](https://www.newfoundliving.ca) — Deployed on Render and connected to a custom domain via GoDaddy.
 
 ---
 
