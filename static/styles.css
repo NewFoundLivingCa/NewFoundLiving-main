@@ -235,6 +235,9 @@ footer a {
   text-align: center;
 }
 
+
+
+/* === Navbar (Desktop) === */
 .navbar {
   background-color: rgba(0, 0, 0, 0.6);
   padding: 1rem 2rem;
@@ -254,6 +257,8 @@ footer a {
   list-style: none;
   display: flex;
   gap: 1.5rem;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links li a {
@@ -266,6 +271,33 @@ footer a {
 .nav-links li a:hover {
   text-decoration: underline;
   color: #a5d6a7;
+}
+
+/* === Navbar (Mobile) === */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: center;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links li a {
+    display: block;
+    padding: 0.75rem 0;
+    font-size: 1.1rem;
+    width: 100%;
+  }
 }
 
 
@@ -299,15 +331,6 @@ footer a {
   color: #ddd;
 }
 
-/* .payment-container {
-    background: white;
-    padding: 2.5rem 2rem;
-    border-radius: 12px;
-    max-width: 600px;
-    width: 100%;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-    text-align: center;
-} */
 
 .email-box {
   background-color: #eef2ee;
@@ -425,49 +448,6 @@ h1 {
   margin-bottom: 1rem;
 }
 
-/* .email-box {
-  background-color: #f3f3f3;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  display: inline-block;
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #000;
-  margin-bottom: 0.5rem;
-} */
-
-/* .email-copy-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap; 
-  gap: 0.5rem; 
-  margin: 1rem 0;
-}
-
-.email-box {
-  background-color: #eef2ee;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #333;
-  flex-grow: 1;
-  max-width: 400px;
-  text-align: center;
-}
-
-
-.copy-btn {
-  background-color: #2e7d32;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 0.95rem;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-left: 0.5rem;
-} */
 
 .email-copy-container {
   display: flex;
@@ -593,4 +573,117 @@ p {
     margin: 0.75rem 0;
     font-size: 0.9rem;
     color: var(--gray);
+}
+
+/* === 1️⃣ Global fixes === */
+body, html {
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* === 2️⃣ Navbar === */
+@media (max-width: 600px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .nav-links li a {
+    font-size: 1rem;
+  }
+}
+
+/* === 3️⃣ Home Page === */
+@media (max-width: 600px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  .logo {
+    width: 180px;
+    margin: 1rem auto;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-box {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+/* === 4️⃣ Rent Payments Page === */
+@media (max-width: 600px) {
+  .payment-page-wrapper {
+    padding: 2rem 1rem;
+  }
+
+  .payment-container {
+    padding: 2rem 1rem;
+    max-width: 100%;
+  }
+
+  .email-copy-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .email-box, .copy-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* === 5️⃣ Rental Application Page === */
+@media (max-width: 600px) {
+  .rental-container {
+    padding: 2rem 1rem;
+    margin: 2rem 1rem 4rem;
+  }
+
+  fieldset {
+    margin-bottom: 1rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  input[type="tel"],
+  textarea {
+    font-size: 1rem;
+  }
+
+  label.file-label {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* === 6️⃣ Footer === */
+@media (max-width: 600px) {
+  footer {
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+
+  footer a {
+    font-size: 0.85rem;
+  }
+}
+html {
+  scroll-behavior: smooth;
 }
