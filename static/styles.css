@@ -241,5 +241,122 @@ footer .privacy {
     font-size: 0.95rem;
     color: #b0b8c6;
 }
+/* Rental form improvements */
+.rental-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(20, 20, 20, 0.85);
+    border-radius: 1rem;
+}
+
+.rental-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #f6fbff;
+}
+
+.form-section {
+    background: rgba(34, 49, 63, 0.95);
+    border-radius: 0.8rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.form-section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: #97d9ff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.5rem;
+}
+
+.form-section label {
+    display: block;
+    margin-top: 0.9rem;
+    font-weight: 500;
+    color: #e0e8f0;
+}
+
+.form-section input,
+.form-section textarea,
+.form-section select {
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-section textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.checkbox-group,
+.checkbox-inline {
+    margin-top: 0.6rem;
+}
+
+.two-columns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.two-columns > div {
+    flex: 1;
+    min-width: 200px;
+}
+
+.file-label {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1rem;
+    background: #47afff;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.file-label:hover {
+    background: #1c7fe5;
+}
+
+#income-proof-file {
+    display: none; /* hidden, label acts as button */
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn-submit {
+    padding: 0.9rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 6px;
+    background: #47afff;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: #1c7fe5;
+}
+
+.declaration-text {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: #cfd8e3;
+}
 
 /* Responsive styles
