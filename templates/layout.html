@@ -5,32 +5,11 @@
   <title>{% block title %}Newfound Living{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-        min-height: 100vh;
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: url("{{ url_for('static', filename='images/city.png') }}") no-repeat center center fixed;
-        background-size: cover;
-        color: #ffffff;
-        position: relative;
-    }
-
-    .overlay {
-        background: rgba(0, 0, 0, 0.6);
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-    }
-
-    .container {
-        position: relative;
-        z-index: 1;
-    }
-  </style>
-
 </head>
 <body>
+  <!-- True fixed background: always behind all content on all devices -->
+  <div class="background-static"></div>
+
   <nav class="navbar">
     <div class="nav-container">
       <ul class="nav-links">
@@ -40,15 +19,13 @@
       </ul>
     </div>
   </nav>
-  <div class="overlay"></div>
-
 
   <div class="content">
     {% block content %}{% endblock %}
   </div>
 
   <footer>
-    <div>Locally owned and operated in St. John's & surrounding areas</div>
+    <div>Locally owned and operated in St. John's &amp; surrounding areas</div>
     <div class="email-link">
       <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
       <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
@@ -61,7 +38,5 @@
       We never share or sell your information. Your privacy is important to us.
     </div>
   </footer>
-
 </body>
 </html>
-
