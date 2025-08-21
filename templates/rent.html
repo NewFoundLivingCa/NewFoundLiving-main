@@ -5,22 +5,27 @@
 {% block content %}
 <div class="payment-page-wrapper">
   <div class="payment-container">
-    <h1>Rent Payments</h1>
-    <p>To pay your rent, please send an Interac e-Transfer to:</p>
+    <h1 class="page-title">💳 Rent Payments</h1>
+    <p class="intro-text">
+      To pay your rent, please send an Interac e-Transfer to:
+    </p>
+
     <div class="email-copy-container">
-        <span class="email-box" id="paymentEmail">newfoundlivingmanagement@gmail.com</span>
-        <button class="copy-btn" onclick="copyEmail()">Copy Email</button>
+      <span class="email-box" id="paymentEmail">newfoundlivingmanagement@gmail.com</span>
+      <button class="copy-btn" onclick="copyEmail()">📋 Copy</button>
     </div>
 
+    <p class="note">
+      <strong>Note:</strong> Include your property address in the message field.  
+      Payments are auto-deposited — no password required.
+    </p>
 
-    <p><strong>Note:</strong> Include your property address in the message field. Payments are auto-deposited — no password required.</p>
-
-    <form id="confirm-form" action="https://formspree.io/f/xldnwbqq" method="POST">
+    <form id="confirm-form" action="https://formspree.io/f/xldnwbqq" method="POST" class="payment-form">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="text" name="address" placeholder="Property Address" required />
       <input type="date" name="payment-date" required />
       <textarea name="notes" placeholder="Notes (optional)"></textarea>
-      <button type="submit">Submit Payment Confirmation</button>
+      <button type="submit" class="submit-btn">✅ Submit Payment Confirmation</button>
     </form>
 
     <div class="confirmation-message" id="confirmationMessage">
@@ -43,9 +48,7 @@
     navigator.clipboard.writeText(email).then(() => {
       alert('Email copied to clipboard!');
     });
-
   }
-    
 
   const form = document.getElementById('confirm-form');
   const confirmationMessage = document.getElementById('confirmationMessage');
@@ -67,4 +70,121 @@
     }
   });
 </script>
+{% endblock %}
+
+{% block styles %}
+<style>
+.payment-page-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.payment-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.page-title {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #2c3e50;
+}
+
+.intro-text, .note {
+  margin-bottom: 1rem;
+}
+
+.email-copy-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  gap: 0.5rem;
+}
+
+.email-box {
+  background: #f7f7f7;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-family: monospace;
+  border: 1px solid #ddd;
+}
+
+.copy-btn {
+  padding: 0.6rem 1rem;
+  border: none;
+  background: #3498db;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  background: #2980b9;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.payment-form input,
+.payment-form textarea {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submit-btn:hover {
+  background: #219150;
+}
+
+.confirmation-message {
+  display: none;
+  margin-top: 1rem;
+  background: #e8f7ec;
+  color: #2d7a36;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.home-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  text-decoration: none;
+  color: #3498db;
+  font-weight: bold;
+}
+
+.home-btn:hover {
+  text-decoration: underline;
+}
+
+.footer-note {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+</style>
 {% endblock %}
