@@ -12,16 +12,16 @@
     pointer-events: none; /* Allows clicks through the background */
 }
 
-/* Overlay effect for content (optional, can be removed if not wanted) */
-.content {
+/* Main content overlay */
+.content, .container {
     position: relative;
     z-index: 1;
     padding: 2rem;
-    background: rgba(20, 20, 20, 0.7);
+    background: rgba(20, 20, 20, 0.73);
     border-radius: 1rem;
     max-width: 800px;
     margin: 3rem auto 2rem auto;
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25);
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.20);
 }
 
 /* Navbar styles */
@@ -38,7 +38,7 @@
     max-width: 900px;
     margin: 0 auto;
     display: flex;
-    justify-content: center;  /* Center horizontally */
+    justify-content: center;
     align-items: center;
     width: 100%;
 }
@@ -49,7 +49,7 @@
     margin: 0;
     display: flex;
     gap: 1.5rem;
-    justify-content: center;  /* Center items in the flex container */
+    justify-content: center;
     width: 100%;
 }
 
@@ -80,72 +80,69 @@
 .logo {
     display: block;
     margin: 0 auto 1.5rem auto;
-    max-width: 170px;
+    max-width: 160px;
     width: 100%;
     filter: drop-shadow(0 2px 8px #222);
 }
 
-/* Features section */
-.features {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.feature-box {
-    background: rgba(34, 49, 63, 0.9);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    min-width: 170px;
-    max-width: 240px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-    color: #fff;
+/* Headings */
+h1, h2 {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.1rem;
+    margin-top: 0;
+    font-weight: 600;
+    letter-spacing: 0.01em;
 }
-.feature-box h3 {
-    margin: 0.7rem 0 0.4rem 0;
-    font-size: 1.15rem;
-}
-.feature-box div {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
+h1 { font-size: 2.3rem; }
+h2 { font-size: 1.2rem; color: #b5e3fc; font-weight: 400; }
 
-/* Form styles */
-form {
+/* Get Updates (Notify) Form */
+#notify-form {
+    max-width: 360px;
+    margin: 2rem auto 1.5rem auto;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin: 2rem 0 1rem 0;
-    background: rgba(34,34,34,0.65);
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-}
-input[type="email"],
-textarea {
-    border: none;
-    border-radius: 0.4rem;
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    width: 100%;
-    color: #222;
+    gap: 0.7rem;
+    align-items: stretch;
+    background: rgba(255,255,255,0.08);
+    border-radius: 0.7rem;
+    padding: 1.2rem 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
 }
 
-button[type="submit"] {
+#notify-form input[type="email"],
+#notify-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.4rem;
+    border: none;
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    background: #fff;
+    color: #222;
+    margin-bottom: 0;
+}
+
+#notify-form textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+#notify-form button[type="submit"] {
+    width: 100%;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
     background: #47afff;
     color: #fff;
-    border: none;
-    border-radius: 0.4rem;
-    padding: 0.7rem 1.5rem;
-    font-size: 1.1rem;
     font-weight: bold;
+    border: none;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     transition: background 0.18s;
+    margin-top: 0.3rem;
 }
-button[type="submit"]:hover {
+
+#notify-form button[type="submit"]:hover {
     background: #1c7fe5;
 }
 
@@ -158,9 +155,37 @@ button[type="submit"]:hover {
     font-size: 1.15rem;
 }
 
+/* Features section */
+.features {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.feature-box {
+    background: rgba(34, 49, 63, 0.95);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    min-width: 170px;
+    max-width: 240px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+    color: #fff;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.feature-box h3 {
+    margin: 0.7rem 0 0.4rem 0;
+    font-size: 1.13rem;
+}
+.feature-box div {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
 /* Footer styles */
 footer {
-    background: rgba(14, 18, 24, 0.95);
+    background: rgba(14, 18, 24, 0.97);
     color: #fafafa;
     text-align: center;
     padding: 2rem 1rem 1.5rem 1rem;
@@ -197,12 +222,15 @@ footer .privacy {
 
 /* Responsive styles */
 @media (max-width: 900px) {
-    .content {
-        max-width: 96vw;
+    .content, .container {
+        max-width: 98vw;
         padding: 1.3rem 0.4rem;
     }
     .features {
         gap: 0.8rem;
+    }
+    .logo {
+        max-width: 120px;
     }
 }
 
@@ -212,7 +240,7 @@ footer .privacy {
         align-items: center;
         gap: 1.1rem;
     }
-    .content {
+    .content, .container {
         margin: 1.3rem 0.3rem 1.5rem 0.3rem;
         padding: 0.7rem;
     }
@@ -240,10 +268,14 @@ footer .privacy {
         width: 100%;
     }
     .nav-links a {
-        font-size: 1.1rem;
+        font-size: 1.08rem;
         padding: 0.6rem 0;
         width: 100%;
         border-radius: 0.4rem;
+    }
+    #notify-form {
+        max-width: 98vw;
+        padding: 1rem 0.3rem;
     }
 }
 
