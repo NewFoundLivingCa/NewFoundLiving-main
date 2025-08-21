@@ -104,10 +104,10 @@ h2 { font-size: 1.2rem; color: #b5e3fc; font-weight: 400; }
     flex-direction: column;
     gap: 0.7rem;
     align-items: stretch;
-    background: rgba(255,255,255,0.08);
-    border-radius: 0.7rem;
     padding: 1.2rem 1rem;
     box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    background: none;
+    border-radius: 0;
 }
 
 #notify-form input[type="email"],
