@@ -31,20 +31,32 @@
     background: rgba(16, 24, 32, 0.92);
     padding: 0.75rem 0;
     box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    width: 100%;
 }
+
 .nav-container {
     max-width: 900px;
     margin: 0 auto;
     display: flex;
+    justify-content: center;  /* Center horizontally */
     align-items: center;
+    width: 100%;
 }
+
 .nav-links {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     gap: 1.5rem;
+    justify-content: center;  /* Center items in the flex container */
+    width: 100%;
 }
+
+.nav-links li {
+    display: inline-block;
+}
+
 .nav-links a {
     color: #fff;
     text-decoration: none;
@@ -52,9 +64,16 @@
     font-size: 1.1rem;
     letter-spacing: 0.05em;
     transition: color 0.2s;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    display: block;
+    text-align: center;
 }
-.nav-links a:hover {
+
+.nav-links a:hover,
+.nav-links a:focus {
     color: #47afff;
+    background: rgba(71,175,255,0.07);
 }
 
 /* Logo styles */
@@ -177,18 +196,30 @@ footer .privacy {
 }
 
 /* Responsive styles */
+@media (max-width: 900px) {
+    .content {
+        max-width: 96vw;
+        padding: 1.3rem 0.4rem;
+    }
+    .features {
+        gap: 0.8rem;
+    }
+}
+
 @media (max-width: 700px) {
     .features {
         flex-direction: column;
         align-items: center;
+        gap: 1.1rem;
     }
     .content {
         margin: 1.3rem 0.3rem 1.5rem 0.3rem;
-        padding: 1rem;
+        padding: 0.7rem;
     }
     .feature-box {
-        min-width: 150px;
-        max-width: 100%;
+        min-width: 140px;
+        max-width: 98vw;
+        width: 100%;
     }
     footer {
         font-size: 0.97rem;
@@ -197,11 +228,22 @@ footer .privacy {
     }
     .nav-container {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        gap: 0.2rem;
     }
     .nav-links {
-        gap: 0.9rem;
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+    .nav-links li {
+        width: 100%;
+    }
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.6rem 0;
+        width: 100%;
+        border-radius: 0.4rem;
     }
 }
 
