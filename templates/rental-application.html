@@ -94,11 +94,10 @@
         <fieldset class="form-section">
             <h2>Pets</h2>
             <label>Do you have any pets?</label>
-            <div class="checkbox-group">
+            <div class="radio-inline-group">
                 <label><input type="radio" name="has_pets" value="No" required /> No</label>
                 <label><input type="radio" name="has_pets" value="Yes" required /> Yes</label>
             </div>
-
             <div id="pet-details-section">
                 <label for="number-of-pets">Number of Pets</label>
                 <input type="number" id="number-of-pets" name="number_of_pets" min="0" placeholder="e.g., 2" />
@@ -142,4 +141,18 @@
         </div>
     </form>
 </div> 
+
+<!-- Inline style for radio-inline-group to ensure Yes/No are close together and aligned -->
+<style>
+.radio-inline-group {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 1em;
+}
+.radio-inline-group label {
+    margin: 0;
+    font-weight: normal;
+}
+</style>
 {% endblock %}
