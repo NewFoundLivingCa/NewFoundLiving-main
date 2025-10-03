@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>{% block title %}Newfound Living{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/tinylogo1.png') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewFound Living</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Fixed background and overlay -->
-  <div class="background-static"></div>
   <div class="overlay"></div>
-
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <ul class="nav-links">
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('rent') }}">Pay Rent</a></li>
-        <li><a href="{{ url_for('rental_application') }}">Application</a></li>
-      </ul>
-    </div>
+  <img src="logo.png" alt="NewFound Living Logo" class="logo" />
+  <nav>
+    <a href="index.html" aria-current="page">Home</a>
+    <a href="application.html">Apply to Rent</a>
+    <a href="pay.html">Pay Rent</a>
   </nav>
-
-  <!-- Page Content -->
-  <div class="content">
-    {% block content %}{% endblock %}
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <div>Locally owned and operated in St. John's &amp; surrounding areas</div>
-    <div class="email-link">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
-      <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+  <div class="container">
+    <h1>Welcome to NewFound Living</h1>
+    <h2>Find your next home in St. John’s. Simple, secure, and local property management.</h2>
+    <div class="form-box">
+      <form id="contact-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+        
+        <button type="submit">Send Message</button>
+      </form>
+      <div id="thank-you">Thank you for reaching out! We will get back to you soon.</div>
     </div>
-    <div class="social-link">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
-      <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
+  </div>
+  <footer>
+    <div>
+      <a href="https://www.facebook.com/NewFoundLivingNL" class="footer-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M22.67 0H1.33C.6 0 0 .6 0 1.33v21.33C0 23.4.6 24 1.33 24h11.49v-9.29H9.69V11.1h3.13V8.41c0-3.1 1.89-4.78 4.65-4.78 1.32 0 2.45.1 2.78.14v3.22h-1.91c-1.5 0-1.8.71-1.8 1.76v2.31h3.59l-.47 3.61h-3.12V24h6.11c.73 0 1.33-.6 1.33-1.33V1.33C24 .6 23.4 0 22.67 0"></path></svg>
+        Facebook
+      </a>
     </div>
     <div class="privacy">
-      We never share or sell your information. Your privacy is important to us.
+      &copy; 2024 NewFound Living. All rights reserved.
     </div>
   </footer>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('thank-you').style.display = 'block';
+      event.target.reset();
+    });
+  </script>
 </body>
 </html>
