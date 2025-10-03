@@ -90,8 +90,37 @@
             <input type="file" id="income-proof-file" name="income_proof_file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" />
         </fieldset>
 
-        <!-- Additional sections (occupants, pets, references, etc.) -->
-        <!-- Keep same structure, just add class="form-section" and h2 headings for each -->
+        <!-- Pets Section -->
+        <fieldset class="form-section">
+            <h2>Pets</h2>
+            <label>Do you have any pets?</label>
+            <div class="checkbox-group">
+                <label><input type="radio" name="has_pets" value="No" required /> No</label>
+                <label><input type="radio" name="has_pets" value="Yes" required /> Yes</label>
+            </div>
+
+            <div id="pet-details-section">
+                <label for="number-of-pets">Number of Pets</label>
+                <input type="number" id="number-of-pets" name="number_of_pets" min="0" placeholder="e.g., 2" />
+
+                <label for="pet-types">Type(s) of Pet(s)</label>
+                <input type="text" id="pet-types" name="pet_types" placeholder="e.g., Dog, Cat" />
+
+                <label for="pet-breeds">Breed(s)</label>
+                <input type="text" id="pet-breeds" name="pet_breeds" placeholder="e.g., Labrador, Siamese" />
+
+                <label for="pet-ages">Age(s) of Pet(s)</label>
+                <input type="text" id="pet-ages" name="pet_ages" placeholder="e.g., 3 years, 1 year" />
+
+                <label for="pet-sizes">Size(s) of Pet(s)</label>
+                <input type="text" id="pet-sizes" name="pet_sizes" placeholder="e.g., Small, Medium, Large" />
+
+                <label for="pet-additional-info">Additional Information</label>
+                <textarea id="pet-additional-info" name="pet_additional_info" placeholder="Any other details about your pet(s)"></textarea>
+            </div>
+        </fieldset>
+
+        <!-- Additional sections (occupants, references, etc.) can be added here -->
 
         <!-- Declaration -->
         <fieldset class="form-section">
