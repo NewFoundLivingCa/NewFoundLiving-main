@@ -3,27 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <title>{% block title %}Newfound Living{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/tinylogo1.png') }}">
 </head>
 <body>
-  <!-- True fixed background: always behind all content on all devices -->
+  <!-- Fixed background -->
   <div class="background-static"></div>
 
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
       <ul class="nav-links">
         <li><a href="{{ url_for('home') }}">Home</a></li>
-        {# <li><a href="{{ url_for('rent') }}">Pay Rent</a></li> #}
-        <li><a href="{{ url_for('rental_application') }}" >Application</a></li>
+        <li><a href="{{ url_for('rent') }}">Pay Rent</a></li>
+        <li><a href="{{ url_for('rental_application') }}">Application</a></li>
       </ul>
     </div>
   </nav>
 
+  <!-- Page Content -->
   <div class="content">
     {% block content %}{% endblock %}
   </div>
 
+  <!-- Footer -->
   <footer>
     <div>Locally owned and operated in St. John's &amp; surrounding areas</div>
     <div class="email-link">
