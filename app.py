@@ -2,18 +2,14 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template("home.html")
 
-# @app.route('/rent')
-# def rent():
-#     return render_template('rent.html')
-
-@app.route('/rental-application')
+@app.route("/application")
 def rental_application():
-    return render_template('rental-application.html')
+    return render_template("rental-application.html")
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
+@app.route("/pay")
+def pay_rent():
+    return render_template("pay.html")
