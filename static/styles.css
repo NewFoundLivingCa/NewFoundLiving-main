@@ -1,37 +1,71 @@
-/* Fixed background image, always behind all content */
-.background-static {
-    position: fixed;
+/* ===========================
+   GENERAL RESET & ROOT COLORS
+=========================== */
+:root {
+    --green: #2e7d32;
+    --white: #ffffff;
+    --dark-overlay: rgba(0, 0, 0, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--white);
+    min-height: 100vh;
+}
+
+/* ===========================
+   BACKGROUND
+=========================== */
+.background-static,
+body {
+    background: url('images/city.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+}
+
+.overlay {
+    background: var(--dark-overlay);
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     z-index: 0;
-    background: url("images/city.png") no-repeat center center;
-    background-size: cover;
-    background-color: #222;
-    pointer-events: none;
 }
 
-/* Main content overlay */
-.content, .container {
+/* ===========================
+   CONTAINER
+=========================== */
+.container,
+.content {
     position: relative;
     z-index: 1;
-    padding: 2rem;
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    max-width: 900px;
+    margin: 3rem auto;
     background: rgba(20, 20, 20, 0.85);
     border-radius: 1rem;
-    max-width: 900px;
-    margin: 3rem auto 2rem auto;
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.20);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
-/* Navbar styles */
+/* ===========================
+   NAVBAR
+=========================== */
 .navbar {
-    position: relative;
-    z-index: 2;
     background: rgba(16, 24, 32, 0.97);
     box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-    width: 100%;
-    padding: 0;
+    padding: 0.75rem 0;
+    position: relative;
+    z-index: 2;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 .nav-container {
@@ -40,183 +74,161 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    padding: 0.75rem 1rem;
-}
-
-.navbar,
-.nav-container {
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+    gap: 1.5rem;
 }
 
 .nav-links {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     gap: 1.5rem;
     justify-content: center;
 }
 
-.nav-links li {
-    display: inline-block;
-}
-
 .nav-links a {
-    color: #fff;
+    color: var(--white);
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
-    letter-spacing: 0.05em;
-    transition: color 0.2s, background 0.2s;
     padding: 0.45rem 1.2rem;
     border-radius: 8px;
-    display: block;
-    text-align: center;
+    transition: color 0.2s, background 0.2s;
 }
 
 .nav-links a:hover,
 .nav-links a:focus {
     color: #47afff;
-    background: rgba(71,175,255,0.10);
+    background: rgba(71,175,255,0.1);
 }
 
-/* Logo styles */
+/* ===========================
+   LOGO
+=========================== */
 .logo {
-    display: block;
-    margin: 0 auto 1.5rem auto;
     max-width: 160px;
     width: 100%;
+    margin: 0 auto 1.5rem auto;
+    display: block;
     filter: drop-shadow(0 2px 8px #222);
 }
 
-/* Headings */
+/* ===========================
+   HEADINGS
+=========================== */
 h1, h2 {
     text-align: center;
     margin-bottom: 1.1rem;
-    margin-top: 0;
-    font-weight: 600;
-    letter-spacing: 0.01em;
 }
-h1 { 
-    font-size: 2.3rem; 
+h1 {
+    font-size: 2.3rem;
     color: #f6fbff;
-    text-shadow: 0 2px 16px rgba(0,0,0,0.41), 0 1px 0 #333; 
+    text-shadow: 0 2px 16px rgba(0,0,0,0.41), 0 1px 0 #333;
 }
-h2 { font-size: 1.2rem; color: #b5e3fc; font-weight: 400; }
+h2 {
+    font-size: 1.2rem;
+    color: #b5e3fc;
+    font-weight: 400;
+}
 
-/* Get Updates (Notify) Form */
-#notify-form {
-    max-width: 360px;
-    margin: 2rem auto 1.5rem auto;
+/* ===========================
+   FORMS
+=========================== */
+form {
     display: flex;
     flex-direction: column;
-    gap: 0.7rem;
-    align-items: stretch;
-    padding: 1.2rem 1rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-    background: none;
-    border-radius: 0;
+    align-items: center;
+    gap: 1rem;
+    max-width: 400px;
+    margin: auto;
 }
 
-#notify-form input[type="email"],
-#notify-form textarea {
+input, textarea, select {
     width: 100%;
-    box-sizing: border-box;
-    border-radius: 0.4rem;
+    padding: 0.75rem;
     border: none;
+    border-radius: 6px;
     font-size: 1rem;
-    padding: 0.6rem 1rem;
-    background: #fff;
-    color: #222;
-    margin-bottom: 0;
+    margin-top: 0.4rem;
+    box-sizing: border-box;
 }
 
-#notify-form textarea {
-    min-height: 60px;
+textarea {
+    min-height: 80px;
     resize: vertical;
 }
 
-#notify-form button[type="submit"] {
-    width: 100%;
-    padding: 0.7rem 1.5rem;
-    border-radius: 0.4rem;
-    font-size: 1.1rem;
-    background: #47afff;
-    color: #fff;
-    font-weight: bold;
+button {
+    background-color: var(--green);
+    color: var(--white);
     border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
     cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    max-width: 400px;
     transition: background 0.18s;
-    margin-top: 0.3rem;
 }
 
-#notify-form button[type="submit"]:hover {
-    background: #1c7fe5;
+button:hover {
+    background-color: #388e3c;
 }
 
+/* Thank you message */
 #thank-you {
     display: none;
-    margin-top: 1rem;
-    color: #7dfa8e;
-    font-weight: bold;
-    text-align: center;
-    font-size: 1.15rem;
+    margin-top: 1.5rem;
+    font-size: 1.05rem;
+    color: lightgreen;
 }
 
-/* Features section */
+/* ===========================
+   FEATURES
+=========================== */
 .features {
     display: flex;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start;
+    gap: 1.5rem;
+    margin-top: 3rem;
 }
 
 .feature-box {
     background: rgba(34, 49, 63, 0.95);
-    border-radius: 0.75rem;
     padding: 1.5rem;
-    max-width: 260px;
-    width: 100%;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.13);
-    color: #fff;
+    border-radius: 0.75rem;
+    width: 260px;
     text-align: center;
-    margin-bottom: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.13);
     transition: transform 0.16s;
+}
+
+.feature-box:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .feature-box h3 {
     margin: 0.7rem 0 0.4rem 0;
-    font-size: 1.13rem;
 }
 .feature-box div {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-.feature-box:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.20);
 }
 
-/* Footer styles */
+/* ===========================
+   FOOTER
+=========================== */
 footer {
     background: rgba(14, 18, 24, 0.97);
     color: #fafafa;
     text-align: center;
-    padding: 2rem 1rem 1.5rem 1rem;
-    margin-top: 3rem;
-    font-size: 1rem;
+    padding: 2rem 1rem 1.5rem;
     border-top-left-radius: 1.15rem;
     border-top-right-radius: 1.15rem;
-    z-index: 2;
     position: relative;
+    z-index: 2;
 }
+
 footer .email-link,
 footer .social-link {
     margin: 1.2rem 0;
@@ -225,36 +237,23 @@ footer .social-link {
     justify-content: center;
     gap: 0.6rem;
 }
+
 footer img {
     height: 22px;
-    vertical-align: middle;
     filter: drop-shadow(0 2px 6px #222);
 }
+
 footer a {
     color: #97d9ff;
     text-decoration: underline;
-    word-break: break-all;
-}
-footer .privacy {
-    margin-top: 1.2rem;
-    font-size: 0.95rem;
-    color: #b0b8c6;
 }
 
-/* Rental form improvements */
+/* ===========================
+   RENTAL FORM SPECIFIC
+=========================== */
 .rental-container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 0;
-    border-radius: 1rem;
-    /* No background here; it is now provided by .container or .content */
-}
-
-.rental-container h1 {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    color: #f6fbff;
 }
 
 .form-section {
@@ -273,54 +272,17 @@ footer .privacy {
     padding-bottom: 0.5rem;
 }
 
-.form-section label {
-    display: block;
-    margin-top: 0.9rem;
-    font-weight: 500;
-    color: #e0e8f0;
-}
-
-.form-section input,
-.form-section textarea,
-.form-section select {
-    width: 100%;
-    margin-top: 0.4rem;
-    padding: 0.6rem 0.8rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    box-sizing: border-box;
-}
-
-.form-section textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-
-/* --- Improved Checkbox and Radio Groups --- */
-.checkbox-group, .checkbox-inline {
+.checkbox-group, .checkbox-inline, .radio-inline-group {
     display: flex;
     gap: 1.5rem;
     align-items: center;
-    margin-bottom: 1em;
     flex-wrap: wrap;
+    margin-top: 0.6rem;
 }
-.checkbox-group label,
-.checkbox-inline label {
-    margin: 0;
-    font-weight: normal;
-    display: flex;
-    align-items: center;
-}
+
 .checkbox-group input[type="text"] {
     margin-left: 0.5rem;
     min-width: 120px;
-}
-/* --- End Improved Checkbox and Radio Groups --- */
-
-.checkbox-group,
-.checkbox-inline {
-    margin-top: 0.6rem;
 }
 
 .two-columns {
@@ -361,35 +323,13 @@ footer .privacy {
 .btn-submit {
     padding: 0.9rem 2rem;
     font-size: 1.2rem;
-    border: none;
     border-radius: 6px;
     background: #47afff;
     color: #fff;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s;
 }
 
 .btn-submit:hover {
     background: #1c7fe5;
 }
-
-.declaration-text {
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-    color: #cfd8e3;
-}
-
-/* Radio Inline Group (Yes/No, etc.) */
-.radio-inline-group {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    margin-bottom: 1em;
-}
-.radio-inline-group label {
-    margin: 0;
-    font-weight: normal;
-}
-
-/* Responsive styles -- omitted for brevity, but keep your original ones at the end */
