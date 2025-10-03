@@ -1,15 +1,11 @@
-/* Import a modern font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-/* Global Styles */
+/* ===== GENERAL PAGE SETUP ===== */
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
-    background: url('/images/city.png') no-repeat center center fixed;
+    font-family: 'Arial', sans-serif;
+    background: url('/images/bg.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: #2c3e50;
-    line-height: 1.6;
+    color: #333;
 }
 
 body::before {
@@ -23,85 +19,215 @@ body::before {
     z-index: -1;
 }
 
-/* Container */
+/* ===== LOGO ===== */
+.logo {
+    display: block;
+    max-width: 200px;
+    margin: 40px auto 20px auto;
+}
+
+/* ===== HERO / WELCOME ===== */
+h1, h2, h3 {
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 10px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===== NOTIFY FORM ===== */
+#notify-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto 40px auto;
+    gap: 10px;
+}
+
+#notify-form input[type="email"],
+#notify-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#notify-form input[type="email"]:focus,
+#notify-form textarea:focus {
+    border-color: #f39c12;
+}
+
+#notify-form button {
+    padding: 12px 25px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#notify-form button:hover {
+    background-color: #d35400;
+}
+
+#thank-you {
+    display: none;
+    text-align: center;
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* ===== FEATURES SECTION ===== */
+.features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+    gap: 20px;
+}
+
+.feature-box {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    text-align: center;
+}
+
+.feature-box h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #34495e;
+}
+
+.feature-box p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* ===== RENTAL APPLICATION FORM ===== */
 .nf-container {
     max-width: 900px;
     margin: 40px auto;
     padding: 30px;
-    background-color: #ffffff;
+    background: #fff;
     border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
-/* Title */
 .nf-title {
-    font-size: 2rem;
-    font-weight: 700;
     text-align: center;
-    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: bold;
     margin-bottom: 30px;
+    color: #2c3e50;
 }
 
-/* Section */
 .nf-section {
     margin-bottom: 30px;
 }
 
 .nf-section h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #34495e;
+    font-size: 1.2rem;
     margin-bottom: 15px;
+    color: #34495e;
     border-bottom: 2px solid #f39c12;
     padding-bottom: 5px;
 }
 
-/* Form Fields */
 .nf-field {
-    position: relative;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
 }
 
 .nf-field input,
-.nf-field textarea,
-.nf-field select {
-    width: 100%;
-    padding: 12px 12px 12px 12px;
+.nf-field select,
+.nf-field textarea {
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 1rem;
-    outline: none;
-    transition: all 0.3s;
+    margin-top: 5px;
+    width: 100%;
 }
 
-.nf-field input:focus,
-.nf-field textarea:focus,
-.nf-field select:focus {
-    border-color: #f39c12;
-    box-shadow: 0 0 5px rgba(243, 156, 18, 0.3);
+.nf-checkbox-group,
+.nf-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
 }
 
-/* Floating Labels */
-.nf-field label {
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    background-color: #fff;
-    padding: 0 5px;
-    color: #999;
+.nf-checkbox label,
+.nf-radio label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
     font-size: 0.95rem;
-    pointer-events: none;
-    transition: all 0.2s ease-in-out;
 }
 
-.nf-field input:focus + label,
-.nf-field input:not(:placeholder-shown) + label,
-.nf-field textarea:focus + label,
-.nf-field textarea:not(:placeholder-shown) + label {
-    top: -10px;
-    font-size: 0.8rem;
-    color: #f39c12;
+.nf-file-upload {
+    margin-top: 10px;
 }
 
-/* Checkbox & Radi*
+.nf-file-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.nf-actions {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.nf-btn-submit {
+    padding: 12px 25px;
+    border: none;
+    background-color: #f39c12;
+    color: white;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.nf-btn-submit:hover {
+    background-color: #d35400;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-box {
+        width: 80%;
+    }
+}
