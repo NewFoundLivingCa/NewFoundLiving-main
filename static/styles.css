@@ -1,359 +1,363 @@
-/* style.css */
 
-:root {
-  --green: #2e7d32;
-  --white: #ffffff;
-  --dark-overlay: rgba(0, 0, 0, 0.6);
-  --input-bg: rgba(255, 255, 255, 0.15);
-  --input-border: rgba(255, 255, 255, 0.3);
-  --form-bg: rgba(0, 0, 0, 0.85);
+/* Fixed background image, always behind all content */
+.background-static {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    background: url("images/city.png") no-repeat center center;
+    background-size: cover;
+    background-color: #222;
+    pointer-events: none;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Main content overlay */
+.content, .container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    background: rgba(20, 20, 20, 0.85);
+    border-radius: 1rem;
+    max-width: 900px;
+    margin: 3rem auto 2rem auto;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.20);
 }
 
-body, html {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 100vh;
-  background: url('city.png') no-repeat center center fixed;
-  background-size: cover;
-  color: var(--white);
-  position: relative;
+/* Navbar styles */
+.navbar {
+    position: relative;
+    z-index: 2;
+    background: rgba(16, 24, 32, 0.97);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    width: 100%;
+    padding: 0;
 }
 
-.overlay {
-  background: var(--dark-overlay);
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-}
-
-.logo {
-  width: 260px;
-  margin: 2rem auto 1rem;
-  display: block;
-  z-index: 1;
-  position: relative;
-}
-
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  z-index: 1;
-  position: relative;
-}
-
-nav a {
-  color: var(--white);
-  text-decoration: none;
-  font-weight: bold;
-  background: var(--green);
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-nav a:hover,
-nav a:focus,
-nav a[aria-current="page"] {
-  background: #388e3c;
-  outline: none;
-}
-
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: var(--form-bg);
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.6);
-  text-align: left;
-}
-
-/* Remove form-bg and box-shadow for application and pay rent pages */
-body.application-page .container,
-body.pay-rent-page .container {
-  background-color: transparent;
-  box-shadow: none;
-}
-
-/* Adjust container for the main page if it needs a different max-width or padding */
-body:not(.application-page):not(.pay-rent-page) .container {
-  max-width: 500px;
-  padding: 2rem 1rem 3rem;
-  text-align: center;
-  background-color: transparent;
-  box-shadow: none;
-}
-
-h1 {
-  font-size: 2rem;
-  font-family: Georgia, serif;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-h2 {
-  font-size: 1.1rem;
-  font-weight: normal;
-  margin-bottom: 1.5rem;
-  line-height: 1.4;
-  text-align: center;
-}
-
-.form-box {
-  background-color: var(--form-bg);
-  padding: 1.5rem 1.5rem 2rem;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.6);
-  margin: 0 auto;
-  max-width: 350px;
-  text-align: left;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="date"],
-input[type="tel"],
-textarea,
-select,
-input[type="number"] {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  border: 1px solid var(--input-border);
-  background-color: var(--input-bg);
-  color: var(--white);
-  font-size: 1rem;
-  font-family: inherit;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-  margin-right: 0.4rem;
-  transform: scale(1.1);
-  vertical-align: middle;
-}
-
-.checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.checkbox-group label {
-  margin: 0;
-  font-weight: normal;
-  font-size: 0.95rem;
-  cursor: pointer;
-  color: var(--white);
-}
-
-button {
-  background-color: var(--green);
-  color: var(--white);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 100%;
-  max-width: 300px;
-  margin: 1rem auto 0;
-  display: block;
-  transition: background-color 0.3s;
-  text-align: center;
-  user-select: none;
-}
-
-button:hover {
-  background-color: #388e3c;
-}
-
-.email-box {
-  border: 2px solid var(--green);
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem auto 2rem;
-  max-width: 90%;
-  font-size: 1.1rem;
-  word-break: break-word;
-}
-
-.copy-btn {
-  background-color: var(--green);
-  color: var(--white);
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 0.5rem;
-}
-
-.copy-btn:hover {
-  background-color: #388e3c;
-}
-
-/* File upload button styling for rental application */
-.file-btn {
-  background-color: var(--green);
-  color: var(--white);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 100%;
-  max-width: 300px;
-  margin: 1rem auto 0;
-  display: block;
-  transition: background-color 0.3s;
-  text-align: center;
-  user-select: none;
-}
-
-.file-btn:hover {
-  background-color: #388e3c;
-}
-
-input[type="file"] {
-  display: none;
-}
-
-label.file-label {
-  display: block;
-  max-width: 300px;
-  margin: 0.5rem auto 1rem;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--green);
-  color: var(--white);
-  text-align: center;
-  transition: background-color 0.3s;
-  user-select: none;
-}
-label.file-label:hover {
-  background-color: #388e3c;
-}
-
-#thank-you, #thank-you-rental {
-  display: none;
-  margin-top: 1rem;
-  font-size: 1.1rem;
-  color: lightgreen;
-  text-align: center;
-}
-
-footer {
-  position: relative;
-  z-index: 1;
-  margin-top: 3rem;
-  padding: 2rem 1rem;
-  font-size: 1rem;
-  color: var(--white);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.4);
-  width: 100%;
-  box-sizing: border-box;
-}
-
-footer a {
-  color: var(--white);
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  transition: text-decoration 0.3s ease;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
-.footer-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  color: var(--white);
-  text-decoration: none;
-}
-
-.footer-link svg {
-  width: 20px;
-  height: 20px;
-  fill: var(--white);
-  margin-right: 5px;
-}
-
-.privacy {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #dddddd;
-  text-align: center;
-}
-
-@media (max-width: 768px) {
-  .logo {
-    width: 200px;
-  }
-
-  nav {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  nav a {
-    width: 80%;
+.nav-container {
+    max-width: 950px;
     margin: 0 auto;
-  }
-
-  .container {
-    padding: 1rem;
-    margin: 1rem auto;
-  }
-
-  .email-box {
-    padding: 0.8rem;
-    font-size: 1rem;
-  }
-
-  body:not(.application-page):not(.pay-rent-page) .container {
-    padding: 1.5rem 0.75rem 2rem;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0.75rem 1rem;
 }
+
+.navbar,
+.nav-container {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.nav-links li {
+    display: inline-block;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s, background 0.2s;
+    padding: 0.45rem 1.2rem;
+    border-radius: 8px;
+    display: block;
+    text-align: center;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+    color: #47afff;
+    background: rgba(71,175,255,0.10);
+}
+
+/* Logo styles */
+.logo {
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    max-width: 160px;
+    width: 100%;
+    filter: drop-shadow(0 2px 8px #222);
+}
+
+/* Headings */
+h1, h2 {
+    text-align: center;
+    margin-bottom: 1.1rem;
+    margin-top: 0;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+h1 { 
+    font-size: 2.3rem; 
+    color: #f6fbff;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.41), 0 1px 0 #333; 
+}
+h2 { font-size: 1.2rem; color: #b5e3fc; font-weight: 400; }
+
+/* Get Updates (Notify) Form */
+#notify-form {
+    max-width: 360px;
+    margin: 2rem auto 1.5rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    align-items: stretch;
+    padding: 1.2rem 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    background: none;
+    border-radius: 0;
+}
+
+#notify-form input[type="email"],
+#notify-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.4rem;
+    border: none;
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    background: #fff;
+    color: #222;
+    margin-bottom: 0;
+}
+
+#notify-form textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+#notify-form button[type="submit"] {
+    width: 100%;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    background: #47afff;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s;
+    margin-top: 0.3rem;
+}
+
+#notify-form button[type="submit"]:hover {
+    background: #1c7fe5;
+}
+
+#thank-you {
+    display: none;
+    margin-top: 1rem;
+    color: #7dfa8e;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.15rem;
+}
+
+/* Features section */
+.features {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.feature-box {
+    background: rgba(34, 49, 63, 0.95);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    max-width: 260px;
+    width: 100%;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+    color: #fff;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    transition: transform 0.16s;
+}
+
+.feature-box h3 {
+    margin: 0.7rem 0 0.4rem 0;
+    font-size: 1.13rem;
+}
+.feature-box div {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.feature-box:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.20);
+}
+
+/* Footer styles */
+footer {
+    background: rgba(14, 18, 24, 0.97);
+    color: #fafafa;
+    text-align: center;
+    padding: 2rem 1rem 1.5rem 1rem;
+    margin-top: 3rem;
+    font-size: 1rem;
+    border-top-left-radius: 1.15rem;
+    border-top-right-radius: 1.15rem;
+    z-index: 2;
+    position: relative;
+}
+footer .email-link,
+footer .social-link {
+    margin: 1.2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+footer img {
+    height: 22px;
+    vertical-align: middle;
+    filter: drop-shadow(0 2px 6px #222);
+}
+footer a {
+    color: #97d9ff;
+    text-decoration: underline;
+    word-break: break-all;
+}
+footer .privacy {
+    margin-top: 1.2rem;
+    font-size: 0.95rem;
+    color: #b0b8c6;
+}
+
+/* Rental form improvements */
+.rental-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 1rem;
+    /* No background here; it is now provided by .container or .content */
+}
+
+.rental-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #f6fbff;
+}
+
+.form-section {
+    background: rgba(34, 49, 63, 0.95);
+    border-radius: 0.8rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.form-section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: #97d9ff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.5rem;
+}
+
+.form-section label {
+    display: block;
+    margin-top: 0.9rem;
+    font-weight: 500;
+    color: #e0e8f0;
+}
+
+.form-section input,
+.form-section textarea,
+.form-section select {
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-section textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.checkbox-group,
+.checkbox-inline {
+    margin-top: 0.6rem;
+}
+
+.two-columns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.two-columns > div {
+    flex: 1;
+    min-width: 200px;
+}
+
+.file-label {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1rem;
+    background: #47afff;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.file-label:hover {
+    background: #1c7fe5;
+}
+
+#income-proof-file {
+    display: none;
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn-submit {
+    padding: 0.9rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 6px;
+    background: #47afff;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: #1c7fe5;
+}
+
+.declaration-text {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: #cfd8e3;
+}
+
+/* Responsive styles -- omitted for brevity, but keep your original ones at the end */
