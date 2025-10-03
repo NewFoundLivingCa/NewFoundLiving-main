@@ -8,13 +8,6 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-  <div class="overlay"></div>
-  <img src="{{ url_for('static', filename='logo.png') }}" alt="NewFound Living Logo" class="logo" />
-  <nav>
-    <a href="{{ url_for('home') }}" aria-current="page">Home</a>
-    <a href="{{ url_for('rental_application') }}">Apply to Rent</a>
-    <a href="{{ url_for('pay_rent') }}">Pay Rent</a>
-  </nav>
   <div class="container">
     {% block content %}{% endblock %}
   </div>
@@ -26,22 +19,9 @@
       </a>
     </div>
     <div class="privacy">
-      &copy; {{ current_year|default(2024) }} NewFound Living. All rights reserved.
+      &copy; 2024 NewFound Living. All rights reserved.
     </div>
   </footer>
-  {% block scripts %}
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var form = document.getElementById('contact-form');
-      if(form) {
-        form.addEventListener('submit', function(event) {
-          event.preventDefault();
-          document.getElementById('thank-you').style.display = 'block';
-          event.target.reset();
-        });
-      }
-    });
-  </script>
-  {% endblock %}
+  {% block scripts %}{% endblock %}
 </body>
 </html>
