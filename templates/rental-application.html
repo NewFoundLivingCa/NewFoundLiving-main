@@ -2,177 +2,537 @@
 
 {% block title %}Newfound Living - Rental Application{% endblock %}
 
-{% block content %} 
-<div class="rental-container" role="main" aria-label="Rental Application Form">
-    <h1>Rental Application</h1>
+{% block content %}
+<div class="nf-bg"></div>
+<div class="nf-container" role="main" aria-label="Rental Application Form">
+    <h1 class="nf-title">Rental Application</h1>
     <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data" novalidate>
-
         <!-- Property Details -->
-        <fieldset class="form-section">
+        <section class="nf-section">
             <h2>Property Details</h2>
-            <label for="property-address">Property Address</label>
-            <input type="text" id="property-address" name="property_address" required placeholder="e.g., 123 Main St" />
-
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="rental_unit_main" value="Main Unit" /> Main Unit</label>
-                <label><input type="checkbox" name="rental_unit_basement" value="Basement Apartment" /> Basement Apartment</label>
-                <label>
-                    <input type="checkbox" name="rental_unit_other" value="Other" /> Other:
-                    <input type="text" name="rental_unit_other_text" placeholder="Specify" />
+            <div class="nf-field">
+                <input type="text" id="property-address" name="property_address" required placeholder=" " />
+                <label for="property-address">Property Address</label>
+            </div>
+            <div class="nf-checkbox-group">
+                <label class="nf-checkbox">
+                    <input type="checkbox" name="rental_unit_main" value="Main Unit" />
+                    <span class="nf-checkbox-custom"></span>
+                    Main Unit
+                </label>
+                <label class="nf-checkbox">
+                    <input type="checkbox" name="rental_unit_basement" value="Basement Apartment" />
+                    <span class="nf-checkbox-custom"></span>
+                    Basement Apartment
+                </label>
+                <label class="nf-checkbox nf-checkbox-other">
+                    <input type="checkbox" name="rental_unit_other" value="Other" />
+                    <span class="nf-checkbox-custom"></span>
+                    Other:
+                    <input type="text" name="rental_unit_other_text" placeholder="Specify" class="nf-other-input"/>
                 </label>
             </div>
-
-            <label for="move-in-date">Desired Move-in Date</label>
-            <input type="date" id="move-in-date" name="move_in_date" required />
-        </fieldset>
+            <div class="nf-field">
+                <input type="date" id="move-in-date" name="move_in_date" required placeholder=" " />
+                <label for="move-in-date">Desired Move-in Date</label>
+            </div>
+        </section>
 
         <!-- Applicant Info -->
-        <fieldset class="form-section">
+        <section class="nf-section">
             <h2>Applicant Information</h2>
-            <div class="two-columns">
-                <div>
+            <div class="nf-row">
+                <div class="nf-field">
+                    <input type="text" id="full-name" name="full_name" required placeholder=" " />
                     <label for="full-name">Full Name</label>
-                    <input type="text" id="full-name" name="full_name" required />
                 </div>
-                <div>
+                <div class="nf-field">
+                    <input type="date" id="dob" name="date_of_birth" required placeholder=" " />
                     <label for="dob">Date of Birth</label>
-                    <input type="date" id="dob" name="date_of_birth" required />
                 </div>
             </div>
-
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone_number" required />
-
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email_address" required />
-
-            <label for="current-address">Current Address</label>
-            <input type="text" id="current-address" name="current_address" required />
-
-            <div class="two-columns">
-                <div>
+            <div class="nf-field">
+                <input type="tel" id="phone" name="phone_number" required placeholder=" " />
+                <label for="phone">Phone Number</label>
+            </div>
+            <div class="nf-field">
+                <input type="email" id="email" name="email_address" required placeholder=" " />
+                <label for="email">Email Address</label>
+            </div>
+            <div class="nf-field">
+                <input type="text" id="current-address" name="current_address" required placeholder=" " />
+                <label for="current-address">Current Address</label>
+            </div>
+            <div class="nf-row">
+                <div class="nf-field">
+                    <input type="text" id="landlord-name" name="landlord_name" placeholder=" " />
                     <label for="landlord-name">Landlord’s Name</label>
-                    <input type="text" id="landlord-name" name="landlord_name" />
                 </div>
-                <div>
+                <div class="nf-field">
+                    <input type="tel" id="landlord-phone" name="landlord_phone" placeholder=" " />
                     <label for="landlord-phone">Landlord’s Phone</label>
-                    <input type="tel" id="landlord-phone" name="landlord_phone" />
                 </div>
             </div>
-
-            <label for="reason-leaving">Reason for Leaving</label>
-            <textarea id="reason-leaving" name="reason_for_leaving"></textarea>
-
-            <label for="length-tenancy">Length of Tenancy</label>
-            <input type="text" id="length-tenancy" name="length_of_tenancy" placeholder="e.g., 2 years" />
-        </fieldset>
+            <div class="nf-field">
+                <textarea id="reason-leaving" name="reason_for_leaving" placeholder=" "></textarea>
+                <label for="reason-leaving">Reason for Leaving</label>
+            </div>
+            <div class="nf-field">
+                <input type="text" id="length-tenancy" name="length_of_tenancy" placeholder=" " />
+                <label for="length-tenancy">Length of Tenancy</label>
+            </div>
+        </section>
 
         <!-- Employment -->
-        <fieldset class="form-section">
+        <section class="nf-section">
             <h2>Employment / Income</h2>
-            <label for="employer-name">Employer Name</label>
-            <input type="text" id="employer-name" name="employer_name" required />
-
-            <label for="position">Position</label>
-            <input type="text" id="position" name="position" required />
-
-            <label for="monthly-income">Monthly Income (Net)</label>
-            <input type="number" id="monthly-income" name="monthly_income" required placeholder="e.g., 3000" />
-
-            <label for="employment-length">Length of Employment</label>
-            <input type="text" id="employment-length" name="length_of_employment" placeholder="e.g., 3 years" />
-
-            <div class="checkbox-inline">
-                <label>
-                    <input type="checkbox" name="proof_of_income" value="Yes" /> Proof of income attached
+            <div class="nf-field">
+                <input type="text" id="employer-name" name="employer_name" required placeholder=" " />
+                <label for="employer-name">Employer Name</label>
+            </div>
+            <div class="nf-field">
+                <input type="text" id="position" name="position" required placeholder=" " />
+                <label for="position">Position</label>
+            </div>
+            <div class="nf-field">
+                <input type="number" id="monthly-income" name="monthly_income" required placeholder=" " />
+                <label for="monthly-income">Monthly Income (Net)</label>
+            </div>
+            <div class="nf-field">
+                <input type="text" id="employment-length" name="length_of_employment" placeholder=" " />
+                <label for="employment-length">Length of Employment</label>
+            </div>
+            <div class="nf-checkbox-group">
+                <label class="nf-checkbox">
+                    <input type="checkbox" name="proof_of_income" value="Yes" />
+                    <span class="nf-checkbox-custom"></span>
+                    Proof of income attached
                 </label>
             </div>
-
-            <label for="income-proof-file" class="file-label">Upload proof of income</label>
-            <input type="file" id="income-proof-file" name="income_proof_file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" />
-        </fieldset>
+            <div class="nf-file-upload">
+                <label for="income-proof-file" class="nf-file-label">Upload proof of income</label>
+                <input type="file" id="income-proof-file" name="income_proof_file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" />
+            </div>
+        </section>
 
         <!-- Pets Section -->
-        <fieldset class="form-section">
+        <section class="nf-section">
             <h2>Pets</h2>
-            <label>Do you have any pets?</label>
-            <div class="radio-inline-group">
-                <label><input type="radio" name="has_pets" value="No" required /> No</label>
-                <label><input type="radio" name="has_pets" value="Yes" required /> Yes</label>
+            <div class="nf-label">Do you have any pets?</div>
+            <div class="nf-radio-group">
+                <label class="nf-radio">
+                    <input type="radio" name="has_pets" value="No" required />
+                    <span class="nf-radio-custom"></span>
+                    No
+                </label>
+                <label class="nf-radio">
+                    <input type="radio" name="has_pets" value="Yes" required />
+                    <span class="nf-radio-custom"></span>
+                    Yes
+                </label>
             </div>
             <div id="pet-details-section">
-                <label for="number-of-pets">Number of Pets</label>
-                <input type="number" id="number-of-pets" name="number_of_pets" min="0" placeholder="e.g., 2" />
-
-                <label for="pet-types">Type(s) of Pet(s)</label>
-                <input type="text" id="pet-types" name="pet_types" placeholder="e.g., Dog, Cat" />
-
-                <label for="pet-breeds">Breed(s)</label>
-                <input type="text" id="pet-breeds" name="pet_breeds" placeholder="e.g., Labrador, Siamese" />
-
-                <label for="pet-ages">Age(s) of Pet(s)</label>
-                <input type="text" id="pet-ages" name="pet_ages" placeholder="e.g., 3 years, 1 year" />
-
-                <label for="pet-sizes">Size(s) of Pet(s)</label>
-                <input type="text" id="pet-sizes" name="pet_sizes" placeholder="e.g., Small, Medium, Large" />
-
-                <label for="pet-additional-info">Additional Information</label>
-                <textarea id="pet-additional-info" name="pet_additional_info" placeholder="Any other details about your pet(s)"></textarea>
+                <div class="nf-field">
+                    <input type="number" id="number-of-pets" name="number_of_pets" min="0" placeholder=" " />
+                    <label for="number-of-pets">Number of Pets</label>
+                </div>
+                <div class="nf-field">
+                    <input type="text" id="pet-types" name="pet_types" placeholder=" " />
+                    <label for="pet-types">Type(s) of Pet(s)</label>
+                </div>
+                <div class="nf-field">
+                    <input type="text" id="pet-breeds" name="pet_breeds" placeholder=" " />
+                    <label for="pet-breeds">Breed(s)</label>
+                </div>
+                <div class="nf-field">
+                    <input type="text" id="pet-ages" name="pet_ages" placeholder=" " />
+                    <label for="pet-ages">Age(s) of Pet(s)</label>
+                </div>
+                <div class="nf-field">
+                    <input type="text" id="pet-sizes" name="pet_sizes" placeholder=" " />
+                    <label for="pet-sizes">Size(s) of Pet(s)</label>
+                </div>
+                <div class="nf-field">
+                    <textarea id="pet-additional-info" name="pet_additional_info" placeholder=" "></textarea>
+                    <label for="pet-additional-info">Additional Information</label>
+                </div>
             </div>
-        </fieldset>
-
-        <!-- Additional sections (occupants, references, etc.) can be added here -->
+        </section>
 
         <!-- Declaration -->
-        <fieldset class="form-section">
+        <section class="nf-section">
             <h2>Declaration</h2>
-            <p class="declaration-text">
-                I declare that the information provided is true and complete. I authorize Newfound Living Inc. 
+            <p class="nf-declaration">
+                I declare that the information provided is true and complete. I authorize Newfound Living Inc.
                 to contact employers, landlords, and references to verify this application.
             </p>
-            <label for="applicant-signature">Signature</label>
-            <input type="text" id="applicant-signature" name="applicant_signature" placeholder="Type your full name" required />
-
-            <label for="applicant-signature-date">Date</label>
-            <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
-        </fieldset>
+            <div class="nf-row">
+                <div class="nf-field">
+                    <input type="text" id="applicant-signature" name="applicant_signature" placeholder=" " required />
+                    <label for="applicant-signature">Signature (Full Name)</label>
+                </div>
+                <div class="nf-field">
+                    <input type="date" id="applicant-signature-date" name="applicant_signature_date" required placeholder=" " />
+                    <label for="applicant-signature-date">Date</label>
+                </div>
+            </div>
+        </section>
 
         <!-- Submit -->
-        <div class="form-actions">
-            <button type="submit" class="btn-submit">Submit Application</button>
+        <div class="nf-actions">
+            <button type="submit" class="nf-btn-submit">Submit Application</button>
         </div>
     </form>
-</div> 
+</div>
 
-<!-- Inline style for radio and checkbox groups to ensure alignment -->
+<!-- Newfound Living Rental Application Styles -->
 <style>
-.radio-inline-group {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    margin-bottom: 1em;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+body, input, textarea, select, button {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    font-size: 1.07rem;
+    color: #e8f9ff;
+    background: none;
+    letter-spacing: 0.01em;
 }
-.radio-inline-group label {
-    margin: 0;
-    font-weight: normal;
+.nf-bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(120deg, #1a2431 0%, #2a4664 80%, #47afff 100%);
+    z-index: 0;
+    opacity: 0.94;
+    pointer-events: none;
 }
-.checkbox-group, .checkbox-inline {
+.nf-container {
+    position: relative;
+    z-index: 1;
+    max-width: 970px;
+    margin: 3rem auto 2rem auto;
+    padding: 0 1.5rem;
+}
+.nf-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #e8f9ff;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    margin-bottom: 2.3rem;
+    margin-top: 1rem;
+    text-shadow: 0 4px 26px rgba(71,175,255,0.15), 0 2px 0 #1a2431;
+    background: linear-gradient(90deg, #47afff 20%, #e8f9ff 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.nf-section {
+    background: rgba(34, 49, 63, 0.84);
+    border-radius: 1.2rem;
+    box-shadow: 0 6px 32px 0 rgba(20,40,60,0.14);
+    padding: 2.2rem 2rem 1.6rem 2rem;
+    margin-bottom: 2.2rem;
+    border: 1px solid rgba(71,175,255,0.12);
+    transition: box-shadow 0.18s;
+    position: relative;
+    overflow: hidden;
+}
+.nf-section h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #7adfff;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.2rem;
+    border: none;
+    padding: 0;
+}
+.nf-label {
+    color: #b7dfff;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
+}
+.nf-row {
     display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    margin-bottom: 1em;
+    gap: 1.2rem;
     flex-wrap: wrap;
 }
-.checkbox-group label,
-.checkbox-inline label {
-    margin: 0;
-    font-weight: normal;
+.nf-row > .nf-field {
+    flex: 1 1 220px;
+    min-width: 180px;
+}
+
+/* Floating Labels & Inputs */
+.nf-field {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.nf-field input,
+.nf-field textarea {
+    width: 100%;
+    background: rgba(245,250,255,0.09);
+    border: 1.5px solid #2f6eae;
+    color: #e8f9ff;
+    border-radius: 0.7rem;
+    padding: 1.1rem 1.2rem 0.7rem 1.2rem;
+    outline: none;
+    font-size: 1.08rem;
+    transition: border 0.18s, box-shadow 0.18s, background 0.2s;
+    box-shadow: 0 1px 8px 0 rgba(71,175,255,0.04);
+    resize: vertical;
+}
+.nf-field input:focus,
+.nf-field textarea:focus {
+    border: 1.5px solid #47afff;
+    background: rgba(71,175,255,0.12);
+    box-shadow: 0 2px 12px 0 rgba(71,175,255,0.13);
+}
+.nf-field label {
+    position: absolute;
+    left: 1.2rem;
+    top: 1.1rem;
+    color: #a7c9e8;
+    font-size: 1.01rem;
+    pointer-events: none;
+    background: none;
+    padding: 0 0.2rem;
+    transition: all 0.18s;
+    font-weight: 500;
+    opacity: 0.88;
+}
+.nf-field input:not(:placeholder-shown):not([type="date"]),
+.nf-field textarea:not(:placeholder-shown),
+.nf-field input:focus,
+.nf-field textarea:focus {
+    padding-top: 1.6rem;
+}
+.nf-field input:not(:placeholder-shown):not([type="date"]) + label,
+.nf-field textarea:not(:placeholder-shown) + label,
+.nf-field input:focus + label,
+.nf-field textarea:focus + label {
+    top: 0.22rem;
+    left: 1rem;
+    font-size: 0.89rem;
+    color: #7adfff;
+    opacity: 1;
+    background: rgba(34,49,63,0.76);
+    border-radius: 0.3em;
+}
+.nf-field input[type="date"]:not(:placeholder-shown) + label,
+.nf-field input[type="date"]:focus + label {
+    top: 0.22rem;
+    left: 1rem;
+    font-size: 0.89rem;
+    color: #7adfff;
+    opacity: 1;
+    background: rgba(34,49,63,0.76);
+    border-radius: 0.3em;
+}
+
+/* Custom Checkbox */
+.nf-checkbox-group {
+    display: flex;
+    gap: 2.1rem;
+    align-items: center;
+    margin: 1.2rem 0 1.7rem 0;
+    flex-wrap: wrap;
+}
+.nf-checkbox {
     display: flex;
     align-items: center;
+    gap: 0.55em;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
 }
-.checkbox-group input[type="text"] {
-    margin-left: 0.5rem;
-    min-width: 120px;
+.nf-checkbox input[type="checkbox"] {
+    appearance: none;
+    width: 1.15em;
+    height: 1.15em;
+    border-radius: 0.32em;
+    border: 2px solid #47afff;
+    background: #14202b;
+    cursor: pointer;
+    transition: border 0.18s, box-shadow 0.18s;
+    margin-right: 0.35em;
+    position: relative;
+    outline: none;
+}
+.nf-checkbox input[type="checkbox"]:checked {
+    background: #47afff;
+    border-color: #7adfff;
+}
+.nf-checkbox-custom {
+    position: absolute;
+    left: 0.12em;
+    top: 0.12em;
+    width: 1.15em;
+    height: 1.15em;
+    border-radius: 0.32em;
+    pointer-events: none;
+}
+.nf-checkbox input[type="checkbox"]:checked + .nf-checkbox-custom::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0.26em;
+    top: 0.16em;
+    width: 0.41em;
+    height: 0.7em;
+    border: solid #fff;
+    border-width: 0 0.17em 0.17em 0;
+    transform: rotate(45deg);
+}
+.nf-checkbox input[type="checkbox"]:focus-visible {
+    outline: 2px solid #47afff;
+    outline-offset: 1px;
+}
+.nf-checkbox-other {
+    flex-wrap: wrap;
+    gap: 0.5em 0.85em;
+}
+.nf-other-input {
+    min-width: 110px;
+    margin-left: 0.65em;
+    background: rgba(245,250,255,0.10);
+    border: 1px solid #47afff;
+    color: #e8f9ff;
+    border-radius: 0.4em;
+    padding: 0.5em 0.7em;
+}
+
+/* Custom Radio */
+.nf-radio-group {
+    display: flex;
+    gap: 2.1rem;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+}
+.nf-radio {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+.nf-radio input[type="radio"] {
+    appearance: none;
+    width: 1.15em;
+    height: 1.15em;
+    border-radius: 50%;
+    border: 2px solid #47afff;
+    background: #14202b;
+    cursor: pointer;
+    transition: border 0.18s, box-shadow 0.18s;
+    margin-right: 0.32em;
+    position: relative;
+    outline: none;
+}
+.nf-radio-custom {
+    position: absolute;
+    left: 0.12em;
+    top: 0.12em;
+    width: 1.15em;
+    height: 1.15em;
+    border-radius: 50%;
+    pointer-events: none;
+}
+.nf-radio input[type="radio"]:checked + .nf-radio-custom::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0.33em;
+    top: 0.33em;
+    width: 0.45em;
+    height: 0.45em;
+    border-radius: 50%;
+    background: #fff;
+}
+.nf-radio input[type="radio"]:focus-visible {
+    outline: 2px solid #47afff;
+    outline-offset: 1px;
+}
+
+/* File Upload */
+.nf-file-upload {
+    margin-top: 1.2rem;
+}
+.nf-file-label {
+    background: #47afff;
+    color: #fff;
+    border-radius: 0.6rem;
+    padding: 0.65em 1.3em;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.16s;
+    display: inline-block;
+}
+.nf-file-label:hover,
+.nf-file-label:focus {
+    background: #1c7fe5;
+}
+#income-proof-file {
+    display: none;
+}
+
+/* Declaration */
+.nf-declaration {
+    color: #bcd8f7;
+    margin-bottom: 1.2rem;
+    font-size: 1.07rem;
+    letter-spacing: 0.01em;
+    background: rgba(23,34,47,0.14);
+    padding: 0.7rem 1rem;
+    border-radius: 0.55em;
+}
+
+/* Submit Button */
+.nf-actions {
+    text-align: center;
+    margin-top: 2.3rem;
+}
+.nf-btn-submit {
+    background: linear-gradient(90deg, #47afff 30%, #7adfff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 12px 0 rgba(71,175,255,0.13);
+    padding: 1.07rem 2.8rem;
+    font-size: 1.21rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-top: 1.3rem;
+    transition: background 0.18s, box-shadow 0.18s;
+}
+.nf-btn-submit:hover, .nf-btn-submit:focus {
+    background: linear-gradient(90deg, #1c7fe5 0%, #47afff 100%);
+    box-shadow: 0 4px 24px 0 rgba(71,175,255,0.19);
+    color: #e5f6ff;
+}
+
+@media (max-width: 750px) {
+    .nf-section {
+        padding: 1.2rem 0.6rem 1rem 0.6rem;
+    }
+    .nf-row {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    .nf-title {
+        font-size: 2rem;
+    }
+    .nf-container {
+        padding: 0 0.2rem;
+    }
+    .nf-btn-submit {
+        width: 100%;
+        font-size: 1.08rem;
+        padding: 1.1rem 1.2rem;
+    }
+    .nf-field {
+        margin-bottom: 1.1rem;
+    }
 }
 </style>
 {% endblock %}
