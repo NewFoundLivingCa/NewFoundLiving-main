@@ -1,4 +1,3 @@
-
 /* Fixed background image, always behind all content */
 .background-static {
     position: fixed;
@@ -298,6 +297,27 @@ footer .privacy {
     resize: vertical;
 }
 
+/* --- Improved Checkbox and Radio Groups --- */
+.checkbox-group, .checkbox-inline {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 1em;
+    flex-wrap: wrap;
+}
+.checkbox-group label,
+.checkbox-inline label {
+    margin: 0;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+}
+.checkbox-group input[type="text"] {
+    margin-left: 0.5rem;
+    min-width: 120px;
+}
+/* --- End Improved Checkbox and Radio Groups --- */
+
 .checkbox-group,
 .checkbox-inline {
     margin-top: 0.6rem;
@@ -358,6 +378,18 @@ footer .privacy {
     margin-bottom: 1rem;
     font-size: 0.95rem;
     color: #cfd8e3;
+}
+
+/* Radio Inline Group (Yes/No, etc.) */
+.radio-inline-group {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 1em;
+}
+.radio-inline-group label {
+    margin: 0;
+    font-weight: normal;
 }
 
 /* Responsive styles -- omitted for brevity, but keep your original ones at the end */
