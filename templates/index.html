@@ -1,44 +1,55 @@
-{% extends "layout.html" %}
-
-{% block title %}Newfound Living - Rental Properties in St. John's{% endblock %}
-
-{% block content %}
-  <img src="{{ url_for('static', filename='images/logo-transparent.png') }}" alt="Newfound Living Logo" class="logo">
-  <h1>Welcome to Newfound Living</h1>
-  <h2>While all our rental units are currently filled, we’d love to keep you updated. Leave your email and be the first to know when a property becomes available.</h2>
-
-  <!-- Notify Form -->
-  <form id="notify-form" action="https://formspree.io/f/xldnwbqq" method="POST">
-    <input type="email" name="email" placeholder="Your email address" required>
-    <textarea name="message" placeholder="Your message (optional)"></textarea>
-    <button type="submit">Get Updates</button>
-  </form>
-  <div id="thank-you">Thanks for signing up! We'll be in touch soon.</div>
-
-  <!-- Features -->
-  <div class="features">
-    <div class="feature-box"><div>🔧</div><h3>Stress-Free Renting</h3><p>Well-maintained homes with responsive service.</p></div>
-    <div class="feature-box"><div>💡</div><h3>Transparent Pricing</h3><p>Fair rates with no hidden fees.</p></div>
-    <div class="feature-box"><div>🏠</div><h3>Local Expertise</h3><p>Based in St. John's. We know the market.</p></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewFound Living</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="overlay"></div>
+  <img src="logo.png" alt="NewFound Living Logo" class="logo" />
+  <nav>
+    <a href="index.html" aria-current="page">Home</a>
+    <a href="application.html">Apply to Rent</a>
+    <a href="pay.html">Pay Rent</a>
+  </nav>
+  <div class="container">
+    <h1>Welcome to NewFound Living</h1>
+    <h2>Find your next home in St. John’s. Simple, secure, and local property management.</h2>
+    <div class="form-box">
+      <form id="contact-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+        
+        <button type="submit">Send Message</button>
+      </form>
+      <div id="thank-you">Thank you for reaching out! We will get back to you soon.</div>
+    </div>
   </div>
-
+  <footer>
+    <div>
+      <a href="https://www.facebook.com/NewFoundLivingNL" class="footer-link" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M22.67 0H1.33C.6 0 0 .6 0 1.33v21.33C0 23.4.6 24 1.33 24h11.49v-9.29H9.69V11.1h3.13V8.41c0-3.1 1.89-4.78 4.65-4.78 1.32 0 2.45.1 2.78.14v3.22h-1.91c-1.5 0-1.8.71-1.8 1.76v2.31h3.59l-.47 3.61h-3.12V24h6.11c.73 0 1.33-.6 1.33-1.33V1.33C24 .6 23.4 0 22.67 0"></path></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="privacy">
+      &copy; 2024 NewFound Living. All rights reserved.
+    </div>
+  </footer>
   <script>
-    const form = document.getElementById('notify-form');
-    const thankYou = document.getElementById('thank-you');
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-      try {
-        await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-        form.reset();
-        thankYou.style.display = 'block';
-      } catch (err) {
-        alert('Something went wrong. Please try again later.');
-      }
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('thank-you').style.display = 'block';
+      event.target.reset();
     });
   </script>
-{% endblock %}
+</body>
+</html>
