@@ -1,209 +1,351 @@
-{% extends "layout.html" %}
-
-{% block title %}Newfound Living - Rental Application{% endblock %}
-
-{% block content %}
-<div class="nf-container" role="main" aria-label="Rental Application Form">
-    <h1 class="nf-title">Rental Application</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Newfound Living - Rental Application</title>
+  <meta name="description" content="Submit your rental application to Newfound Living quickly and securely." />
+  <link rel="icon" type="image/png" href="tinylogo1.png" />
+  <style>
+    :root {
+      --green: #2e7d32;
+      --white: #ffffff;
+      --dark-overlay: rgba(0, 0, 0, 0.6);
+      --input-bg: rgba(255 255 255 / 0.15);
+      --input-border: rgba(255 255 255 / 0.3);
+      --form-bg: rgba(0, 0, 0, 0.85);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      background: url('city.png') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--white);
+      position: relative;
+    }
+    .overlay {
+      background: var(--dark-overlay);
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+    .logo {
+      width: 260px;
+      margin: 2rem auto 1rem;
+      display: block;
+      z-index: 1;
+      position: relative;
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 3rem auto 6rem;
+      padding: 2rem 2rem 3rem;
+      background-color: var(--form-bg);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      text-align: left;
+    }
+    h1 {
+      font-size: 2rem;
+      font-family: Georgia, serif;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    fieldset { border: none; margin-bottom: 1.5rem; padding: 0; }
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    input[type="tel"],
+    textarea,
+    select,
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--input-border);
+      background-color: var(--input-bg);
+      color: var(--white);
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    input[type="checkbox"], input[type="radio"] {
+      margin-right: 0.4rem;
+      transform: scale(1.1);
+      vertical-align: middle;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .checkbox-group label {
+      margin: 0;
+      font-weight: normal;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: var(--white);
+    }
+    button, .file-btn {
+      background-color: var(--green);
+      color: var(--white);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      max-width: 300px;
+      margin: 1rem auto 0;
+      display: block;
+      transition: background-color 0.3s;
+      text-align: center;
+      user-select: none;
+    }
+    button:hover, .file-btn:hover { background-color: #388e3c; }
+    input[type="file"] { display: none; }
+    label.file-label {
+      display: block;
+      max-width: 300px;
+      margin: 0.5rem auto 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--green);
+      color: var(--white);
+      text-align: center;
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+    label.file-label:hover { background-color: #388e3c; }
+    #thank-you-rental {
+      display: none;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: lightgreen;
+      text-align: center;
+    }
+    footer {
+      position: relative;
+      z-index: 1;
+      margin-top: 3rem;
+      font-size: 1rem;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      max-width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    footer a {
+      color: #ffffff;
+      text-decoration: underline;
+      margin-left: 0.25rem;
+      font-size: 1rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .social-link, .email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .social-link img, .email-link img { width: 16px; height: 16px; }
+    .privacy {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #dddddd;
+      text-align: center;
+    }
+    /* Pet details section initially hidden if JS disables */
+    #pet-details-section[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <img src="logo-transparent.png" alt="Newfound Living Logo" class="logo" />
+  <div class="container" role="main" aria-label="Rental Application Form">
+    <h1>Rental Application</h1>
     <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data" novalidate>
-
-        <!-- Property Details -->
-        <section class="nf-section">
-            <h2>Property Details</h2>
-            <div class="nf-field">
-                <input type="text" id="property-address" name="property_address" required placeholder=" " />
-                <label for="property-address">Property Address</label>
-            </div>
-
-            <div class="nf-checkbox-group">
-                <label class="nf-checkbox">
-                    <input type="checkbox" name="rental_unit_main" value="Main Unit" />
-                    <span class="nf-checkbox-custom"></span>
-                    Main Unit
-                </label>
-                <label class="nf-checkbox">
-                    <input type="checkbox" name="rental_unit_basement" value="Basement Apartment" />
-                    <span class="nf-checkbox-custom"></span>
-                    Basement Apartment
-                </label>
-                <label class="nf-checkbox nf-checkbox-other">
-                    <input type="checkbox" name="rental_unit_other" value="Other" />
-                    <span class="nf-checkbox-custom"></span>
-                    Other:
-                    <input type="text" name="rental_unit_other_text" placeholder="Specify" class="nf-other-input"/>
-                </label>
-            </div>
-
-            <div class="nf-field">
-                <input type="date" id="move-in-date" name="move_in_date" required placeholder=" " />
-                <label for="move-in-date">Desired Move-in Date</label>
-            </div>
-        </section>
-
-        <!-- Applicant Information -->
-        <section class="nf-section">
-            <h2>Applicant Information</h2>
-
-            <div class="nf-row" style="display:flex; gap:15px; flex-wrap:wrap;">
-                <div class="nf-field" style="flex:1 1 45%;">
-                    <input type="text" id="full-name" name="full_name" required placeholder=" " />
-                    <label for="full-name">Full Name</label>
-                </div>
-                <div class="nf-field" style="flex:1 1 45%;">
-                    <input type="date" id="dob" name="date_of_birth" required placeholder=" " />
-                    <label for="dob">Date of Birth</label>
-                </div>
-            </div>
-
-            <div class="nf-field">
-                <input type="tel" id="phone" name="phone_number" required placeholder=" " />
-                <label for="phone">Phone Number</label>
-            </div>
-            <div class="nf-field">
-                <input type="email" id="email" name="email_address" required placeholder=" " />
-                <label for="email">Email Address</label>
-            </div>
-            <div class="nf-field">
-                <input type="text" id="current-address" name="current_address" required placeholder=" " />
-                <label for="current-address">Current Address</label>
-            </div>
-
-            <div class="nf-row" style="display:flex; gap:15px; flex-wrap:wrap;">
-                <div class="nf-field" style="flex:1 1 45%;">
-                    <input type="text" id="landlord-name" name="landlord_name" placeholder=" " />
-                    <label for="landlord-name">Landlord’s Name</label>
-                </div>
-                <div class="nf-field" style="flex:1 1 45%;">
-                    <input type="tel" id="landlord-phone" name="landlord_phone" placeholder=" " />
-                    <label for="landlord-phone">Landlord’s Phone</label>
-                </div>
-            </div>
-
-            <div class="nf-field">
-                <textarea id="reason-leaving" name="reason_for_leaving" placeholder=" "></textarea>
-                <label for="reason-leaving">Reason for Leaving</label>
-            </div>
-            <div class="nf-field">
-                <input type="text" id="length-tenancy" name="length_of_tenancy" placeholder=" " />
-                <label for="length-tenancy">Length of Tenancy</label>
-            </div>
-        </section>
-
-        <!-- Employment / Income -->
-        <section class="nf-section">
-            <h2>Employment / Income</h2>
-
-            <div class="nf-field">
-                <input type="text" id="employer-name" name="employer_name" required placeholder=" " />
-                <label for="employer-name">Employer Name</label>
-            </div>
-            <div class="nf-field">
-                <input type="text" id="position" name="position" required placeholder=" " />
-                <label for="position">Position</label>
-            </div>
-            <div class="nf-field">
-                <input type="number" id="monthly-income" name="monthly_income" required placeholder=" " />
-                <label for="monthly-income">Monthly Income (Net)</label>
-            </div>
-            <div class="nf-field">
-                <input type="text" id="employment-length" name="length_of_employment" placeholder=" " />
-                <label for="employment-length">Length of Employment</label>
-            </div>
-
-            <div class="nf-checkbox-group">
-                <label class="nf-checkbox">
-                    <input type="checkbox" name="proof_of_income" value="Yes" />
-                    <span class="nf-checkbox-custom"></span>
-                    Proof of income attached
-                </label>
-            </div>
-
-            <div class="nf-file-upload">
-                <label for="income-proof-file" class="nf-file-label">Upload proof of income</label>
-                <input type="file" id="income-proof-file" name="income_proof_file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" />
-            </div>
-        </section>
-
-        <!-- Pets -->
-        <section class="nf-section">
-            <h2>Pets</h2>
-            <div class="nf-label">Do you have any pets?</div>
-            <div class="nf-radio-group">
-                <label class="nf-radio">
-                    <input type="radio" name="has_pets" value="No" required />
-                    <span class="nf-radio-custom"></span>
-                    No
-                </label>
-                <label class="nf-radio">
-                    <input type="radio" name="has_pets" value="Yes" required />
-                    <span class="nf-radio-custom"></span>
-                    Yes
-                </label>
-            </div>
-
-            <div id="pet-details-section" style="display:none; margin-top:15px;">
-                <div class="nf-field">
-                    <input type="number" id="number-of-pets" name="number_of_pets" min="0" placeholder=" " />
-                    <label for="number-of-pets">Number of Pets</label>
-                </div>
-                <div class="nf-field">
-                    <input type="text" id="pet-types" name="pet_types" placeholder=" " />
-                    <label for="pet-types">Type(s) of Pet(s)</label>
-                </div>
-                <div class="nf-field">
-                    <input type="text" id="pet-breeds" name="pet_breeds" placeholder=" " />
-                    <label for="pet-breeds">Breed(s)</label>
-                </div>
-                <div class="nf-field">
-                    <input type="text" id="pet-ages" name="pet_ages" placeholder=" " />
-                    <label for="pet-ages">Age(s) of Pet(s)</label>
-                </div>
-                <div class="nf-field">
-                    <input type="text" id="pet-sizes" name="pet_sizes" placeholder=" " />
-                    <label for="pet-sizes">Size(s) of Pet(s)</label>
-                </div>
-                <div class="nf-field">
-                    <textarea id="pet-additional-info" name="pet_additional_info" placeholder=" "></textarea>
-                    <label for="pet-additional-info">Additional Information</label>
-                </div>
-            </div>
-        </section>
-
-        <!-- Declaration -->
-        <section class="nf-section">
-            <h2>Declaration</h2>
-            <p class="nf-declaration">
-                I declare that the information provided is true and complete. I authorize Newfound Living Inc.
-                to contact employers, landlords, and references to verify this application.
-            </p>
-            <div class="nf-row" style="display:flex; gap:15px; flex-wrap:wrap;">
-                <div class="nf-field" style="flex:1 1 45%;">
-                    <input type="text" id="applicant-signature" name="applicant_signature" placeholder=" " required />
-                    <label for="applicant-signature">Signature (Full Name)</label>
-                </div>
-                <div class="nf-field" style="flex:1 1 45%;">
-                    <input type="date" id="applicant-signature-date" name="applicant_signature_date" required placeholder=" " />
-                    <label for="applicant-signature-date">Date</label>
-                </div>
-            </div>
-        </section>
-
-        <!-- Submit -->
-        <div class="nf-actions">
-            <button type="submit" class="nf-btn-submit">Submit Application</button>
+      <fieldset>
+        <label for="property-address">Property Address</label>
+        <input type="text" id="property-address" name="property_address" required placeholder="e.g., 123 Main St" />
+        <div class="checkbox-group" role="group" aria-label="Rental Unit">
+          <label><input type="checkbox" name="rental_unit_main" value="Main Unit" /> Main Unit</label>
+          <label><input type="checkbox" name="rental_unit_basement" value="Basement Apartment" /> Basement Apartment</label>
+          <label>
+            <input type="checkbox" name="rental_unit_other" value="Other" /> Other:
+            <input type="text" name="rental_unit_other_text" placeholder="Specify" style="width: 120px; display: inline-block;" />
+          </label>
         </div>
+        <label for="move-in-date">Desired Move-in Date</label>
+        <input type="date" id="move-in-date" name="move_in_date" required />
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Applicant Information</strong></legend>
+        <label for="full-name">Full Name</label>
+        <input type="text" id="full-name" name="full_name" required />
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="date_of_birth" required />
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone_number" required />
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email_address" required />
+        <label for="current-address">Current Address</label>
+        <input type="text" id="current-address" name="current_address" required />
+        <label for="landlord-name">Landlord’s Name</label>
+        <input type="text" id="landlord-name" name="landlord_name" />
+        <label for="landlord-phone">Landlord’s Phone</label>
+        <input type="tel" id="landlord-phone" name="landlord_phone" />
+        <label for="reason-leaving">Reason for Leaving</label>
+        <textarea id="reason-leaving" name="reason_for_leaving"></textarea>
+        <label for="length-tenancy">Length of Tenancy</label>
+        <input type="text" id="length-tenancy" name="length_of_tenancy" placeholder="e.g., 2 years" />
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Employment / Income Verification</strong></legend>
+        <label for="employer-name">Employer Name</label>
+        <input type="text" id="employer-name" name="employer_name" required />
+        <label for="position">Position</label>
+        <input type="text" id="position" name="position" required />
+        <label for="monthly-income">Monthly Income (Net)</label>
+        <input type="number" id="monthly-income" name="monthly_income" required placeholder="e.g., 3000" />
+        <label for="employment-length">Length of Employment</label>
+        <input type="text" id="employment-length" name="length_of_employment" placeholder="e.g., 3 years" />
+        <label><input type="checkbox" name="proof_of_income" value="Yes" /> Proof of income attached (required for all adult tenants)</label>
+        <label for="income-proof-file" class="file-label" tabindex="0">Choose file to upload proof of income</label>
+        <input type="file" id="income-proof-file" name="income_proof_file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" />
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Additional Occupants</strong></legend>
+        <label for="occupant1">1. Name</label>
+        <input type="text" id="occupant1" name="additional_occupant_1" />
+        <label for="occupant2">2. Name</label>
+        <input type="text" id="occupant2" name="additional_occupant_2" />
+        <label for="occupant3">3. Name</label>
+        <input type="text" id="occupant3" name="additional_occupant_3" />
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Pets</strong></legend>
+        <div class="checkbox-group" style="margin-bottom:1rem;">
+          <label>
+            <input type="radio" name="pets" value="Yes" id="pets-yes" /> Yes
+          </label>
+          <label>
+            <input type="radio" name="pets" value="No" id="pets-no" checked /> No
+          </label>
+        </div>
+        <div id="pet-details-section">
+          <label for="pet-type">Pet Type</label>
+          <select id="pet-type" name="pet_type">
+            <option value="">Select pet type</option>
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Bird">Bird</option>
+            <option value="Reptile">Reptile</option>
+            <option value="Other">Other</option>
+          </select>
+          <label for="number-of-pets">Number of Pets</label>
+          <input type="number" id="number-of-pets" name="number_of_pets" min="1" placeholder="e.g., 2" />
+          <label for="breed-size">Breed &amp; Size</label>
+          <input type="text" id="breed-size" name="breed_size" placeholder="e.g., Beagle, Medium" />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Emergency Contact</strong></legend>
+        <label for="emergency-name">Name</label>
+        <input type="text" id="emergency-name" name="emergency_contact_name" />
+        <label for="emergency-phone">Phone</label>
+        <input type="tel" id="emergency-phone" name="emergency_contact_phone" />
+        <label for="emergency-relationship">Relationship to Applicant</label>
+        <input type="text" id="emergency-relationship" name="emergency_contact_relationship" />
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>References</strong></legend>
+        <label for="reference1-name">1. Name</label>
+        <input type="text" id="reference1-name" name="reference_1_name" />
+        <label for="reference1-phone">1. Phone</label>
+        <input type="tel" id="reference1-phone" name="reference_1_phone" />
+        <label for="reference2-name">2. Name</label>
+        <input type="text" id="reference2-name" name="reference_2_name" />
+        <label for="reference2-phone">2. Phone</label>
+        <input type="tel" id="reference2-phone" name="reference_2_phone" />
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Declaration</strong></legend>
+        <p>I declare that the information provided is true and complete. I understand that providing false information or failing to disclose relevant details may result in denial or termination of tenancy.</p>
+        <label for="applicant-signature">Signature</label>
+        <input type="text" id="applicant-signature" name="applicant_signature" placeholder="Type your full name" required />
+        <label for="applicant-signature-date">Date</label>
+        <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
+        <label for="coapplicant-signature">Co-applicant Signature (if applicable)</label>
+        <input type="text" id="coapplicant-signature" name="coapplicant_signature" placeholder="Type full name or leave blank" />
+        <label for="coapplicant-signature-date">Co-applicant Date</label>
+        <input type="date" id="coapplicant-signature-date" name="coapplicant_signature_date" />
+      </fieldset>
+
+      <button type="submit">Submit Application</button>
     </form>
-</div>
-
-<script>
-    // Show/hide pet details dynamically
-    const petRadios = document.querySelectorAll('input[name="has_pets"]');
-    const petSection = document.getElementById('pet-details-section');
-
-    petRadios.forEach(radio => {
-        radio.addEventListener('change', () => {
-            petSection.style.display = radio.value === 'Yes' ? 'block' : 'none';
-        });
-    });
-</script>
-{% endblock %}
+    <div id="thank-you-rental" role="alert" aria-live="polite">Thank you for submitting your application. We will review it and contact you shortly.</div>
+  </div>
+  <footer role="contentinfo" aria-label="Footer">
+    <a href="mailto:info.newfoundliving@gmail.com" class="email-link" aria-label="Send email to Newfound Living">
+      <img src="email-icon.svg" alt="Email Icon" aria-hidden="true" /> info.newfoundliving@gmail.com
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener" class="social-link" aria-label="Facebook page">
+      <img src="facebook-icon.svg" alt="Facebook Icon" aria-hidden="true" /> Facebook
+    </a>
+    <div class="privacy">© 2025 Newfound Living | All rights reserved.</div>
+  </footer>
+  <script>
+    // Show/hide pet details fields depending on Yes/No selection
+    const petsYes = document.getElementById('pets-yes');
+    const petsNo = document.getElementById('pets-no');
+    const petDetailsSection = document.getElementById('pet-details-section');
+    function togglePetDetails() {
+      if (petsYes.checked) {
+        petDetailsSection.style.display = '';
+      } else {
+        petDetailsSection.style.display = 'none';
+        document.getElementById('pet-type').value = '';
+        document.getElementById('number-of-pets').value = '';
+        document.getElementById('breed-size').value = '';
+      }
+    }
+    petsYes.addEventListener('change', togglePetDetails);
+    petsNo.addEventListener('change', togglePetDetails);
+    togglePetDetails();
+  </script>
+</body>
+</html>
