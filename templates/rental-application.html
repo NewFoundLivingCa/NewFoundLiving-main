@@ -2,7 +2,7 @@
 
 {% block title %}Newfound Living - Rental Application{% endblock %}
 
-{% block content %} 
+{% block content %}
 <div class="rental-container" role="main" aria-label="Rental Application Form">
     <h1>Rental Application</h1>
     <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data" novalidate>
@@ -48,46 +48,6 @@
 
             <label for="current-address">Current Address</label>
             <input type="text" id="current-address" name="current_address" required />
-
-            <div class="two-columns">
-                <div>
-                    <label for="landlord-name">Landlord’s Name</label>
-                    <input type="text" id="landlord-name" name="landlord_name" />
-                </div>
-                <div>
-                    <label for="landlord-phone">Landlord’s Phone</label>
-                    <input type="tel" id="landlord-phone" name="landlord_phone" />
-                </div>
-            </div>
-
-            <label for="reason-leaving">Reason for Leaving</label>
-            <textarea id="reason-leaving" name="reason_for_leaving"></textarea>
-
-            <label for="length-tenancy">Length of Tenancy</label>
-            <input type="text" id="length-tenancy" name="length_of_tenancy" placeholder="e.g., 2 years" />
-        </fieldset>
-
-        <!-- Employment -->
-        <fieldset class="form-section">
-            <h2>Employment / Income</h2>
-            <label for="employer-name">Employer Name</label>
-            <input type="text" id="employer-name" name="employer_name" required />
-
-            <label for="position">Position</label>
-            <input type="text" id="position" name="position" required />
-
-            <label for="monthly-income">Monthly Income (Net)</label>
-            <input type="number" id="monthly-income" name="monthly_income" required placeholder="e.g., 3000" />
-
-            <label for="employment-length">Length of Employment</label>
-            <input type="text" id="employment-length" name="length_of_employment" placeholder="e.g., 3 years" />
-
-            <label class="checkbox-inline">
-                <input type="checkbox" name="proof_of_income" value="Yes" /> Proof of income attached
-            </label>
-
-            <label for="income-proof-file" class="file-label">Upload proof of income</label>
-            <input type="file" id="income-proof-file" name="income_proof_file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" />
         </fieldset>
 
         <!-- Pets Section -->
@@ -98,61 +58,24 @@
                 <label><input type="radio" name="has_pets" value="No" required /> No</label>
                 <label><input type="radio" name="has_pets" value="Yes" required /> Yes</label>
             </div>
-            <div id="pet-details-section">
-                <label for="number-of-pets">Number of Pets</label>
-                <input type="number" id="number-of-pets" name="number_of_pets" min="0" placeholder="e.g., 2" />
-
-                <label for="pet-types">Type(s) of Pet(s)</label>
-                <input type="text" id="pet-types" name="pet_types" placeholder="e.g., Dog, Cat" />
-
-                <label for="pet-breeds">Breed(s)</label>
-                <input type="text" id="pet-breeds" name="pet_breeds" placeholder="e.g., Labrador, Siamese" />
-
-                <label for="pet-ages">Age(s) of Pet(s)</label>
-                <input type="text" id="pet-ages" name="pet_ages" placeholder="e.g., 3 years, 1 year" />
-
-                <label for="pet-sizes">Size(s) of Pet(s)</label>
-                <input type="text" id="pet-sizes" name="pet_sizes" placeholder="e.g., Small, Medium, Large" />
-
-                <label for="pet-additional-info">Additional Information</label>
-                <textarea id="pet-additional-info" name="pet_additional_info" placeholder="Any other details about your pet(s)"></textarea>
-            </div>
         </fieldset>
-
-        <!-- Additional sections (occupants, references, etc.) can be added here -->
 
         <!-- Declaration -->
         <fieldset class="form-section">
             <h2>Declaration</h2>
             <p class="declaration-text">
-                I declare that the information provided is true and complete. I authorize Newfound Living Inc. 
+                I declare that the information provided is true and complete. I authorize Newfound Living 
                 to contact employers, landlords, and references to verify this application.
             </p>
             <label for="applicant-signature">Signature</label>
             <input type="text" id="applicant-signature" name="applicant_signature" placeholder="Type your full name" required />
-
             <label for="applicant-signature-date">Date</label>
             <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
         </fieldset>
 
-        <!-- Submit -->
         <div class="form-actions">
             <button type="submit" class="btn-submit">Submit Application</button>
         </div>
     </form>
-</div> 
-
-<!-- Inline style for radio-inline-group to ensure Yes/No are close together and aligned -->
-<style>
-.radio-inline-group {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    margin-bottom: 1em;
-}
-.radio-inline-group label {
-    margin: 0;
-    font-weight: normal;
-}
-</style>
+</div>
 {% endblock %}
