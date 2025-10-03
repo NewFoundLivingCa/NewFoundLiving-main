@@ -82,9 +82,11 @@
             <label for="employment-length">Length of Employment</label>
             <input type="text" id="employment-length" name="length_of_employment" placeholder="e.g., 3 years" />
 
-            <label class="checkbox-inline">
-                <input type="checkbox" name="proof_of_income" value="Yes" /> Proof of income attached
-            </label>
+            <div class="checkbox-inline">
+                <label>
+                    <input type="checkbox" name="proof_of_income" value="Yes" /> Proof of income attached
+                </label>
+            </div>
 
             <label for="income-proof-file" class="file-label">Upload proof of income</label>
             <input type="file" id="income-proof-file" name="income_proof_file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.txt" />
@@ -142,7 +144,7 @@
     </form>
 </div> 
 
-<!-- Inline style for radio-inline-group to ensure Yes/No are close together and aligned -->
+<!-- Inline style for radio and checkbox groups to ensure alignment -->
 <style>
 .radio-inline-group {
     display: flex;
@@ -153,6 +155,24 @@
 .radio-inline-group label {
     margin: 0;
     font-weight: normal;
+}
+.checkbox-group, .checkbox-inline {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 1em;
+    flex-wrap: wrap;
+}
+.checkbox-group label,
+.checkbox-inline label {
+    margin: 0;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+}
+.checkbox-group input[type="text"] {
+    margin-left: 0.5rem;
+    min-width: 120px;
 }
 </style>
 {% endblock %}
