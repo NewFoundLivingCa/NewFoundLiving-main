@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NewFound Living</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+{% extends "layout.html" %}
+{% block title %}NewFound Living{% endblock %}
+
+{% block content %}
   <div class="overlay"></div>
-  <img src="logo.png" alt="NewFound Living Logo" class="logo" />
+  <img src="{{ url_for('static', filename='logo.png') }}" alt="NewFound Living Logo" class="logo" />
   <nav>
-    <a href="index.html" aria-current="page">Home</a>
-    <a href="application.html">Apply to Rent</a>
-    <a href="pay.html">Pay Rent</a>
+    <a href="{{ url_for('home') }}" aria-current="page">Home</a>
+    <a href="{{ url_for('rental_application') }}">Apply to Rent</a>
+    <a href="{{ url_for('pay_rent') }}">Pay Rent</a>
   </nav>
   <div class="container">
     <h1>Welcome to NewFound Living</h1>
@@ -30,26 +25,22 @@
         
         <button type="submit">Send Message</button>
       </form>
-      <div id="thank-you">Thank you for reaching out! We will get back to you soon.</div>
+      <div id="thank-you" style="display:none;">Thank you for reaching out! We will get back to you soon.</div>
     </div>
   </div>
-  <footer>
-    <div>
-      <a href="https://www.facebook.com/NewFoundLivingNL" class="footer-link" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M22.67 0H1.33C.6 0 0 .6 0 1.33v21.33C0 23.4.6 24 1.33 24h11.49v-9.29H9.69V11.1h3.13V8.41c0-3.1 1.89-4.78 4.65-4.78 1.32 0 2.45.1 2.78.14v3.22h-1.91c-1.5 0-1.8.71-1.8 1.76v2.31h3.59l-.47 3.61h-3.12V24h6.11c.73 0 1.33-.6 1.33-1.33V1.33C24 .6 23.4 0 22.67 0"></path></svg>
-        Facebook
-      </a>
-    </div>
-    <div class="privacy">
-      &copy; 2024 NewFound Living. All rights reserved.
-    </div>
-  </footer>
+{% endblock %}
+
+{% block scripts %}
   <script>
-    document.getElementById('contact-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      document.getElementById('thank-you').style.display = 'block';
-      event.target.reset();
+    document.addEventListener("DOMContentLoaded", function() {
+      var form = document.getElementById('contact-form');
+      if(form) {
+        form.addEventListener('submit', function(event) {
+          event.preventDefault();
+          document.getElementById('thank-you').style.display = 'block';
+          event.target.reset();
+        });
+      }
     });
   </script>
-</body>
-</html>
+{% endblock %}
