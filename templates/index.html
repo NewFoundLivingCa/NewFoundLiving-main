@@ -1,73 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Newfound Living - Rental Properties in St. John's</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/png" href="images/tinylogo1.png">
-</head>
-<body>
-  <!-- Fixed background and overlay -->
-  <div class="background-static"></div>
-  <div class="overlay"></div>
+{% extends "layout.html" %}
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="rent.html">Pay Rent</a></li>
-        <li><a href="rental-application.html" target="_blank">Application</a></li>
-      </ul>
-    </div>
-  </nav>
+{% block title %}Newfound Living - Rental Properties in St. John's{% endblock %}
 
-  <!-- Main content -->
-  <div class="container">
-    <img src="images/logo-transparent.png" alt="Newfound Living Logo" class="logo">
-    <h1>Welcome to Newfound Living</h1>
-    <h2>While all our rental units are currently filled, we’d love to keep you updated. Leave your email and be the first to know when a property becomes available.</h2>
+{% block content %}
+  <img src="{{ url_for('static', filename='images/logo-transparent.png') }}" alt="Newfound Living Logo" class="logo">
+  <h1>Welcome to Newfound Living</h1>
+  <h2>While all our rental units are currently filled, we’d love to keep you updated. Leave your email and be the first to know when a property becomes available.</h2>
 
-    <!-- Notify Form -->
-    <form id="notify-form" action="https://formspree.io/f/xldnwbqq" method="POST">
-      <input type="email" name="email" placeholder="Your email address" required>
-      <textarea name="message" placeholder="Your message (optional)"></textarea>
-      <button type="submit">Get Updates</button>
-    </form>
-    <div id="thank-you">Thanks for signing up! We'll be in touch soon.</div>
+  <!-- Notify Form -->
+  <form id="notify-form" action="https://formspree.io/f/xldnwbqq" method="POST">
+    <input type="email" name="email" placeholder="Your email address" required>
+    <textarea name="message" placeholder="Your message (optional)"></textarea>
+    <button type="submit">Get Updates</button>
+  </form>
+  <div id="thank-you">Thanks for signing up! We'll be in touch soon.</div>
 
-    <!-- Features -->
-    <div class="features">
-      <div class="feature-box"><div>🔧</div><h3>Stress-Free Renting</h3><p>Well-maintained homes with responsive service.</p></div>
-      <div class="feature-box"><div>💡</div><h3>Transparent Pricing</h3><p>Fair rates with no hidden fees.</p></div>
-      <div class="feature-box"><div>🏠</div><h3>Local Expertise</h3><p>Based in St. John's. We know the market.</p></div>
-    </div>
+  <!-- Features -->
+  <div class="features">
+    <div class="feature-box"><div>🔧</div><h3>Stress-Free Renting</h3><p>Well-maintained homes with responsive service.</p></div>
+    <div class="feature-box"><div>💡</div><h3>Transparent Pricing</h3><p>Fair rates with no hidden fees.</p></div>
+    <div class="feature-box"><div>🏠</div><h3>Local Expertise</h3><p>Based in St. John's. We know the market.</p></div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div>Locally owned and operated in St. John's & surrounding areas</div>
-    <div class="email-link">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon">
-      <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
-    </div>
-    <div class="social-link">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo">
-      <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
-    </div>
-    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
-  </footer>
-
-  <!-- Form JS -->
   <script>
     const form = document.getElementById('notify-form');
     const thankYou = document.getElementById('thank-you');
-
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       const formData = new FormData(form);
-
       try {
         await fetch(form.action, {
           method: 'POST',
@@ -81,5 +41,4 @@
       }
     });
   </script>
-</body>
-</html>
+{% endblock %}
