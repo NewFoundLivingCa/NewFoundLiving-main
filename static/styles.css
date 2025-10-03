@@ -1,14 +1,17 @@
-/* Background and general page setup */
+/* Import a modern font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Global Styles */
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background: url('/images/bg.jpg') no-repeat center center fixed;
+    font-family: 'Inter', sans-serif;
+    background: url('/images/city.png') no-repeat center center fixed;
     background-size: cover;
-    color: #333;
+    color: #2c3e50;
+    line-height: 1.6;
 }
 
-/* Overlay for background image */
 body::before {
     content: "";
     position: fixed;
@@ -16,224 +19,89 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     z-index: -1;
 }
 
-/* Navbar styles */
-.navbar {
-    background-color: #2c3e50;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Container */
+.nf-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    margin-left: 1rem;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.navbar a:hover {
-    color: #f39c12;
-}
-
-/* Headings and hero section */
-h1, h2, h3 {
+/* Title */
+.nf-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
     color: #2c3e50;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Hero section */
-.hero {
-    text-align: center;
-    padding: 60px 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    margin: 20px;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.2rem;
     margin-bottom: 30px;
 }
 
-/* Buttons */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #f39c12;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-.btn:hover {
-    background-color: #d35400;
-}
-
-/* Features section */
-.features {
-    display: flex;
-    justify-content: space-around;
-    padding: 40px 20px;
-}
-
-.feature {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    text-align: center;
-}
-
-.feature h3 {
-    margin-bottom: 15px;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #2c3e50;
-    color: white;
-    margin-top: 40px;
-}
-
-/* Notify form */
-.notify-form {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.notify-form input[type="email"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-}
-
-.notify-form button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #f39c12;
-    color: white;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.notify-form button:hover {
-    background-color: #d35400;
-}
-
-/* Rental Application – Newfound Living Styles (nf-) */
-.nf-form {
-    max-width: 900px;
-    margin: 40px auto;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.nf-title {
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #2c3e50;
-}
-
+/* Section */
 .nf-section {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .nf-section h2 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: #34495e;
+    margin-bottom: 15px;
     border-bottom: 2px solid #f39c12;
     padding-bottom: 5px;
 }
 
-.nf-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 15px;
+/* Form Fields */
+.nf-field {
+    position: relative;
+    margin-bottom: 20px;
 }
 
-.nf-group label {
-    flex: 1 1 45%;
-    display: flex;
-    flex-direction: column;
-    font-weight: bold;
-    color: #2c3e50;
-    font-size: 0.95rem;
-}
-
-.nf-group input,
-.nf-group select,
-.nf-group textarea {
-    padding: 10px;
+.nf-field input,
+.nf-field textarea,
+.nf-field select {
+    width: 100%;
+    padding: 12px 12px 12px 12px;
     border: 1px solid #ccc;
-    border-radius: 6px;
-    margin-top: 5px;
-    font-size: 0.95rem;
-}
-
-.nf-checkbox,
-.nf-radio {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.nf-checkbox label,
-.nf-radio label {
-    font-weight: normal;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.nf-submit {
-    text-align: center;
-}
-
-.nf-submit button {
-    padding: 12px 24px;
-    border: none;
-    background-color: #f39c12;
-    color: white;
+    border-radius: 8px;
     font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s;
+    outline: none;
+    transition: all 0.3s;
 }
 
-.nf-submit button:hover {
-    background-color: #d35400;
+.nf-field input:focus,
+.nf-field textarea:focus,
+.nf-field select:focus {
+    border-color: #f39c12;
+    box-shadow: 0 0 5px rgba(243, 156, 18, 0.3);
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .nf-group label {
-        flex: 1 1 100%;
-    }
+/* Floating Labels */
+.nf-field label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    background-color: #fff;
+    padding: 0 5px;
+    color: #999;
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
 }
+
+.nf-field input:focus + label,
+.nf-field input:not(:placeholder-shown) + label,
+.nf-field textarea:focus + label,
+.nf-field textarea:not(:placeholder-shown) + label {
+    top: -10px;
+    font-size: 0.8rem;
+    color: #f39c12;
+}
+
+/* Checkbox & Radi*
