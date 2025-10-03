@@ -17,9 +17,9 @@
     position: relative;
     z-index: 1;
     padding: 2rem;
-    background: rgba(20, 20, 20, 0.73);
+    background: rgba(20, 20, 20, 0.85);
     border-radius: 1rem;
-    max-width: 800px;
+    max-width: 900px;
     margin: 3rem auto 2rem auto;
     box-shadow: 0 8px 32px 0 rgba(0,0,0,0.20);
 }
@@ -31,7 +31,7 @@
     background: rgba(16, 24, 32, 0.97);
     box-shadow: 0 2px 12px rgba(0,0,0,0.12);
     width: 100%;
-    padding: 0; /* Remove direct navbar padding */
+    padding: 0;
 }
 
 .nav-container {
@@ -44,7 +44,6 @@
     padding: 0.75rem 1rem;
 }
 
-/* Add subtle rounding to navbar edges (optional) */
 .navbar,
 .nav-container {
     border-bottom-left-radius: 1rem;
@@ -241,13 +240,14 @@ footer .privacy {
     font-size: 0.95rem;
     color: #b0b8c6;
 }
+
 /* Rental form improvements */
 .rental-container {
     max-width: 900px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: rgba(20, 20, 20, 0.85);
+    margin: 0 auto;
+    padding: 0;
     border-radius: 1rem;
+    /* No background here; it is now provided by .container or .content */
 }
 
 .rental-container h1 {
@@ -329,7 +329,7 @@ footer .privacy {
 }
 
 #income-proof-file {
-    display: none; /* hidden, label acts as button */
+    display: none;
 }
 
 .form-actions {
@@ -359,4 +359,4 @@ footer .privacy {
     color: #cfd8e3;
 }
 
-/* Responsive styles
+/* Responsive styles -- omitted for brevity, but keep your original ones at the end */
