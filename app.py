@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("index.html")
 
 @app.route("/application")
 def rental_application():
@@ -13,3 +13,6 @@ def rental_application():
 @app.route("/pay")
 def pay_rent():
     return render_template("pay.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
