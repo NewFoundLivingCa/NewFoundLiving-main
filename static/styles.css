@@ -1,5 +1,3 @@
-/* style.css */
-
 :root {
   --green: #2e7d32;
   --white: #ffffff;
@@ -18,7 +16,7 @@
 body, html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
-  background: url('city.png') no-repeat center center fixed; /* Added 'fixed' for consistent background scrolling */
+  background: url('images/city.png') no-repeat center center fixed;
   background-size: cover;
   color: var(--white);
   position: relative;
@@ -33,7 +31,7 @@ body, html {
 
 .logo {
   width: 260px;
-  margin: 2rem auto 1rem; /* Adjusted margin for consistency */
+  margin: 2rem auto 1rem;
   display: block;
   z-index: 1;
   position: relative;
@@ -68,26 +66,153 @@ nav a[aria-current="page"] {
 .container {
   position: relative;
   z-index: 1;
-  max-width: 700px; /* Max width for application and pay rent pages */
-  margin: 2rem auto; /* Consistent margin */
+  max-width: 700px;
+  margin: 2rem auto;
   padding: 2rem;
   background-color: var(--form-bg);
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.6);
-  text-align: left; /* Default text alignment for forms */
+  text-align: left;
 }
 
-/* Adjust container for the main page if it needs a different max-width or padding */
 body:not(.application-page):not(.pay-rent-page) .container {
-  max-width: 500px; /* Specific max-width for the main page */
-  padding: 2rem 1rem 3rem; /* Specific padding for the main page */
-  text-align: center; /* Specific text alignment for the main page */
-  background-color: transparent; /* Remove form-bg for the main page container */
-  box-shadow: none; /* Remove box-shadow for the main page container */
+  max-width: 500px;
+  padding: 2rem 1rem 3rem;
+  text-align: center;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 h1 {
   font-size: 2rem;
   font-family: Georgia, serif;
   margin-bottom: 1rem;
-  text-align: center; /* Centered for
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin-bottom: 2rem;
+  color: #b6e2c7;
+  text-align: center;
+}
+
+.form-box {
+  margin: 2rem auto 0 auto;
+  background: var(--form-bg);
+  padding: 2rem 1.5rem;
+  border-radius: 10px;
+  max-width: 400px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-weight: 500;
+  color: #ccefdb;
+  text-align: left;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: var(--input-bg);
+  border: 1.5px solid var(--input-border);
+  border-radius: 7px;
+  font-size: 1rem;
+  color: var(--white);
+  margin-bottom: 1.2rem;
+  margin-top: 0.1rem;
+  outline: none;
+  transition: border 0.2s;
+  box-sizing: border-box;
+  resize: none;
+}
+
+form input:focus,
+form textarea:focus {
+  border: 1.5px solid #2e7d32;
+  background: rgba(46,125,50,0.12);
+}
+
+form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+form button[type="submit"] {
+  width: 100%;
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 7px;
+  padding: 0.8rem 0;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  margin-top: 0.5rem;
+  transition: background 0.18s;
+}
+
+form button[type="submit"]:hover,
+form button[type="submit"]:focus {
+  background: #388e3c;
+  color: #f2fff7;
+}
+
+#thank-you {
+  display: none;
+  margin-top: 1.2rem;
+  color: #a5efb2;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.15rem;
+}
+
+footer {
+  background: var(--form-bg);
+  color: #c2f4d3;
+  text-align: center;
+  padding: 2rem 1rem 1.5rem 1rem;
+  margin-top: 3rem;
+  font-size: 1rem;
+  border-top-left-radius: 1.15rem;
+  border-top-right-radius: 1.15rem;
+  z-index: 2;
+  position: relative;
+}
+
+footer .footer-link {
+  color: #d7fbe9;
+  text-decoration: underline;
+}
+
+footer .privacy {
+  margin-top: 1.2rem;
+  font-size: 0.95rem;
+  color: #b0c4b6;
+}
+
+/* Responsive styles */
+@media (max-width: 750px) {
+  .logo {
+    width: 160px;
+    margin: 1.3rem auto 1rem;
+  }
+  nav {
+    gap: 0.6rem;
+  }
+  .container {
+    padding: 1rem;
+    max-width: 99vw;
+  }
+  .form-box {
+    padding: 1rem 0.5rem;
+    max-width: 98vw;
+  }
+}
