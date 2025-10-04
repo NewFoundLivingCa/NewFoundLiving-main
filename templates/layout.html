@@ -4,17 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}NewFound Living{% endblock %}</title>
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <!-- Favicon removed -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+  <div class="overlay"></div>
+  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="NewFound Living Logo" class="logo" />
+  <nav>
+    <a href="{{ url_for('home') }}" aria-current="page">Home</a>
+    <a href="{{ url_for('rental_application') }}">Apply to Rent</a>
+    <a href="{{ url_for('pay_rent') }}">Pay Rent</a>
+  </nav>
   <div class="container">
     {% block content %}{% endblock %}
   </div>
   <footer>
     <div>
       <a href="https://www.facebook.com/NewFoundLivingNL" class="footer-link" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M22.67 0H1.33C.6 0 0 .6 0 1.33v21.33C0 23.4.6 24 1.33 24h11.49v-9.29H9.69V11.1h3.13V8.41c0-3.1 1.89-4.78 4.65-4.78 1.32 0 2.45.1 2.78.14v3.22h-1.91c-1.5 0-1.8.71-1.8 1.76v2.31h3.59l-.47 3.61h-3.12V24h6.11c.73 0 1.33-.6 1.33-1.33V1.33C24 .6 23.4 0 22.67 0"></path></svg>
         Facebook
       </a>
     </div>
