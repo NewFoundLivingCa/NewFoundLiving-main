@@ -32,6 +32,10 @@
         <input type="tel" id="phone" name="phone_number" required />
         <label for="current-address">Current Address</label>
         <input type="text" id="current-address" name="current_address" required />
+        <label for="landlord-name">Current Landlord Name</label>
+        <input type="text" id="landlord-name" name="landlord_name" />
+        <label for="landlord-contact">Landlord Contact (Phone or Email)</label>
+        <input type="text" id="landlord-contact" name="landlord_contact" />
       </fieldset>
 
       <fieldset class="form-section">
@@ -40,6 +44,12 @@
         <input type="text" id="property-address" name="property_address" required placeholder="e.g., 123 Main St" />
         <label for="move-in-date">Desired Move-in Date</label>
         <input type="date" id="move-in-date" name="move_in_date" required />
+        <label for="term">Lease Term</label>
+        <select id="term" name="lease_term">
+          <option value="">Select</option>
+          <option value="12 months">12 months</option>
+          <option value="month-to-month">Month-to-month</option>
+        </select>
       </fieldset>
 
       <fieldset class="form-section">
@@ -48,6 +58,37 @@
         <input type="text" id="employer-name" name="employer_name" required />
         <label for="monthly-income">Monthly Income</label>
         <input type="number" id="monthly-income" name="monthly_income" required />
+        <label for="proof-income">Proof of Income (upload file)</label>
+        <input type="file" id="proof-income" name="proof_income" accept=".pdf,.jpg,.png,.jpeg,.doc,.docx,.heic,.webp" />
+      </fieldset>
+
+      <fieldset class="form-section">
+        <h2>Pets</h2>
+        <label>Do you have pets?</label>
+        <div style="display:flex; justify-content:center; gap:1em; margin-bottom:1em;">
+          <label><input type="radio" name="pets" value="Yes" required /> Yes</label>
+          <label><input type="radio" name="pets" value="No" required /> No</label>
+        </div>
+        <label for="pet-type">Type(s) of pet(s)</label>
+        <input type="text" id="pet-type" name="pet_type" placeholder="e.g., Dog, Cat, etc." />
+        <label for="pet-number">How many pets?</label>
+        <input type="number" id="pet-number" name="pet_number" min="0" />
+        <label for="pet-details">Description (breed, age, etc.)</label>
+        <textarea id="pet-details" name="pet_details" placeholder="Describe your pets"></textarea>
+      </fieldset>
+
+      <fieldset class="form-section">
+        <h2>Other Details</h2>
+        <label for="occupants">Additional Occupants (names and ages)</label>
+        <textarea id="occupants" name="additional_occupants"></textarea>
+        <label for="references">References (name & contact)</label>
+        <textarea id="references" name="references"></textarea>
+        <label for="emergency-contact">Emergency Contact Name</label>
+        <input type="text" id="emergency-contact" name="emergency_contact" />
+        <label for="emergency-phone">Emergency Contact Phone</label>
+        <input type="tel" id="emergency-phone" name="emergency_phone" />
+        <label for="other-info">Any other information you'd like to provide?</label>
+        <textarea id="other-info" name="other_info"></textarea>
       </fieldset>
 
       <fieldset class="form-section">
