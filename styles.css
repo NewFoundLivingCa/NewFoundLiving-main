@@ -1,32 +1,32 @@
+/* Newfound Living Branded Styles */
+
+/* Brand Colors */
+:root {
+  --brand-teal: #21706A;      /* Main brand color */
+  --brand-teal-dark: #256D67; /* Darker accent */
+  --brand-teal-light: #2B7A74;/* Lighter accent */
+  --brand-bg-trans: rgba(33,112,106,0.85); /* Transparent teal for cards */
+  --white: #FFFFFF;
+  --off-white: #F7F7F7;
+}
+
 /* Base styles */
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
   padding: 0;
-  color: #222;
+  color: var(--white);
   background: url('Logos/city.png') no-repeat center center fixed;
   background-size: cover;
-}
-
-img.logo {
-  max-width: 240px;
-  display: block;
-  margin: 0 auto 1rem auto;
-}
-
-@media (max-width: 500px) {
-  img.logo {
-    max-width: 150px;
-    margin-bottom: 0.5rem;
-  }
+  background-color: var(--brand-teal-dark); /* fallback */
 }
 
 /* Navbar styles */
 .navbar {
-  background: #1d2636;
-  color: #fff;
+  background: var(--brand-teal);
+  color: var(--white);
   padding: 0.5rem 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(33,112,106,0.18);
 }
 
 .nav-container {
@@ -46,18 +46,21 @@ img.logo {
 }
 
 .nav-links li a {
-  color: #fff;
+  color: var(--white);
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 3px;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
-.nav-links li a:hover {
-  background: #293652;
+.nav-links li a:hover,
+.nav-links li a:focus {
+  background: var(--brand-teal-light);
+  color: var(--off-white);
 }
 
+/* Responsive Navbar */
 @media (max-width: 700px) {
   .nav-container {
     flex-direction: column;
@@ -77,16 +80,31 @@ img.logo {
   }
 }
 
+/* Logo */
+img.logo {
+  max-width: 240px;
+  display: block;
+  margin: 0 auto 1rem auto;
+  background: none;
+}
+
+@media (max-width: 500px) {
+  img.logo {
+    max-width: 150px;
+    margin-bottom: 0.5rem;
+  }
+}
+
 /* Container styles */
 .container,
 .rental-container {
   max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
-  background: rgba(0,0,0,0.60);
-  color: #fff;
+  background: var(--brand-bg-trans);
+  color: var(--white);
   border-radius: 1rem;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 20px rgba(33,112,106,0.17);
   text-align: center;
 }
 
@@ -110,14 +128,14 @@ img.logo {
 }
 
 .feature-box {
-  background: #222c;
+  background: rgba(33,112,106,0.95);
   border-radius: 1rem;
   padding: 1.5rem 1rem;
   text-align: center;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 1px 8px rgba(33,112,106,0.20);
   width: 220px;
   margin-bottom: 1rem;
-  color: #fff;
+  color: var(--white);
 }
 
 .feature-box div {
@@ -128,7 +146,7 @@ img.logo {
 .feature-box h3 {
   margin: 0.5rem 0;
   font-size: 1.2rem;
-  color: #b3cfff;
+  color: var(--off-white);
 }
 
 @media (max-width: 900px) {
@@ -156,13 +174,13 @@ input, textarea, select {
   width: 100%;
   max-width: 400px;
   padding: 0.7em;
-  border: 1px solid #d5d7db;
+  border: 1px solid var(--brand-teal-light);
   border-radius: 5px;
   font-size: 1rem;
   margin-bottom: 0.5rem;
   resize: vertical;
   background: rgba(255,255,255,0.12);
-  color: #fff;
+  color: var(--white);
 }
 
 textarea {
@@ -171,37 +189,38 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  color: #e7e7e7;
+  color: var(--off-white);
 }
 
 button, .btn-submit {
-  background: #1d2636;
-  color: #fff;
+  background: var(--brand-teal);
+  color: var(--white);
   border: none;
   border-radius: 5px;
   padding: 0.7em 2em;
   font-size: 1.1rem;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(33,112,106,0.15);
+  transition: background 0.2s, color 0.2s;
 }
 
 button:hover, .btn-submit:hover {
-  background: #293652;
+  background: var(--brand-teal-light);
+  color: var(--off-white);
 }
 
 fieldset {
   border: none;
   margin-bottom: 1.5em;
-  background: #222c;
+  background: rgba(33,112,106,0.95);
   border-radius: 0.75em;
   padding: 1em 1em;
-  color: #fff;
+  color: var(--white);
 }
 
 .form-section h2 {
   margin-top: 0;
-  color: #b3cfff;
+  color: var(--off-white);
 }
 
 .form-actions {
@@ -212,7 +231,7 @@ fieldset {
 #thank-you {
   display: none;
   margin-top: 1rem;
-  color: #1d2636;
+  color: var(--brand-teal-dark);
   background: #dff4e2;
   padding: 1em;
   border-radius: 0.5em;
@@ -221,8 +240,8 @@ fieldset {
 
 /* Footer styles */
 footer {
-  background: #1d2636;
-  color: #fff;
+  background: var(--brand-teal);
+  color: var(--white);
   text-align: center;
   padding: 2em 1em;
   margin-top: 3em;
@@ -244,12 +263,12 @@ footer img {
 }
 
 footer a {
-  color: #fff;
+  color: var(--white);
   text-decoration: underline;
 }
 
 footer a:hover {
-  color: #b3cfff;
+  color: var(--off-white);
 }
 
 footer .privacy {
