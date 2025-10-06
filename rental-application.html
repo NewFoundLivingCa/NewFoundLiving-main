@@ -7,7 +7,6 @@
   <link rel="icon" href="Logos/tinylogo1.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Minimal, Centered Top Bar Nav */
     .navbar-minimal {
       width: 100%;
       background: rgba(0,0,0,0.60);
@@ -60,7 +59,6 @@
       }
     }
 
-    /* Main container with transparent black background */
     .container,
     .rental-container {
       max-width: 980px;
@@ -97,7 +95,6 @@
         margin-bottom: 0.5rem;
       }
     }
-    /* Form styles */
     form {
       display: flex;
       flex-direction: column;
@@ -106,22 +103,22 @@
     }
     input, textarea, select {
       width: 100%;
-      max-width: 540px;
-      min-width: 260px;
-      padding: 0.9em;
-      border-radius: 7px;
+      max-width: 600px; /* Wider boxes */
+      min-width: 340px; /* Wider minimum */
+      padding: 1em; /* More padding */
+      border-radius: 8px;
       border: 1px solid #444;
       background: rgba(255,255,255,0.13);
       color: #fff;
-      font-size: 1.08em;
-      margin-bottom: 0.5em;
+      font-size: 1.15em;
+      margin-bottom: 1em;
       box-sizing: border-box;
       transition: border-color 0.2s;
       resize: vertical;
       display: block;
     }
     textarea {
-      min-height: 90px;
+      min-height: 100px;
     }
     input::placeholder,
     textarea::placeholder {
@@ -132,8 +129,8 @@
       color: #fff;
       border: none;
       border-radius: 6px;
-      padding: 0.8em 2.2em;
-      font-size: 1.11em;
+      padding: 0.9em 2.5em;
+      font-size: 1.14em;
       cursor: pointer;
       box-shadow: 0 2px 14px rgba(33,112,106,0.13);
       transition: background 0.2s, color 0.2s, box-shadow 0.2s;
@@ -147,9 +144,9 @@
     fieldset.form-section {
       margin-bottom: 2em;
       padding: 2em 1.5em 1em 1.5em;
-      background: rgba(0,0,0,0.77);
+      background: transparent;
       border-radius: 1.2em;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.14);
+      box-shadow: none;
       border: none;
     }
     .form-section h2 {
@@ -175,7 +172,6 @@
       letter-spacing: 0.01em;
       display: block;
     }
-    /* Transparent Footer (no blur) */
     footer {
       background: rgba(0,0,0,0.60);
       color: #fff;
@@ -215,6 +211,12 @@
         font-size: 0.95em;
         padding: 1em 0.2em;
         max-width: 99vw;
+      }
+      input, textarea, select {
+        max-width: 98vw;
+        min-width: 120px;
+        font-size: 1.03em;
+        padding: 0.7em;
       }
       footer .email-link,
       footer .social-link,
