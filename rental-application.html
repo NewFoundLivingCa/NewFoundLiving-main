@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rental Application - Newfound Living</title>
-  <link rel="icon" href="Logos/tinylogo1.png" type="image/png" />
+  <!-- Favicon for Google preview and browser tabs -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     .navbar-minimal {
@@ -118,7 +121,6 @@
       color: #F7F7F7;
       box-shadow: 0 4px 18px rgba(33,112,106,0.22);
     }
-
     /* More defined section boxes, all large and consistent */
     fieldset.form-section {
       margin-bottom: 3em;
@@ -148,7 +150,6 @@
       letter-spacing: 0.01em;
       display: block;
     }
-
     /* Modern Pet Checkbox Group */
     .pet-checkbox-group {
       display: flex;
@@ -185,15 +186,22 @@
       vertical-align: middle;
       outline: none;
     }
-    .pet-checkbox input[type="radio"]:checked {
-      border-color: transparent;
-      background: #fff;
+    /* Green check for Yes, red X for No */
+    .pet-checkbox input[type="radio"]:checked.yes {
+      border-color: #23d160;
+      background: #23d160;
     }
-    .pet-checkbox input[type="radio"]:checked + .check-icon {
-      display: inline-block;
+    .pet-checkbox input[type="radio"]:checked.no {
+      border-color: #e74c3c;
+      background: #e74c3c;
     }
-    .pet-checkbox input[type="radio"]:checked + .x-icon {
+    .pet-checkbox input[type="radio"]:checked.yes + .check-icon {
       display: inline-block;
+      color: #23d160;
+    }
+    .pet-checkbox input[type="radio"]:checked.no + .x-icon {
+      display: inline-block;
+      color: #e74c3c;
     }
     .pet-checkbox input[type="radio"]:not(:checked) + .check-icon,
     .pet-checkbox input[type="radio"]:not(:checked) + .x-icon {
@@ -209,7 +217,6 @@
       opacity: 0.6;
       cursor: not-allowed;
     }
-    /* Icon styles */
     .check-icon {
       display: none;
       color: #23d160;
@@ -224,15 +231,6 @@
       margin-left: -1.6em;
       margin-right: 0.3em;
     }
-    .pet-checkbox input[type="radio"]:checked + .check-icon {
-      color: #23d160;
-      font-size: 1.6em;
-    }
-    .pet-checkbox input[type="radio"]:checked + .x-icon {
-      color: #e74c3c;
-      font-size: 1.6em;
-    }
-
     /* Footer styles unchanged */
     footer {
       background: rgba(0,0,0,0.60);
@@ -373,12 +371,12 @@
         <label>Do you have pets?</label>
         <div class="pet-checkbox-group">
           <label class="pet-checkbox">
-            <input type="radio" name="pets" value="Yes" required />
+            <input type="radio" name="pets" value="Yes" required class="yes" />
             <span class="check-icon">&#10003;</span>
             <span>Yes</span>
           </label>
           <label class="pet-checkbox">
-            <input type="radio" name="pets" value="No" required />
+            <input type="radio" name="pets" value="No" required class="no" />
             <span class="x-icon">&#10007;</span>
             <span>No</span>
           </label>
