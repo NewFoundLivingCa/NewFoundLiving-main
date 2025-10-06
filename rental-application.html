@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rental Application - Newfound Living</title>
+  <link rel="icon" href="static/images/tinylogo1.png" type="image/png" />
+  <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="rent.html">Pay Rent</a></li>
+        <li><a href="rental-application.html">Application</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container rental-container">
+    <img src="static/images/logo-transparent.png" alt="Newfound Living Logo" class="logo">
+    <h1>Rental Application</h1>
+    <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data">
+
+      <fieldset class="form-section">
+        <h2>Applicant Information</h2>
+        <label for="full-name">Full Name</label>
+        <input type="text" id="full-name" name="full_name" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email_address" required />
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone_number" required />
+        <label for="current-address">Current Address</label>
+        <input type="text" id="current-address" name="current_address" required />
+      </fieldset>
+
+      <fieldset class="form-section">
+        <h2>Property Details</h2>
+        <label for="property-address">Property Address</label>
+        <input type="text" id="property-address" name="property_address" required placeholder="e.g., 123 Main St" />
+        <label for="move-in-date">Desired Move-in Date</label>
+        <input type="date" id="move-in-date" name="move_in_date" required />
+      </fieldset>
+
+      <fieldset class="form-section">
+        <h2>Employment / Income</h2>
+        <label for="employer-name">Employer Name</label>
+        <input type="text" id="employer-name" name="employer_name" required />
+        <label for="monthly-income">Monthly Income</label>
+        <input type="number" id="monthly-income" name="monthly_income" required />
+      </fieldset>
+
+      <fieldset class="form-section">
+        <h2>Declaration</h2>
+        <p class="declaration-text">
+          I declare that the information provided is true and complete. I authorize Newfound Living to verify this application.
+        </p>
+        <label for="applicant-signature">Signature</label>
+        <input type="text" id="applicant-signature" name="applicant_signature" required />
+        <label for="applicant-signature-date">Date</label>
+        <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">Submit Application</button>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    <div>Locally owned and operated in St. John's & surrounding areas</div>
+    <div class="email-link">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
+      <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+    </div>
+    <div class="social-link">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
+      <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
+    </div>
+    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
+  </footer>
+</body>
+</html>
