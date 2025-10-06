@@ -1,56 +1,229 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Newfound Living</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+/* Base styles */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7f8fa;
+  color: #222;
+}
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <img src="Logos/logo.png" alt="Newfound Living Logo" class="logo">
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="rental-application.html">Rental Application</a></li>
-            </ul>
-        </div>
-    </nav>
+img.logo {
+  max-width: 240px;
+  display: block;
+  margin: 0 auto 1rem auto;
+}
 
-    <!-- Main Container -->
-    <div class="container">
-        <h1>Welcome to Newfound Living</h1>
-        <p>Your trusted source for rental properties in Newfoundland.</p>
+/* Navbar styles */
+.navbar {
+  background: #1d2636;
+  color: #fff;
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
 
-        <!-- Features Section -->
-        <div class="features">
-            <div class="feature-box">
-                <div>🏠</div>
-                <h3>Quality Rentals</h3>
-                <p>Comfortable and affordable homes for families and professionals.</p>
-            </div>
-            <div class="feature-box">
-                <div>📝</div>
-                <h3>Easy Applications</h3>
-                <p>Submit your rental applications online quickly and securely.</p>
-            </div>
-            <div class="feature-box">
-                <div>📞</div>
-                <h3>Support</h3>
-                <p>We’re here to answer your questions and help you every step of the way.</p>
-            </div>
-        </div>
-    </div>
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
 
-    <!-- Footer -->
-    <footer>
-        <div>© 2025 Newfound Living</div>
-        <div>Follow us: 
-            <a href="#"><img src="Logos/tinylogo.png" alt="Facebook">Facebook</a>
-        </div>
-    </footer>
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  padding-left: 0;
+  margin: 0;
+}
 
-</body>
-</html>
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+.nav-links li a:hover {
+  background: #293652;
+}
+
+/* Container styles */
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+.rental-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+/* Features Section */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.feature-box {
+  background: #f4f7fa;
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+  width: 220px;
+  margin-bottom: 1rem;
+}
+
+.feature-box div {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-box h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  color: #1d2636;
+}
+
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+input, textarea, select {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.7em;
+  border: 1px solid #d5d7db;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  resize: vertical;
+}
+
+textarea {
+  min-height: 80px;
+}
+
+button, .btn-submit {
+  background: #1d2636;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.7em 2em;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: background 0.2s;
+}
+
+button:hover, .btn-submit:hover {
+  background: #293652;
+}
+
+fieldset {
+  border: none;
+  margin-bottom: 1.5em;
+  background: #f4f7fa;
+  border-radius: 0.75em;
+  padding: 1em 1em;
+}
+
+.form-section h2 {
+  margin-top: 0;
+  color: #293652;
+}
+
+.form-actions {
+  text-align: center;
+}
+
+/* Thank you message */
+#thank-you {
+  display: none;
+  margin-top: 1rem;
+  color: #1d2636;
+  background: #dff4e2;
+  padding: 1em;
+  border-radius: 0.5em;
+  font-weight: 500;
+}
+
+/* Footer styles */
+footer {
+  background: #1d2636;
+  color: #fff;
+  text-align: center;
+  padding: 2em 1em;
+  margin-top: 3em;
+}
+
+footer .email-link,
+footer .social-link,
+footer .privacy {
+  margin: 0.8em 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+footer img {
+  height: 22px;
+  vertical-align: middle;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+footer a:hover {
+  color: #b3cfff;
+}
+
+footer .privacy {
+  font-size: 0.9em;
+  opacity: 0.85;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav-container {
+    flex-direction: column;
+    gap: 1em;
+  }
+}
+
+@media (max-width: 600px) {
+  .container,
+  .rental-container {
+    padding: 0.5em;
+  }
+  .feature-box {
+    width: 98%;
+  }
+}
