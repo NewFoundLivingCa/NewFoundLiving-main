@@ -60,19 +60,6 @@
       box-shadow: 0 2px 20px rgba(0,0,0,0.19);
       text-align: center;
     }
-    @media (max-width: 1200px) {
-      .container,
-      .rental-container {
-        max-width: 98vw;
-        padding: 1.2rem 0.5vw;
-      }
-    }
-    @media (max-width: 700px) {
-      .container,
-      .rental-container {
-        padding: 0.7em 0.2em;
-      }
-    }
     img.logo {
       max-width: 240px;
       display: block;
@@ -131,37 +118,108 @@
       color: #F7F7F7;
       box-shadow: 0 4px 18px rgba(33,112,106,0.22);
     }
+
+    /* Modern, defined section boxes */
     fieldset.form-section {
-      margin-bottom: 2em;
-      padding: 2em 1.5em 1em 1.5em;
-      background: transparent;
-      border-radius: 1.2em;
-      box-shadow: none;
-      border: none;
+      margin-bottom: 3em;
+      padding: 2.2em 2em 1.2em 2em;
+      background: rgba(255,255,255,0.04);
+      border-radius: 1.3em;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.16);
+      transition: box-shadow 0.2s;
+    }
+    fieldset.form-section:not(:last-child) {
+      box-shadow: 0 6px 28px rgba(0,0,0,0.13);
     }
     .form-section h2 {
       margin-top: 0;
       margin-bottom: 1em;
-      font-size: 1.35em;
+      font-size: 1.44em;
       color: #F7F7F7;
-      letter-spacing: 0.03em;
-    }
-    .radio-group {
-      justify-content: flex-start;
-    }
-    .btn-submit {
-      min-width: 180px;
-      font-size: 1.13em;
+      letter-spacing: 0.04em;
     }
     .rental-container label {
       text-align: left;
       margin-left: 3px;
-      margin-bottom: 0.2em;
+      margin-bottom: 0.4em;
       font-weight: 500;
       color: #F7F7F7;
       letter-spacing: 0.01em;
       display: block;
     }
+
+    /* Modern Toggle for Pets Section */
+    .modern-toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 1.5em;
+      margin-bottom: 1.2em;
+      justify-content: flex-start;
+    }
+    .modern-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      cursor: pointer;
+      font-size: 1.09em;
+      font-weight: 500;
+      color: #F7F7F7;
+      position: relative;
+      padding: 0.2em 0.7em;
+      border-radius: 1.5em;
+      background: rgba(255,255,255,0.10);
+      transition: background 0.18s, color 0.18s;
+      border: 1px solid #21706A;
+    }
+    .modern-toggle input[type="radio"] {
+      appearance: none;
+      width: 1.5em;
+      height: 1.5em;
+      border: 2px solid #21706A;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.13);
+      margin-right: 0.5em;
+      transition: background 0.18s, border-color 0.18s;
+      cursor: pointer;
+      vertical-align: middle;
+      position: relative;
+    }
+    .modern-toggle input[type="radio"]:checked {
+      background: #21706A;
+      border-color: #21706A;
+    }
+    .modern-toggle input[type="radio"]:checked:after {
+      content: "";
+      display: block;
+      width: 0.6em;
+      height: 0.6em;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 0.45em;
+      left: 0.45em;
+    }
+    .modern-toggle input[type="radio"]:focus {
+      outline: 2px solid #2B7A74;
+      outline-offset: 2px;
+    }
+    .modern-toggle input[type="radio"]:active {
+      box-shadow: 0 0 0 2px #2B7A74;
+    }
+    .modern-toggle input[type="radio"]:hover {
+      border-color: #2B7A74;
+    }
+    .modern-toggle input[type="radio"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .modern-toggle input[type="radio"] {
+      margin-left: 0;
+      margin-right: 0.5em;
+    }
+
+    /* Footer styles unchanged */
     footer {
       background: rgba(0,0,0,0.60);
       color: #fff;
@@ -207,6 +265,9 @@
         min-width: 120px;
         font-size: 1.03em;
         padding: 0.7em;
+      }
+      .modern-toggle-group {
+        gap: 0.8em;
       }
       footer .email-link,
       footer .social-link,
@@ -292,9 +353,9 @@
       <fieldset class="form-section">
         <h2>Pets</h2>
         <label>Do you have pets?</label>
-        <div class="radio-group">
-          <label><input type="radio" name="pets" value="Yes" required /> Yes</label>
-          <label><input type="radio" name="pets" value="No" required /> No</label>
+        <div class="modern-toggle-group">
+          <label class="modern-toggle"><input type="radio" name="pets" value="Yes" required />Yes</label>
+          <label class="modern-toggle"><input type="radio" name="pets" value="No" required />No</label>
         </div>
 
         <label for="pet-type">Type(s) of pet(s)</label>
