@@ -20,13 +20,6 @@
       align-items: center;
       gap: 0.4em;
     }
-    .site-title {
-      font-size: 2em;
-      font-weight: bold;
-      color: #fff;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.1em;
-    }
     .nav-links {
       display: flex;
       gap: 2em;
@@ -54,9 +47,6 @@
       .nav-links {
         gap: 0.8em;
       }
-      .site-title {
-        font-size: 1.4em;
-      }
     }
 
     .container,
@@ -64,7 +54,7 @@
       max-width: 980px;
       margin: 2.5rem auto;
       padding: 2.5rem 2.5rem;
-      background: rgba(0,0,0,0.82); /* LESS transparent */
+      background: rgba(0,0,0,0.82);
       color: #fff;
       border-radius: 1.2rem;
       box-shadow: 0 2px 20px rgba(0,0,0,0.19);
@@ -86,13 +76,13 @@
     img.logo {
       max-width: 240px;
       display: block;
-      margin: 0 auto 1rem auto;
+      margin: 0 auto 1.5rem auto;
       background: none;
     }
     @media (max-width: 500px) {
       img.logo {
         max-width: 150px;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.7rem;
       }
     }
     form {
@@ -103,8 +93,8 @@
     }
     input, textarea, select {
       width: 100%;
-      max-width: 700px; /* Wider fields */
-      min-width: 380px; /* Wider minimum */
+      max-width: 700px;
+      min-width: 380px;
       padding: 1.1em;
       border-radius: 10px;
       border: 1px solid #444;
@@ -235,10 +225,9 @@
   </style>
 </head>
 <body>
-  <!-- Minimal Centered Navbar -->
+  <!-- Minimal Centered Navbar (no site title, no logo in nav) -->
   <nav class="navbar-minimal">
     <div class="nav-center">
-      <span class="site-title">Newfound Living</span>
       <ul class="nav-links">
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li><a href="rental-application.html" class="nav-link active">Application</a></li>
@@ -247,6 +236,7 @@
   </nav>
 
   <div class="container rental-container">
+    <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
     <h1>Rental Application</h1>
     <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data">
 
