@@ -8,156 +8,59 @@
   <link rel="stylesheet" href="styles.css" />
 
   <style>
-    /* FLOATING MODERN NAVBAR */
-    .navbar-modern {
-      width: auto;
-      max-width: 1100px;
-      margin: 1.2rem auto 0 auto;
-      background: rgba(25, 25, 25, 0.65);
-      border-radius: 1.5em;
-      box-shadow: 0 3px 24px rgba(0,0,0,0.16);
-      position: relative;
-      z-index: 100;
-      padding: 0.6em 1.6em;
-      backdrop-filter: blur(8px);
+    /* Minimal, Centered Top Bar Nav */
+    .navbar-minimal {
+      width: 100%;
+      background: rgba(0,0,0,0.60);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      padding: 0.6em 0;
+      margin-bottom: 1.5em;
+    }
+    .nav-center {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      gap: 0.4em;
     }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.7em;
-      text-decoration: none;
-      margin-right: 1.1em;
-    }
-    .nav-logo img {
-      height: 34px;
-      width: auto;
-      display: block;
-    }
-    .nav-brand-name {
-      color: #fff;
+    .site-title {
+      font-size: 2em;
       font-weight: bold;
-      font-size: 1.17em;
-      letter-spacing: 0.03em;
+      color: #fff;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.1em;
     }
-    .nav-links-modern {
+    .nav-links {
       display: flex;
-      gap: 1em;
+      gap: 2em;
       list-style: none;
-      margin: 0;
       padding: 0;
-      align-items: center;
+      margin: 0;
     }
     .nav-link {
       color: #fff;
+      font-size: 1.09em;
+      padding: 0.5em 1.2em;
+      border-radius: 2em;
       text-decoration: none;
-      font-weight: 500;
-      font-size: 1em;
-      padding: 0.44em 1em;
-      border-radius: 6px;
+      background: rgba(255,255,255,0.10);
       transition: background 0.2s, color 0.2s;
-      text-align: center;
-      background: rgba(255,255,255,0.08);
+      font-weight: 500;
+      display: inline-block;
     }
-    .nav-link:hover,
-    .nav-link:focus {
-      background: #2B7A74;
-      color: #F7F7F7;
-    }
-    .nav-link.active {
+    .nav-link.active,
+    .nav-link:hover {
       background: #256D67;
       color: #F7F7F7;
-      box-shadow: 0 2px 12px rgba(33,112,106,0.09);
     }
-    .nav-toggle {
-      display: none;
-    }
-    .nav-toggle-label {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 6px;
-      padding: 0.5em;
-    }
-    .nav-toggle-label span {
-      display: block;
-      height: 3px;
-      width: 28px;
-      background: #fff;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-    @media (max-width: 900px) {
-      .navbar-modern {
-        max-width: 98vw;
-        padding: 0.5em 0.3em;
+    @media (max-width: 600px) {
+      .nav-links {
+        gap: 0.8em;
       }
-    }
-    @media (max-width: 760px) {
-      .navbar-modern {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        padding: 0.3em 0.3em;
-        border-radius: 0.9em;
-      }
-      .nav-logo {
-        justify-content: center;
-        margin-bottom: 0.4em;
-      }
-      .nav-links-modern {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(25,25,25,0.90);
-        flex-direction: column;
-        gap: 0;
-        box-shadow: 0 12px 20px rgba(33,112,106,0.12);
-        display: none;
-        z-index: 101;
-        align-items: center;
-        border-radius: 0 0 1em 1em;
-        backdrop-filter: blur(7px);
-      }
-      .nav-links-modern li {
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-        width: 100%;
-        text-align: center;
-      }
-      .nav-link {
-        width: 100%;
-        display: block;
-        text-align: center;
-        padding: 1em 1.5em;
-        font-size: 1.08em;
-        background: transparent;
-      }
-      .nav-toggle {
-        display: block;
-        position: absolute;
-        right: 1em;
-        top: 1.2em;
-        height: 32px;
-        width: 32px;
-        opacity: 0;
-        z-index: 110;
-      }
-      .nav-toggle-label {
-        display: flex;
-        position: absolute;
-        right: 1em;
-        top: 1em;
-        z-index: 111;
-      }
-      .nav-toggle:checked ~ .nav-links-modern {
-        display: flex;
+      .site-title {
+        font-size: 1.4em;
       }
     }
 
-    /* Main container with transparent black background */
     .container {
       max-width: 980px;
       margin: 2.5rem auto;
@@ -191,7 +94,6 @@
         margin-bottom: 0.5rem;
       }
     }
-    /* Form styles */
     form {
       display: flex;
       flex-direction: column;
@@ -251,7 +153,6 @@
       margin-left: auto;
       margin-right: auto;
     }
-    /* Feature boxes */
     .features {
       display: flex;
       justify-content: center;
@@ -293,7 +194,6 @@
         max-width: 400px;
       }
     }
-    /* Transparent Footer (no blur) */
     footer {
       background: rgba(0,0,0,0.60);
       color: #fff;
@@ -351,26 +251,18 @@
   </style>
 </head>
 <body>
-  <!-- Modern Floating Navbar with Hamburger -->
-  <nav class="navbar-modern">
-    <a href="index.html" class="nav-logo">
-      <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" />
-      <span class="nav-brand-name">Newfound Living</span>
-    </a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-    <label for="nav-toggle" class="nav-toggle-label">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
-    <ul class="nav-links-modern">
-      <li><a href="index.html" class="nav-link active">Home</a></li>
-      <li><a href="rental-application.html" class="nav-link">Application</a></li>
-    </ul>
+  <!-- Minimal Centered Navbar -->
+  <nav class="navbar-minimal">
+    <div class="nav-center">
+      <span class="site-title">Newfound Living</span>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="rental-application.html" class="nav-link">Application</a></li>
+      </ul>
+    </div>
   </nav>
 
   <div class="container">
-    <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
     <h1>Welcome to Newfound Living</h1>
     <h2>All our rental units are currently filled. Leave your email to get updates when a property becomes available.</h2>
 
@@ -388,7 +280,6 @@
     </div>
   </div>
 
-  <!-- Branded Transparent Footer -->
   <footer>
     <div>Locally owned and operated in St. John's & surrounding areas</div>
     <div class="email-link">
