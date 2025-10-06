@@ -7,18 +7,16 @@
   <link rel="icon" href="Logos/tinylogo1.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* FLOATING MODERN NAVBAR */
     .navbar-modern {
       width: auto;
       max-width: 1100px;
       margin: 1.2rem auto 0 auto;
-      background: rgba(25, 25, 25, 0.65);
+      background: rgba(0, 0, 0, 0.60);
       border-radius: 1.5em;
       box-shadow: 0 3px 24px rgba(0,0,0,0.16);
       position: relative;
       z-index: 100;
       padding: 0.6em 1.6em;
-      backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -111,7 +109,7 @@
         top: 100%;
         left: 0;
         right: 0;
-        background: rgba(25,25,25,0.90);
+        background: rgba(0,0,0,0.90);
         flex-direction: column;
         gap: 0;
         box-shadow: 0 12px 20px rgba(33,112,106,0.12);
@@ -119,7 +117,6 @@
         z-index: 101;
         align-items: center;
         border-radius: 0 0 1em 1em;
-        backdrop-filter: blur(7px);
       }
       .nav-links-modern li {
         border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -155,47 +152,89 @@
         display: flex;
       }
     }
-
-    /* Container styles - wider and visually pleasing */
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      color: #fff;
-      background: url('Logos/city.png') no-repeat center center fixed;
-      background-size: cover;
-      background-color: #111;
-    }
+    /* Main container with transparent black background */
     .container,
     .rental-container {
       max-width: 980px;
       margin: 2.5rem auto;
       padding: 2.5rem 2.5rem;
-      background: rgba(0,0,0,0.60);
+      background: rgba(0,0,0,0.62);
       color: #fff;
       border-radius: 1.2rem;
       box-shadow: 0 2px 20px rgba(0,0,0,0.19);
       text-align: center;
     }
-    .rental-container input,
-    .rental-container select,
-    .rental-container textarea {
+    @media (max-width: 1200px) {
+      .container,
+      .rental-container {
+        max-width: 98vw;
+        padding: 1.2rem 0.5vw;
+      }
+    }
+    @media (max-width: 700px) {
+      .container,
+      .rental-container {
+        padding: 0.7em 0.2em;
+      }
+    }
+    img.logo {
+      max-width: 240px;
+      display: block;
+      margin: 0 auto 1rem auto;
+      background: none;
+    }
+    @media (max-width: 500px) {
+      img.logo {
+        max-width: 150px;
+        margin-bottom: 0.5rem;
+      }
+    }
+    /* Form styles */
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    input, textarea, select {
       width: 100%;
       max-width: 540px;
       min-width: 260px;
-      margin: 0 auto 1.3em auto;
       padding: 0.9em;
       border-radius: 7px;
       border: 1px solid #444;
       background: rgba(255,255,255,0.13);
       color: #fff;
       font-size: 1.08em;
+      margin-bottom: 0.5em;
       box-sizing: border-box;
       transition: border-color 0.2s;
+      resize: vertical;
       display: block;
     }
-    .rental-container textarea {
-      min-height: 100px;
+    textarea {
+      min-height: 90px;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: #F7F7F7;
+    }
+    button, .btn-submit {
+      background: #21706A;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.8em 2.2em;
+      font-size: 1.11em;
+      cursor: pointer;
+      box-shadow: 0 2px 14px rgba(33,112,106,0.13);
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      margin-top: 0.5em;
+    }
+    button:hover, .btn-submit:hover {
+      background: #2B7A74;
+      color: #F7F7F7;
+      box-shadow: 0 4px 18px rgba(33,112,106,0.22);
     }
     fieldset.form-section {
       margin-bottom: 2em;
@@ -204,42 +243,6 @@
       border-radius: 1.2em;
       box-shadow: 0 2px 12px rgba(0,0,0,0.14);
       border: none;
-    }
-    @media (max-width: 1200px) {
-      .container,
-      .rental-container {
-        max-width: 98vw;
-        padding: 1.2rem 0.5vw;
-      }
-      fieldset.form-section {
-        padding: 1.2em 2vw 1em 2vw;
-      }
-    }
-    @media (max-width: 700px) {
-      .container,
-      .rental-container {
-        padding: 0.7em 0.2em;
-      }
-      .rental-container input,
-      .rental-container select,
-      .rental-container textarea {
-        max-width: 98vw;
-        min-width: 150px;
-        font-size: 1em;
-        padding: 0.7em;
-      }
-      fieldset.form-section {
-        padding: 1em 0.2em 0.7em 0.2em;
-      }
-    }
-    .rental-container label {
-      text-align: left;
-      margin-left: 3px;
-      margin-bottom: 0.2em;
-      font-weight: 500;
-      color: #F7F7F7;
-      letter-spacing: 0.01em;
-      display: block;
     }
     .form-section h2 {
       margin-top: 0;
@@ -255,10 +258,18 @@
       min-width: 180px;
       font-size: 1.13em;
     }
-
-    /* Transparent Footer */
+    .rental-container label {
+      text-align: left;
+      margin-left: 3px;
+      margin-bottom: 0.2em;
+      font-weight: 500;
+      color: #F7F7F7;
+      letter-spacing: 0.01em;
+      display: block;
+    }
+    /* Transparent Footer (no blur) */
     footer {
-      background: rgba(0,0,0,0.65);
+      background: rgba(0,0,0,0.60);
       color: #fff;
       text-align: center;
       padding: 2em 1em;
@@ -266,7 +277,6 @@
       border-radius: 1.2em;
       max-width: 980px;
       box-shadow: 0 1px 12px rgba(0,0,0,0.13);
-      backdrop-filter: blur(6px);
     }
     footer .email-link,
     footer .social-link,
