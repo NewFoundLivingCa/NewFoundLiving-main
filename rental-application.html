@@ -119,18 +119,18 @@
       box-shadow: 0 4px 18px rgba(33,112,106,0.22);
     }
 
-    /* Modern, defined section boxes */
+    /* More defined section boxes, all large and consistent */
     fieldset.form-section {
       margin-bottom: 3em;
-      padding: 2.2em 2em 1.2em 2em;
-      background: rgba(255,255,255,0.04);
-      border-radius: 1.3em;
-      border: 1.5px solid rgba(255,255,255,0.18);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.16);
-      transition: box-shadow 0.2s;
-    }
-    fieldset.form-section:not(:last-child) {
-      box-shadow: 0 6px 28px rgba(0,0,0,0.13);
+      padding: 2.5em 3em 2em 3em;
+      background: rgba(255,255,255,0.055);
+      border-radius: 1.5em;
+      border: 2px solid rgba(255,255,255,0.23);
+      box-shadow: 0 6px 28px rgba(0,0,0,0.14);
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: box-shadow 0.2s, border-color 0.2s;
     }
     .form-section h2 {
       margin-top: 0;
@@ -149,74 +149,88 @@
       display: block;
     }
 
-    /* Modern Toggle for Pets Section */
-    .modern-toggle-group {
+    /* Modern Pet Checkbox Group */
+    .pet-checkbox-group {
       display: flex;
       align-items: center;
-      gap: 1.5em;
+      gap: 2.5em;
       margin-bottom: 1.2em;
       justify-content: flex-start;
     }
-    .modern-toggle {
+    .pet-checkbox {
       display: flex;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.6em;
       cursor: pointer;
-      font-size: 1.09em;
+      font-size: 1.14em;
       font-weight: 500;
-      color: #F7F7F7;
       position: relative;
-      padding: 0.2em 0.7em;
-      border-radius: 1.5em;
-      background: rgba(255,255,255,0.10);
-      transition: background 0.18s, color 0.18s;
-      border: 1px solid #21706A;
+      padding: 0.35em 1.1em;
+      border-radius: 1.8em;
+      background: rgba(255,255,255,0.09);
+      transition: background 0.18s, color 0.18s, border 0.18s;
+      border: 2px solid transparent;
     }
-    .modern-toggle input[type="radio"] {
+    .pet-checkbox input[type="radio"] {
       appearance: none;
-      width: 1.5em;
-      height: 1.5em;
-      border: 2px solid #21706A;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.13);
-      margin-right: 0.5em;
-      transition: background 0.18s, border-color 0.18s;
-      cursor: pointer;
-      vertical-align: middle;
-      position: relative;
-    }
-    .modern-toggle input[type="radio"]:checked {
-      background: #21706A;
-      border-color: #21706A;
-    }
-    .modern-toggle input[type="radio"]:checked:after {
-      content: "";
-      display: block;
-      width: 0.6em;
-      height: 0.6em;
+      width: 1.7em;
+      height: 1.7em;
+      border: 2.5px solid #bbb;
+      border-radius: 0.4em;
       background: #fff;
-      border-radius: 50%;
-      position: absolute;
-      top: 0.45em;
-      left: 0.45em;
+      margin: 0;
+      transition: border-color 0.18s, background 0.18s;
+      cursor: pointer;
+      position: relative;
+      vertical-align: middle;
+      outline: none;
     }
-    .modern-toggle input[type="radio"]:focus {
-      outline: 2px solid #2B7A74;
-      outline-offset: 2px;
+    .pet-checkbox input[type="radio"]:checked {
+      border-color: transparent;
+      background: #fff;
     }
-    .modern-toggle input[type="radio"]:active {
-      box-shadow: 0 0 0 2px #2B7A74;
+    .pet-checkbox input[type="radio"]:checked + .check-icon {
+      display: inline-block;
     }
-    .modern-toggle input[type="radio"]:hover {
-      border-color: #2B7A74;
+    .pet-checkbox input[type="radio"]:checked + .x-icon {
+      display: inline-block;
     }
-    .modern-toggle input[type="radio"]:disabled {
+    .pet-checkbox input[type="radio"]:not(:checked) + .check-icon,
+    .pet-checkbox input[type="radio"]:not(:checked) + .x-icon {
+      display: none;
+    }
+    .pet-checkbox input[type="radio"]:focus {
+      box-shadow: 0 0 0 3px #2B7A74;
+    }
+    .pet-checkbox input[type="radio"]:active {
+      box-shadow: 0 0 0 4px #256D67;
+    }
+    .pet-checkbox input[type="radio"]:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
-    .modern-toggle input[type="radio"] {
-      margin-left: 0;
-      margin-right: 0.5em;
+    /* Icon styles */
+    .check-icon {
+      display: none;
+      color: #23d160;
+      font-size: 1.6em;
+      margin-left: -1.6em;
+      margin-right: 0.3em;
+    }
+    .x-icon {
+      display: none;
+      color: #e74c3c;
+      font-size: 1.6em;
+      margin-left: -1.6em;
+      margin-right: 0.3em;
+    }
+    .pet-checkbox input[type="radio"]:checked + .check-icon {
+      color: #23d160;
+      font-size: 1.6em;
+    }
+    .pet-checkbox input[type="radio"]:checked + .x-icon {
+      color: #e74c3c;
+      font-size: 1.6em;
     }
 
     /* Footer styles unchanged */
@@ -266,8 +280,12 @@
         font-size: 1.03em;
         padding: 0.7em;
       }
-      .modern-toggle-group {
-        gap: 0.8em;
+      fieldset.form-section {
+        padding: 1.1em 0.3em;
+        max-width: 99vw;
+      }
+      .pet-checkbox-group {
+        gap: 1em;
       }
       footer .email-link,
       footer .social-link,
@@ -353,9 +371,17 @@
       <fieldset class="form-section">
         <h2>Pets</h2>
         <label>Do you have pets?</label>
-        <div class="modern-toggle-group">
-          <label class="modern-toggle"><input type="radio" name="pets" value="Yes" required />Yes</label>
-          <label class="modern-toggle"><input type="radio" name="pets" value="No" required />No</label>
+        <div class="pet-checkbox-group">
+          <label class="pet-checkbox">
+            <input type="radio" name="pets" value="Yes" required />
+            <span class="check-icon">&#10003;</span>
+            <span>Yes</span>
+          </label>
+          <label class="pet-checkbox">
+            <input type="radio" name="pets" value="No" required />
+            <span class="x-icon">&#10007;</span>
+            <span>No</span>
+          </label>
         </div>
 
         <label for="pet-type">Type(s) of pet(s)</label>
