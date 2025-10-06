@@ -14,6 +14,13 @@ img.logo {
   margin: 0 auto 1rem auto;
 }
 
+@media (max-width: 500px) {
+  img.logo {
+    max-width: 150px;
+    margin-bottom: 0.5rem;
+  }
+}
+
 /* Navbar styles */
 .navbar {
   background: #1d2636;
@@ -51,17 +58,46 @@ img.logo {
   background: #293652;
 }
 
+@media (max-width: 700px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: center;
+  }
+  .nav-links li a {
+    width: 100vw;
+    display: block;
+    text-align: center;
+    padding: 1em 0;
+    font-size: 1.1em;
+  }
+}
+
 /* Container styles */
 .container,
 .rental-container {
   max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
-  background: rgba(0,0,0,0.60); /* semi-transparent black */
+  background: rgba(0,0,0,0.60);
   color: #fff;
   border-radius: 1rem;
   box-shadow: 0 2px 20px rgba(0,0,0,0.12);
   text-align: center;
+}
+
+@media (max-width: 600px) {
+  .container,
+  .rental-container {
+    max-width: 98vw;
+    padding: 1em 2vw;
+    margin: 1em auto;
+    font-size: 1em;
+  }
 }
 
 /* Features Section */
@@ -95,6 +131,18 @@ img.logo {
   color: #b3cfff;
 }
 
+@media (max-width: 900px) {
+  .features {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .feature-box {
+    width: 98vw;
+    max-width: 400px;
+  }
+}
+
 /* Form styles */
 form {
   display: flex;
@@ -113,7 +161,7 @@ input, textarea, select {
   font-size: 1rem;
   margin-bottom: 0.5rem;
   resize: vertical;
-  background: rgba(255,255,255,0.12); /* slightly white for contrast */
+  background: rgba(255,255,255,0.12);
   color: #fff;
 }
 
@@ -209,24 +257,40 @@ footer .privacy {
   opacity: 0.85;
 }
 
-/* Responsive Design */
-@media (max-width: 900px) {
-  .features {
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 700px) {
+  footer {
+    font-size: 0.95em;
+    padding: 1em 0.2em;
   }
-  .nav-container {
+  footer .email-link,
+  footer .social-link,
+  footer .privacy {
     flex-direction: column;
-    gap: 1em;
+    gap: 0.2em;
+    font-size: 1em;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
   .container,
   .rental-container {
-    padding: 0.5em;
+    padding: 0.2em;
+    font-size: 0.95em;
   }
   .feature-box {
-    width: 98%;
+    padding: 1em 0.5em;
+    font-size: 0.95em;
+  }
+  form {
+    gap: 0.5em;
+    font-size: 0.95em;
+  }
+  input, textarea, select {
+    font-size: 0.95em;
+    padding: 0.4em;
+  }
+  button, .btn-submit {
+    font-size: 1em;
+    padding: 0.5em 1em;
   }
 }
