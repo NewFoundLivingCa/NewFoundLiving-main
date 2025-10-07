@@ -168,6 +168,17 @@ input::placeholder,
 textarea::placeholder {
   color: #F7F7F7;
 }
+select {
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 7px;
+  padding: 1em;
+}
+option {
+  background: #222;
+  color: #fff;
+}
 button, .btn-submit, .custom-file-upload {
   background: #21706A;
   color: #fff;
