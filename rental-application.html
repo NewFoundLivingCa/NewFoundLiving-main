@@ -71,6 +71,18 @@
       box-shadow: 0 2px 20px rgba(0,0,0,0.19);
       text-align: center;
     }
+    @media (max-width: 700px) {
+      .container,
+      .rental-container {
+        padding: 1.1em 2vw;
+      }
+    }
+    @media (max-width: 400px) {
+      .container,
+      .rental-container {
+        padding: 0.3em 0.7em;
+      }
+    }
     img.logo {
       max-width: 240px;
       display: block;
@@ -89,6 +101,7 @@
       align-items: center;
       gap: 1rem;
     }
+    /* All fieldsets the same size and style */
     fieldset.form-section {
       margin-bottom: 3em;
       padding: 2.5em 2em 2em 2em;
@@ -103,6 +116,17 @@
       transition: box-shadow 0.2s, border-color 0.2s;
       text-align: left;
       position: relative;
+    }
+    @media (max-width: 700px) {
+      fieldset.form-section {
+        padding: 1.1em 1vw;
+        max-width: 99vw;
+      }
+    }
+    @media (max-width: 400px) {
+      fieldset.form-section {
+        padding: 0.7em 0.7em;
+      }
     }
     .form-section h2 {
       margin-top: 0;
@@ -190,18 +214,18 @@
       display: block;
     }
 
-    /* Smaller, square pet checkboxes */
+    /* Smaller, true square pet checkboxes */
     .pet-checkbox-group {
       display: flex;
       align-items: center;
-      gap: 1em;
+      gap: 1.5em;
       margin-bottom: 1.2em;
       justify-content: flex-start;
     }
     .pet-checkbox {
       display: flex;
       align-items: center;
-      gap: 0.2em;
+      gap: 0.3em;
       cursor: pointer;
       font-size: 1em;
       font-weight: 500;
@@ -209,56 +233,51 @@
       user-select: none;
     }
     .pet-checkbox input[type="checkbox"] {
-      appearance: none;
-      width: 18px;
-      height: 18px;
+      display: none;
+    }
+    .check-square {
+      width: 22px;
+      height: 22px;
       border: 2px solid #bbb;
       border-radius: 4px;
       background: #fff;
-      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: border-color 0.18s, background 0.18s;
-      cursor: pointer;
       position: relative;
-      vertical-align: middle;
-      outline: none;
-      display: inline-block;
+      margin-right: 0.1em;
     }
-    /* Green check for Yes, red X for No */
-    .pet-checkbox input[type="checkbox"]:checked.yes {
-      border-color: #23d160;
+    .pet-checkbox input[type="checkbox"]:checked + .check-square.yes {
       background: #23d160;
+      border-color: #23d160;
     }
-    .pet-checkbox input[type="checkbox"]:checked.no {
-      border-color: #e74c3c;
+    .pet-checkbox input[type="checkbox"]:checked + .check-square.no {
       background: #e74c3c;
+      border-color: #e74c3c;
     }
-    .pet-checkbox .check-icon,
-    .pet-checkbox .x-icon {
-      position: absolute;
-      left: 2px;
-      top: -1px;
-      font-size: 1em;
-      pointer-events: none;
-    }
-    .pet-checkbox input[type="checkbox"]:checked.yes ~ .check-icon {
-      display: inline-block;
-      color: #fff;
-    }
-    .pet-checkbox input[type="checkbox"]:checked.no ~ .x-icon {
-      display: inline-block;
-      color: #fff;
-    }
-    .pet-checkbox .check-icon,
-    .pet-checkbox .x-icon {
+    .check-icon, .x-icon {
       display: none;
+      font-size: 1em;
+      color: #fff;
     }
-    .pet-checkbox input[type="checkbox"]:focus {
+    .pet-checkbox input[type="checkbox"]:checked + .check-square.yes .check-icon {
+      display: block;
+    }
+    .pet-checkbox input[type="checkbox"]:checked + .check-square.no .x-icon {
+      display: block;
+    }
+    .pet-label {
+      margin-left: 2px;
+      margin-right: 3px;
+    }
+    .pet-checkbox input[type="checkbox"]:focus + .check-square {
       box-shadow: 0 0 0 2px #2B7A74;
     }
-    .pet-checkbox input[type="checkbox"]:active {
+    .pet-checkbox input[type="checkbox"]:active + .check-square {
       box-shadow: 0 0 0 3px #256D67;
     }
-    .pet-checkbox input[type="checkbox"]:disabled {
+    .pet-checkbox input[type="checkbox"]:disabled + .check-square {
       opacity: 0.6;
       cursor: not-allowed;
     }
@@ -299,9 +318,10 @@
       opacity: 0.85;
     }
     @media (max-width: 700px) {
-      .container,
-      .rental-container {
-        padding: 1.1em 2vw;
+      footer {
+        font-size: 0.95em;
+        padding: 1em 0.2em;
+        max-width: 99vw;
       }
       input, textarea, select, .custom-file-upload {
         max-width: 97vw;
@@ -314,11 +334,11 @@
         max-width: 99vw;
       }
       .pet-checkbox-group {
-        gap: 0.7em;
+        gap: 1em;
       }
-      .pet-checkbox input[type="checkbox"] {
-        width: 16px;
-        height: 16px;
+      .check-square {
+        width: 18px;
+        height: 18px;
       }
       footer .email-link,
       footer .social-link,
@@ -329,16 +349,16 @@
       }
     }
     @media (max-width: 400px) {
+      footer {
+        padding: 0.3em;
+        font-size: 0.95em;
+      }
       .container,
       .rental-container {
         padding: 0.3em 0.7em;
       }
       fieldset.form-section {
         padding: 0.7em 0.7em;
-      }
-      footer {
-        padding: 0.3em;
-        font-size: 0.95em;
       }
     }
   </style>
@@ -418,13 +438,17 @@
         <div class="pet-checkbox-group">
           <label class="pet-checkbox">
             <input type="checkbox" name="pets_yes" value="Yes" class="yes" />
-            <span class="check-icon">&#10003;</span>
-            <span>Yes</span>
+            <span class="check-square yes">
+              <span class="check-icon">&#10003;</span>
+            </span>
+            <span class="pet-label">Yes</span>
           </label>
           <label class="pet-checkbox">
             <input type="checkbox" name="pets_no" value="No" class="no" />
-            <span class="x-icon">&#10007;</span>
-            <span>No</span>
+            <span class="check-square no">
+              <span class="x-icon">&#10007;</span>
+            </span>
+            <span class="pet-label">No</span>
           </label>
         </div>
 
