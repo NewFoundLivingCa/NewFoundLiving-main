@@ -12,6 +12,9 @@
 <body>
   <nav class="navbar-minimal">
     <div class="nav-center">
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="hamburger"></span>
+      </button>
       <ul class="nav-links">
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li><a href="rental-application.html" class="nav-link">Application</a></li>
@@ -33,7 +36,6 @@
       <p>
         We’re not a property management company. We own every property we rent. That means tenants deal directly with the owner — no middlemen, no confusion, and no delays. When you rent with Newfound Living, you’re renting from someone who cares about the home and the people living in it.
       </p>
-
       <h2>Our Story</h2>
       <p>
         What began as a small renovation project grew into a genuine passion for real estate and building long-term value through responsible ownership. Over time, Newfound Living has expanded to include several rental homes across St. John’s, Mount Pearl, and nearby communities.
@@ -44,7 +46,6 @@
       <p>
         Our approach is simple: take care of the homes, take care of the people, and everything else tends to fall into place.
       </p>
-
       <h2>Our Mission</h2>
       <p>
         Our mission is to provide tenants with modern, affordable, and well-maintained homes while reinvesting in our community through thoughtful improvements and local ownership.
@@ -52,7 +53,6 @@
       <p>
         We believe renting should be straightforward and positive — built on respect, communication, and fairness. Every decision we make, from upgrades to lease terms, reflects that belief.
       </p>
-
       <h2>Our Values</h2>
       <ul class="about-values">
         <li><strong>Quality:</strong> We take pride in offering clean, updated homes that are properly cared for.</li>
@@ -61,7 +61,6 @@
         <li><strong>Community:</strong> We live here, we invest here, and we care about keeping neighborhoods strong.</li>
         <li><strong>Growth:</strong> As we expand, our focus stays on quality over quantity — making sure every tenant feels valued.</li>
       </ul>
-
       <h2>What We Offer</h2>
       <ul class="about-offer">
         <li>Clean, updated rental homes in great neighborhoods</li>
@@ -71,7 +70,6 @@
         <li>Flexible options for families, professionals, and students</li>
         <li>Ongoing maintenance and upgrades to keep homes comfortable and efficient</li>
       </ul>
-
       <h2>Why Choose Newfound Living</h2>
       <p>
         Because we treat tenants like neighbors, not numbers.
@@ -94,5 +92,20 @@
     </div>
     <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
+  <script>
+    // Hamburger menu toggle
+    document.querySelectorAll('.nav-toggle').forEach(function(toggle) {
+      toggle.onclick = function() {
+        var navLinks = this.parentElement.querySelector('.nav-links');
+        navLinks.classList.toggle('open');
+      };
+    });
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+      link.onclick = function() {
+        var navLinks = link.closest('.nav-links');
+        if (navLinks.classList.contains('open')) navLinks.classList.remove('open');
+      };
+    });
+  </script>
 </body>
 </html>
