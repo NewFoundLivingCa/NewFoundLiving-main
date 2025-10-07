@@ -1,88 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Newfound Living - Rental Properties in St. John's</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>NewFound Living - Rentals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .navbar {
+      background: #009688;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6em 2em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .navbar .brand {
+      font-size: 1.5em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .navbar nav a {
+      margin: 0 1em;
+      font-size: 1em;
+      opacity: .95;
+      transition: opacity .2s;
+    }
+    .navbar nav a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    .main-header {
+      text-align: center;
+      padding: 3em 1em 1em 1em;
+      background: linear-gradient(90deg, #009688 40%, #26a69a 100%);
+      color: #fff;
+    }
+    .main-header h1 {
+      font-size: 2.6em;
+      margin-bottom: .2em;
+      letter-spacing: 2px;
+    }
+    .main-header p {
+      font-size: 1.2em;
+      margin-bottom: .5em;
+      opacity: .88;
+    }
+    .rental-listing {
+      max-width: 950px;
+      margin: 2em auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      padding: 2em;
+    }
+    .rental-listing h2 {
+      font-size: 2em;
+      margin-bottom: .2em;
+    }
+    .listing-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      margin-bottom: 2em;
+      justify-content: center;
+    }
+    .listing-gallery img {
+      width: 180px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+      background: #eee;
+      border: 1px solid #e0e0e0;
+    }
+    .listing-gallery img:hover {
+      transform: scale(1.05);
+      z-index: 2;
+    }
+    .listing-details ul {
+      columns: 2;
+      font-size: 1.08em;
+      margin: 1em 0;
+      padding-left: 1em;
+    }
+    .listing-details ul li {
+      margin-bottom: .4em;
+    }
+    .listing-details p {
+      font-size: 1.1em;
+      margin: .5em 0;
+    }
+    .listing-details button {
+      padding: 0.7em 1.5em;
+      background: #009688;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 1em;
+      transition: background .2s;
+    }
+    .listing-details button:hover {
+      background: #00796b;
+    }
+    .modal {
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.8);
+      display: flex; align-items: center; justify-content: center;
+      animation: fadeIn .2s;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-content {
+      max-width: 80vw; max-height: 80vh; border-radius: 10px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.24);
+      border: 3px solid #fff;
+      background: #fff;
+    }
+    .close {
+      position: absolute; top: 2vw; right: 4vw; font-size: 2.5em; color: #fff; cursor: pointer;
+      font-weight: bold;
+      z-index: 10003;
+    }
+    @media (max-width: 640px) {
+      .listing-gallery img { width: 100px; height: 70px; }
+      .rental-listing { padding: 1em; }
+      .listing-details ul { columns: 1; }
+      .navbar { flex-direction: column; padding: 1em .3em; }
+      .main-header { padding: 2em .5em .5em .5em; }
+    }
+    footer {
+      background: #009688;
+      color: #fff;
+      text-align: center;
+      padding: 2em 1em 1em 1em;
+      margin-top: 3em;
+      border-radius: 12px 12px 0 0;
+      font-size: 1.1em;
+    }
+    footer .footer-links a {
+      color: #fff;
+      margin: 0 1em;
+      opacity: .85;
+      transition: opacity .2s;
+    }
+    footer .footer-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    footer small {
+      margin-top: 1em;
+      display: block;
+      opacity: .8;
+    }
+  </style>
 </head>
 <body>
-  <nav class="navbar-minimal">
-    <div class="nav-center">
-      <button class="nav-toggle" aria-label="Toggle navigation">
-        <span class="hamburger"></span>
-      </button>
-      <ul class="nav-links">
-        <li><a href="index.html" class="nav-link active">Home</a></li>
-        <li><a href="rental-application.html" class="nav-link">Application</a></li>
-        <li><a href="about.html" class="nav-link">About</a></li>
+  <div class="navbar">
+    <span class="brand">NewFound Living</span>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Rentals</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+
+  <header class="main-header">
+    <h1>Find Your Next Home in Newfoundland</h1>
+    <p>Modern rentals in family-friendly neighborhoods. Trusted local management.</p>
+  </header>
+
+  <section class="rental-listing">
+    <h2>For Rent – 16 Carlow Place (Upstairs Unit)</h2>
+    <p><strong>Available November 1st</strong></p>
+    <div class="listing-gallery">
+      <img src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main" onclick="openModal(this)">
+      <img src="16carlowmain/Half Bath.jpg" alt="Half Bath" onclick="openModal(this)">
+      <img src="16carlowmain/Kitchen 1.jpg" alt="Kitchen 1" onclick="openModal(this)">
+      <img src="16carlowmain/Kitchen 2.jpg" alt="Kitchen 2" onclick="openModal(this)">
+      <img src="16carlowmain/Kitchen 3.jpg" alt="Kitchen 3" onclick="openModal(this)">
+      <img src="16carlowmain/Living Room 1.jpg" alt="Living Room 1" onclick="openModal(this)">
+      <img src="16carlowmain/Living Room 2.jpg" alt="Living Room 2" onclick="openModal(this)">
+      <img src="16carlowmain/Main Far.jpg" alt="Main Far" onclick="openModal(this)">
+      <img src="16carlowmain/Main Outside.jpg" alt="Main Outside" onclick="openModal(this)">
+      <img src="16carlowmain/Rec Room 2.jpg" alt="Rec Room 2" onclick="openModal(this)">
+      <img src="16carlowmain/Rec Room.jpg" alt="Rec Room" onclick="openModal(this)">
+      <img src="16carlowmain/Room 1.jpg" alt="Room 1" onclick="openModal(this)">
+      <img src="16carlowmain/Room 2.jpg" alt="Room 2" onclick="openModal(this)">
+      <img src="16carlowmain/Room 3.jpg" alt="Room 3" onclick="openModal(this)">
+    </div>
+
+    <div class="listing-details">
+      <ul>
+        <li>3 Bedrooms</li>
+        <li>1.5 Bathrooms</li>
+        <li>Washer & Dryer included</li>
+        <li>Dishwasher</li>
+        <li>Fenced backyard – great for kids & pets</li>
+        <li>Parking for 2 vehicles</li>
+        <li>8x12 storage shed</li>
+        <li>Close to bus route</li>
+        <li>2 playgrounds nearby</li>
+        <li>Pet friendly</li>
+        <li>Very family friendly location</li>
+        <li>This unit will be painted and flooring updated before November 1st</li>
       </ul>
+      <p><strong>$2,100/month (P.O.U.)</strong></p>
+      <p>1/2 Month rent deposit</p>
+      <p>Month-to-Month or Year lease</p>
+      <button onclick="location.href='mailto:info@newfoundliving.ca?subject=Rental Inquiry: 16 Carlow Place'">Contact Us</button>
     </div>
-  </nav>
+  </section>
 
-  <div class="container">
-    <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
-    <h1>Welcome to Newfound Living</h1>
-    <h2>All our rental units are currently filled. Leave your email to get updates when a property becomes available.</h2>
-
-    <form id="notify-form" action="https://formspree.io/f/xldnwbqq" method="POST">
-      <input type="email" name="email" placeholder="Your email address" required />
-      <textarea name="message" placeholder="Anything you'd like us to know (optional)"></textarea>
-      <button type="submit" class="btn-submit">Get Updates</button>
-    </form>
-    <div id="thank-you" style="display:none;">Thanks for signing up! We'll be in touch soon.</div>
-
-    <div class="features">
-      <div class="feature-box"><div>🔧</div><h3>Stress-Free Renting</h3><p>Well-maintained homes with responsive service.</p></div>
-      <div class="feature-box"><div>💡</div><h3>Transparent Pricing</h3><p>Fair rates with no hidden fees.</p></div>
-      <div class="feature-box"><div>🏠</div><h3>Local Expertise</h3><p>Based in St. John's. We know the market.</p></div>
-    </div>
+  <div id="galleryModal" class="modal" style="display:none;">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
   </div>
 
   <footer>
-    <div>Locally owned and operated in St. John's & surrounding areas</div>
-    <div class="email-link">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
-      <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+    <div class="footer-links">
+      <a href="#">Home</a> |
+      <a href="#">Rentals</a> |
+      <a href="#">Contact</a>
     </div>
-    <div class="social-link">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
-      <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
+    <small>&copy; 2025 NewFound Living. All rights reserved.</small>
+    <div>
+      <span>Email: <a href="mailto:info@newfoundliving.ca">info@newfoundliving.ca</a></span> |
+      <span>Phone: <a href="tel:7095551234">(709) 555-1234</a></span>
     </div>
-    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
 
   <script>
-    // Hamburger menu toggle
-    document.querySelectorAll('.nav-toggle').forEach(function(toggle) {
-      toggle.onclick = function() {
-        var navLinks = this.parentElement.querySelector('.nav-links');
-        navLinks.classList.toggle('open');
-      };
+    function openModal(img) {
+      document.getElementById("galleryModal").style.display = "flex";
+      document.getElementById("modalImg").src = img.src;
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById("galleryModal").style.display = "none";
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
     });
-    document.querySelectorAll('.nav-link').forEach(function(link) {
-      link.onclick = function() {
-        var navLinks = link.closest('.nav-links');
-        if (navLinks.classList.contains('open')) navLinks.classList.remove('open');
-      };
-    });
-
-    // Notify form thank you
-    const form = document.getElementById('notify-form');
-    const thankYou = document.getElementById('thank-you');
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-      try {
-        await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' }});
-        form.reset();
-        thankYou.style.display = 'block';
-      } catch (err) {
-        alert('Something went wrong. Please try again later.');
-      }
+    document.getElementById("galleryModal").addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
     });
   </script>
 </body>
