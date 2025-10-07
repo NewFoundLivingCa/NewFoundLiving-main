@@ -136,7 +136,7 @@
     textarea::placeholder {
       color: #F7F7F7;
     }
-    button, .btn-submit {
+    button, .btn-submit, .custom-file-upload {
       background: #21706A;
       color: #fff;
       border: none;
@@ -150,25 +150,48 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+      text-align: center;
+      font-weight: 500;
     }
-    button:hover, .btn-submit:hover {
+    button:hover, .btn-submit:hover, .custom-file-upload:hover {
       background: #2B7A74;
       color: #F7F7F7;
       box-shadow: 0 4px 18px rgba(33,112,106,0.22);
+    }
+    /* Hide the original file input */
+    input[type="file"] {
+      display: none;
+    }
+    /* Custom file button matches others */
+    .custom-file-upload {
+      margin-bottom: 1.1em;
+      cursor: pointer;
+      width: 100%;
+      max-width: 460px;
+      min-width: 220px;
+    }
+    .file-name {
+      color: #fff;
+      margin-top: 0.3em;
+      font-size: 1em;
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 0.7em;
+      display: block;
     }
 
     /* Modern, square pet checkboxes, compact style */
     .pet-checkbox-group {
       display: flex;
       align-items: center;
-      gap: 2em;
+      gap: 1em;
       margin-bottom: 1.2em;
       justify-content: flex-start;
     }
     .pet-checkbox {
       display: flex;
       align-items: center;
-      gap: 0.4em;
+      gap: 0.2em;
       cursor: pointer;
       font-size: 1.14em;
       font-weight: 500;
@@ -177,8 +200,8 @@
     }
     .pet-checkbox input[type="checkbox"] {
       appearance: none;
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border: 2.5px solid #bbb;
       border-radius: 6px;
       background: #fff;
@@ -271,7 +294,7 @@
         padding: 1em 0.2em;
         max-width: 99vw;
       }
-      input, textarea, select {
+      input, textarea, select, .custom-file-upload {
         max-width: 98vw;
         min-width: 120px;
         font-size: 1.03em;
@@ -282,7 +305,7 @@
         max-width: 99vw;
       }
       .pet-checkbox-group {
-        gap: 1em;
+        gap: 0.7em;
       }
       footer .email-link,
       footer .social-link,
@@ -362,7 +385,11 @@
         <input type="number" id="monthly-income" name="monthly_income" required />
 
         <label for="proof-income">Proof of Income (upload file)</label>
-        <input type="file" id="proof-income" name="proof_income" accept=".pdf,.jpg,.png,.jpeg,.doc,.docx,.heic,.webp" />
+        <label for="proof-income" class="custom-file-upload">
+          Choose File
+          <input type="file" id="proof-income" name="proof_income" accept=".pdf,.jpg,.png,.jpeg,.doc,.docx,.heic,.webp" />
+        </label>
+        <span class="file-name" id="file-name">No file chosen</span>
       </fieldset>
 
       <fieldset class="form-section">
@@ -439,5 +466,15 @@
     </div>
     <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
+  <script>
+    // Custom file upload label and filename display
+    const proofInput = document.getElementById('proof-income');
+    const fileNameSpan = document.getElementById('file-name');
+    if (proofInput) {
+      proofInput.addEventListener('change', function(){
+        fileNameSpan.textContent = this.files[0] ? this.files[0].name : 'No file chosen';
+      });
+    }
+  </script>
 </body>
 </html>
