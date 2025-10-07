@@ -75,7 +75,7 @@
 
         <label for="proof-income">Proof of Income (upload file)</label>
         <label for="proof-income" class="custom-file-upload">
-          Choose File
+          <span class="file-upload-text">Choose File</span>
           <input type="file" id="proof-income" name="proof_income" accept=".pdf,.jpg,.png,.jpeg,.doc,.docx,.heic,.webp" />
         </label>
         <span class="file-name" id="file-name">No file chosen</span>
@@ -84,22 +84,24 @@
       <!-- Pets -->
       <fieldset class="form-section">
         <h2>Pets</h2>
-        <label>Do you have pets?</label>
-        <div class="pet-radio-group">
-          <label class="pet-radio">
-            <input type="radio" name="pets" value="Yes" class="yes" />
-            <span class="radio-square yes">
-              <span class="check-icon">&#10003;</span>
-            </span>
-            <span class="pet-label">Yes</span>
-          </label>
-          <label class="pet-radio">
-            <input type="radio" name="pets" value="No" class="no" />
-            <span class="radio-square no">
-              <span class="x-icon">&#10007;</span>
-            </span>
-            <span class="pet-label">No</span>
-          </label>
+        <div class="pet-question-group">
+          <label>Do you have pets?</label>
+          <div class="pet-radio-group">
+            <label class="pet-radio">
+              <input type="radio" name="pets" value="Yes" class="yes" />
+              <span class="radio-square yes">
+                <span class="check-icon">&#10003;</span>
+              </span>
+              <span class="pet-label">Yes</span>
+            </label>
+            <label class="pet-radio">
+              <input type="radio" name="pets" value="No" class="no" />
+              <span class="radio-square no">
+                <span class="x-icon">&#10007;</span>
+              </span>
+              <span class="pet-label">No</span>
+            </label>
+          </div>
         </div>
 
         <label for="pet-type">Type(s) of pet(s)</label>
@@ -123,17 +125,21 @@
             <input type="tel" name="occupant_phone_1" placeholder="Phone Number" />
           </div>
         </div>
-        <button type="button" class="btn-submit" id="add-occupant" style="width:auto;max-width:250px;">Add Occupant</button>
+        <button type="button" class="btn-mini" id="add-occupant">
+          <span class="plus-symbol">+</span> Add Occupant
+        </button>
 
         <label>References</label>
         <div id="references-list">
           <div class="reference-fields">
             <input type="text" name="reference_name_1" placeholder="Name" />
             <input type="tel" name="reference_phone_1" placeholder="Phone Number" />
-            <input type="text" name="reference_contact_1" placeholder="Relationship/Notes" />
+            <input type="text" name="reference_relationship_1" placeholder="Relationship" />
           </div>
         </div>
-        <button type="button" class="btn-submit" id="add-reference" style="width:auto;max-width:250px;">Add Reference</button>
+        <button type="button" class="btn-mini" id="add-reference">
+          <span class="plus-symbol">+</span> Add Reference
+        </button>
 
         <label for="emergency-contact">Emergency Contact Name</label>
         <input type="text" id="emergency-contact" name="emergency_contact" />
@@ -207,7 +213,7 @@
       div.innerHTML = `
         <input type="text" name="reference_name_${count}" placeholder="Name" />
         <input type="tel" name="reference_phone_${count}" placeholder="Phone Number" />
-        <input type="text" name="reference_contact_${count}" placeholder="Relationship/Notes" />
+        <input type="text" name="reference_relationship_${count}" placeholder="Relationship" />
       `;
       list.appendChild(div);
     };
