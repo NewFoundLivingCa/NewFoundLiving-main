@@ -1,3 +1,4 @@
+/* General resets and body */
 body {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   margin: 0;
@@ -148,7 +149,7 @@ fieldset.form-section {
 input, textarea, select {
   width: 100%;
   max-width: 460px;
-  min-width: 120px;
+  min-width: 220px;
   padding: 1.1em;
   border-radius: 10px;
   border: 1px solid #444;
@@ -198,7 +199,7 @@ input[type="file"] {
   cursor: pointer;
   width: 100%;
   max-width: 460px;
-  min-width: 120px;
+  min-width: 220px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -214,30 +215,15 @@ input[type="file"] {
   display: block;
 }
 
-/* Occupant and Reference fields (multi-line) */
-.occupant-fields, .reference-fields {
-  display: flex;
-  gap: 0.8em;
-  margin-bottom: 0.7em;
-  flex-wrap: wrap;
-}
-.occupant-fields input, .reference-fields input {
-  max-width: 140px;
-  min-width: 80px;
-  padding: 0.7em;
-  font-size: 1em;
-  border-radius: 7px;
-}
-
-/* Pet selection as mutually exclusive radio squares */
-.pet-radio-group {
+/* Pet selection true square box styles */
+.pet-checkbox-group {
   display: flex;
   align-items: center;
   gap: 1.5em;
   margin-bottom: 1.2em;
   justify-content: flex-start;
 }
-.pet-radio {
+.pet-checkbox {
   display: flex;
   align-items: center;
   gap: 0.3em;
@@ -247,10 +233,10 @@ input[type="file"] {
   position: relative;
   user-select: none;
 }
-.pet-radio input[type="radio"] {
+.pet-checkbox input[type="checkbox"] {
   display: none;
 }
-.radio-square {
+.check-square {
   width: 22px;
   height: 22px;
   border: 2px solid #bbb;
@@ -263,11 +249,11 @@ input[type="file"] {
   position: relative;
   margin-right: 0.1em;
 }
-.pet-radio input[type="radio"]:checked + .radio-square.yes {
+.pet-checkbox input[type="checkbox"]:checked + .check-square.yes {
   background: #23d160;
   border-color: #23d160;
 }
-.pet-radio input[type="radio"]:checked + .radio-square.no {
+.pet-checkbox input[type="checkbox"]:checked + .check-square.no {
   background: #e74c3c;
   border-color: #e74c3c;
 }
@@ -276,40 +262,42 @@ input[type="file"] {
   font-size: 1em;
   color: #fff;
 }
-.pet-radio input[type="radio"]:checked + .radio-square.yes .check-icon {
+.pet-checkbox input[type="checkbox"]:checked + .check-square.yes .check-icon {
   display: block;
 }
-.pet-radio input[type="radio"]:checked + .radio-square.no .x-icon {
+.pet-checkbox input[type="checkbox"]:checked + .check-square.no .x-icon {
   display: block;
 }
 .pet-label {
   margin-left: 2px;
   margin-right: 3px;
 }
-.pet-radio input[type="radio"]:focus + .radio-square {
+.pet-checkbox input[type="checkbox"]:focus + .check-square {
   box-shadow: 0 0 0 2px #2B7A74;
 }
-.pet-radio input[type="radio"]:active + .radio-square {
+.pet-checkbox input[type="checkbox"]:active + .check-square {
   box-shadow: 0 0 0 3px #256D67;
 }
-.pet-radio input[type="radio"]:disabled + .radio-square {
+.pet-checkbox input[type="checkbox"]:disabled + .check-square {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
 @media (max-width: 700px) {
-  .pet-radio-group {
+  .pet-checkbox-group {
     gap: 1em;
   }
-  .radio-square {
+  .check-square {
     width: 18px;
     height: 18px;
   }
 }
+
 @media (max-width: 400px) {
-  .pet-radio-group {
+  .pet-checkbox-group {
     gap: 0.7em;
   }
-  .radio-square {
+  .check-square {
     width: 16px;
     height: 16px;
   }
