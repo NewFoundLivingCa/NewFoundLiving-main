@@ -59,7 +59,8 @@ body {
 
 /* Container styles */
 .container,
-.rental-container {
+.rental-container,
+.about-container {
   max-width: 980px;
   margin: 2.5rem auto;
   padding: 2.5rem 2.5rem;
@@ -71,13 +72,15 @@ body {
 }
 @media (max-width: 700px) {
   .container,
-  .rental-container {
+  .rental-container,
+  .about-container {
     padding: 1.1em 2vw;
   }
 }
 @media (max-width: 400px) {
   .container,
-  .rental-container {
+  .rental-container,
+  .about-container {
     padding: 0.3em 0.7em;
   }
 }
@@ -91,6 +94,39 @@ img.logo {
   img.logo {
     max-width: 150px;
     margin-bottom: 0.7rem;
+  }
+}
+
+/* About page styles */
+.about-section {
+  text-align: left;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1.2em 0;
+  font-size: 1.13em;
+  line-height: 1.7;
+  color: #eee;
+}
+.about-section h2 {
+  margin-top: 2em;
+  font-size: 1.25em;
+  color: #F7F7F7;
+  letter-spacing: 0.02em;
+}
+.about-values, .about-offer {
+  margin: 1.1em 0 1em 1em;
+  padding-left: 0.7em;
+  color: #c7e8e1;
+  font-size: 1.08em;
+}
+.about-values li, .about-offer li {
+  margin-bottom: 0.5em;
+}
+@media (max-width: 700px) {
+  .about-section {
+    font-size: 1em;
+    padding-left: 0.4em;
+    padding-right: 0.4em;
   }
 }
 
@@ -136,7 +172,8 @@ fieldset.form-section {
   text-align: center;
 }
 .rental-container label,
-.container label {
+.container label,
+.about-container label {
   text-align: left;
   margin-left: 3px;
   margin-bottom: 0.4em;
