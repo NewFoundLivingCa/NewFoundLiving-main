@@ -81,10 +81,41 @@
       align-items: center;
       gap: 1rem;
     }
+    /* All fieldsets the same size and style */
+    fieldset.form-section {
+      margin-bottom: 3em;
+      padding: 2.5em 3em 2em 3em;
+      background: rgba(255,255,255,0.055);
+      border-radius: 1.5em;
+      border: 2px solid rgba(255,255,255,0.23);
+      box-shadow: 0 6px 28px rgba(0,0,0,0.14);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: box-shadow 0.2s, border-color 0.2s;
+      text-align: left;
+    }
+    .form-section h2 {
+      margin-top: 0;
+      margin-bottom: 1em;
+      font-size: 1.44em;
+      color: #F7F7F7;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+    .rental-container label {
+      text-align: left;
+      margin-left: 3px;
+      margin-bottom: 0.4em;
+      font-weight: 500;
+      color: #F7F7F7;
+      letter-spacing: 0.01em;
+      display: block;
+    }
     input, textarea, select {
       width: 100%;
-      max-width: 700px;
-      min-width: 380px;
+      max-width: 460px;
+      min-width: 220px;
       padding: 1.1em;
       border-radius: 10px;
       border: 1px solid #444;
@@ -115,69 +146,40 @@
       box-shadow: 0 2px 14px rgba(33,112,106,0.13);
       transition: background 0.2s, color 0.2s, box-shadow 0.2s;
       margin-top: 0.5em;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     button:hover, .btn-submit:hover {
       background: #2B7A74;
       color: #F7F7F7;
       box-shadow: 0 4px 18px rgba(33,112,106,0.22);
     }
-    /* More defined section boxes, all large and consistent */
-    fieldset.form-section {
-      margin-bottom: 3em;
-      padding: 2.5em 3em 2em 3em;
-      background: rgba(255,255,255,0.055);
-      border-radius: 1.5em;
-      border: 2px solid rgba(255,255,255,0.23);
-      box-shadow: 0 6px 28px rgba(0,0,0,0.14);
-      max-width: 750px;
-      margin-left: auto;
-      margin-right: auto;
-      transition: box-shadow 0.2s, border-color 0.2s;
-    }
-    .form-section h2 {
-      margin-top: 0;
-      margin-bottom: 1em;
-      font-size: 1.44em;
-      color: #F7F7F7;
-      letter-spacing: 0.04em;
-    }
-    .rental-container label {
-      text-align: left;
-      margin-left: 3px;
-      margin-bottom: 0.4em;
-      font-weight: 500;
-      color: #F7F7F7;
-      letter-spacing: 0.01em;
-      display: block;
-    }
-    /* Modern Pet Checkbox Group */
+
+    /* Modern, square pet checkboxes */
     .pet-checkbox-group {
       display: flex;
       align-items: center;
-      gap: 2.5em;
+      gap: 2em;
       margin-bottom: 1.2em;
       justify-content: flex-start;
     }
     .pet-checkbox {
       display: flex;
       align-items: center;
-      gap: 0.6em;
+      gap: 0.4em;
       cursor: pointer;
       font-size: 1.14em;
       font-weight: 500;
       position: relative;
-      padding: 0.35em 1.1em;
-      border-radius: 1.8em;
-      background: rgba(255,255,255,0.09);
-      transition: background 0.18s, color 0.18s, border 0.18s;
-      border: 2px solid transparent;
+      user-select: none;
     }
-    .pet-checkbox input[type="radio"] {
+    .pet-checkbox input[type="checkbox"] {
       appearance: none;
-      width: 1.7em;
-      height: 1.7em;
+      width: 28px;
+      height: 28px;
       border: 2.5px solid #bbb;
-      border-radius: 0.4em;
+      border-radius: 6px;
       background: #fff;
       margin: 0;
       transition: border-color 0.18s, background 0.18s;
@@ -185,52 +187,48 @@
       position: relative;
       vertical-align: middle;
       outline: none;
+      display: inline-block;
     }
     /* Green check for Yes, red X for No */
-    .pet-checkbox input[type="radio"]:checked.yes {
+    .pet-checkbox input[type="checkbox"]:checked.yes {
       border-color: #23d160;
       background: #23d160;
     }
-    .pet-checkbox input[type="radio"]:checked.no {
+    .pet-checkbox input[type="checkbox"]:checked.no {
       border-color: #e74c3c;
       background: #e74c3c;
     }
-    .pet-checkbox input[type="radio"]:checked.yes + .check-icon {
-      display: inline-block;
-      color: #23d160;
+    .pet-checkbox .check-icon,
+    .pet-checkbox .x-icon {
+      position: absolute;
+      left: 4px;
+      top: 2px;
+      font-size: 1.6em;
+      pointer-events: none;
     }
-    .pet-checkbox input[type="radio"]:checked.no + .x-icon {
+    .pet-checkbox input[type="checkbox"]:checked.yes ~ .check-icon {
       display: inline-block;
-      color: #e74c3c;
+      color: #fff;
     }
-    .pet-checkbox input[type="radio"]:not(:checked) + .check-icon,
-    .pet-checkbox input[type="radio"]:not(:checked) + .x-icon {
+    .pet-checkbox input[type="checkbox"]:checked.no ~ .x-icon {
+      display: inline-block;
+      color: #fff;
+    }
+    .pet-checkbox .check-icon,
+    .pet-checkbox .x-icon {
       display: none;
     }
-    .pet-checkbox input[type="radio"]:focus {
+    .pet-checkbox input[type="checkbox"]:focus {
       box-shadow: 0 0 0 3px #2B7A74;
     }
-    .pet-checkbox input[type="radio"]:active {
+    .pet-checkbox input[type="checkbox"]:active {
       box-shadow: 0 0 0 4px #256D67;
     }
-    .pet-checkbox input[type="radio"]:disabled {
+    .pet-checkbox input[type="checkbox"]:disabled {
       opacity: 0.6;
       cursor: not-allowed;
     }
-    .check-icon {
-      display: none;
-      color: #23d160;
-      font-size: 1.6em;
-      margin-left: -1.6em;
-      margin-right: 0.3em;
-    }
-    .x-icon {
-      display: none;
-      color: #e74c3c;
-      font-size: 1.6em;
-      margin-left: -1.6em;
-      margin-right: 0.3em;
-    }
+
     /* Footer styles unchanged */
     footer {
       background: rgba(0,0,0,0.60);
@@ -371,12 +369,12 @@
         <label>Do you have pets?</label>
         <div class="pet-checkbox-group">
           <label class="pet-checkbox">
-            <input type="radio" name="pets" value="Yes" required class="yes" />
+            <input type="checkbox" name="pets_yes" value="Yes" class="yes" />
             <span class="check-icon">&#10003;</span>
             <span>Yes</span>
           </label>
           <label class="pet-checkbox">
-            <input type="radio" name="pets" value="No" required class="no" />
+            <input type="checkbox" name="pets_no" value="No" class="no" />
             <span class="x-icon">&#10007;</span>
             <span>No</span>
           </label>
