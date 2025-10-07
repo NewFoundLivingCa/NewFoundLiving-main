@@ -12,6 +12,9 @@
 <body>
   <nav class="navbar-minimal">
     <div class="nav-center">
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="hamburger"></span>
+      </button>
       <ul class="nav-links">
         <li><a href="index.html" class="nav-link active">Home</a></li>
         <li><a href="rental-application.html" class="nav-link">Application</a></li>
@@ -53,6 +56,21 @@
   </footer>
 
   <script>
+    // Hamburger menu toggle
+    document.querySelectorAll('.nav-toggle').forEach(function(toggle) {
+      toggle.onclick = function() {
+        var navLinks = this.parentElement.querySelector('.nav-links');
+        navLinks.classList.toggle('open');
+      };
+    });
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+      link.onclick = function() {
+        var navLinks = link.closest('.nav-links');
+        if (navLinks.classList.contains('open')) navLinks.classList.remove('open');
+      };
+    });
+
+    // Notify form thank you
     const form = document.getElementById('notify-form');
     const thankYou = document.getElementById('thank-you');
     form.addEventListener('submit', async function(e) {
