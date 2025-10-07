@@ -84,12 +84,13 @@
     /* All fieldsets the same size and style */
     fieldset.form-section {
       margin-bottom: 3em;
-      padding: 2.5em 3em 2em 3em;
+      padding: 2.5em 2em 2em 2em;
       background: rgba(255,255,255,0.055);
       border-radius: 1.5em;
       border: 2px solid rgba(255,255,255,0.23);
       box-shadow: 0 6px 28px rgba(0,0,0,0.14);
       max-width: 500px;
+      width: 100%;
       margin-left: auto;
       margin-right: auto;
       transition: box-shadow 0.2s, border-color 0.2s;
@@ -156,7 +157,7 @@
       box-shadow: 0 4px 18px rgba(33,112,106,0.22);
     }
 
-    /* Modern, square pet checkboxes */
+    /* Modern, square pet checkboxes, compact style */
     .pet-checkbox-group {
       display: flex;
       align-items: center;
@@ -176,8 +177,8 @@
     }
     .pet-checkbox input[type="checkbox"] {
       appearance: none;
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border: 2.5px solid #bbb;
       border-radius: 6px;
       background: #fff;
@@ -203,7 +204,7 @@
       position: absolute;
       left: 4px;
       top: 2px;
-      font-size: 1.6em;
+      font-size: 1.25em;
       pointer-events: none;
     }
     .pet-checkbox input[type="checkbox"]:checked.yes ~ .check-icon {
