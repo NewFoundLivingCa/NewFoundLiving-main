@@ -95,6 +95,7 @@
       margin-right: auto;
       transition: box-shadow 0.2s, border-color 0.2s;
       text-align: left;
+      position: relative;
     }
     .form-section h2 {
       margin-top: 0;
@@ -162,13 +163,17 @@
     input[type="file"] {
       display: none;
     }
-    /* Custom file button matches others */
+    /* Custom file button matches others and is centered */
     .custom-file-upload {
       margin-bottom: 1.1em;
       cursor: pointer;
       width: 100%;
       max-width: 460px;
       min-width: 220px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      box-sizing: border-box;
     }
     .file-name {
       color: #fff;
@@ -180,7 +185,7 @@
       display: block;
     }
 
-    /* Modern, square pet checkboxes, compact style */
+    /* Smaller, square pet checkboxes */
     .pet-checkbox-group {
       display: flex;
       align-items: center;
@@ -193,17 +198,17 @@
       align-items: center;
       gap: 0.2em;
       cursor: pointer;
-      font-size: 1.14em;
+      font-size: 1em;
       font-weight: 500;
       position: relative;
       user-select: none;
     }
     .pet-checkbox input[type="checkbox"] {
       appearance: none;
-      width: 28px;
-      height: 28px;
-      border: 2.5px solid #bbb;
-      border-radius: 6px;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #bbb;
+      border-radius: 5px;
       background: #fff;
       margin: 0;
       transition: border-color 0.18s, background 0.18s;
@@ -225,9 +230,9 @@
     .pet-checkbox .check-icon,
     .pet-checkbox .x-icon {
       position: absolute;
-      left: 4px;
-      top: 2px;
-      font-size: 1.25em;
+      left: 2px;
+      top: 0px;
+      font-size: 1.1em;
       pointer-events: none;
     }
     .pet-checkbox input[type="checkbox"]:checked.yes ~ .check-icon {
@@ -243,10 +248,10 @@
       display: none;
     }
     .pet-checkbox input[type="checkbox"]:focus {
-      box-shadow: 0 0 0 3px #2B7A74;
+      box-shadow: 0 0 0 2px #2B7A74;
     }
     .pet-checkbox input[type="checkbox"]:active {
-      box-shadow: 0 0 0 4px #256D67;
+      box-shadow: 0 0 0 3px #256D67;
     }
     .pet-checkbox input[type="checkbox"]:disabled {
       opacity: 0.6;
@@ -306,6 +311,10 @@
       }
       .pet-checkbox-group {
         gap: 0.7em;
+      }
+      .pet-checkbox input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
       }
       footer .email-link,
       footer .social-link,
