@@ -29,6 +29,7 @@
       list-style: none;
       padding: 0;
       margin: 0;
+      flex-wrap: wrap;
     }
     .nav-link {
       color: #fff;
@@ -40,6 +41,7 @@
       transition: background 0.2s, color 0.2s;
       font-weight: 500;
       display: inline-block;
+      margin-bottom: 0.3em;
     }
     .nav-link.active,
     .nav-link:hover {
@@ -48,7 +50,13 @@
     }
     @media (max-width: 600px) {
       .nav-links {
-        gap: 0.8em;
+        gap: 0.6em;
+        font-size: 0.96em;
+        flex-wrap: wrap;
+      }
+      .nav-link {
+        padding: 0.5em 0.8em;
+        font-size: 1em;
       }
     }
 
@@ -81,7 +89,6 @@
       align-items: center;
       gap: 1rem;
     }
-    /* All fieldsets the same size and style */
     fieldset.form-section {
       margin-bottom: 3em;
       padding: 2.5em 2em 2em 2em;
@@ -159,11 +166,9 @@
       color: #F7F7F7;
       box-shadow: 0 4px 18px rgba(33,112,106,0.22);
     }
-    /* Hide the original file input */
     input[type="file"] {
       display: none;
     }
-    /* Custom file button matches others and is centered */
     .custom-file-upload {
       margin-bottom: 1.1em;
       cursor: pointer;
@@ -205,10 +210,10 @@
     }
     .pet-checkbox input[type="checkbox"] {
       appearance: none;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border: 2px solid #bbb;
-      border-radius: 5px;
+      border-radius: 4px;
       background: #fff;
       margin: 0;
       transition: border-color 0.18s, background 0.18s;
@@ -231,8 +236,8 @@
     .pet-checkbox .x-icon {
       position: absolute;
       left: 2px;
-      top: 0px;
-      font-size: 1.1em;
+      top: -1px;
+      font-size: 1em;
       pointer-events: none;
     }
     .pet-checkbox input[type="checkbox"]:checked.yes ~ .check-icon {
@@ -294,19 +299,18 @@
       opacity: 0.85;
     }
     @media (max-width: 700px) {
-      footer {
-        font-size: 0.95em;
-        padding: 1em 0.2em;
-        max-width: 99vw;
+      .container,
+      .rental-container {
+        padding: 1.1em 2vw;
       }
       input, textarea, select, .custom-file-upload {
-        max-width: 98vw;
+        max-width: 97vw;
         min-width: 120px;
         font-size: 1.03em;
         padding: 0.7em;
       }
       fieldset.form-section {
-        padding: 1.1em 0.3em;
+        padding: 1.1em 1vw;
         max-width: 99vw;
       }
       .pet-checkbox-group {
@@ -325,6 +329,13 @@
       }
     }
     @media (max-width: 400px) {
+      .container,
+      .rental-container {
+        padding: 0.3em 0.7em;
+      }
+      fieldset.form-section {
+        padding: 0.7em 0.7em;
+      }
       footer {
         padding: 0.3em;
         font-size: 0.95em;
