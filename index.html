@@ -16,8 +16,6 @@
       --accent-red-2: #c62828;
     }
 
-    /* Option A: let styles.css control the page background.
-       Keep typography and color defaults here but do NOT set a background-image or gradient. */
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -266,7 +264,7 @@
     }
     footer a { color: #fff; text-decoration: underline; }
 
-    /* NAVBAR - minimal styles and mobile hamburger behavior + accessible toggling */
+    /* NAVBAR - desktop original layout; hamburger only on small screens */
     .navbar-minimal {
       position: relative;
       z-index: 2000;
@@ -282,8 +280,10 @@
       gap: 12px;
       position: relative;
     }
+
+    /* Hide toggle on desktop by default */
     .nav-toggle {
-      display: inline-flex;
+      display: none;
       align-items: center;
       justify-content: center;
       width: 44px;
@@ -298,6 +298,7 @@
       outline: 2px solid rgba(255,255,255,0.16);
       outline-offset: 2px;
     }
+
     /* hamburger lines */
     .hamburger {
       display: block;
@@ -322,7 +323,7 @@
     .hamburger::before { top: -7px; }
     .hamburger::after { top: 7px; }
 
-    /* open state: animate to X and change color to black (as requested) */
+    /* open state: transform to X, make X lines black and give button subtle light background */
     .nav-toggle.open .hamburger { background: transparent; }
     .nav-toggle.open .hamburger::before {
       transform: rotate(45deg);
@@ -334,11 +335,11 @@
       top: 0;
       background: #000;
     }
-    /* also give button subtle dark background when open */
     .nav-toggle.open {
       background: rgba(255,255,255,0.9);
     }
 
+    /* Desktop: show links inline */
     .nav-links {
       list-style: none;
       margin: 0;
@@ -360,7 +361,6 @@
     .nav-links a:hover {
       background: rgba(255,255,255,0.06);
     }
-    /* prefer black background for active instead of branded green (per request) */
     .nav-links a.active {
       background: #000;
       color: #fff;
@@ -369,7 +369,9 @@
 
     /* Mobile layout: hide links until hamburger opens */
     @media (max-width: 760px) {
-      .nav-center { align-items: center; }
+      .nav-toggle {
+        display: inline-flex;
+      }
       .nav-links {
         display: none;
         flex-direction: column;
@@ -383,9 +385,8 @@
         border-radius: 8px;
         box-shadow: 0 8px 36px rgba(0,0,0,0.45);
       }
-      /* show links when button has open class (adjacent sibling selection) */
-      .nav-toggle.open + .nav-links,
-      .nav-toggle.open ~ .nav-links {
+      /* show links when the toggle has the open class */
+      .nav-toggle.open + .nav-links {
         display: flex;
       }
 
@@ -405,16 +406,16 @@
   </style>
 </head>
 <body>
-  <!-- Navbar (restored to original structure) -->
+  <!-- Navbar: desktop shows nav links; on small screens a hamburger appears and controls the nav -->
   <nav class="navbar-minimal">
     <div class="nav-center">
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span class="hamburger"></span>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+        <span class="hamburger" aria-hidden="true"></span>
       </button>
-      <ul class="nav-links">
-        <li><a href="index.html" class="nav-link active">Home</a></li>
-        <li><a href="rental-application.html" class="nav-link">Application</a></li>
-        <li><a href="about.html" class="nav-link">About</a></li>
+      <ul id="main-nav" class="nav-links" role="menubar">
+        <li role="none"><a role="menuitem" href="index.html" class="nav-link active">Home</a></li>
+        <li role="none"><a role="menuitem" href="rental-application.html" class="nav-link">Application</a></li>
+        <li role="none"><a role="menuitem" href="about.html" class="nav-link">About</a></li>
       </ul>
     </div>
   </nav>
@@ -428,7 +429,6 @@
       <div class="listing-top">
         <p><strong>Available November 1st</strong></p>
 
-        <!-- Announcement inserted per request -->
         <p class="listing-announcement">
           We heard your feedback and have adjusted the price on this beautiful main floor unit at 16 Carlow Place to
           <strong>$1,950/month (P.O.U.)</strong>.
@@ -468,7 +468,6 @@
           <li>This unit will be painted and flooring updated before November 1st</li>
         </ul>
 
-        <!-- Price: struck-through original, reduced badge -->
         <p class="price-row" aria-live="polite">
           <strong>
             <span class="original-price">$2,100/month (P.O.U.)</span>
@@ -517,59 +516,66 @@
     <div class="privacy" style="margin-top:0.6rem;">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
 
-  <!-- Small script to make the hamburger work on mobile and apply the black/open styling -->
+  <!-- NAV: JavaScript only toggles the open class and manages aria + focus; CSS controls visibility -->
   <script>
     (function () {
       const navToggle = document.querySelector('.nav-toggle');
-      const navLinks = document.querySelector('.nav-center .nav-links');
-
+      const navLinks = document.querySelector('.nav-links');
       if (!navToggle || !navLinks) return;
 
-      // Ensure aria-expanded is set and update on toggle
+      // keep aria-expanded in sync
       navToggle.setAttribute('aria-expanded', 'false');
 
+      function openMenu() {
+        navToggle.classList.add('open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        // move focus to the first link for accessibility
+        const firstLink = navLinks.querySelector('a');
+        if (firstLink) firstLink.focus();
+      }
+      function closeMenu(returnFocus = true) {
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        if (returnFocus) navToggle.focus();
+      }
+
       navToggle.addEventListener('click', function (e) {
-        const isOpen = navToggle.classList.toggle('open');
-        // For small screens, toggle visibility; on larger screens styling is handled by CSS
-        if (window.innerWidth <= 760) {
-          navLinks.style.display = isOpen ? 'flex' : 'none';
-        } else {
-          navLinks.style.display = '';
-        }
-        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (navToggle.classList.contains('open')) closeMenu();
+        else openMenu();
       });
 
-      // Close menu when a nav link is clicked (on mobile)
+      // support keyboard toggle (Space/Enter)
+      navToggle.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          navToggle.click();
+        } else if (e.key === 'Escape') {
+          closeMenu();
+        }
+      });
+
+      // close mobile menu when a link is activated (tap/click)
       navLinks.querySelectorAll('a').forEach(a => {
         a.addEventListener('click', function () {
-          if (navToggle.classList.contains('open')) {
-            navToggle.classList.remove('open');
-            navToggle.setAttribute('aria-expanded', 'false');
-            // hide the mobile menu
-            if (window.innerWidth <= 760) navLinks.style.display = 'none';
+          // only close if hamburger is visible (i.e. small screens)
+          if (getComputedStyle(navToggle).display !== 'none' && navToggle.classList.contains('open')) {
+            closeMenu(false);
           }
         });
       });
 
-      // Reset inline styles on resize so menu behaves correctly
+      // ensure correct state on resize: remove open on larger viewports
       window.addEventListener('resize', function () {
         if (window.innerWidth > 760) {
+          // make sure menu is visible through CSS and reset open state
           navToggle.classList.remove('open');
           navToggle.setAttribute('aria-expanded', 'false');
-          navLinks.style.display = '';
-        } else {
-          // if the toggle is open on small screens ensure it stays visible
-          if (navToggle.classList.contains('open')) {
-            navLinks.style.display = 'flex';
-          } else {
-            navLinks.style.display = 'none';
-          }
         }
       });
     })();
   </script>
 
-  <!-- Inlined gallery/lightbox script (no extra files required) -->
+  <!-- Inlined gallery/lightbox script (unchanged) -->
   <script>
   (function () {
     const gallerySelector = '.listing-gallery img';
