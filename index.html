@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    :root {
+    :root{
       --brand-green-1: #1f8f80;
       --brand-green-2: #21706A;
       --accent-red-1: #e53935;
@@ -17,13 +17,13 @@
       --white: #ffffff;
     }
 
-    /* Keep page background controlled by styles.css (city.png) */
+    /* page base — background is provided by styles.css (city.png) */
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       color: #fff;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
     .container { max-width: 980px; margin: 0 auto; padding: 1.6rem; box-sizing: border-box; }
@@ -44,21 +44,22 @@
     .listing-details ul { columns:2; font-size:1.08em; margin:1em auto; padding-left:.5em; max-width:600px; text-align:left; display:inline-block; color:#fff; }
     .contact-btn { padding:.7em 1.5em; background:linear-gradient(180deg,var(--brand-green-1),var(--brand-green-2)); color:#fff; border:none; border-radius:10px; font-weight:700; cursor:pointer; box-shadow:0 8px 26px rgba(33,112,106,0.18); }
 
-    /* Price styling */
+    /* price */
     .original-price { text-decoration: line-through; color: #ff8a80; font-weight: 700; margin-right: 0.6rem; }
     .price-badge { display:inline-block; background: linear-gradient(180deg,var(--accent-red-1),var(--accent-red-2)); color:#fff; padding:0.4em 0.9em; border-radius:12px; font-weight:800; box-shadow:0 10px 30px rgba(198,40,40,0.16); }
 
-    /* Lightbox basics (unchanged) */
+    /* lightbox */
     .modal { position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.88); display:none; align-items:center; justify-content:center; padding:1.5rem; box-sizing:border-box; }
     .lightbox { max-width:1100px; width:100%; height:86vh; background:#fff; border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
     .lightbox-main { width:100%; height:calc(100% - 110px); display:flex; align-items:center; justify-content:center; background:#000; position:relative; }
     .lightbox-main img { max-width:100%; max-height:100%; object-fit:contain; display:block; margin:0 auto; }
     .lightbox-thumbs { width:100%; padding:10px; box-sizing:border-box; background:#fafafa; display:flex; gap:.6rem; overflow-x:auto; border-top:1px solid rgba(0,0,0,0.06); }
     .lightbox-thumbs img { width:110px; height:70px; object-fit:cover; border-radius:6px; cursor:pointer; border:2px solid transparent; flex:0 0 auto; }
+    .lightbox-thumbs img.active { border-color:var(--brand-green-2); box-shadow:0 6px 18px rgba(0,0,0,0.12); }
 
     .close { position:absolute; top:18px; right:20px; font-size:1.6rem; color:#fff; cursor:pointer; font-weight:bold; z-index:10003; background: rgba(0,0,0,0.45); padding:6px 10px; border-radius:6px; border:none; }
 
-    /* Navbar: semi-transparent on desktop to match styles.css */
+    /* navbar (identical on all pages) - transparent/semi-opaque matching styles.css */
     .navbar-minimal { position:relative; z-index:1200; padding:.6em 0; background:var(--nav-semi); box-shadow:0 2px 12px rgba(0,0,0,0.15); width:100%; }
     .nav-center { max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 12px; box-sizing:border-box; }
 
@@ -67,7 +68,7 @@
     .nav-links a:hover, .nav-links a:focus { background:rgba(255,255,255,0.12); outline:none; }
     .nav-links a.active { background:#256D67; color:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.12); }
 
-    /* Mobile: per-page hamburger and dropdown (local to page) */
+    /* mobile hamburger and dropdown (per-page, identical across pages) */
     .nav-toggle { display:none; background:transparent; border:none; padding:8px; border-radius:8px; cursor:pointer; align-items:center; justify-content:center; }
     .hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; transition: transform .18s, background .18s; }
     .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; transition: transform .18s, top .18s, opacity .18s; }
@@ -89,11 +90,10 @@
   </style>
 </head>
 <body>
-  <!-- NAVBAR: note - tiny logo removed from the index navbar per your request -->
+  <!-- NAVBAR: no tiny logo on any page navbars (index navbar left intentionally empty to keep layout consistent) -->
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
-      <!-- left side intentionally empty on index (no tiny logo) to match your instruction -->
-      <div style="width:34px; height:1px;" aria-hidden="true"></div>
+      <div aria-hidden="true" style="width:34px;height:1px;"></div>
 
       <ul class="nav-links" role="menubar" aria-hidden="false">
         <li><a role="menuitem" href="index.html" class="nav-link active">Home</a></li>
@@ -125,7 +125,10 @@
         <div id="listing-top">
           <p><strong>Available November 1st</strong></p>
 
-          <p class="listing-announcement">We heard your feedback and have adjusted the price on this beautiful main floor unit at 16 Carlow Place to <strong>$1,950/month (P.O.U.)</strong>.</p>
+          <p class="listing-announcement">
+            We heard your feedback and have adjusted the price on this beautiful main floor unit at 16 Carlow Place to
+            <strong>$1,950/month (P.O.U.)</strong>.
+          </p>
         </div>
 
         <div class="listing-gallery" aria-label="Listing images">
@@ -205,7 +208,7 @@
   </footer>
 
   <script>
-    // Per-page mobile menu behavior
+    // Per-page mobile menu behavior (same pattern on every page)
     (function () {
       const toggle = document.querySelector('.nav-toggle');
       const wrap = document.getElementById('mobile-menu');
