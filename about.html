@@ -11,10 +11,13 @@
 
     body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:#fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     .container { max-width:980px; margin:0 auto; padding:1.6rem; box-sizing:border-box; }
-    .logo { display:block; margin:1rem auto; max-width:180px; }
+    .logo { display:block; margin:1rem auto; max-width:220px; }
 
     .navbar-minimal { position:relative; z-index:1200; padding:.6em 0; background:var(--nav-semi); box-shadow:0 2px 12px rgba(0,0,0,0.15); width:100%; }
     .nav-center { max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 12px; box-sizing:border-box; }
+
+    .nav-left img { height:34px; width:auto; display:block; }
+
     .nav-links { display:flex; gap:12px; list-style:none; margin:0; padding:0; }
     .nav-links a { color:var(--white); text-decoration:none; padding:8px 12px; border-radius:8px; background: rgba(255,255,255,0.06); font-weight:600; }
     .nav-links a.active { background:#256D67; }
@@ -41,7 +44,9 @@
 <body>
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
-      <a href="index.html" aria-label="NewFound Living home" style="display:flex;align-items:center;"><img src="Logos/tinylogo1.png" alt="logo" style="height:34px"></a>
+      <div class="nav-left">
+        <a href="index.html" aria-label="Home"><img src="Logos/tinylogo1.png" alt="NewFound tiny logo"></a>
+      </div>
 
       <ul class="nav-links" role="menubar">
         <li><a role="menuitem" href="index.html" class="nav-link">Home</a></li>
