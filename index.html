@@ -266,7 +266,129 @@
     }
     footer a { color: #fff; text-decoration: underline; }
 
-    @media (max-width: 640px) {
+    /* NAVBAR - minimal styles and mobile hamburger behavior + accessible toggling */
+    .navbar-minimal {
+      position: relative;
+      z-index: 2000;
+      padding: 8px 12px;
+      background: transparent;
+      color: #fff;
+    }
+    .nav-center {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+    }
+    .nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+    }
+    .nav-toggle:focus {
+      outline: 2px solid rgba(255,255,255,0.16);
+      outline-offset: 2px;
+    }
+    /* hamburger lines */
+    .hamburger {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      position: relative;
+      transition: transform .22s ease, background .22s ease;
+      border-radius: 2px;
+    }
+    .hamburger::before,
+    .hamburger::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      transition: transform .22s ease, top .22s ease, background .22s ease;
+      border-radius: 2px;
+    }
+    .hamburger::before { top: -7px; }
+    .hamburger::after { top: 7px; }
+
+    /* open state: animate to X and change color to black (as requested) */
+    .nav-toggle.open .hamburger { background: transparent; }
+    .nav-toggle.open .hamburger::before {
+      transform: rotate(45deg);
+      top: 0;
+      background: #000;
+    }
+    .nav-toggle.open .hamburger::after {
+      transform: rotate(-45deg);
+      top: 0;
+      background: #000;
+    }
+    /* also give button subtle dark background when open */
+    .nav-toggle.open {
+      background: rgba(255,255,255,0.9);
+    }
+
+    .nav-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .nav-links li { margin: 0; }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      font-weight: 600;
+    }
+    .nav-links a:focus,
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.06);
+    }
+    /* prefer black background for active instead of branded green (per request) */
+    .nav-links a.active {
+      background: #000;
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    /* Mobile layout: hide links until hamburger opens */
+    @media (max-width: 760px) {
+      .nav-center { align-items: center; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        top: 56px;
+        padding: 12px;
+        background: rgba(0,0,0,0.65);
+        border-radius: 8px;
+        box-shadow: 0 8px 36px rgba(0,0,0,0.45);
+      }
+      /* show links when button has open class (adjacent sibling selection) */
+      .nav-toggle.open + .nav-links,
+      .nav-toggle.open ~ .nav-links {
+        display: flex;
+      }
+
       .listing-gallery img { width: 100px; height: 70px; }
       .rental-listing { padding: 1em; }
       .listing-details ul { columns: 1; }
@@ -286,7 +408,7 @@
   <!-- Navbar (restored to original structure) -->
   <nav class="navbar-minimal">
     <div class="nav-center">
-      <button class="nav-toggle" aria-label="Toggle navigation">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span class="hamburger"></span>
       </button>
       <ul class="nav-links">
@@ -394,6 +516,58 @@
     </div>
     <div class="privacy" style="margin-top:0.6rem;">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
+
+  <!-- Small script to make the hamburger work on mobile and apply the black/open styling -->
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav-toggle');
+      const navLinks = document.querySelector('.nav-center .nav-links');
+
+      if (!navToggle || !navLinks) return;
+
+      // Ensure aria-expanded is set and update on toggle
+      navToggle.setAttribute('aria-expanded', 'false');
+
+      navToggle.addEventListener('click', function (e) {
+        const isOpen = navToggle.classList.toggle('open');
+        // For small screens, toggle visibility; on larger screens styling is handled by CSS
+        if (window.innerWidth <= 760) {
+          navLinks.style.display = isOpen ? 'flex' : 'none';
+        } else {
+          navLinks.style.display = '';
+        }
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      // Close menu when a nav link is clicked (on mobile)
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', function () {
+          if (navToggle.classList.contains('open')) {
+            navToggle.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            // hide the mobile menu
+            if (window.innerWidth <= 760) navLinks.style.display = 'none';
+          }
+        });
+      });
+
+      // Reset inline styles on resize so menu behaves correctly
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 760) {
+          navToggle.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          navLinks.style.display = '';
+        } else {
+          // if the toggle is open on small screens ensure it stays visible
+          if (navToggle.classList.contains('open')) {
+            navLinks.style.display = 'flex';
+          } else {
+            navLinks.style.display = 'none';
+          }
+        }
+      });
+    })();
+  </script>
 
   <!-- Inlined gallery/lightbox script (no extra files required) -->
   <script>
