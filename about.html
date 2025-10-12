@@ -1,24 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About - Newfound Living</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .navbar-minimal { position:relative; z-index:2000; padding:8px 12px; background:#000; color:#fff; }
+    .nav-center { max-width:980px; margin:0 auto; display:flex; align-items:center; gap:12px; position:relative; }
+
+    .nav-toggle { display:none; align-items:center; justify-content:center; width:44px; height:44px; background:transparent; border:none; cursor:pointer; padding:6px; border-radius:8px; }
+    .nav-toggle:focus { outline:2px solid rgba(255,255,255,0.12); outline-offset:2px; }
+
+    .hamburger { width:22px; height:2px; background:#fff; position:relative; display:block; border-radius:2px; transition:transform .22s, background .22s; }
+    .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:#fff; border-radius:2px; transition:transform .22s, top .22s, background .22s; }
+    .hamburger::before { top:-7px } .hamburger::after { top:7px }
+
+    .nav-toggle.open .hamburger { background:transparent }
+    .nav-toggle.open .hamburger::before { transform:rotate(45deg); top:0; background:#fff }
+    .nav-toggle.open .hamburger::after { transform:rotate(-45deg); top:0; background:#fff }
+    .nav-toggle.open { background:#000 }
+
+    .nav-links { list-style:none; margin:0; padding:0; display:flex; gap:12px; align-items:center; }
+    .nav-links a { color:#fff; text-decoration:none; padding:6px 8px; border-radius:6px; display:inline-block; font-weight:600; }
+    .nav-links a:hover, .nav-links a:focus { background:rgba(255,255,255,0.06) }
+    .nav-links a.active { background:#111 }
+
+    @media (max-width:760px) {
+      .nav-toggle { display:inline-flex; }
+      .nav-links { display:none; flex-direction:column; gap:6px; position:absolute; left:12px; right:12px; top:56px; padding:12px; background:#000; border-radius:8px; box-shadow:0 8px 36px rgba(0,0,0,0.45); }
+      .nav-toggle.open + .nav-links { display:flex; }
+    }
+
+    .container { max-width:980px; margin:0 auto; padding:1.6rem; color:#fff; }
+    .logo { display:block; margin:1rem auto; max-width:180px; }
+  </style>
 </head>
 <body>
   <nav class="navbar-minimal">
     <div class="nav-center">
-      <button class="nav-toggle" aria-label="Toggle navigation">
-        <span class="hamburger"></span>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+        <span class="hamburger" aria-hidden="true"></span>
       </button>
-      <ul class="nav-links">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="rental-application.html" class="nav-link">Application</a></li>
-        <li><a href="about.html" class="nav-link active">About</a></li>
+      <ul id="main-nav" class="nav-links" role="menubar">
+        <li role="none"><a role="menuitem" href="index.html" class="nav-link">Home</a></li>
+        <li role="none"><a role="menuitem" href="rental-application.html" class="nav-link">Application</a></li>
+        <li role="none"><a role="menuitem" href="about.html" class="nav-link active">About</a></li>
       </ul>
     </div>
   </nav>
@@ -26,86 +55,47 @@
   <div class="container about-container">
     <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
     <h1>About Newfound Living</h1>
+
     <section class="about-section">
-      <p>
-        Newfound Living is a Newfoundland-owned rental company built on trust, hard work, and genuine care for both tenants and the homes we offer.
-      </p>
-      <p>
-        Founded by Ryan Parsons, a local homeowner with a long-time interest in real estate, Newfound Living started with a simple goal — to provide clean, comfortable, and dependable homes that people are proud to live in.
-      </p>
-      <p>
-        We’re not a property management company. We own every property we rent. That means tenants deal directly with the owner — no middlemen, no confusion, and no delays. When you rent with Newfound Living, you’re renting from someone who cares about the home and the people living in it.
-      </p>
+      <p>Newfound Living is a Newfoundland-owned rental company built on trust, hard work, and genuine care for both tenants and the homes we offer.</p>
+      <p>Founded by Ryan Parsons, a local homeowner with a long-time interest in real estate, Newfound Living started with a simple goal — to provide clean, comfortable, and dependable homes that people can be proud to live in.</p>
       <h2>Our Story</h2>
-      <p>
-        What began as a small renovation project grew into a genuine passion for real estate and building long-term value through responsible ownership. Over time, Newfound Living has expanded to include several rental homes across St. John’s, Mount Pearl, and nearby communities.
-      </p>
-      <p>
-        Each home has been carefully updated — from new flooring and modern kitchens to renovated bathrooms and energy-efficient improvements — all with the goal of creating spaces that feel safe, comfortable, and ready to call home.
-      </p>
-      <p>
-        Our approach is simple: take care of the homes, take care of the people, and everything else tends to fall into place.
-      </p>
+      <p>What began as a small renovation project grew into a genuine passion for real estate and building long-term value through responsible ownership. Over time, Newfound Living has expanded responsibly while keeping quality first.</p>
       <h2>Our Mission</h2>
-      <p>
-        Our mission is to provide tenants with modern, affordable, and well-maintained homes while reinvesting in our community through thoughtful improvements and local ownership.
-      </p>
-      <p>
-        We believe renting should be straightforward and positive — built on respect, communication, and fairness. Every decision we make, from upgrades to lease terms, reflects that belief.
-      </p>
+      <p>Our mission is to provide tenants with modern, affordable, and well-maintained homes while reinvesting in our community through thoughtful improvements and local ownership.</p>
+
       <h2>Our Values</h2>
       <ul class="about-values">
         <li><strong>Quality:</strong> We take pride in offering clean, updated homes that are properly cared for.</li>
         <li><strong>Honesty:</strong> Clear leases, open communication, and no hidden surprises.</li>
         <li><strong>Responsiveness:</strong> Repairs and maintenance are handled quickly and personally.</li>
         <li><strong>Community:</strong> We live here, we invest here, and we care about keeping neighborhoods strong.</li>
-        <li><strong>Growth:</strong> As we expand, our focus stays on quality over quantity — making sure every tenant feels valued.</li>
       </ul>
-      <h2>What We Offer</h2>
-      <ul class="about-offer">
-        <li>Clean, updated rental homes in great neighborhoods</li>
-        <li>Washer/dryer and modern appliances in every unit</li>
-        <li>Fair, transparent rental agreements</li>
-        <li>Direct communication with the property owner</li>
-        <li>Flexible options for families, professionals, and students</li>
-        <li>Ongoing maintenance and upgrades to keep homes comfortable and efficient</li>
-      </ul>
-      <h2>Why Choose Newfound Living</h2>
-      <p>
-        Because we treat tenants like neighbors, not numbers.
-      </p>
-      <p>
-        When you rent from Newfound Living, you can count on a landlord who takes pride in the homes and genuinely wants you to enjoy living there. We believe great rentals come from great relationships — built on respect, reliability, and good Newfoundland hospitality.
-      </p>
     </section>
   </div>
 
   <footer>
     <div>Locally owned and operated in St. John's & surrounding areas</div>
-    <div class="email-link">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
-      <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
-    </div>
-    <div class="social-link">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
-      <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
-    </div>
-    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
+    <div class="email-link"><img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" /> <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a></div>
   </footer>
+
   <script>
-    // Hamburger menu toggle
-    document.querySelectorAll('.nav-toggle').forEach(function(toggle) {
-      toggle.onclick = function() {
-        var navLinks = this.parentElement.querySelector('.nav-links');
-        navLinks.classList.toggle('open');
-      };
-    });
-    document.querySelectorAll('.nav-link').forEach(function(link) {
-      link.onclick = function() {
-        var navLinks = link.closest('.nav-links');
-        if (navLinks.classList.contains('open')) navLinks.classList.remove('open');
-      };
-    });
+  (function(){
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (!navToggle || !navLinks) return;
+
+    navToggle.setAttribute('aria-expanded','false');
+
+    function openMenu(){ navToggle.classList.add('open'); navToggle.setAttribute('aria-expanded','true'); const first = navLinks.querySelector('a'); if(first) first.focus(); }
+    function closeMenu(returnFocus=true){ navToggle.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); if(returnFocus) navToggle.focus(); }
+
+    navToggle.addEventListener('click', ()=>{ if(navToggle.classList.contains('open')) closeMenu(); else openMenu(); });
+    navToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); navToggle.click(); } else if(e.key==='Escape') closeMenu(); });
+
+    navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{ if(getComputedStyle(navToggle).display!=='none' && navToggle.classList.contains('open')) closeMenu(false); }));
+    window.addEventListener('resize', ()=>{ if(window.innerWidth>760){ navToggle.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); } });
+  })();
   </script>
 </body>
 </html>
