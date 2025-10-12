@@ -6,214 +6,237 @@
   <title>Rental Application - Newfound Living</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
-
   <style>
-    /* Navbar styles (solid black desktop, mobile hamburger) */
-    .navbar-minimal { position:relative; z-index:2000; padding:8px 12px; background:#000; color:#fff; }
-    .nav-center { max-width:980px; margin:0 auto; display:flex; align-items:center; gap:12px; position:relative; }
+    :root { --nav-semi: rgba(0,0,0,0.70); --nav-overlay: rgba(0,0,0,0.96); --white:#fff; }
 
-    .nav-toggle { display:none; align-items:center; justify-content:center; width:44px; height:44px; background:transparent; border:none; cursor:pointer; padding:6px; border-radius:8px; }
-    .nav-toggle:focus { outline:2px solid rgba(255,255,255,0.12); outline-offset:2px; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:#fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    .container { max-width:980px; margin:0 auto; padding:1.6rem; box-sizing:border-box; }
+    .logo { display:block; margin:1rem auto; max-width:180px; }
 
-    .hamburger { width:22px; height:2px; background:#fff; position:relative; display:block; border-radius:2px; transition:transform .22s, background .22s; }
-    .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:#fff; border-radius:2px; transition:transform .22s, top .22s, background .22s; }
+    .navbar-minimal { position:relative; z-index:1200; padding:.6em 0; background:var(--nav-semi); box-shadow:0 2px 12px rgba(0,0,0,0.15); width:100%; }
+    .nav-center { max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 12px; box-sizing:border-box; }
+    .nav-links { display:flex; gap:12px; list-style:none; margin:0; padding:0; }
+    .nav-links a { color:var(--white); text-decoration:none; padding:8px 12px; border-radius:8px; background: rgba(255,255,255,0.06); font-weight:600; }
+    .nav-links a.active { background:#256D67; }
+
+    .nav-toggle { display:none; background:transparent; border:none; padding:8px; border-radius:8px; cursor:pointer; }
+    .hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; }
+    .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; }
     .hamburger::before { top:-7px } .hamburger::after { top:7px }
+    .nav-toggle.open .hamburger { background:transparent } .nav-toggle.open .hamburger::before { transform:rotate(45deg); top:0 } .nav-toggle.open .hamburger::after { transform:rotate(-45deg); top:0 }
 
-    .nav-toggle.open .hamburger { background:transparent }
-    .nav-toggle.open .hamburger::before { transform:rotate(45deg); top:0; background:#fff }
-    .nav-toggle.open .hamburger::after { transform:rotate(-45deg); top:0; background:#fff }
-    .nav-toggle.open { background:#000 }
-
-    .nav-links { list-style:none; margin:0; padding:0; display:flex; gap:12px; align-items:center; }
-    .nav-links a { color:#fff; text-decoration:none; padding:6px 8px; border-radius:6px; display:inline-block; font-weight:600; }
-    .nav-links a:hover, .nav-links a:focus { background:rgba(255,255,255,0.06) }
-    .nav-links a.active { background:#111 }
+    .mobile-menu-wrap { display:none; }
+    .mobile-menu { display:flex; flex-direction:column; gap:0; width:100vw; position:absolute; left:0; right:0; top:100%; box-sizing:border-box; z-index:1150; }
+    .mobile-menu a { display:block; padding:16px 18px; font-weight:700; font-size:18px; color:var(--white); text-decoration:none; background:var(--nav-overlay); border-bottom:1px solid rgba(255,255,255,0.04); }
 
     @media (max-width:760px) {
+      .nav-links { display:none; }
       .nav-toggle { display:inline-flex; }
-      .nav-links { display:none; flex-direction:column; gap:6px; position:absolute; left:12px; right:12px; top:56px; padding:12px; background:#000; border-radius:8px; box-shadow:0 8px 36px rgba(0,0,0,0.45); }
-      .nav-toggle.open + .nav-links { display:flex; }
+      .mobile-menu-wrap.hidden { display:none; } .mobile-menu-wrap.visible { display:block; max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch; }
     }
 
-    /* Basic form layout tweaks (kept minimal; main styles in styles.css) */
-    .container { max-width:980px; margin:0 auto; padding:1.6rem; color:#fff; }
-    .logo { display:block; margin:1rem auto; max-width:180px; }
+    /* form hints: actual styling already in styles.css */
+    fieldset.form-section { margin-bottom:2rem; }
   </style>
 </head>
 <body>
-  <nav class="navbar-minimal">
+  <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+      <a href="index.html" aria-label="NewFound Living home" style="display:flex;align-items:center;"><img src="Logos/tinylogo1.png" alt="logo" style="height:34px"></a>
+
+      <ul class="nav-links" role="menubar">
+        <li><a role="menuitem" href="index.html" class="nav-link">Home</a></li>
+        <li><a role="menuitem" href="rental-application.html" class="nav-link active">Application</a></li>
+        <li><a role="menuitem" href="about.html" class="nav-link">About</a></li>
+      </ul>
+
+      <button class="nav-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
         <span class="hamburger" aria-hidden="true"></span>
       </button>
-      <ul id="main-nav" class="nav-links" role="menubar">
-        <li role="none"><a role="menuitem" href="index.html" class="nav-link">Home</a></li>
-        <li role="none"><a role="menuitem" href="rental-application.html" class="nav-link active">Application</a></li>
-        <li role="none"><a role="menuitem" href="about.html" class="nav-link">About</a></li>
-      </ul>
+    </div>
+
+    <div id="mobile-menu" class="mobile-menu-wrap hidden" aria-hidden="true">
+      <nav class="mobile-menu" role="menu" aria-label="Mobile menu">
+        <a role="menuitem" href="index.html">Home</a>
+        <a role="menuitem" href="rental-application.html" class="active">Application</a>
+        <a role="menuitem" href="about.html">About</a>
+      </nav>
     </div>
   </nav>
 
-  <div class="container rental-container">
-    <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
-    <h1>Rental Application</h1>
+  <main>
+    <div class="container">
+      <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
+      <h1>Rental Application</h1>
 
-    <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data">
-      <fieldset class="form-section">
-        <label for="full-name">Full Name</label>
-        <input type="text" id="full-name" name="full_name" required />
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email_address" required />
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone_number" required />
-        <label for="current-address">Current Address</label>
-        <input type="text" id="current-address" name="current_address" required />
-        <label for="landlord-name">Current Landlord Name</label>
-        <input type="text" id="landlord-name" name="landlord_name" />
-        <label for="landlord-contact">Landlord Contact (Phone or Email)</label>
-        <input type="text" id="landlord-contact" name="landlord_contact" />
-      </fieldset>
+      <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data">
+        <fieldset class="form-section">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" name="full_name" required />
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email_address" required />
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone_number" required />
+          <label for="current-address">Current Address</label>
+          <input type="text" id="current-address" name="current_address" required />
+          <label for="landlord-name">Current Landlord Name</label>
+          <input type="text" id="landlord-name" name="landlord_name" />
+          <label for="landlord-contact">Landlord Contact (Phone or Email)</label>
+          <input type="text" id="landlord-contact" name="landlord_contact" />
+        </fieldset>
 
-      <fieldset class="form-section">
-        <h2>Property Details</h2>
-        <label for="property-address">Property Address</label>
-        <input type="text" id="property-address" name="property_address" required placeholder="e.g., 123 Main St" />
-        <label for="move-in-date">Desired Move-in Date</label>
-        <input type="date" id="move-in-date" name="move_in_date" required />
-        <label for="term">Lease Term</label>
-        <select id="term" name="lease_term">
-          <option value="">Select</option>
-          <option value="12 months">12 months</option>
-          <option value="month-to-month">Month-to-month</option>
-        </select>
-      </fieldset>
+        <fieldset class="form-section">
+          <h2>Property Details</h2>
+          <label for="property-address">Property Address</label>
+          <input type="text" id="property-address" name="property_address" required placeholder="e.g., 123 Main St" />
+          <label for="move-in-date">Desired Move-in Date</label>
+          <input type="date" id="move-in-date" name="move_in_date" required />
+          <label for="term">Lease Term</label>
+          <select id="term" name="lease_term">
+            <option value="">Select</option>
+            <option value="12 months">12 months</option>
+            <option value="month-to-month">Month-to-month</option>
+          </select>
+        </fieldset>
 
-      <fieldset class="form-section">
-        <h2>Employment / Income</h2>
-        <label for="employer-name">Employer Name</label>
-        <input type="text" id="employer-name" name="employer_name" required />
-        <label for="proof-income"><strong>Proof of Income / Financial Assistance</strong></label>
-        <label for="proof-income" class="custom-file-upload">
-          <span class="file-upload-text">Choose File</span>
-          <input type="file" id="proof-income" name="proof_income" accept=".pdf,.jpg,.png,.jpeg,.doc,.docx,.heic,.webp" />
-        </label>
-        <span class="file-name" id="file-name">No file chosen</span>
-      </fieldset>
+        <fieldset class="form-section">
+          <h2>Employment / Income</h2>
+          <label for="employer-name">Employer Name</label>
+          <input type="text" id="employer-name" name="employer_name" required />
+          <label for="proof-income"><strong>Proof of Income / Financial Assistance</strong></label>
+          <label for="proof-income" class="custom-file-upload">
+            <span class="file-upload-text">Choose File</span>
+            <input type="file" id="proof-income" name="proof_income" accept=".pdf,.jpg,.png,.jpeg,.doc,.docx,.heic,.webp" />
+          </label>
+          <span class="file-name" id="file-name">No file chosen</span>
+        </fieldset>
 
-      <fieldset class="form-section">
-        <h2>PETS</h2>
-        <div class="pets-center-block">
-          <label class="pets-question-label">Do you have pets?</label>
-          <div class="pet-radio-group pets-radio-center">
-            <label class="pet-radio">
-              <input type="radio" name="pets" value="Yes" class="yes" />
-              <span class="radio-square yes"><span class="check-icon">&#10003;</span></span>
-              <span class="pet-label">Yes</span>
-            </label>
-            <label class="pet-radio">
-              <input type="radio" name="pets" value="No" class="no" />
-              <span class="radio-square no"><span class="x-icon">&#10007;</span></span>
-              <span class="pet-label">No</span>
-            </label>
+        <fieldset class="form-section">
+          <h2>PETS</h2>
+          <div class="pets-center-block">
+            <label class="pets-question-label">Do you have pets?</label>
+            <div class="pet-radio-group pets-radio-center">
+              <label class="pet-radio">
+                <input type="radio" name="pets" value="Yes" class="yes" />
+                <span class="radio-square yes"><span class="check-icon">&#10003;</span></span>
+                <span class="pet-label">Yes</span>
+              </label>
+              <label class="pet-radio">
+                <input type="radio" name="pets" value="No" class="no" />
+                <span class="radio-square no"><span class="x-icon">&#10007;</span></span>
+                <span class="pet-label">No</span>
+              </label>
+            </div>
           </div>
-        </div>
-        <label for="pet-type">Type(s) of pet(s)</label>
-        <input type="text" id="pet-type" name="pet_type" placeholder="e.g., Dog, Cat, etc." />
-        <label for="pet-number">How many pets?</label>
-        <input type="number" id="pet-number" name="pet_number" min="0" />
-        <label for="pet-details">Description (breed, age, etc.)</label>
-        <textarea id="pet-details" name="pet_details" placeholder="Describe your pets"></textarea>
-      </fieldset>
+          <label for="pet-type">Type(s) of pet(s)</label>
+          <input type="text" id="pet-type" name="pet_type" placeholder="e.g., Dog, Cat, etc." />
+          <label for="pet-number">How many pets?</label>
+          <input type="number" id="pet-number" name="pet_number" min="0" />
+          <label for="pet-details">Description (breed, age, etc.)</label>
+          <textarea id="pet-details" name="pet_details" placeholder="Describe your pets"></textarea>
+        </fieldset>
 
-      <fieldset class="form-section">
-        <h2>Other Details</h2>
-        <label>Additional Occupants</label>
-        <div id="occupants-list">
-          <div class="occupant-fields">
-            <input type="text" name="occupant_name_1" placeholder="Name" />
-            <input type="number" name="occupant_age_1" placeholder="Age" min="0" />
-            <input type="tel" name="occupant_phone_1" placeholder="Phone Number" />
+        <fieldset class="form-section">
+          <h2>Other Details</h2>
+          <label>Additional Occupants</label>
+          <div id="occupants-list">
+            <div class="occupant-fields">
+              <input type="text" name="occupant_name_1" placeholder="Name" />
+              <input type="number" name="occupant_age_1" placeholder="Age" min="0" />
+              <input type="tel" name="occupant_phone_1" placeholder="Phone Number" />
+            </div>
           </div>
-        </div>
-        <button type="button" class="btn-mini" id="add-occupant"><span class="plus-symbol">+</span> Add Occupant</button>
+          <button type="button" class="btn-mini" id="add-occupant"><span class="plus-symbol">+</span> Add Occupant</button>
 
-        <label>References</label>
-        <div id="references-list">
-          <div class="reference-fields">
-            <input type="text" name="reference_name_1" placeholder="Name" />
-            <input type="tel" name="reference_phone_1" placeholder="Phone Number" />
-            <input type="text" name="reference_relationship_1" placeholder="Relationship" />
+          <label>References</label>
+          <div id="references-list">
+            <div class="reference-fields">
+              <input type="text" name="reference_name_1" placeholder="Name" />
+              <input type="tel" name="reference_phone_1" placeholder="Phone Number" />
+              <input type="text" name="reference_relationship_1" placeholder="Relationship" />
+            </div>
           </div>
+          <button type="button" class="btn-mini" id="add-reference"><span class="plus-symbol">+</span> Add Reference</button>
+
+          <label for="emergency-contact">Emergency Contact Name</label>
+          <input type="text" id="emergency-contact" name="emergency_contact" />
+          <label for="emergency-phone">Emergency Contact Phone</label>
+          <input type="tel" id="emergency-phone" name="emergency_phone" />
+          <label for="other-info">Any other information you'd like to provide?</label>
+          <textarea id="other-info" name="other_info"></textarea>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <h2>Declaration</h2>
+          <p class="declaration-text">I declare that the information provided is true and complete. I authorize Newfound Living to verify this application.</p>
+          <label for="applicant-signature">Signature</label>
+          <input type="text" id="applicant-signature" name="applicant_signature" required />
+          <label for="applicant-signature-date">Date</label>
+          <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
+        </fieldset>
+
+        <div class="form-actions" style="text-align:center; margin-bottom:2rem;">
+          <button type="submit" class="btn-submit">Submit Application</button>
         </div>
-        <button type="button" class="btn-mini" id="add-reference"><span class="plus-symbol">+</span> Add Reference</button>
+      </form>
+    </div>
+  </main>
 
-        <label for="emergency-contact">Emergency Contact Name</label>
-        <input type="text" id="emergency-contact" name="emergency_contact" />
-        <label for="emergency-phone">Emergency Contact Phone</label>
-        <input type="tel" id="emergency-phone" name="emergency_phone" />
-        <label for="other-info">Any other information you'd like to provide?</label>
-        <textarea id="other-info" name="other_info"></textarea>
-      </fieldset>
-
-      <fieldset class="form-section">
-        <h2>Declaration</h2>
-        <p class="declaration-text">I declare that the information provided is true and complete. I authorize Newfound Living to verify this application.</p>
-        <label for="applicant-signature">Signature</label>
-        <input type="text" id="applicant-signature" name="applicant_signature" required />
-        <label for="applicant-signature-date">Date</label>
-        <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
-      </fieldset>
-
-      <div class="form-actions">
-        <button type="submit" class="btn-submit">Submit Application</button>
-      </div>
-    </form>
-  </div>
-
-  <footer>
+  <footer style="max-width:980px;margin:2rem auto;padding:1rem;text-align:center;color:#fff;">
     <div>Locally owned and operated in St. John's & surrounding areas</div>
-    <div class="email-link"><img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" /> <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a></div>
-    <div class="social-link"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" /> <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a></div>
   </footer>
 
   <script>
-  (function(){
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    if (!navToggle || !navLinks) return;
+    // Per-page mobile menu behavior (local)
+    (function () {
+      const toggle = document.querySelector('.nav-toggle');
+      const wrap = document.getElementById('mobile-menu');
+      if (!toggle || !wrap) return;
 
-    navToggle.setAttribute('aria-expanded','false');
+      function open() { toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if (f) f.focus(); }
+      function close(returnFocus=true) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); if (returnFocus) toggle.focus(); }
 
-    function openMenu(){ navToggle.classList.add('open'); navToggle.setAttribute('aria-expanded','true'); const first = navLinks.querySelector('a'); if(first) first.focus();}
-    function closeMenu(returnFocus=true){ navToggle.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); if(returnFocus) navToggle.focus();}
+      toggle.addEventListener('click', () => { if (wrap.classList.contains('visible')) close(); else open(); });
+      toggle.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggle.click(); } if (e.key==='Escape') close(); });
 
-    navToggle.addEventListener('click', ()=>{ if(navToggle.classList.contains('open')) closeMenu(); else openMenu(); });
-    navToggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); navToggle.click(); } else if(e.key==='Escape') closeMenu(); });
+      wrap.addEventListener('click', (e) => { if (e.target.closest('a')) close(false); });
+      window.addEventListener('resize', () => { if (window.innerWidth > 760) close(false); });
+    })();
 
-    navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{ if(getComputedStyle(navToggle).display!=='none' && navToggle.classList.contains('open')) closeMenu(false); }));
-    window.addEventListener('resize', ()=>{ if(window.innerWidth>760){ navToggle.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); } });
-  })();
-  </script>
+    // File input filename display
+    (function () {
+      const proofInput = document.getElementById('proof-income');
+      const fileNameSpan = document.getElementById('file-name');
+      if (proofInput && fileNameSpan) {
+        proofInput.addEventListener('change', function() { fileNameSpan.textContent = this.files[0] ? this.files[0].name : 'No file chosen'; });
+      }
+    })();
 
-  <script>
-    // file input filename display + dynamic occupant/reference adders
-    const proofInput = document.getElementById('proof-income');
-    const fileNameSpan = document.getElementById('file-name');
-    if (proofInput && fileNameSpan) {
-      proofInput.addEventListener('change', function(){ fileNameSpan.textContent = this.files[0] ? this.files[0].name : 'No file chosen'; });
-    }
-    document.getElementById('add-occupant').onclick = function(){
-      const list = document.getElementById('occupants-list'); const count = list.children.length + 1;
-      const div = document.createElement('div'); div.className='occupant-fields';
-      div.innerHTML = `<input type="text" name="occupant_name_${count}" placeholder="Name" /><input type="number" name="occupant_age_${count}" placeholder="Age" min="0" /><input type="tel" name="occupant_phone_${count}" placeholder="Phone Number" />`;
-      list.appendChild(div);
-    };
-    document.getElementById('add-reference').onclick = function(){
-      const list = document.getElementById('references-list'); const count = list.children.length + 1;
-      const div = document.createElement('div'); div.className='reference-fields';
-      div.innerHTML = `<input type="text" name="reference_name_${count}" placeholder="Name" /><input type="tel" name="reference_phone_${count}" placeholder="Phone Number" /><input type="text" name="reference_relationship_${count}" placeholder="Relationship" />`;
-      list.appendChild(div);
-    };
+    // Add occupant/reference fields
+    (function () {
+      const addOccupant = document.getElementById('add-occupant');
+      const addReference = document.getElementById('add-reference');
+      if (addOccupant) {
+        addOccupant.addEventListener('click', function () {
+          const list = document.getElementById('occupants-list');
+          const count = list.children.length + 1;
+          const div = document.createElement('div');
+          div.className = 'occupant-fields';
+          div.innerHTML = `<input type="text" name="occupant_name_${count}" placeholder="Name" /><input type="number" name="occupant_age_${count}" placeholder="Age" min="0" /><input type="tel" name="occupant_phone_${count}" placeholder="Phone Number" />`;
+          list.appendChild(div);
+        });
+      }
+      if (addReference) {
+        addReference.addEventListener('click', function () {
+          const list = document.getElementById('references-list');
+          const count = list.children.length + 1;
+          const div = document.createElement('div');
+          div.className = 'reference-fields';
+          div.innerHTML = `<input type="text" name="reference_name_${count}" placeholder="Name" /><input type="tel" name="reference_phone_${count}" placeholder="Phone Number" /><input type="text" name="reference_relationship_${count}" placeholder="Relationship" />`;
+          list.appendChild(div);
+        });
+      }
+    })();
   </script>
 </body>
 </html>
