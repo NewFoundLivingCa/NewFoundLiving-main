@@ -13,7 +13,7 @@
     .container { max-width:980px; margin:0 auto; padding:1.6rem; box-sizing:border-box; }
     .logo { display:block; margin:1rem auto; max-width:220px; }
 
-    /* navbar (identical to other pages) - no tiny logo in navbar */
+    /* Navbar identical to index (no tiny logo) */
     .navbar-minimal { position:relative; z-index:1200; padding:.6em 0; background:var(--nav-semi); box-shadow:0 2px 12px rgba(0,0,0,0.15); width:100%; }
     .nav-center { max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 12px; box-sizing:border-box; }
     .nav-links { display:flex; gap:12px; list-style:none; margin:0; padding:0; }
@@ -36,14 +36,13 @@
       .mobile-menu-wrap.hidden { display:none; } .mobile-menu-wrap.visible { display:block; max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch; }
     }
 
-    /* small helpers; main form styles are in styles.css */
+    /* Basic form helpers — main styling in styles.css */
     fieldset.form-section { margin-bottom:2rem; }
   </style>
 </head>
 <body>
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
-      <!-- left side intentionally empty (no tiny logo in navbar) -->
       <div aria-hidden="true" style="width:34px;height:1px;"></div>
 
       <ul class="nav-links" role="menubar">
@@ -184,23 +183,32 @@
     </div>
   </main>
 
-  <footer style="max-width:980px;margin:2rem auto;padding:1rem;text-align:center;color:#fff;">
-    <div>Locally owned and operated in St. John's & surrounding areas</div>
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-row">
+      <div class="email-link">
+        <img class="icon" src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
+        <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+      </div>
+
+      <div class="social-link">
+        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
+        <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
+      </div>
+    </div>
+
+    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
 
   <script>
-    // Per-page mobile menu behavior (same as index)
+    // Mobile menu behavior (same as index)
     (function () {
       const toggle = document.querySelector('.nav-toggle');
       const wrap = document.getElementById('mobile-menu');
       if (!toggle || !wrap) return;
-
       function open() { toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if (f) f.focus(); }
       function close(returnFocus=true) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); if (returnFocus) toggle.focus(); }
-
       toggle.addEventListener('click', () => { if (wrap.classList.contains('visible')) close(); else open(); });
       toggle.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggle.click(); } if (e.key==='Escape') close(); });
-
       wrap.addEventListener('click', (e) => { if (e.target.closest('a')) close(false); });
       window.addEventListener('resize', () => { if (window.innerWidth > 760) close(false); });
     })();
