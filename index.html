@@ -16,10 +16,11 @@
       --accent-red-2: #c62828;
     }
 
+    /* Option A: let styles.css control the page background.
+       Keep typography and color defaults here but do NOT set a background-image or gradient. */
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, #0f3a37 0%, #083532 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       color: #fff;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
@@ -282,13 +283,13 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar-minimal" style="background:transparent; padding:0.6rem 0;">
-    <div class="container" style="display:flex; align-items:center; justify-content:space-between;">
-      <div style="display:flex; align-items:center; gap:1rem;">
-        <button class="nav-toggle" aria-label="Toggle navigation" style="background:none; border:none; color:#fff; font-size:1.05rem; cursor:pointer;">☰</button>
-      </div>
-      <ul class="nav-links" style="list-style:none; display:flex; gap:1.2rem; margin:0; padding:0;">
+  <!-- Navbar (restored to original structure) -->
+  <nav class="navbar-minimal">
+    <div class="nav-center">
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="hamburger"></span>
+      </button>
+      <ul class="nav-links">
         <li><a href="index.html" class="nav-link active">Home</a></li>
         <li><a href="rental-application.html" class="nav-link">Application</a></li>
         <li><a href="about.html" class="nav-link">About</a></li>
@@ -548,9 +549,6 @@
         }
       }
     });
-
-    // Helper wrappers for autoplay interval (used above)
-    // nextImage and prevImage are exposed globally already
   })();
   </script>
 </body>
