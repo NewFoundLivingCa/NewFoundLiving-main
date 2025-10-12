@@ -17,19 +17,21 @@
       --white: #ffffff;
     }
 
-    /* page base — background is provided by styles.css (city.png) */
+    /* Page base — background/image controlled by styles.css (city.png) */
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       color: #fff;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+      background-attachment: fixed;
     }
 
     .container { max-width: 980px; margin: 0 auto; padding: 1.6rem; box-sizing: border-box; }
     .logo { display:block; margin:1rem auto; max-width:220px; background:none; }
     .centered-title { text-align:center; font-size:2.1em; font-weight:600; margin:.8em auto .2em; color:#fff; }
 
+    /* Listing */
     .rental-listing {
       border-radius:1.2rem;
       padding:1.8rem;
@@ -44,11 +46,11 @@
     .listing-details ul { columns:2; font-size:1.08em; margin:1em auto; padding-left:.5em; max-width:600px; text-align:left; display:inline-block; color:#fff; }
     .contact-btn { padding:.7em 1.5em; background:linear-gradient(180deg,var(--brand-green-1),var(--brand-green-2)); color:#fff; border:none; border-radius:10px; font-weight:700; cursor:pointer; box-shadow:0 8px 26px rgba(33,112,106,0.18); }
 
-    /* price */
+    /* Price */
     .original-price { text-decoration: line-through; color: #ff8a80; font-weight: 700; margin-right: 0.6rem; }
     .price-badge { display:inline-block; background: linear-gradient(180deg,var(--accent-red-1),var(--accent-red-2)); color:#fff; padding:0.4em 0.9em; border-radius:12px; font-weight:800; box-shadow:0 10px 30px rgba(198,40,40,0.16); }
 
-    /* lightbox */
+    /* Lightbox (unchanged) */
     .modal { position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.88); display:none; align-items:center; justify-content:center; padding:1.5rem; box-sizing:border-box; }
     .lightbox { max-width:1100px; width:100%; height:86vh; background:#fff; border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
     .lightbox-main { width:100%; height:calc(100% - 110px); display:flex; align-items:center; justify-content:center; background:#000; position:relative; }
@@ -59,7 +61,7 @@
 
     .close { position:absolute; top:18px; right:20px; font-size:1.6rem; color:#fff; cursor:pointer; font-weight:bold; z-index:10003; background: rgba(0,0,0,0.45); padding:6px 10px; border-radius:6px; border:none; }
 
-    /* navbar (identical on all pages) - transparent/semi-opaque matching styles.css */
+    /* Navbar (identical on all pages) - semi-transparent black to match styles.css */
     .navbar-minimal { position:relative; z-index:1200; padding:.6em 0; background:var(--nav-semi); box-shadow:0 2px 12px rgba(0,0,0,0.15); width:100%; }
     .nav-center { max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 12px; box-sizing:border-box; }
 
@@ -68,7 +70,7 @@
     .nav-links a:hover, .nav-links a:focus { background:rgba(255,255,255,0.12); outline:none; }
     .nav-links a.active { background:#256D67; color:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.12); }
 
-    /* mobile hamburger and dropdown (per-page, identical across pages) */
+    /* Mobile hamburger / dropdown (per-page local) */
     .nav-toggle { display:none; background:transparent; border:none; padding:8px; border-radius:8px; cursor:pointer; align-items:center; justify-content:center; }
     .hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; transition: transform .18s, background .18s; }
     .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; transition: transform .18s, top .18s, opacity .18s; }
@@ -86,11 +88,16 @@
       .listing-gallery img { width:100px; height:70px; }
     }
 
-    footer { margin-top:2.2rem; padding:1.2rem; text-align:center; color:#fff; font-size:.96em; max-width:980px; margin-left:auto; margin-right:auto; }
+    /* Footer content styles */
+    footer.site-footer { max-width:980px; margin:2rem auto; padding:1.2rem; text-align:center; color:#fff; background: rgba(0,0,0,0.35); border-radius: 0.8rem; box-shadow: 0 1px 12px rgba(0,0,0,0.12); }
+    footer .footer-row { display:flex; gap:1rem; align-items:center; justify-content:center; flex-wrap:wrap; }
+    footer a { color:#fff; text-decoration:underline; }
+    footer img.icon { height:20px; vertical-align:middle; margin-right:8px; }
+    footer .privacy { margin-top:0.6rem; font-size:0.95em; opacity:0.95; }
   </style>
 </head>
 <body>
-  <!-- NAVBAR: no tiny logo on any page navbars (index navbar left intentionally empty to keep layout consistent) -->
+  <!-- NAVBAR: no tiny logo in navbar; identical header across pages -->
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
       <div aria-hidden="true" style="width:34px;height:1px;"></div>
@@ -197,18 +204,24 @@
     </div>
   </div>
 
-  <footer>
-    <div style="max-width:980px;margin:0 auto;padding:1.2rem;text-align:center;color:#fff;">
-      <div>Locally owned and operated in St. John's & surrounding areas</div>
-      <div style="margin-top:.6rem;">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email" style="height:18px;vertical-align:middle;margin-right:8px;" />
-        <a href="mailto:info.newfoundliving@gmail.com" style="color:#fff;">info.newfoundliving@gmail.com</a>
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-row">
+      <div class="email-link">
+        <img class="icon" src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
+        <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+      </div>
+
+      <div class="social-link">
+        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
+        <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
       </div>
     </div>
+
+    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
 
   <script>
-    // Per-page mobile menu behavior (same pattern on every page)
+    // Per-page mobile menu behavior (consistent across pages)
     (function () {
       const toggle = document.querySelector('.nav-toggle');
       const wrap = document.getElementById('mobile-menu');
@@ -253,116 +266,116 @@
   </script>
 
   <script>
-  (function () {
-    // Gallery / lightbox scripts
-    const gallerySelector = '.listing-gallery img';
-    const galleryImgs = Array.from(document.querySelectorAll(gallerySelector));
-    const modal = document.getElementById('galleryModal');
-    const modalImg = document.getElementById('modalImg');
-    const thumbStrip = document.getElementById('thumbStrip');
-    const slideshowToggle = document.getElementById('slideshowToggle');
+    // Gallery / lightbox scripts (unchanged)
+    (function () {
+      const gallerySelector = '.listing-gallery img';
+      const galleryImgs = Array.from(document.querySelectorAll(gallerySelector));
+      const modal = document.getElementById('galleryModal');
+      const modalImg = document.getElementById('modalImg');
+      const thumbStrip = document.getElementById('thumbStrip');
+      const slideshowToggle = document.getElementById('slideshowToggle');
 
-    let currentIndex = 0;
-    let autoplay = false;
-    let autoplayInterval = null;
-    const AUTOPLAY_DELAY = 3000;
+      let currentIndex = 0;
+      let autoplay = false;
+      let autoplayInterval = null;
+      const AUTOPLAY_DELAY = 3000;
 
-    function buildThumbs() {
-      if (!thumbStrip) return;
-      thumbStrip.innerHTML = '';
+      function buildThumbs() {
+        if (!thumbStrip) return;
+        thumbStrip.innerHTML = '';
+        galleryImgs.forEach((imgEl, i) => {
+          const t = document.createElement('img');
+          t.src = imgEl.src;
+          t.alt = imgEl.alt || ('Image ' + (i + 1));
+          t.dataset.index = i;
+          t.tabIndex = 0;
+          t.addEventListener('click', () => showImage(i));
+          t.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showImage(i); } });
+          thumbStrip.appendChild(t);
+        });
+      }
+
+      function setActiveThumb(idx) {
+        if (!thumbStrip) return;
+        const thumbs = Array.from(thumbStrip.querySelectorAll('img'));
+        thumbs.forEach((t, i) => {
+          if (i === idx) { t.classList.add('active'); try { t.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); } catch (e){} }
+          else t.classList.remove('active');
+        });
+      }
+
+      function showImage(index) {
+        const img = galleryImgs[index];
+        if (!img) return;
+        modalImg.src = img.src;
+        modalImg.alt = img.alt || ('Image ' + (index + 1));
+        currentIndex = index;
+        setActiveThumb(currentIndex);
+      }
+
+      window.openModalAtIndex = function (index) {
+        if (!galleryImgs.length) return;
+        currentIndex = (typeof index === 'number') ? index : 0;
+        buildThumbs();
+        showImage(currentIndex);
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+        const firstThumb = thumbStrip.querySelector('img');
+        if (firstThumb) firstThumb.focus();
+      };
+
+      window.closeModal = function () {
+        stopAutoplay();
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      };
+
+      window.prevImage = function () { if (!galleryImgs.length) return; showImage((currentIndex - 1 + galleryImgs.length) % galleryImgs.length); };
+      window.nextImage = function () { if (!galleryImgs.length) return; showImage((currentIndex + 1) % galleryImgs.length); };
+
+      function startAutoplay() {
+        if (autoplayInterval) return;
+        autoplay = true;
+        slideshowToggle.textContent = '⏸';
+        slideshowToggle.setAttribute('aria-pressed','true');
+        autoplayInterval = setInterval(() => window.nextImage(), AUTOPLAY_DELAY);
+      }
+      function stopAutoplay() {
+        autoplay = false;
+        slideshowToggle.textContent = '▶';
+        slideshowToggle.setAttribute('aria-pressed','false');
+        if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
+      }
+
+      if (slideshowToggle) slideshowToggle.addEventListener('click', () => { if (autoplay) stopAutoplay(); else startAutoplay(); });
+
       galleryImgs.forEach((imgEl, i) => {
-        const t = document.createElement('img');
-        t.src = imgEl.src;
-        t.alt = imgEl.alt || ('Image ' + (i + 1));
-        t.dataset.index = i;
-        t.tabIndex = 0;
-        t.addEventListener('click', () => showImage(i));
-        t.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showImage(i); } });
-        thumbStrip.appendChild(t);
+        imgEl.addEventListener('click', () => openModalAtIndex(i));
+        imgEl.tabIndex = 0;
+        imgEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModalAtIndex(i); } });
       });
-    }
 
-    function setActiveThumb(idx) {
-      if (!thumbStrip) return;
-      const thumbs = Array.from(thumbStrip.querySelectorAll('img'));
-      thumbs.forEach((t, i) => {
-        if (i === idx) { t.classList.add('active'); try { t.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); } catch (e){} }
-        else t.classList.remove('active');
-      });
-    }
+      if (modal) modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
 
-    function showImage(index) {
-      const img = galleryImgs[index];
-      if (!img) return;
-      modalImg.src = img.src;
-      modalImg.alt = img.alt || ('Image ' + (index + 1));
-      currentIndex = index;
-      setActiveThumb(currentIndex);
-    }
-
-    window.openModalAtIndex = function (index) {
-      if (!galleryImgs.length) return;
-      currentIndex = (typeof index === 'number') ? index : 0;
-      buildThumbs();
-      showImage(currentIndex);
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-      const firstThumb = thumbStrip.querySelector('img');
-      if (firstThumb) firstThumb.focus();
-    };
-
-    window.closeModal = function () {
-      stopAutoplay();
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
-    };
-
-    window.prevImage = function () { if (!galleryImgs.length) return; showImage((currentIndex - 1 + galleryImgs.length) % galleryImgs.length); };
-    window.nextImage = function () { if (!galleryImgs.length) return; showImage((currentIndex + 1) % galleryImgs.length); };
-
-    function startAutoplay() {
-      if (autoplayInterval) return;
-      autoplay = true;
-      slideshowToggle.textContent = '⏸';
-      slideshowToggle.setAttribute('aria-pressed','true');
-      autoplayInterval = setInterval(() => window.nextImage(), AUTOPLAY_DELAY);
-    }
-    function stopAutoplay() {
-      autoplay = false;
-      slideshowToggle.textContent = '▶';
-      slideshowToggle.setAttribute('aria-pressed','false');
-      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
-    }
-
-    if (slideshowToggle) slideshowToggle.addEventListener('click', () => { if (autoplay) stopAutoplay(); else startAutoplay(); });
-
-    galleryImgs.forEach((imgEl, i) => {
-      imgEl.addEventListener('click', () => openModalAtIndex(i));
-      imgEl.tabIndex = 0;
-      imgEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModalAtIndex(i); } });
-    });
-
-    if (modal) modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
-
-    document.addEventListener('keydown', function (e) {
-      if (modal.style.display === 'flex') {
-        if (e.key === 'Escape') closeModal();
-        else if (e.key === 'ArrowLeft') prevImage();
-        else if (e.key === 'ArrowRight') nextImage();
-      }
-    });
-
-    document.addEventListener('focusin', (e) => {
-      if (modal.style.display === 'flex') {
-        if (!modal.contains(e.target)) {
-          const firstThumb = thumbStrip.querySelector('img');
-          if (firstThumb) firstThumb.focus();
+      document.addEventListener('keydown', function (e) {
+        if (modal.style.display === 'flex') {
+          if (e.key === 'Escape') closeModal();
+          else if (e.key === 'ArrowLeft') prevImage();
+          else if (e.key === 'ArrowRight') nextImage();
         }
-      }
-    });
-  })();
+      });
+
+      document.addEventListener('focusin', (e) => {
+        if (modal.style.display === 'flex') {
+          if (!modal.contains(e.target)) {
+            const firstThumb = thumbStrip.querySelector('img');
+            if (firstThumb) firstThumb.focus();
+          }
+        }
+      });
+    })();
   </script>
 </body>
 </html>
