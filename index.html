@@ -1,551 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NewFound Living - Home</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     :root {
       --brand-green-1: #1f8f80;
       --brand-green-2: #21706A;
-      --accent-red-1: #e53935;
-      --accent-red-2: #c62828;
+      --nav-semi: rgba(0,0,0,0.70);
+      --nav-overlay: rgba(0,0,0,0.96);
+      --white: #ffffff;
     }
 
-    /* Keep page background out of this file: styles.css provides the city background image.
-       This file restores the transparent (semi-opaque) navbar to match the other pages. */
+    /* Keep page background controlled by styles.css (city.png). */
+    body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:#fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
 
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      color: #fff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
+    /* Container/content */
+    .container { max-width:980px; margin:0 auto; padding:1.6rem; box-sizing:border-box; }
+    .logo { display:block; margin:1rem auto; max-width:180px; background:none; }
+    .centered-title { text-align:center; font-size:2.1em; font-weight:600; margin:.8em auto .2em; color:#fff; }
 
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 1.6rem;
-    }
-
-    .logo {
-      display: block;
-      margin: 1rem auto;
-      max-width: 180px;
-      background: none;
-    }
-
-    .centered-title {
-      text-align: center;
-      font-size: 2.1em;
-      font-weight: 600;
-      margin: 0.8em auto 0.2em auto;
-      letter-spacing: 1px;
-      color: #fff;
-    }
-
-    .rental-listing {
-      border-radius: 1.2rem;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.14);
-      padding: 2em 2em 2.5em 2em;
-      margin: 2em auto;
-      text-align: center;
-      color: #fff;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-
-    .listing-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1em;
-      margin-bottom: 2em;
-      justify-content: center;
-      background: transparent;
-    }
-    .listing-gallery img {
-      width: 180px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.14);
-      transition: transform 0.22s, box-shadow .22s;
-      background: rgba(255,255,255,0.06);
-      border: 2px solid rgba(0,0,0,0.06);
-    }
-    .listing-gallery img:hover {
-      transform: scale(1.06);
-      box-shadow: 0 6px 28px rgba(0,0,0,0.28);
-      z-index: 2;
-    }
-
-    .listing-details {
-      margin-top: 1.2rem;
-    }
-    .listing-details ul {
-      columns: 2;
-      font-size: 1.08em;
-      margin: 1em auto;
-      padding-left: 0.5em;
-      max-width: 600px;
-      text-align: left;
-      display: inline-block;
-      color: #fff;
-    }
-
-    .contact-btn {
-      padding: 0.7em 1.5em;
-      background: linear-gradient(180deg,var(--brand-green-1),var(--brand-green-2));
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 1em;
-      cursor: pointer;
-      margin-top: 1em;
-      transition: transform .12s, box-shadow .12s, opacity .12s;
-      font-weight: 700;
-      box-shadow: 0 8px 26px rgba(33,112,106,0.18);
-      display: inline-block;
-    }
-    .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(33,112,106,0.26); }
-
-    /* Lightbox modal styles (unchanged) */
-    .modal {
-      position: fixed;
-      z-index: 9999;
-      left: 0; top: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.88);
-      display: none;
-      align-items: center; justify-content: center;
-      animation: fadeIn .22s;
-      padding: 1.5rem;
-      box-sizing: border-box;
-    }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    .lightbox { max-width: 1100px; width: 100%; height: 86vh; background: #fff; border-radius: 10px; overflow: hidden; display:flex; flex-direction:column; align-items:center; }
-    .lightbox-main { width:100%; height:calc(100% - 110px); display:flex; align-items:center; justify-content:center; background:#000; position:relative; }
-    .lightbox-main img { max-width:100%; max-height:100%; object-fit:contain; display:block; margin:0 auto; }
-    .lightbox-thumbs { width:100%; padding:10px; box-sizing:border-box; background:#fafafa; display:flex; gap:.6rem; overflow-x:auto; border-top:1px solid rgba(0,0,0,0.06); }
-    .lightbox-thumbs img { width:110px; height:70px; object-fit:cover; border-radius:6px; cursor:pointer; border:2px solid transparent; flex:0 0 auto; }
-    .lightbox-thumbs img.active { border-color:var(--brand-green-2); box-shadow:0 6px 18px rgba(0,0,0,0.12); }
-
-    .close { position:absolute; top:18px; right:20px; font-size:1.6rem; color:#fff; cursor:pointer; font-weight:bold; z-index:10003; background: rgba(0,0,0,0.45); padding:6px 10px; border-radius:6px; border:none; }
-
-    footer {
-      margin-top: 2.2rem;
-      padding: 1.2rem;
-      text-align: center;
-      color: #fff;
-      font-size: 0.96em;
-      opacity: 0.95;
-    }
-    footer a { color: #fff; text-decoration: underline; }
-
-    /* NAVBAR: restored to semi-transparent (matching styles.css) */
+    /* Navbar: semi-transparent on desktop; mobile uses an accessible dropdown overlay that belongs to each page */
     .navbar-minimal {
       position: relative;
-      z-index: 2000;
-      padding: 0.6em 0;
-      background: rgba(0,0,0,0.70); /* semi-transparent to match styles.css */
+      z-index: 1200;
+      padding: .6em 0;
+      background: var(--nav-semi);
       box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      width:100%;
     }
     .nav-center {
-      max-width: 980px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      position: relative;
+      max-width:980px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 0 12px;
+      box-sizing:border-box;
     }
+
+    /* Desktop links */
     .nav-links {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 12px;
-      align-items: center;
+      display:flex;
+      gap:12px;
+      list-style:none;
+      margin:0;
+      padding:0;
+      align-items:center;
     }
     .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      padding: 6px 8px;
-      border-radius: 6px;
-      display: inline-block;
-      font-weight: 600;
-      background: rgba(255,255,255,0.10);
+      color:var(--white);
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.06);
+      font-weight:600;
+      display:inline-block;
     }
-    .nav-links a:focus,
-    .nav-links a:hover { background: rgba(255,255,255,0.12); }
+    .nav-links a:hover, .nav-links a:focus { background: rgba(255,255,255,0.12); outline:none; }
+    .nav-links a.active { background: #256D67; color:#fff; box-shadow:0 6px 18px rgba(0,0,0,0.12); }
 
-    /* Hamburger: hidden on desktop, visible on small screens */
+    /* Mobile toggle (hidden on desktop) */
     .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5em;
-      margin-left: 0.7em;
-      z-index: 100;
-      border-radius: 6px;
+      display:none; /* shown in media query */
+      background:transparent;
+      border:none;
+      padding:8px;
+      border-radius:8px;
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
     }
-    .hamburger,
-    .hamburger::before,
-    .hamburger::after {
-      display: block;
-      background: #fff;
-      height: 4px;
-      width: 28px;
-      border-radius: 2px;
-      position: relative;
-      transition: 0.3s;
-    }
-    .hamburger::before,
-    .hamburger::after { content: ""; position:absolute; left:0; }
-    .hamburger::before { top: -8px; }
-    .hamburger::after  { top: 8px; }
+    .hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; transition: transform .18s, background .18s; }
+    .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; transition: transform .18s, top .18s, opacity .18s; }
+    .hamburger::before { top:-7px; } .hamburger::after { top:7px; }
 
-    /* open -> X (white) on top of the semi-transparent navbar */
+    /* When open: animate to X (white) */
     .nav-toggle.open .hamburger { background: transparent; }
-    .nav-toggle.open .hamburger::before { transform: rotate(45deg); top: 0; background: #fff; }
-    .nav-toggle.open .hamburger::after  { transform: rotate(-45deg); top: 0; background: #fff; }
+    .nav-toggle.open .hamburger::before { transform: rotate(45deg); top:0; }
+    .nav-toggle.open .hamburger::after  { transform: rotate(-45deg); top:0; }
 
-    @media (max-width: 700px) {
-      .nav-center { align-items: flex-start; width: 100%; }
-      .nav-toggle { display: block; }
-      .nav-links {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(0,0,0,0.96);
-        box-shadow: 0 2px 16px rgba(0,0,0,0.19);
-        max-height: 0;
-        overflow: hidden;
-        width: 100vw;
-        border-radius: 0 0 1em 1em;
-        transition: max-height 0.3s ease;
-      }
-      .nav-links.open { max-height: 300px; padding-bottom: 1em; }
-      .nav-links a { width: 100%; padding: 1em 1.2em; font-size: 1.08em; margin: 0; border-radius: 0; text-align: left; }
-      .listing-gallery img { width: 100px; height: 70px; }
-      .lightbox-thumbs img { width: 82px; height: 56px; }
-      .modal { padding: 0; }
-      .lightbox { width: 100vw; height: 100vh; max-width: none; border-radius: 0; }
-      .lightbox-main { height: calc(100% - 96px); }
+    /* MOBILE dropdown: a compact full-width dropdown that fits small screens.
+       This dropdown is local to the page (present in the page markup) so it's not a shared/global nav. */
+    .mobile-menu {
+      display:none;
     }
+    .mobile-menu.inner {
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:flex;
+      flex-direction:column;
+      gap:0;
+    }
+    .mobile-menu a {
+      display:block;
+      padding:16px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      text-decoration:none;
+      color:var(--white);
+      font-weight:700;
+      font-size:18px;
+      background: var(--nav-overlay);
+    }
+    .mobile-menu a:active, .mobile-menu a:focus { background: rgba(255,255,255,0.03); outline:none; }
+
+    /* Make sure mobile menu fits screen and is scrollable if needed */
+    .mobile-menu-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      width:100vw;
+      box-sizing:border-box;
+      z-index:1150;
+      max-height: 70vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Small-screen adjustments */
+    @media (max-width: 760px) {
+      .nav-links { display:none; }
+      .nav-toggle { display:inline-flex; }
+      .mobile-menu { display:block; }
+      .navbar-minimal { padding: 10px 0; }
+      .nav-center { padding: 0 10px; }
+      /* When open, we'll add .open to .mobile-menu-wrap (via JS) to make it visible */
+      .mobile-menu-wrap.hidden { display:none; }
+      .mobile-menu-wrap.visible { display:block; }
+    }
+
+    /* Listing gallery small adjustments (keeps images fitting small screens) */
+    .listing-gallery { display:flex; flex-wrap:wrap; gap:1em; justify-content:center; margin-bottom:2rem; }
+    .listing-gallery img { width:180px; height:120px; object-fit:cover; border-radius:10px; box-shadow:0 2px 16px rgba(0,0,0,0.14); transition:transform .22s; }
+    @media (max-width:760px) { .listing-gallery img { width:100px; height:70px; } }
+
+    /* keep lightbox and other styles minimal here (styles.css contains base layout) */
+    .rental-listing { border-radius:1.2rem; padding:1.8rem; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); box-shadow:0 6px 24px rgba(0,0,0,0.14); color:#fff; }
   </style>
 </head>
 <body>
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+        <img src="Logos/tinylogo1.png" alt="logo" style="height:34px;width:auto;display:block;">
+      </a>
+
+      <!-- Desktop links (visible on wide screens) -->
+      <ul class="nav-links" role="menubar" aria-hidden="false">
+        <li><a role="menuitem" href="index.html" class="nav-link active">Home</a></li>
+        <li><a role="menuitem" href="rental-application.html" class="nav-link">Application</a></li>
+        <li><a role="menuitem" href="about.html" class="nav-link">About</a></li>
+      </ul>
+
+      <!-- Mobile hamburger (visible only on small screens). Each page includes its own mobile dropdown below. -->
+      <button class="nav-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
         <span class="hamburger" aria-hidden="true"></span>
       </button>
+    </div>
 
-      <ul id="main-nav" class="nav-links" role="menubar" aria-hidden="false">
-        <li role="none"><a role="menuitem" href="index.html" class="nav-link active">Home</a></li>
-        <li role="none"><a role="menuitem" href="rental-application.html" class="nav-link">Application</a></li>
-        <li role="none"><a role="menuitem" href="about.html" class="nav-link">About</a></li>
-      </ul>
+    <!-- Mobile menu wrap (local to this page). Hidden by default; JS toggles .visible -->
+    <div id="mobile-menu" class="mobile-menu-wrap hidden" aria-hidden="true">
+      <nav class="mobile-menu inner" role="menu" aria-label="Mobile menu">
+        <a role="menuitem" href="index.html" class="mobile-link active">Home</a>
+        <a role="menuitem" href="rental-application.html" class="mobile-link">Application</a>
+        <a role="menuitem" href="about.html" class="mobile-link">About</a>
+      </nav>
     </div>
   </nav>
 
-  <div class="container">
-    <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
+  <main>
+    <div class="container">
+      <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
+      <h1 class="centered-title">For Rent – 16 Carlow Place (Main Floor Unit)</h1>
 
-    <h1 class="centered-title">For Rent – 16 Carlow Place (Main Floor Unit)</h1>
-
-    <div class="rental-listing">
-      <div class="listing-top">
-        <p><strong>Available November 1st</strong></p>
-
-        <p class="listing-announcement">
-          We heard your feedback and have adjusted the price on this beautiful main floor unit at 16 Carlow Place to
-          <strong>$1,950/month (P.O.U.)</strong>.
-        </p>
-      </div>
-
-      <div class="listing-gallery" aria-label="Listing images">
-        <img src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main" data-index="0">
-        <img src="16carlowmain/Half Bath.jpg" alt="Half Bath" data-index="1">
-        <img src="16carlowmain/Kitchen 1.jpg" alt="Kitchen 1" data-index="2">
-        <img src="16carlowmain/Kitchen 2.jpg" alt="Kitchen 2" data-index="3">
-        <img src="16carlowmain/Kitchen 3.jpg" alt="Kitchen 3" data-index="4">
-        <img src="16carlowmain/Living Room 1.jpg" alt="Living Room 1" data-index="5">
-        <img src="16carlowmain/Living Room 2.jpg" alt="Living Room 2" data-index="6">
-        <img src="16carlowmain/Main Far.jpg" alt="Main Far" data-index="7">
-        <img src="16carlowmain/Main Outside.jpg" alt="Main Outside" data-index="8">
-        <img src="16carlowmain/Rec Room 2.jpg" alt="Rec Room 2" data-index="9">
-        <img src="16carlowmain/Rec Room.jpg" alt="Rec Room" data-index="10">
-        <img src="16carlowmain/Room 1.jpg" alt="Room 1" data-index="11">
-        <img src="16carlowmain/Room 2.jpg" alt="Room 2" data-index="12">
-        <img src="16carlowmain/Room 3.jpg" alt="Room 3" data-index="13">
-      </div>
-
-      <div class="listing-details">
-        <ul>
-          <li>3 Bedrooms</li>
-          <li>1.5 Bathrooms</li>
-          <li>Washer & Dryer included (in-unit)</li>
-          <li>Dishwasher, fridge & stove included</li>
-          <li>Fenced backyard — great for kids or pets</li>
-          <li>Parking for 2 vehicles</li>
-          <li>8x12 storage shed</li>
-          <li>Close to bus route</li>
-          <li>2 playgrounds nearby</li>
-          <li>Pet friendly (pets considered)</li>
-          <li>Very family friendly location</li>
-          <li>This unit will be painted and flooring updated before November 1st</li>
-        </ul>
-
-        <p class="price-row" aria-live="polite">
-          <strong>
-            <span class="original-price">$2,100/month (P.O.U.)</span>
-            <span class="price-badge">Reduced — Now $1,950/month (P.O.U.)</span>
-          </strong>
-        </p>
-
-        <p>1/2 Month rent deposit</p>
-        <p>Month-to-Month or Year lease</p>
-
-        <div style="margin-top:0.8rem;">
-          <button class="contact-btn" onclick="location.href='mailto:info.newfoundliving@gmail.com?subject=Rental Inquiry: 16 Carlow Place'">
-            Contact Newfound Living
-          </button>
+      <section class="rental-listing" aria-labelledby="listing-title">
+        <div id="listing-top">
+          <p><strong>Available November 1st</strong></p>
+          <p>We heard your feedback and have adjusted the price on this beautiful main floor unit at 16 Carlow Place to <strong>$1,950/month (P.O.U.)</strong>.</p>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Modal lightbox for gallery -->
-  <div id="galleryModal" class="modal" aria-hidden="true" role="dialog" aria-label="Image gallery">
-    <div class="lightbox" role="document">
-      <div class="lightbox-main">
-        <button class="close" aria-label="Close gallery" onclick="closeModal()">×</button>
-        <button class="slideshow-toggle" id="slideshowToggle" aria-pressed="false" title="Start slideshow">▶</button>
-        <div class="lightbox-controls" aria-hidden="false">
-          <button class="lb-btn" aria-label="Previous image" onclick="prevImage()">❮</button>
-          <button class="lb-btn" aria-label="Next image" onclick="nextImage()">❯</button>
+        <div class="listing-gallery" aria-label="Listing images">
+          <img src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main" data-index="0">
+          <img src="16carlowmain/Half Bath.jpg" alt="Half Bath" data-index="1">
+          <img src="16carlowmain/Kitchen 1.jpg" alt="Kitchen 1" data-index="2">
+          <!-- more images... -->
         </div>
-        <img id="modalImg" src="" alt="">
-      </div>
-      <div class="lightbox-thumbs" id="thumbStrip" aria-label="Image thumbnails"></div>
-    </div>
-  </div>
 
-  <footer>
+        <div class="listing-details">
+          <ul>
+            <li>3 Bedrooms</li>
+            <li>1.5 Bathrooms</li>
+            <li>Washer & Dryer included (in-unit)</li>
+            <!-- more list items... -->
+          </ul>
+
+          <div style="margin-top:.8rem;">
+            <button class="contact-btn" onclick="location.href='mailto:info.newfoundliving@gmail.com?subject=Rental Inquiry: 16 Carlow Place'">Contact Newfound Living</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer style="max-width:980px;margin:2rem auto;padding:1rem;text-align:center;">
     <div>Locally owned and operated in St. John's & surrounding areas</div>
-    <div class="email-link" style="margin-top:0.6rem;">
-      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" style="vertical-align:middle;width:20px;height:20px;margin-right:8px;" />
-      <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+    <div style="margin-top:.6rem;">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" style="height:18px;vertical-align:middle;margin-right:8px;" />
+      <a href="mailto:info.newfoundliving@gmail.com" style="color:#fff;">info.newfoundliving@gmail.com</a>
     </div>
-    <div class="social-link" style="margin-top:0.6rem;">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" style="vertical-align:middle;width:20px;height:20px;margin-right:8px;" />
-      <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
-    </div>
-    <div class="privacy" style="margin-top:0.6rem;">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
 
-  <!-- Navbar behaviour: toggle .open class (CSS controls visibility) -->
   <script>
-  (function () {
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    if (!navToggle || !navLinks) return;
+    // Per-page mobile menu: keeps behavior local to this page only.
+    (function () {
+      const toggle = document.querySelector('.nav-toggle');
+      const mobileWrap = document.getElementById('mobile-menu');
+      if (!toggle || !mobileWrap) return;
 
-    navToggle.setAttribute('aria-expanded', 'false');
+      function open() {
+        toggle.classList.add('open');
+        toggle.setAttribute('aria-expanded','true');
+        mobileWrap.classList.remove('hidden');
+        mobileWrap.classList.add('visible');
+        mobileWrap.setAttribute('aria-hidden','false');
+        // focus first link
+        const first = mobileWrap.querySelector('a');
+        if (first) first.focus();
+      }
+      function close(returnFocus = true) {
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+        mobileWrap.classList.remove('visible');
+        mobileWrap.classList.add('hidden');
+        mobileWrap.setAttribute('aria-hidden','true');
+        if (returnFocus) toggle.focus();
+      }
 
-    function openMenu() {
-      navToggle.classList.add('open');
-      navLinks.classList.add('open'); // matches styles.css mobile behaviour
-      navToggle.setAttribute('aria-expanded', 'true');
-      const first = navLinks.querySelector('a');
-      if (first) first.focus();
-    }
-    function closeMenu(returnFocus = true) {
-      navToggle.classList.remove('open');
-      navLinks.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      if (returnFocus) navToggle.focus();
-    }
+      toggle.addEventListener('click', function () {
+        if (mobileWrap.classList.contains('visible')) close(); else open();
+      });
+      toggle.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); }
+        if (e.key === 'Escape') close();
+      });
 
-    navToggle.addEventListener('click', function () {
-      if (navToggle.classList.contains('open')) closeMenu();
-      else openMenu();
-    });
-
-    navToggle.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navToggle.click(); }
-      else if (e.key === 'Escape') closeMenu();
-    });
-
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', function () {
-        if (getComputedStyle(navToggle).display !== 'none' && navToggle.classList.contains('open')) {
-          closeMenu(false);
+      // Close menu when a link is clicked (mobile)
+      mobileWrap.addEventListener('click', function (e) {
+        const a = e.target.closest('a');
+        if (a) {
+          // small delay so navigation can start; close without returning focus
+          close(false);
         }
       });
-    });
 
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 700) {
-        navToggle.classList.remove('open');
-        navLinks.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  })();
-  </script>
-
-  <!-- Gallery/lightbox script (unchanged) -->
-  <script>
-  (function () {
-    const gallerySelector = '.listing-gallery img';
-    const galleryImgs = Array.from(document.querySelectorAll(gallerySelector));
-    const modal = document.getElementById('galleryModal');
-    const modalImg = document.getElementById('modalImg');
-    const thumbStrip = document.getElementById('thumbStrip');
-    const slideshowToggle = document.getElementById('slideshowToggle');
-
-    let currentIndex = 0;
-    let autoplay = false;
-    let autoplayInterval = null;
-    const AUTOPLAY_DELAY = 3000; // 3s
-
-    function buildThumbs() {
-      if (!thumbStrip) return;
-      thumbStrip.innerHTML = '';
-      galleryImgs.forEach((imgEl, i) => {
-        const t = document.createElement('img');
-        t.src = imgEl.src;
-        t.alt = imgEl.alt || ('Image ' + (i + 1));
-        t.dataset.index = i;
-        t.tabIndex = 0;
-        t.addEventListener('click', () => { showImage(i); });
-        t.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showImage(i); }
-        });
-        thumbStrip.appendChild(t);
-      });
-    }
-
-    function setActiveThumb(idx) {
-      if (!thumbStrip) return;
-      const thumbs = Array.from(thumbStrip.querySelectorAll('img'));
-      thumbs.forEach((t, i) => {
-        if (i === idx) {
-          t.classList.add('active');
-          try { t.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); } catch (e) {}
-        } else {
-          t.classList.remove('active');
+      // Ensure correct state on resize
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 760) {
+          // ensure mobile menu hidden on desktop
+          close(false);
         }
       });
-    }
-
-    function showImage(index) {
-      const img = galleryImgs[index];
-      if (!img) return;
-      modalImg.src = img.src;
-      modalImg.alt = img.alt || ('Image ' + (index + 1));
-      currentIndex = index;
-      setActiveThumb(currentIndex);
-    }
-
-    window.openModalAtIndex = function (index) {
-      if (!galleryImgs || !galleryImgs.length) return;
-      currentIndex = (typeof index === 'number') ? index : 0;
-      buildThumbs();
-      showImage(currentIndex);
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      const firstThumb = thumbStrip.querySelector('img');
-      if (firstThumb) firstThumb.focus();
-    };
-
-    window.closeModal = function () {
-      stopAutoplay();
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    };
-
-    window.prevImage = function () {
-      if (!galleryImgs.length) return;
-      const next = (currentIndex - 1 + galleryImgs.length) % galleryImgs.length;
-      showImage(next);
-    };
-
-    window.nextImage = function () {
-      if (!galleryImgs.length) return;
-      const next = (currentIndex + 1) % galleryImgs.length;
-      showImage(next);
-    };
-
-    function startAutoplay() {
-      if (autoplayInterval) return;
-      autoplay = true;
-      slideshowToggle.textContent = '⏸';
-      slideshowToggle.setAttribute('aria-pressed', 'true');
-      autoplayInterval = setInterval(() => { window.nextImage(); }, AUTOPLAY_DELAY);
-    }
-
-    function stopAutoplay() {
-      autoplay = false;
-      slideshowToggle.textContent = '▶';
-      slideshowToggle.setAttribute('aria-pressed', 'false');
-      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
-    }
-
-    if (slideshowToggle) {
-      slideshowToggle.addEventListener('click', () => {
-        if (autoplay) stopAutoplay(); else startAutoplay();
-      });
-    }
-
-    galleryImgs.forEach((imgEl, i) => {
-      imgEl.addEventListener('click', function () { openModalAtIndex(i); });
-      imgEl.tabIndex = 0;
-      imgEl.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModalAtIndex(i); }
-      });
-    });
-
-    if (modal) {
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal) closeModal();
-      });
-    }
-
-    document.addEventListener('keydown', function (e) {
-      if (modal.style.display === 'flex') {
-        if (e.key === 'Escape') closeModal();
-        else if (e.key === 'ArrowLeft') prevImage();
-        else if (e.key === 'ArrowRight') nextImage();
-      }
-    });
-
-    // Basic focus containment while modal open
-    document.addEventListener('focusin', (e) => {
-      if (modal.style.display === 'flex') {
-        const isInside = modal.contains(e.target);
-        if (!isInside) {
-          const firstThumb = thumbStrip.querySelector('img');
-          if (firstThumb) firstThumb.focus();
-        }
-      }
-    });
-  })();
+    })();
   </script>
 </body>
 </html>
