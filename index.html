@@ -34,20 +34,24 @@
 
   <main>
     <div class="container">
-      <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
 
-      <!-- Intro added back here -->
-      <section class="intro" aria-label="About Newfound Living">
-        <p class="intro-text">
-          Welcome to <strong>Newfound Living</strong> — a locally owned rental company based in Newfoundland.
-          We take pride in offering clean, comfortable homes that people are proud to live in.
-          All our properties are personally owned and maintained, ensuring quality, trust, and quick communication with the owner.
-        </p>
-        <p class="intro-text">
-          Explore our available rentals below or submit a rental application directly through our website.
-          Your next home might be closer than you think.
-        </p>
+      <!-- Intro panel: logo + intro copy in a separate translucent box -->
+      <section class="intro-panel" aria-label="Welcome to Newfound Living">
+        <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="intro-logo">
+
+        <div class="intro" aria-label="About Newfound Living">
+          <p class="intro-text">
+            Welcome to <strong>Newfound Living</strong> — a locally owned rental company based in Newfoundland.
+            We take pride in offering clean, comfortable homes that people are proud to live in.
+            All our properties are personally owned and maintained, ensuring quality, trust, and quick communication with the owner.
+          </p>
+          <p class="intro-text">
+            Explore our available rentals below or submit a rental application directly through our website.
+            Your next home might be closer than you think.
+          </p>
+        </div>
       </section>
+      <!-- /Intro panel -->
 
       <h1 class="centered-title">For Rent — 16 Carlow Place (Main Floor Unit)</h1>
 
@@ -57,12 +61,12 @@
           <p class="listing-announcement">We listened — price updated for this bright, family friendly main-floor unit. Preview the space below.</p>
         </div>
 
-        <!-- Carousel (autoplay removed; play button removed) -->
+        <!-- Carousel (autoplay removed) -->
         <div class="carousel-wrap" aria-label="Property slideshow">
           <button class="carousel-arrow carousel-arrow-left" aria-label="Previous slide">❮</button>
 
           <div class="carousel-main" role="region" aria-label="Current slide">
-            <img id="carouselImage" src="16carlowmain/Bathroom Main.jpg" alt="Main slide">
+            <img id="carouselImage" src="16carlowmain/Bathroom Main.jpg" alt="Main slide" tabindex="0">
             <div class="carousel-caption">
               <div class="caption-title">16 Carlow Place — Main Floor</div>
               <div class="caption-sub">3 bed · 1.5 bath · Family friendly</div>
@@ -151,7 +155,7 @@
   </footer>
 
   <script>
-  // Mobile menu
+  // Mobile menu (unchanged)
   (function () {
     const toggle = document.querySelector('.nav-toggle');
     const wrap = document.getElementById('mobile-menu');
@@ -164,7 +168,7 @@
     window.addEventListener('resize', ()=> { if(window.innerWidth > 760) close(); });
   })();
 
-  // Carousel and thumbnails (autoplay removed; play button removed)
+  // Carousel and thumbnails (start on 'Main Outside' if present)
   (function () {
     const wrap = document.querySelector('.carousel-wrap');
     if (!wrap) return;
@@ -175,37 +179,48 @@
 
     const gallery = thumbs.map(t => ({ src: t.src, alt: t.alt }));
     let current = 0;
-    function show(i){
-      if(!gallery.length) return;
+    function show(i) {
+      if (!gallery.length || !mainImg) return;
       i = (i + gallery.length) % gallery.length;
       const it = gallery[i];
       mainImg.src = it.src;
       mainImg.alt = it.alt || `Image ${i+1}`;
       current = i;
-      thumbs.forEach((t, idx)=> t.classList.toggle('active', idx===i));
+      thumbs.forEach((t, idx) => t.classList.toggle('active', idx === i));
     }
-    function prev(){ show(current-1); }
-    function next(){ show(current+1); }
+    function prev() { show(current - 1); }
+    function next() { show(current + 1); }
 
-    if(leftBtn) leftBtn.addEventListener('click', ()=> prev());
-    if(rightBtn) rightBtn.addEventListener('click', ()=> next());
+    if (leftBtn) leftBtn.addEventListener('click', prev);
+    if (rightBtn) rightBtn.addEventListener('click', next);
 
-    thumbs.forEach((t, i)=> {
+    thumbs.forEach((t, i) => {
       t.tabIndex = 0;
-      t.addEventListener('click', ()=> show(i));
-      t.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); t.click(); } });
+      t.addEventListener('click', () => show(i));
+      t.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); } });
     });
 
-    mainImg.addEventListener('click', ()=> { if(typeof window.openModalAtIndex==='function') window.openModalAtIndex(current); });
+    if (mainImg) {
+      mainImg.addEventListener('click', () => { if (typeof window.openModalAtIndex === 'function') window.openModalAtIndex(current); });
+    }
 
     wrap.tabIndex = 0;
-    wrap.addEventListener('keydown', (e)=> {
-      if(e.key==='ArrowLeft'){ e.preventDefault(); prev(); }
-      if(e.key==='ArrowRight'){ e.preventDefault(); next(); }
-      // NOTE: spacebar no longer toggles play (there is no play)
+    wrap.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
     });
 
-    show(0);
+    // Prefer "Main Outside.jpg" to start
+    try {
+      const preferredIdx = thumbs.findIndex(t => {
+        const src = (t.getAttribute('src') || '').toLowerCase();
+        const alt = (t.getAttribute('alt') || '').toLowerCase();
+        return src.includes('main outside') || src.includes('main_outside') || src.includes('main-outside') || alt.includes('main outside');
+      });
+      if (preferredIdx >= 0) show(preferredIdx); else show(0);
+    } catch (err) {
+      show(0);
+    }
   })();
 
   // Lightbox (unchanged)
@@ -222,55 +237,55 @@
 
     let idx = 0, autoplay = false, autoplayInterval = null, DELAY = 3000;
 
-    function buildThumbs(){
-      if(!thumbStrip) return;
+    function buildThumbs() {
+      if (!thumbStrip) return;
       thumbStrip.innerHTML = '';
-      galleryImgs.forEach((imgEl, i)=> {
+      galleryImgs.forEach((imgEl, i) => {
         const t = document.createElement('img');
         t.src = imgEl.src;
-        t.alt = imgEl.alt || ('Image '+(i+1));
+        t.alt = imgEl.alt || ('Image ' + (i + 1));
         t.dataset.index = i;
         t.tabIndex = 0;
-        t.addEventListener('click', ()=> showImage(i));
-        t.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); showImage(i); } });
+        t.addEventListener('click', () => showImage(i));
+        t.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showImage(i); } });
         thumbStrip.appendChild(t);
       });
     }
-    function setActiveThumb(i){
-      if(!thumbStrip) return;
+    function setActiveThumb(i) {
+      if (!thumbStrip) return;
       const thumbs = Array.from(thumbStrip.querySelectorAll('img'));
-      thumbs.forEach((t, j)=> t.classList.toggle('active', j===i));
+      thumbs.forEach((t, j) => t.classList.toggle('active', j === i));
     }
-    function showImage(i){
+    function showImage(i) {
       const img = galleryImgs[i];
-      if(!img) return;
-      modalImg.src = img.src; modalImg.alt = img.alt || ('Image '+(i+1)); idx = i; setActiveThumb(idx);
+      if (!img) return;
+      modalImg.src = img.src; modalImg.alt = img.alt || ('Image ' + (i + 1)); idx = i; setActiveThumb(idx);
     }
-    window.openModalAtIndex = function(i){
-      if(!galleryImgs.length) return;
-      idx = (typeof i==='number')? i : 0;
+    window.openModalAtIndex = function (i) {
+      if (!galleryImgs.length) return;
+      idx = (typeof i === 'number') ? i : 0;
       buildThumbs(); showImage(idx);
-      modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
-      if(prevBtn) prevBtn.focus();
+      modal.style.display = 'flex'; modal.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden';
+      if (prevBtn) prevBtn.focus();
     };
-    window.closeModal = function(){
-      if(autoplayInterval){ clearInterval(autoplayInterval); autoplayInterval=null; autoplay=false; slideshowToggle.textContent='▶'; slideshowToggle.setAttribute('aria-pressed','false'); }
-      modal.style.display='none'; modal.setAttribute('aria-hidden','true'); document.body.style.overflow='';
+    window.closeModal = function () {
+      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; autoplay = false; slideshowToggle.textContent = '▶'; slideshowToggle.setAttribute('aria-pressed','false'); }
+      modal.style.display = 'none'; modal.setAttribute('aria-hidden','true'); document.body.style.overflow = '';
     };
-    window.prevImage = function(){ if(!galleryImgs.length) return; showImage((idx-1+galleryImgs.length)%galleryImgs.length); };
-    window.nextImage = function(){ if(!galleryImgs.length) return; showImage((idx+1)%galleryImgs.length); };
-    function startAuto(){ if(autoplayInterval) return; autoplay=true; slideshowToggle.textContent='⏸'; slideshowToggle.setAttribute('aria-pressed','true'); autoplayInterval=setInterval(()=>window.nextImage(), DELAY); }
-    function stopAuto(){ autoplay=false; slideshowToggle.textContent='▶'; slideshowToggle.setAttribute('aria-pressed','false'); if(autoplayInterval){ clearInterval(autoplayInterval); autoplayInterval=null; } }
+    window.prevImage = function () { if (!galleryImgs.length) return; showImage((idx - 1 + galleryImgs.length) % galleryImgs.length); };
+    window.nextImage = function () { if (!galleryImgs.length) return; showImage((idx + 1) % galleryImgs.length); };
+    function startAuto() { if (autoplayInterval) return; autoplay = true; slideshowToggle.textContent = '⏸'; slideshowToggle.setAttribute('aria-pressed','true'); autoplayInterval = setInterval(() => window.nextImage(), DELAY); }
+    function stopAuto() { autoplay = false; slideshowToggle.textContent = '▶'; slideshowToggle.setAttribute('aria-pressed','false'); if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; } }
 
-    if(slideshowToggle) slideshowToggle.addEventListener('click', ()=> autoplay ? stopAuto() : startAuto());
-    if(prevBtn) prevBtn.addEventListener('click', ()=> window.prevImage());
-    if(nextBtn) nextBtn.addEventListener('click', ()=> window.nextImage());
-    if(modal) modal.addEventListener('click', (e)=> { if(e.target===modal) closeModal(); });
-    document.addEventListener('keydown', (e)=> {
-      if(modal.style.display==='flex'){
-        if(e.key==='Escape') closeModal();
-        else if(e.key==='ArrowLeft') window.prevImage();
-        else if(e.key==='ArrowRight') window.nextImage();
+    if (slideshowToggle) slideshowToggle.addEventListener('click', () => autoplay ? stopAuto() : startAuto());
+    if (prevBtn) prevBtn.addEventListener('click', () => window.prevImage());
+    if (nextBtn) nextBtn.addEventListener('click', () => window.nextImage());
+    if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (modal.style.display === 'flex') {
+        if (e.key === 'Escape') closeModal();
+        else if (e.key === 'ArrowLeft') window.prevImage();
+        else if (e.key === 'ArrowRight') window.nextImage();
       }
     });
   })();
