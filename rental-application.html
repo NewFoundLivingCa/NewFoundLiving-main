@@ -42,6 +42,7 @@
       <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" novalidate>
         <fieldset class="form-section" aria-label="Personal information">
           <h2>Personal Information</h2>
+
           <label for="full-name">Full Name</label>
           <input type="text" id="full-name" name="full_name" required />
 
@@ -63,6 +64,7 @@
 
         <fieldset class="form-section" aria-label="Property details">
           <h2>Property Details</h2>
+
           <label for="property-address">Property Address</label>
           <input type="text" id="property-address" name="property_address" required placeholder="e.g., 123 Main St" />
 
@@ -87,34 +89,35 @@
             Upload via Google Form and paste the confirmation/Drive link, or choose Email to attach documents to an outgoing message.
           </p>
 
-          <div class="option-group" role="radiogroup" aria-label="Proof submission method">
+          <div class="option-group" role="radiogroup" aria-label="Proof submission method" style="text-align:center;">
             <label style="display:inline-flex; gap:.5rem; align-items:center;">
               <input type="radio" name="proof_option" value="google_form" checked />
               <span>Google Form</span>
             </label>
 
-            <label style="display:inline-flex; gap:.5rem; align-items:center;">
+            <label style="display:inline-flex; gap:.5rem; align-items:center; margin-left:1rem;">
               <input type="radio" name="proof_option" value="email" />
               <span>Email</span>
             </label>
           </div>
 
           <div id="google-flow" class="proof-flow" aria-hidden="false" style="text-align:center; margin-top:.6rem;">
-            <button type="button" id="open-google-form" class="btn-brand" aria-label="Open Google Form to upload proof of income">Open Google Form</button>
+            <!-- Anchor used to ensure proper focus/navigation and direct opening of the Google Form -->
+            <a id="open-google-form" class="btn-primary" href="https://forms.gle/DQZHf9fBEhqGBFzs8" target="_blank" rel="noopener" aria-label="Open Google Form to upload proof of income">Open Google Form</a>
 
             <div class="inline-row" style="margin-top:.8rem;">
               <input type="url" id="proof-income-link" name="proof_income_link" placeholder="Paste Google Form confirmation or Drive link here" aria-label="Paste proof link" />
             </div>
 
             <div style="margin-top:.6rem;">
-              <button type="button" id="paste-clipboard" class="paste-centered" title="Paste URL from clipboard">Paste link</button>
+              <button type="button" id="paste-clipboard" class="btn-primary--small paste-centered" title="Paste URL from clipboard">Paste link</button>
             </div>
           </div>
 
           <div id="email-flow" class="proof-flow" style="display:none; margin-top:.6rem;" aria-hidden="true">
             <p class="helper">Click the button to open your email client, attach proof, and include your name & property address.</p>
             <div style="text-align:center; margin-top:8px;">
-              <button type="button" id="email-proof-btn" class="btn-mini" title="Email proof">Email Proof of Income</button>
+              <button type="button" id="email-proof-btn" class="btn-primary--small" title="Email proof">Email Proof of Income</button>
             </div>
           </div>
         </fieldset>
@@ -155,23 +158,27 @@
 
           <label>Additional Occupants</label>
           <div id="occupants-list">
-            <div class="occupant-fields" data-index="1">
+            <div class="occupant-fields" data-index="1" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:.4rem;">
               <input type="text" name="occupant_name_1" placeholder="Name" style="flex:1 1 200px"/>
               <input type="number" name="occupant_age_1" placeholder="Age" min="0" style="width:120px"/>
               <input type="tel" name="occupant_phone_1" placeholder="Phone Number" style="flex:1 1 180px"/>
             </div>
           </div>
-          <button type="button" class="btn-mini" id="add-occupant" style="margin-top:10px;">+ Add Occupant</button>
+          <div style="margin-top:10px;">
+            <button type="button" class="btn-primary--small" id="add-occupant" aria-label="Add occupant">+ Add Occupant</button>
+          </div>
 
           <label style="margin-top:12px; display:block;">References</label>
           <div id="references-list">
-            <div class="reference-fields" data-index="1">
+            <div class="reference-fields" data-index="1" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:.4rem;">
               <input type="text" name="reference_name_1" placeholder="Name" style="flex:1 1 200px"/>
               <input type="tel" name="reference_phone_1" placeholder="Phone Number" style="width:160px"/>
               <input type="text" name="reference_relationship_1" placeholder="Relationship" style="flex:1 1 160px"/>
             </div>
           </div>
-          <button type="button" class="btn-mini" id="add-reference" style="margin-top:10px;">+ Add Reference</button>
+          <div style="margin-top:10px;">
+            <button type="button" class="btn-primary--small" id="add-reference" aria-label="Add reference">+ Add Reference</button>
+          </div>
 
           <label for="emergency-contact" style="margin-top:12px">Emergency Contact Name</label>
           <input type="text" id="emergency-contact" name="emergency_contact" />
@@ -195,7 +202,7 @@
         </fieldset>
 
         <div style="text-align:center; margin:1.2rem 0;">
-          <button type="submit" class="btn-submit">Submit Application</button>
+          <button type="submit" class="btn-submit" aria-label="Submit application">Submit Application</button>
         </div>
       </form>
     </div>
@@ -236,7 +243,7 @@
           <input type="text" name="occupant_name_${occupantCount}" placeholder="Name" style="flex:1 1 200px"/>
           <input type="number" name="occupant_age_${occupantCount}" placeholder="Age" min="0" style="width:120px"/>
           <input type="tel" name="occupant_phone_${occupantCount}" placeholder="Phone Number" style="flex:1 1 180px"/>
-          <button type="button" class="btn-mini remove-entry" aria-label="Remove occupant" style="margin-left:6px;">Remove</button>
+          <button type="button" class="btn-primary--small remove-entry" aria-label="Remove occupant" style="margin-left:6px;">Remove</button>
         `;
         occupantsList.appendChild(div);
         div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
@@ -260,7 +267,7 @@
           <input type="text" name="reference_name_${referenceCount}" placeholder="Name" style="flex:1 1 200px"/>
           <input type="tel" name="reference_phone_${referenceCount}" placeholder="Phone Number" style="width:160px"/>
           <input type="text" name="reference_relationship_${referenceCount}" placeholder="Relationship" style="flex:1 1 160px"/>
-          <button type="button" class="btn-mini remove-entry" aria-label="Remove reference" style="margin-left:6px;">Remove</button>
+          <button type="button" class="btn-primary--small remove-entry" aria-label="Remove reference" style="margin-left:6px;">Remove</button>
         `;
         referencesList.appendChild(div);
         div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
@@ -277,7 +284,6 @@
     const pasteBtn = document.getElementById('paste-clipboard');
     const proofLinkInput = document.getElementById('proof-income-link');
     const emailProofBtn = document.getElementById('email-proof-btn');
-    const GOOGLE_FORM_URL = ''; // set your form URL here if you have one
 
     function showFlow() {
       const r = document.querySelector('input[name="proof_option"]:checked');
@@ -293,9 +299,11 @@
     proofRadios.forEach(r => r.addEventListener('change', showFlow));
     showFlow();
 
-    if (openGoogleBtn) openGoogleBtn.addEventListener('click', () => {
-      window.open(GOOGLE_FORM_URL || 'https://docs.google.com/forms', '_blank', 'noopener');
-    });
+    // The open-google-form is an anchor already; keep a fallback
+    if (openGoogleBtn && openGoogleBtn.tagName.toLowerCase() === 'button') {
+      const GOOGLE_FORM_URL = 'https://forms.gle/DQZHf9fBEhqGBFzs8';
+      openGoogleBtn.addEventListener('click', () => window.open(GOOGLE_FORM_URL, '_blank', 'noopener'));
+    }
 
     if (pasteBtn) pasteBtn.addEventListener('click', async () => {
       if (!navigator.clipboard) { alert('Clipboard API not available. Please paste manually.'); return; }
