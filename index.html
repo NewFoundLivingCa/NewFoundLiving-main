@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>NewFound Living - Home</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
+  <title>NewFound Living — Home</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
-      <div aria-hidden="true" style="width:34px;height:1px;"></div>
+      <div class="nav-left-placeholder" aria-hidden="true"></div>
 
-      <ul class="nav-links" role="menubar" aria-hidden="false">
-        <li><a role="menuitem" href="index.html" class="nav-link active">Home</a></li>
-        <li><a role="menuitem" href="rental-application.html" class="nav-link">Application</a></li>
-        <li><a role="menuitem" href="about.html" class="nav-link">About</a></li>
+      <ul class="nav-links" role="menubar">
+        <li><a href="index.html" class="nav-link active" role="menuitem">Home</a></li>
+        <li><a href="rental-application.html" class="nav-link" role="menuitem">Application</a></li>
+        <li><a href="about.html" class="nav-link" role="menuitem">About</a></li>
       </ul>
 
       <button class="nav-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
@@ -25,9 +25,9 @@
 
     <div id="mobile-menu" class="mobile-menu-wrap hidden" aria-hidden="true">
       <nav class="mobile-menu" role="menu" aria-label="Mobile menu">
-        <a role="menuitem" href="index.html" class="mobile-link">Home</a>
-        <a role="menuitem" href="rental-application.html" class="mobile-link">Application</a>
-        <a role="menuitem" href="about.html" class="mobile-link">About</a>
+        <a role="menuitem" href="index.html">Home</a>
+        <a role="menuitem" href="rental-application.html">Application</a>
+        <a role="menuitem" href="about.html">About</a>
       </nav>
     </div>
   </nav>
@@ -39,32 +39,25 @@
       <h1 class="centered-title">For Rent — 16 Carlow Place (Main Floor Unit)</h1>
 
       <section class="rental-listing" aria-labelledby="listing-title">
-        <div id="listing-top" style="text-align:center; margin-bottom:8px;">
-          <p><strong>Available November 1st</strong></p>
-          <p class="listing-announcement" style="max-width:820px; margin:0.2rem auto 0;">
-            We listened: the price for this bright main-floor family unit has been updated.
-            See the reduced rent below and use the slideshow to preview the refreshed interior.
-          </p>
+        <div id="listing-top" class="listing-top">
+          <p class="available"><strong>Available November 1st</strong></p>
+          <p class="listing-announcement">We listened — price updated for this bright, family friendly main-floor unit. Preview the space below.</p>
         </div>
 
-        <!-- Stylized slideshow / carousel -->
-        <div class="carousel-wrap" aria-label="Property slideshow" data-autoplay="false">
-          <button class="carousel-arrow carousel-arrow-left" aria-label="Previous image" title="Previous">❮</button>
+        <!-- Carousel (autoplay removed; play button removed) -->
+        <div class="carousel-wrap" aria-label="Property slideshow">
+          <button class="carousel-arrow carousel-arrow-left" aria-label="Previous slide">❮</button>
 
-          <div class="carousel-main" role="region" aria-label="Current image">
-            <img id="carouselImage" src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main">
-
-            <div class="carousel-caption" aria-hidden="false">
+          <div class="carousel-main" role="region" aria-label="Current slide">
+            <img id="carouselImage" src="16carlowmain/Bathroom Main.jpg" alt="Main slide">
+            <div class="carousel-caption">
               <div class="caption-title">16 Carlow Place — Main Floor</div>
               <div class="caption-sub">3 bed · 1.5 bath · Family friendly</div>
             </div>
-
-            <button id="carouselPlay" class="carousel-play" aria-pressed="false" title="Play slideshow">▶</button>
           </div>
 
-          <button class="carousel-arrow carousel-arrow-right" aria-label="Next image" title="Next">❯</button>
+          <button class="carousel-arrow carousel-arrow-right" aria-label="Next slide">❯</button>
 
-          <!-- Thumbnails: overflow hidden so no scrollbar; arrows control the slideshow -->
           <div class="carousel-thumbs" role="list" aria-label="Slide thumbnails">
             <img src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main" data-index="0" role="listitem">
             <img src="16carlowmain/Half Bath.jpg" alt="Half Bath" data-index="1" role="listitem">
@@ -83,21 +76,22 @@
           </div>
         </div>
 
+        <!-- Details -->
         <div class="listing-details">
           <ul class="features-list" aria-label="Property features">
-            <li><strong>3 Bedrooms</strong> — freshly painted; flooring updates before move-in.</li>
+            <li><strong>3 Bedrooms</strong> — fresh paint; flooring updated before move-in.</li>
             <li><strong>1.5 Bathrooms</strong> — modern fixtures and bright lighting.</li>
-            <li><strong>In‑unit washer & dryer</strong> — convenience included.</li>
+            <li><strong>In-unit washer & dryer</strong> — convenience included.</li>
             <li><strong>Updated kitchen</strong> — dishwasher, fridge & stove included.</li>
             <li><strong>Fenced backyard</strong> — safe space for kids and pets.</li>
             <li><strong>Parking for 2 vehicles</strong> + 8×12 storage shed.</li>
-            <li><strong>Transit & play areas close by</strong> — quick bus access and two nearby playgrounds.</li>
+            <li><strong>Transit & play areas</strong> — quick bus access, two nearby playgrounds.</li>
             <li><strong>Pet friendly</strong> — pets considered with approval.</li>
           </ul>
 
-          <div class="price-row" aria-live="polite" style="margin-top:0.8rem;">
+          <div class="price-row" aria-live="polite">
             <strong>
-              <span class="original-price" aria-hidden="true">$2,100/month (P.O.U.)</span>
+              <span class="original-price">$2,100/month (P.O.U.)</span>
               <span class="price-badge">Reduced — Now $1,950/month (P.O.U.)</span>
             </strong>
           </div>
@@ -105,7 +99,7 @@
           <p class="deposit-note">1/2 month rent deposit required</p>
           <p class="lease-note">Flexible lease: Month-to-Month or 1 Year</p>
 
-          <div style="margin-top:.8rem;">
+          <div class="cta-row">
             <a class="contact-us-btn" href="mailto:info.newfoundliving@gmail.com?subject=Rental Inquiry: 16 Carlow Place">Contact Us</a>
           </div>
         </div>
@@ -113,17 +107,16 @@
     </div>
   </main>
 
-  <!-- Floating branded Contact Us button (visible on all pages) -->
-  <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact Us</a>
+  <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
-  <!-- Modal / Lightbox full-size viewer -->
+  <!-- Modal / Lightbox -->
   <div id="galleryModal" class="modal" aria-hidden="true" role="dialog" aria-label="Image gallery">
     <div class="lightbox" role="document">
       <div class="lightbox-main" role="region" aria-label="Image viewer">
         <button class="close" aria-label="Close gallery" onclick="closeModal()">×</button>
         <button class="lb-btn lb-prev" aria-label="Previous image" onclick="prevImage()">❮</button>
         <button class="lb-btn lb-next" aria-label="Next image" onclick="nextImage()">❯</button>
-        <button id="slideshowToggle" class="slideshow-toggle" aria-pressed="false" title="Start slideshow">▶</button>
+        <button id="slideshowToggle" class="slideshow-toggle" aria-pressed="false" title="Toggle slideshow">▶</button>
         <img id="modalImg" src="" alt="">
       </div>
       <div class="lightbox-thumbs" id="thumbStrip" aria-label="Image thumbnails"></div>
@@ -136,141 +129,73 @@
         <img class="icon" src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
         <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
       </div>
-
       <div class="social-link">
         <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
         <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
       </div>
     </div>
-
     <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
 
   <script>
-  // Mobile menu behavior (shared pattern)
+  // Mobile menu
   (function () {
     const toggle = document.querySelector('.nav-toggle');
     const wrap = document.getElementById('mobile-menu');
     if (!toggle || !wrap) return;
-
-    function open() {
-      toggle.classList.add('open');
-      toggle.setAttribute('aria-expanded','true');
-      wrap.classList.remove('hidden');
-      wrap.classList.add('visible');
-      wrap.setAttribute('aria-hidden','false');
-      const first = wrap.querySelector('a');
-      if (first) first.focus();
-    }
-    function close(returnFocus = true) {
-      toggle.classList.remove('open');
-      toggle.setAttribute('aria-expanded','false');
-      wrap.classList.remove('visible');
-      wrap.classList.add('hidden');
-      wrap.setAttribute('aria-hidden','true');
-      if (returnFocus) toggle.focus();
-    }
-
-    toggle.addEventListener('click', function () {
-      if (wrap.classList.contains('visible')) close(); else open();
-    });
-
-    toggle.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); }
-      if (e.key === 'Escape') close();
-    });
-
-    wrap.addEventListener('click', function (e) {
-      const a = e.target.closest('a');
-      if (a) close(false);
-    });
-
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 760) close(false);
-    });
+    function open(){ toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if(f) f.focus(); }
+    function close(){ toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); toggle.focus(); }
+    toggle.addEventListener('click', ()=> { if(wrap.classList.contains('visible')) close(); else open(); });
+    toggle.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggle.click(); } if(e.key==='Escape') close(); });
+    wrap.addEventListener('click', (e)=> { if(e.target.closest('a')) close(); });
+    window.addEventListener('resize', ()=> { if(window.innerWidth > 760) close(); });
   })();
-  </script>
 
-  <script>
-  // Carousel and thumbnail behavior (no scrollbar underneath; arrows navigate slides)
+  // Carousel and thumbnails (autoplay removed; play button removed)
   (function () {
     const wrap = document.querySelector('.carousel-wrap');
     if (!wrap) return;
-
     const mainImg = document.getElementById('carouselImage');
     const thumbs = Array.from(document.querySelectorAll('.carousel-thumbs img'));
     const leftBtn = document.querySelector('.carousel-arrow-left');
     const rightBtn = document.querySelector('.carousel-arrow-right');
-    const playBtn = document.getElementById('carouselPlay');
 
     const gallery = thumbs.map(t => ({ src: t.src, alt: t.alt }));
     let current = 0;
-    const AUTOPLAY_DELAY = 4000;
-    let autoplayInterval = null;
-    let autoplay = false;
-
-    function show(idx, updateThumbs = true) {
-      if (!gallery.length) return;
-      idx = (idx + gallery.length) % gallery.length;
-      const item = gallery[idx];
-      mainImg.src = item.src;
-      mainImg.alt = item.alt || `Image ${idx + 1}`;
-      current = idx;
-      if (updateThumbs) thumbs.forEach((t, i) => t.classList.toggle('active', i === idx));
+    function show(i){
+      if(!gallery.length) return;
+      i = (i + gallery.length) % gallery.length;
+      const it = gallery[i];
+      mainImg.src = it.src;
+      mainImg.alt = it.alt || `Image ${i+1}`;
+      current = i;
+      thumbs.forEach((t, idx)=> t.classList.toggle('active', idx===i));
     }
+    function prev(){ show(current-1); }
+    function next(){ show(current+1); }
 
-    function prev() { show(current - 1); }
-    function next() { show(current + 1); }
+    if(leftBtn) leftBtn.addEventListener('click', ()=> prev());
+    if(rightBtn) rightBtn.addEventListener('click', ()=> next());
 
-    function startAuto() {
-      if (autoplayInterval) return;
-      autoplay = true;
-      playBtn.textContent = '⏸';
-      playBtn.setAttribute('aria-pressed','true');
-      autoplayInterval = setInterval(next, AUTOPLAY_DELAY);
-    }
-    function stopAuto() {
-      autoplay = false;
-      playBtn.textContent = '▶';
-      playBtn.setAttribute('aria-pressed','false');
-      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
-    }
-
-    const shouldAutoplay = wrap.dataset.autoplay === 'true';
-    if (shouldAutoplay) startAuto(); else stopAuto();
-
-    if (leftBtn) leftBtn.addEventListener('click', () => { stopAuto(); prev(); });
-    if (rightBtn) rightBtn.addEventListener('click', () => { stopAuto(); next(); });
-    if (playBtn) playBtn.addEventListener('click', () => { autoplay ? stopAuto() : startAuto(); });
-
-    thumbs.forEach((thumb, i) => {
-      thumb.tabIndex = 0;
-      thumb.addEventListener('click', () => { stopAuto(); show(i); });
-      thumb.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); thumb.click(); } });
+    thumbs.forEach((t, i)=> {
+      t.tabIndex = 0;
+      t.addEventListener('click', ()=> show(i));
+      t.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); t.click(); } });
     });
 
-    if (mainImg) mainImg.addEventListener('click', () => { if (typeof window.openModalAtIndex === 'function') window.openModalAtIndex(current); });
+    mainImg.addEventListener('click', ()=> { if(typeof window.openModalAtIndex==='function') window.openModalAtIndex(current); });
 
     wrap.tabIndex = 0;
-    wrap.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') { e.preventDefault(); stopAuto(); prev(); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); stopAuto(); next(); }
-      if (e.key === ' ' || e.key === 'Spacebar') { if (playBtn) { e.preventDefault(); playBtn.click(); } }
+    wrap.addEventListener('keydown', (e)=> {
+      if(e.key==='ArrowLeft'){ e.preventDefault(); prev(); }
+      if(e.key==='ArrowRight'){ e.preventDefault(); next(); }
+      // NOTE: spacebar no longer toggles play (there is no play)
     });
 
     show(0);
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) stopAuto();
-      else if (shouldAutoplay) startAuto();
-    });
-
-    window._carouselPrev = prev;
-    window._carouselNext = next;
   })();
-  </script>
 
-  <script>
-  // Lightbox / modal script (uses carousel-thumbs images)
+  // Lightbox (unchanged)
   (function () {
     const gallerySelector = '.carousel-thumbs img';
     const galleryImgs = Array.from(document.querySelectorAll(gallerySelector));
@@ -280,97 +205,59 @@
     const slideshowToggle = document.getElementById('slideshowToggle');
     const prevBtn = document.querySelector('.lb-prev');
     const nextBtn = document.querySelector('.lb-next');
-
     if (!modal) return;
 
-    let currentIndex = 0;
-    let autoplay = false;
-    let autoplayInterval = null;
-    const AUTOPLAY_DELAY = 3000;
+    let idx = 0, autoplay = false, autoplayInterval = null, DELAY = 3000;
 
-    function buildThumbs() {
-      if (!thumbStrip) return;
+    function buildThumbs(){
+      if(!thumbStrip) return;
       thumbStrip.innerHTML = '';
-      galleryImgs.forEach((imgEl, i) => {
+      galleryImgs.forEach((imgEl, i)=> {
         const t = document.createElement('img');
         t.src = imgEl.src;
-        t.alt = imgEl.alt || ('Image ' + (i + 1));
+        t.alt = imgEl.alt || ('Image '+(i+1));
         t.dataset.index = i;
         t.tabIndex = 0;
-        t.addEventListener('click', () => showImage(i));
-        t.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showImage(i); } });
+        t.addEventListener('click', ()=> showImage(i));
+        t.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); showImage(i); } });
         thumbStrip.appendChild(t);
       });
     }
-
-    function setActiveThumb(idx) {
-      if (!thumbStrip) return;
-      const thumbsModal = Array.from(thumbStrip.querySelectorAll('img'));
-      thumbsModal.forEach((t, i) => t.classList.toggle('active', i === idx));
+    function setActiveThumb(i){
+      if(!thumbStrip) return;
+      const thumbs = Array.from(thumbStrip.querySelectorAll('img'));
+      thumbs.forEach((t, j)=> t.classList.toggle('active', j===i));
     }
-
-    function showImage(index) {
-      const img = galleryImgs[index];
-      if (!img) return;
-      modalImg.src = img.src;
-      modalImg.alt = img.alt || ('Image ' + (index + 1));
-      currentIndex = index;
-      setActiveThumb(currentIndex);
+    function showImage(i){
+      const img = galleryImgs[i];
+      if(!img) return;
+      modalImg.src = img.src; modalImg.alt = img.alt || ('Image '+(i+1)); idx = i; setActiveThumb(idx);
     }
-
-    window.openModalAtIndex = function (index) {
-      if (!galleryImgs.length) return;
-      currentIndex = (typeof index === 'number') ? index : 0;
-      buildThumbs();
-      showImage(currentIndex);
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden','false');
-      document.body.style.overflow = 'hidden';
-      if (prevBtn) prevBtn.focus();
+    window.openModalAtIndex = function(i){
+      if(!galleryImgs.length) return;
+      idx = (typeof i==='number')? i : 0;
+      buildThumbs(); showImage(idx);
+      modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+      if(prevBtn) prevBtn.focus();
     };
-
-    window.closeModal = function () {
-      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; autoplay = false; slideshowToggle.textContent = '▶'; slideshowToggle.setAttribute('aria-pressed','false'); }
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
+    window.closeModal = function(){
+      if(autoplayInterval){ clearInterval(autoplayInterval); autoplayInterval=null; autoplay=false; slideshowToggle.textContent='▶'; slideshowToggle.setAttribute('aria-pressed','false'); }
+      modal.style.display='none'; modal.setAttribute('aria-hidden','true'); document.body.style.overflow='';
     };
+    window.prevImage = function(){ if(!galleryImgs.length) return; showImage((idx-1+galleryImgs.length)%galleryImgs.length); };
+    window.nextImage = function(){ if(!galleryImgs.length) return; showImage((idx+1)%galleryImgs.length); };
+    function startAuto(){ if(autoplayInterval) return; autoplay=true; slideshowToggle.textContent='⏸'; slideshowToggle.setAttribute('aria-pressed','true'); autoplayInterval=setInterval(()=>window.nextImage(), DELAY); }
+    function stopAuto(){ autoplay=false; slideshowToggle.textContent='▶'; slideshowToggle.setAttribute('aria-pressed','false'); if(autoplayInterval){ clearInterval(autoplayInterval); autoplayInterval=null; } }
 
-    window.prevImage = function () { if (!galleryImgs.length) return; showImage((currentIndex - 1 + galleryImgs.length) % galleryImgs.length); };
-    window.nextImage = function () { if (!galleryImgs.length) return; showImage((currentIndex + 1) % galleryImgs.length); };
-
-    function startAutoplay() {
-      if (autoplayInterval) return;
-      autoplay = true;
-      slideshowToggle.textContent = '⏸';
-      slideshowToggle.setAttribute('aria-pressed','true');
-      autoplayInterval = setInterval(() => window.nextImage(), AUTOPLAY_DELAY);
-    }
-    function stopAutoplay() {
-      autoplay = false;
-      slideshowToggle.textContent = '▶';
-      slideshowToggle.setAttribute('aria-pressed','false');
-      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
-    }
-
-    if (slideshowToggle) slideshowToggle.addEventListener('click', () => { if (autoplay) stopAutoplay(); else startAutoplay(); });
-
-    if (prevBtn) prevBtn.addEventListener('click', () => window.prevImage());
-    if (nextBtn) nextBtn.addEventListener('click', () => window.nextImage());
-
-    if (modal) modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
-
-    document.addEventListener('keydown', function (e) {
-      if (modal.style.display === 'flex') {
-        if (e.key === 'Escape') closeModal();
-        else if (e.key === 'ArrowLeft') window.prevImage();
-        else if (e.key === 'ArrowRight') window.nextImage();
-      }
-    });
-
-    document.addEventListener('focusin', (e) => {
-      if (modal.style.display === 'flex' && !modal.contains(e.target)) {
-        if (prevBtn) prevBtn.focus();
+    if(slideshowToggle) slideshowToggle.addEventListener('click', ()=> autoplay ? stopAuto() : startAuto());
+    if(prevBtn) prevBtn.addEventListener('click', ()=> window.prevImage());
+    if(nextBtn) nextBtn.addEventListener('click', ()=> window.nextImage());
+    if(modal) modal.addEventListener('click', (e)=> { if(e.target===modal) closeModal(); });
+    document.addEventListener('keydown', (e)=> {
+      if(modal.style.display==='flex'){
+        if(e.key==='Escape') closeModal();
+        else if(e.key==='ArrowLeft') window.prevImage();
+        else if(e.key==='ArrowRight') window.nextImage();
       }
     });
   })();
