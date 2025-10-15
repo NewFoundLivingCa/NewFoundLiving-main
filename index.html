@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Page-specific minimal tweaks; gallery arrows positioned by CSS in styles.css */
+    /* Small page-level tweaks kept minimal; main carousel styling lives in styles.css */
     .centered-title { margin-top:0.4rem; }
   </style>
 </head>
@@ -40,19 +40,33 @@
     <div class="container">
       <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
 
-      <h1 class="centered-title">For Rent – 16 Carlow Place (Main Floor Unit)</h1>
+      <h1 class="centered-title">For Rent — 16 Carlow Place (Main Floor Unit)</h1>
 
       <section class="rental-listing" aria-labelledby="listing-title">
-        <div id="listing-top">
+        <div id="listing-top" style="text-align:center; margin-bottom:8px;">
           <p><strong>Available November 1st</strong></p>
-          <p class="listing-announcement">We heard your feedback and have adjusted the price on this beautiful main floor unit at 16 Carlow Place to <strong>$1,950/month (P.O.U.)</strong>.</p>
+          <p class="listing-announcement" style="max-width:820px; margin:0.2rem auto 0;">
+            We listened: the price for this bright main-floor family unit has been updated.
+            See the reduced rent below and use the gallery to preview the refreshed interior.
+          </p>
         </div>
 
-        <!-- Gallery thumbnails container with left/right arrows for quick navigation -->
-        <div class="listing-gallery-wrap">
-          <button class="gallery-arrow gallery-arrow-left" aria-label="Previous image" title="Previous">❮</button>
+        <!-- Stylized slideshow / carousel -->
+        <div class="carousel-wrap" aria-label="Property slideshow" data-autoplay="true">
+          <button class="carousel-arrow carousel-arrow-left" aria-label="Previous image">❮</button>
 
-          <div class="listing-gallery" aria-label="Listing images" role="list">
+          <div class="carousel-main" role="region" aria-label="Current image">
+            <img id="carouselImage" src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main">
+            <div class="carousel-caption">
+              <div class="caption-title">16 Carlow Place — Main Floor</div>
+              <div class="caption-sub">3 bed · 1.5 bath · Family friendly</div>
+            </div>
+            <button id="carouselPlay" class="carousel-play" aria-pressed="false" title="Play slideshow">▶</button>
+          </div>
+
+          <button class="carousel-arrow carousel-arrow-right" aria-label="Next image">❯</button>
+
+          <div class="carousel-thumbs" role="list" aria-label="Slide thumbnails">
             <img src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main" data-index="0" role="listitem">
             <img src="16carlowmain/Half Bath.jpg" alt="Half Bath" data-index="1" role="listitem">
             <img src="16carlowmain/Kitchen 1.jpg" alt="Kitchen 1" data-index="2" role="listitem">
@@ -68,35 +82,30 @@
             <img src="16carlowmain/Room 2.jpg" alt="Room 2" data-index="12" role="listitem">
             <img src="16carlowmain/Room 3.jpg" alt="Room 3" data-index="13" role="listitem">
           </div>
-
-          <button class="gallery-arrow gallery-arrow-right" aria-label="Next image" title="Next">❯</button>
         </div>
 
+        <!-- Listing details made more visually pleasing -->
         <div class="listing-details">
-          <ul>
-            <li>3 Bedrooms</li>
-            <li>1.5 Bathrooms</li>
-            <li>Washer & Dryer included (in-unit)</li>
-            <li>Dishwasher, fridge & stove included</li>
-            <li>Fenced backyard — great for kids or pets</li>
-            <li>Parking for 2 vehicles</li>
-            <li>8x12 storage shed</li>
-            <li>Close to bus route</li>
-            <li>2 playgrounds nearby</li>
-            <li>Pet friendly (pets considered)</li>
-            <li>Very family friendly location</li>
-            <li>This unit will be painted and flooring updated before November 1st</li>
+          <ul class="features-list" aria-label="Property features">
+            <li><strong>3 Bedrooms</strong> — freshly painted, new flooring planned before move-in.</li>
+            <li><strong>1.5 Bathrooms</strong> — modern fixtures and bright lighting.</li>
+            <li><strong>In-unit washer & dryer</strong> — convenience included.</li>
+            <li><strong>Updated kitchen</strong> — dishwasher, fridge & stove included.</li>
+            <li><strong>Fenced backyard</strong> — safe space for kids and pets.</li>
+            <li><strong>Parking for 2 vehicles</strong> + 8×12 storage shed.</li>
+            <li><strong>Transit & play areas close by</strong> — quick bus access and two nearby playgrounds.</li>
+            <li><strong>Pet friendly</strong> — pets considered with approval.</li>
           </ul>
 
-          <p class="price-row" aria-live="polite">
+          <div class="price-row" aria-live="polite" style="margin-top:0.8rem;">
             <strong>
-              <span class="original-price">$2,100/month (P.O.U.)</span>
+              <span class="original-price" aria-hidden="true">$2,100/month (P.O.U.)</span>
               <span class="price-badge">Reduced — Now $1,950/month (P.O.U.)</span>
             </strong>
-          </p>
+          </div>
 
-          <p>1/2 Month rent deposit</p>
-          <p>Month-to-Month or Year lease</p>
+          <p class="deposit-note">1/2 month rent deposit required</p>
+          <p class="lease-note">Flexible lease: Month-to-Month or 1 Year</p>
 
           <div style="margin-top:.8rem;">
             <button class="contact-btn" onclick="location.href='mailto:info.newfoundliving@gmail.com?subject=Rental Inquiry: 16 Carlow Place'">Contact Newfound Living</button>
@@ -106,22 +115,16 @@
     </div>
   </main>
 
-  <!-- Modal / Lightbox -->
+  <!-- Modal / Lightbox (full-size viewer) -->
   <div id="galleryModal" class="modal" aria-hidden="true" role="dialog" aria-label="Image gallery">
     <div class="lightbox" role="document">
       <div class="lightbox-main" role="region" aria-label="Image viewer">
         <button class="close" aria-label="Close gallery" onclick="closeModal()">×</button>
-
-        <!-- Prev/Next in modal -->
         <button class="lb-btn lb-prev" aria-label="Previous image" onclick="prevImage()">❮</button>
         <button class="lb-btn lb-next" aria-label="Next image" onclick="nextImage()">❯</button>
-
-        <!-- slideshow toggle -->
-        <button id="slideshowToggle" class="slideshow-toggle" aria-pressed="false" title="Start slideshow" style="position:absolute; left:50%; transform:translateX(-50%); bottom:18px; z-index:10002; background: rgba(255,255,255,0.08); color:#fff; border:none; padding:8px 12px; border-radius:8px;">▶</button>
-
+        <button id="slideshowToggle" class="slideshow-toggle" aria-pressed="false" title="Start slideshow">▶</button>
         <img id="modalImg" src="" alt="">
       </div>
-
       <div class="lightbox-thumbs" id="thumbStrip" aria-label="Image thumbnails"></div>
     </div>
   </div>
@@ -188,9 +191,130 @@
   </script>
 
   <script>
-  // Gallery / lightbox functionality with prev/next buttons located left & right of picture
+  // Stylized slideshow + lightbox behavior
   (function () {
-    const gallerySelector = '.listing-gallery img';
+    // Elements
+    const mainImg = document.getElementById('carouselImage');
+    const thumbs = Array.from(document.querySelectorAll('.carousel-thumbs img'));
+    const leftBtn = document.querySelector('.carousel-arrow-left');
+    const rightBtn = document.querySelector('.carousel-arrow-right');
+    const playBtn = document.getElementById('carouselPlay');
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('modalImg');
+
+    // lightbox reuse: we'll use same gallery images inside modal (thumbStrip will be built by lightbox script)
+    const galleryImgs = thumbs.map(t => ({ src: t.src, alt: t.alt }));
+
+    let current = 0;
+    const AUTOPLAY_DELAY = 4000;
+    let autoplay = true;
+    let autoplayInterval = null;
+
+    function show(index, {updateThumbs=true} = {}) {
+      index = (index + galleryImgs.length) % galleryImgs.length;
+      const item = galleryImgs[index];
+      if (!item) return;
+      mainImg.src = item.src;
+      mainImg.alt = item.alt || (`Image ${index+1}`);
+      current = index;
+      if (updateThumbs) {
+        thumbs.forEach((t, i) => {
+          t.classList.toggle('active', i === index);
+        });
+        // ensure active thumbnail is visible
+        try { const active = thumbs[index]; if (active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); } catch (e) {}
+      }
+    }
+
+    function prev() { show((current - 1 + galleryImgs.length) % galleryImgs.length); }
+    function next() { show((current + 1) % galleryImgs.length); }
+
+    function startAutoplay() {
+      if (autoplayInterval) return;
+      autoplay = true;
+      playBtn.textContent = '⏸';
+      playBtn.setAttribute('aria-pressed','true');
+      autoplayInterval = setInterval(() => next(), AUTOPLAY_DELAY);
+    }
+    function stopAutoplay() {
+      autoplay = false;
+      playBtn.textContent = '▶';
+      playBtn.setAttribute('aria-pressed','false');
+      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
+    }
+    // initialize autoplay based on data attribute
+    const wrap = document.querySelector('.carousel-wrap');
+    if (wrap && wrap.dataset.autoplay === 'true') startAutoplay(); else stopAutoplay();
+
+    // Wire buttons
+    if (leftBtn) {
+      leftBtn.addEventListener('click', () => {
+        stopAutoplay();
+        prev();
+      });
+      leftBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); leftBtn.click(); } });
+    }
+    if (rightBtn) {
+      rightBtn.addEventListener('click', () => {
+        stopAutoplay();
+        next();
+      });
+      rightBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); rightBtn.click(); } });
+    }
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        if (autoplay) stopAutoplay(); else startAutoplay();
+      });
+    }
+
+    // Thumbnails click
+    thumbs.forEach((t, i) => {
+      t.addEventListener('click', () => { stopAutoplay(); show(i); });
+      t.tabIndex = 0;
+      t.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); } });
+    });
+
+    // Main image click opens modal at current index (re-uses existing lightbox functionality)
+    mainImg.addEventListener('click', () => {
+      if (typeof window.openModalAtIndex === 'function') {
+        window.openModalAtIndex(current);
+      } else {
+        // fallback: open modal and set the image
+        modal.style.display = 'flex'; modal.setAttribute('aria-hidden','false'); modalImg.src = galleryImgs[current].src;
+      }
+    });
+
+    // Keyboard support for carousel (left/right when focus inside the carousel area)
+    const carouselRegion = document.querySelector('.carousel-wrap');
+    carouselRegion.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); stopAutoplay(); prev(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); stopAutoplay(); next(); }
+      if (e.key === ' ' || e.key === 'Spacebar') {
+        // space toggles play/pause when carousel is focused
+        if (playBtn) { e.preventDefault(); playBtn.click(); }
+      }
+    });
+    carouselRegion.tabIndex = 0; // make region focusable for keyboard events
+
+    // init display
+    show(0);
+
+    // expose prev/next for lightbox controls already implemented
+    window.prevImage = function() { prev(); if (typeof window.closeModal === 'function') window.openModalAtIndex(current); };
+    window.nextImage = function() { next(); if (typeof window.closeModal === 'function') window.openModalAtIndex(current); };
+
+    // stop autoplay when page hidden
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAutoplay(); else if (wrap && wrap.dataset.autoplay === 'true') startAutoplay();
+    });
+  })();
+  </script>
+
+  <!-- Existing lightbox script (keeps the full-size modal functionality) -->
+  <script>
+  (function () {
+    // build modal thumbs and wire modal navigation, re-using images from the page
+    const gallerySelector = '.carousel-thumbs img';
     const galleryImgs = Array.from(document.querySelectorAll(gallerySelector));
     const modal = document.getElementById('galleryModal');
     const modalImg = document.getElementById('modalImg');
@@ -221,14 +345,9 @@
 
     function setActiveThumb(idx) {
       if (!thumbStrip) return;
-      const thumbs = Array.from(thumbStrip.querySelectorAll('img'));
-      thumbs.forEach((t, i) => {
-        if (i === idx) {
-          t.classList.add('active');
-          try { t.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); } catch (e) {}
-        } else {
-          t.classList.remove('active');
-        }
+      const thumbsModal = Array.from(thumbStrip.querySelectorAll('img'));
+      thumbsModal.forEach((t, i) => {
+        t.classList.toggle('active', i === idx);
       });
     }
 
@@ -253,7 +372,7 @@
     };
 
     window.closeModal = function () {
-      stopAutoplay();
+      if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; autoplay = false; slideshowToggle.textContent = '▶'; slideshowToggle.setAttribute('aria-pressed','false'); }
       modal.style.display = 'none';
       modal.setAttribute('aria-hidden','true');
       document.body.style.overflow = '';
@@ -285,24 +404,11 @@
 
     if (slideshowToggle) slideshowToggle.addEventListener('click', () => { if (autoplay) stopAutoplay(); else startAutoplay(); });
 
-    galleryImgs.forEach((imgEl, i) => {
-      imgEl.addEventListener('click', () => openModalAtIndex(i));
-      imgEl.tabIndex = 0;
-      imgEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModalAtIndex(i); } });
-    });
-
-    // Prev/Next buttons keyboard support + click handlers (modal buttons)
     if (prevBtn) {
-      prevBtn.addEventListener('click', prevImage);
-      prevBtn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); prevImage(); }
-      });
+      prevBtn.addEventListener('click', () => { window.prevImage(); });
     }
     if (nextBtn) {
-      nextBtn.addEventListener('click', nextImage);
-      nextBtn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nextImage(); }
-      });
+      nextBtn.addEventListener('click', () => { window.nextImage(); });
     }
 
     if (modal) modal.addEventListener('click', function (e) {
@@ -312,12 +418,11 @@
     document.addEventListener('keydown', function (e) {
       if (modal.style.display === 'flex') {
         if (e.key === 'Escape') closeModal();
-        else if (e.key === 'ArrowLeft') prevImage();
-        else if (e.key === 'ArrowRight') nextImage();
+        else if (e.key === 'ArrowLeft') window.prevImage();
+        else if (e.key === 'ArrowRight') window.nextImage();
       }
     });
 
-    // focus containment: if modal open and focus leaves, keep it inside
     document.addEventListener('focusin', (e) => {
       if (modal.style.display === 'flex') {
         if (!modal.contains(e.target)) {
@@ -325,48 +430,6 @@
         }
       }
     });
-
-    // ---------- New: gallery arrows (left / right) on the main page ----------
-    // They navigate images by opening the modal (if closed) and moving prev/next.
-    function wireGalleryArrows() {
-      const left = document.querySelector('.gallery-arrow-left');
-      const right = document.querySelector('.gallery-arrow-right');
-
-      if (!left || !right) return;
-
-      left.addEventListener('click', () => {
-        if (modal.style.display === 'flex') {
-          prevImage();
-        } else {
-          // if modal closed, open at previous image (one step back from currentIndex)
-          const idx = (currentIndex - 1 + galleryImgs.length) % galleryImgs.length;
-          openModalAtIndex(idx);
-        }
-      });
-
-      right.addEventListener('click', () => {
-        if (modal.style.display === 'flex') {
-          nextImage();
-        } else {
-          const idx = (currentIndex + 1) % galleryImgs.length;
-          openModalAtIndex(idx);
-        }
-      });
-
-      // keyboard accessibility for the arrow buttons
-      [left, right].forEach(btn => {
-        btn.tabIndex = 0;
-        btn.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            btn.click();
-          }
-        });
-      });
-    }
-
-    // run wiring after initial setup
-    wireGalleryArrows();
   })();
   </script>
 </body>
