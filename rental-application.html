@@ -7,94 +7,94 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    :root { --nav-semi: rgba(0,0,0,0.70); --nav-overlay: rgba(0,0,0,0.96); --white:#fff; }
-
-    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:#fff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-    .container { max-width:980px; margin:0 auto; padding:1.6rem; box-sizing:border-box; }
-    .logo { display:block; margin:1rem auto; max-width:220px; }
-
-    /* Navbar: identical across pages (no tiny logo) */
-    .navbar-minimal { position:relative; z-index:1200; padding:.6em 0; background:var(--nav-semi); box-shadow:0 2px 12px rgba(0,0,0,0.15); width:100%; }
-    .nav-center { max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 12px; box-sizing:border-box; }
-    .nav-links { display:flex; gap:12px; list-style:none; margin:0; padding:0; }
-    .nav-links a { color:var(--white); text-decoration:none; padding:8px 12px; border-radius:8px; background: rgba(255,255,255,0.06); font-weight:600; }
-    .nav-links a.active { background:#256D67; }
-
-    .nav-toggle { display:none; background:transparent; border:none; padding:8px; border-radius:8px; cursor:pointer; }
-    .hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; }
-    .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; }
-    .hamburger::before { top:-7px } .hamburger::after { top:7px }
-    .nav-toggle.open .hamburger { background:transparent } .nav-toggle.open .hamburger::before { transform:rotate(45deg); top:0 } .nav-toggle.open .hamburger::after { transform:rotate(-45deg); top:0 }
-
-    .mobile-menu-wrap { display:none; }
-    .mobile-menu { display:flex; flex-direction:column; gap:0; width:100vw; position:absolute; left:0; right:0; top:100%; box-sizing:border-box; z-index:1150; }
-    .mobile-menu a { display:block; padding:16px 18px; font-weight:700; font-size:18px; color:var(--white); text-decoration:none; background:var(--nav-overlay); border-bottom:1px solid rgba(255,255,255,0.04); }
-
-    @media (max-width:760px) {
-      .nav-links { display:none; }
-      .nav-toggle { display:inline-flex; }
-      .mobile-menu-wrap.hidden { display:none; } .mobile-menu-wrap.visible { display:block; max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch; }
+    :root{
+      --brand:#21706A;
+      --brand-hover:#1b5c53;
+      --white:#ffffff;
+      --nav-semi: rgba(0,0,0,0.70);
+      --nav-overlay: rgba(0,0,0,0.96);
+      --card-bg: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      --card-border: rgba(255,255,255,0.04);
+      --input-bg: rgba(255,255,255,0.06);
+      --input-border: rgba(255,255,255,0.08);
+      --card-max: 760px;
     }
 
-    /* Form / fields styling primarily in styles.css; keep small helpers here */
-    fieldset.form-section { margin-bottom:2rem; }
+    /* Page base */
+    html,body{height:100%; margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:var(--white); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; background: url('city.png') center/cover no-repeat fixed;}
+    .overlay{position:fixed; inset:0; background: rgba(0,0,0,0.45); z-index:0;}
+    .container{max-width:980px; margin:0 auto; padding:1.6rem; box-sizing:border-box; position:relative; z-index:1;}
+    .logo{display:block; margin:1rem auto; max-width:220px;}
 
-    /* File upload button: center "Choose File" text */
-    .custom-file-upload {
-      display: inline-flex;           /* inline so it behaves like a button */
-      align-items: center;            /* vertical center */
-      justify-content: center;        /* horizontal center */
-      width: 100%;                    /* take available width for nicer touch target on mobile */
-      max-width: 460px;               /* match input widths */
-      box-sizing: border-box;
-      background: #21706A;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 0.9em 1.2em;
-      font-size: 1.05em;
-      cursor: pointer;
-      text-align: center;             /* ensure text is centered */
-      font-weight: 600;
-      box-shadow: 0 2px 14px rgba(33,112,106,0.13);
-      margin-left: auto;
-      margin-right: auto;
-      display: flex;
+    /* Navbar */
+    .navbar-minimal{position:relative; z-index:1200; padding:.6em 0; background:var(--nav-semi); box-shadow:0 2px 12px rgba(0,0,0,0.15); width:100%;}
+    .nav-center{max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 12px; box-sizing:border-box;}
+    .nav-links{display:flex; gap:12px; list-style:none; margin:0; padding:0;}
+    .nav-links a{color:var(--white); text-decoration:none; padding:8px 12px; border-radius:8px; background: rgba(255,255,255,0.06); font-weight:600;}
+    .nav-links a.active{background:var(--brand);}
+    .nav-toggle{display:none; background:transparent; border:none; padding:8px; border-radius:8px; cursor:pointer;}
+    .hamburger{width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px;}
+    .hamburger::before, .hamburger::after{content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px;}
+    .hamburger::before{top:-7px} .hamburger::after{top:7px}
+    @media (max-width:760px){ .nav-links{display:none;} .nav-toggle{display:inline-flex;} .mobile-menu-wrap.hidden{display:none;} .mobile-menu-wrap.visible{display:block; max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;} }
+
+    /* Card-like fieldsets */
+    fieldset.form-section{
+      border:1px solid var(--card-border);
+      background:var(--card-bg);
+      backdrop-filter: blur(6px);
+      padding:18px;
+      margin-bottom:20px;
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.45);
     }
-    .custom-file-upload .file-upload-text {
-      flex: 1 1 auto;
-      text-align: center;             /* guarantee the wording is centered */
-      display: block;
-      width: 100%;
+    fieldset.form-section h2{margin:0 0 8px 0; font-size:1.05rem;}
+    label{display:block; margin-top:0.6rem; margin-bottom:0.35rem; font-weight:600; color:var(--white);}
+
+    /* Inputs */
+    input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="number"], input[type="url"], textarea, select {
+      width:100%; max-width:var(--card-max); box-sizing:border-box; padding:0.65rem 0.9rem; border-radius:10px; border:1px solid var(--input-border); background:var(--input-bg); color:var(--white); font-size:1rem;
     }
-    input[type="file"] { display: none; }
+    textarea{min-height:88px; resize:vertical;}
 
-    /* small file-name display */
-    .file-name { color:#fff; margin-top:0.4rem; font-size:1em; font-style:italic; text-align:center; display:block; }
+    /* Buttons */
+    .btn-brand{background:var(--brand); color:var(--white); border:none; padding:0.75rem 1.2rem; border-radius:10px; font-weight:700; cursor:pointer; box-shadow:0 6px 18px rgba(33,112,106,0.12); transition:background 0.12s;}
+    .btn-brand:hover{background:var(--brand-hover);}
+    .btn-mini{background:var(--brand); color:#fff; border:none; border-radius:6px; padding:0.45em 0.9em; cursor:pointer; font-weight:700; font-size:0.95rem; display:inline-flex; gap:0.6em; align-items:center;}
+    .btn-mini:hover{background:var(--brand-hover);}
+    .paste-centered{display:block; margin:10px auto 0; width:140px; padding:0.42rem 0.6rem; font-size:0.92rem; border-radius:6px; text-align:center; background:var(--brand); color:var(--white); border:none; cursor:pointer;}
+    .paste-centered:hover{background:var(--brand-hover);}
 
-    /* small helpers for dynamic fields */
-    .btn-mini { background: #21706A; color: #fff; border: none; border-radius: 6px; padding: 0.4em 1em; font-size: 1.07em; cursor: pointer; box-shadow: 0 2px 7px rgba(33,112,106,0.18); margin-top: 0.2em; display: inline-flex; align-items: center; gap: 0.6em; }
-    .plus-symbol { font-size: 1.25em; font-weight: bold; display: inline-block; }
+    /* Proof area layout */
+    .proof-options{display:flex; gap:12px; align-items:center; margin-top:8px; flex-wrap:wrap;}
+    .proof-flow{margin-top:12px; display:flex; flex-direction:column; align-items:center; gap:8px;}
+    .proof-flow .inline-row{display:flex; gap:8px; max-width:760px; align-items:center; width:100%;}
+    .proof-flow input[type="url"]{flex:1;}
 
-    /* keep privacy footer styling matching other pages */
-    footer.site-footer { max-width:980px; margin:2rem auto; padding:1.2rem; text-align:center; color:#fff; background: rgba(0,0,0,0.35); border-radius: 0.8rem; box-shadow: 0 1px 12px rgba(0,0,0,0.12); }
-    footer .footer-row { display:flex; flex-direction:column; gap:0.6rem; align-items:center; justify-content:center; }
-    footer a { color:#fff; text-decoration:underline; }
-    footer img.icon { height:20px; vertical-align:middle; margin-right:8px; }
-    footer .privacy { margin-top:0.6rem; font-size:0.95em; opacity:0.95; }
+    /* PETS centered group */
+    .pet-question{font-weight:700; margin-bottom:8px; text-align:center;}
+    .pet-radio-group{display:flex; gap:18px; justify-content:center; align-items:center; margin:8px 0;}
+    .pet-radio{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; background:rgba(255,255,255,0.02); cursor:pointer; user-select:none;}
+    .pet-radio input{transform:scale(1.05);}
+
+    .form-actions{text-align:center; margin-bottom:2rem;}
+    .btn-submit{background:var(--brand); color:#fff; padding:0.8rem 1.2rem; border-radius:10px; border:none; cursor:pointer; font-weight:700; box-shadow:0 6px 18px rgba(33,112,106,0.14);}
+    .btn-submit:hover{background:var(--brand-hover);}
+
+    footer.site-footer{max-width:980px; margin:2rem auto; padding:1.2rem; text-align:center; color:#fff; background: rgba(0,0,0,0.35); border-radius:0.8rem; box-shadow:0 1px 12px rgba(0,0,0,0.12);}
+    footer a{color:#fff; text-decoration:underline;}
+    @media (max-width:560px){ .container{padding:1rem;} .paste-centered{width:52%;} }
   </style>
 </head>
 <body>
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
       <div aria-hidden="true" style="width:34px;height:1px;"></div>
-
       <ul class="nav-links" role="menubar">
         <li><a role="menuitem" href="index.html" class="nav-link">Home</a></li>
         <li><a role="menuitem" href="rental-application.html" class="nav-link active">Application</a></li>
         <li><a role="menuitem" href="about.html" class="nav-link">About</a></li>
       </ul>
-
       <button class="nav-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
         <span class="hamburger" aria-hidden="true"></span>
       </button>
@@ -109,12 +109,14 @@
     </div>
   </nav>
 
+  <div class="overlay" aria-hidden="true"></div>
+
   <main>
     <div class="container">
-      <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
-      <h1>Rental Application</h1>
+      <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo" />
+      <h1 style="text-align:center; margin-top:0.4rem;">Rental Application</h1>
 
-      <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data">
+      <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" novalidate>
         <fieldset class="form-section">
           <label for="full-name">Full Name</label>
           <input type="text" id="full-name" name="full_name" required />
@@ -149,32 +151,38 @@
           <label for="employer-name">Employer Name</label>
           <input type="text" id="employer-name" name="employer_name" required />
 
-          <label for="proof-income"><strong>Proof of Income / Financial Assistance</strong></label>
-          <!-- Custom file upload control -->
-          <label for="proof-income" class="custom-file-upload" title="Upload proof of income">
-            <span class="file-upload-text">Choose File</span>
-            <input type="file" id="proof-income" name="proof_income" accept=".pdf,.jpg,.png,.jpeg,.doc,.docx,.heic,.webp" />
-          </label>
-          <span class="file-name" id="file-name">No file chosen</span>
+          <label><strong>Proof of Income / Financial Assistance</strong></label>
+          <p class="helper" style="max-width:760px;">Please either upload using our Google Form (you may need to sign in) then paste the confirmation/Drive link below, or click "Email Proof of Income" to open your mail client and attach your documents manually.</p>
+
+          <div class="proof-options" role="radiogroup" aria-label="Proof submission method">
+            <label style="display:flex; align-items:center; gap:8px;"><input type="radio" name="proof_option" value="google_form" checked /> Google Form</label>
+            <label style="display:flex; align-items:center; gap:8px;"><input type="radio" name="proof_option" value="email" /> Email</label>
+          </div>
+
+          <div id="google-flow" class="proof-flow" aria-hidden="false">
+            <button type="button" id="open-google-form" class="btn-brand" aria-label="Open Google Form to upload proof of income">Open Google Form to upload proof</button>
+
+            <div class="inline-row" style="margin-top:10px;">
+              <input type="url" id="proof-income-link" name="proof_income_link" placeholder="Paste Google Form confirmation or Drive link here" aria-label="Paste proof link" />
+            </div>
+
+            <button type="button" id="paste-clipboard" class="paste-centered" title="Paste URL from clipboard" aria-label="Paste link from clipboard">Paste link</button>
+          </div>
+
+          <div id="email-flow" class="proof-flow" style="display:none;">
+            <p class="helper" style="max-width:760px; text-align:center;">Click the button below to open your email client. Attach your proof of income and include your full name &amp; property address in the message so we can match it to your application.</p>
+            <button type="button" id="email-proof-btn" class="btn-mini" title="Email proof">Email Proof of Income</button>
+          </div>
         </fieldset>
 
         <fieldset class="form-section">
           <h2>PETS</h2>
-          <div class="pets-center-block">
-            <label class="pets-question-label">Do you have pets?</label>
-            <div class="pet-radio-group pets-radio-center">
-              <label class="pet-radio">
-                <input type="radio" name="pets" value="Yes" class="yes" />
-                <span class="radio-square yes"><span class="check-icon">&#10003;</span></span>
-                <span class="pet-label">Yes</span>
-              </label>
-              <label class="pet-radio">
-                <input type="radio" name="pets" value="No" class="no" />
-                <span class="radio-square no"><span class="x-icon">&#10007;</span></span>
-                <span class="pet-label">No</span>
-              </label>
-            </div>
+          <div class="pet-question">Do you have pets?</div>
+          <div class="pet-radio-group" role="radiogroup" aria-label="Do you have pets?">
+            <label class="pet-radio"><input type="radio" name="pets" value="Yes" /> Yes</label>
+            <label class="pet-radio"><input type="radio" name="pets" value="No" checked /> No</label>
           </div>
+
           <label for="pet-type">Type(s) of pet(s)</label>
           <input type="text" id="pet-type" name="pet_type" placeholder="e.g., Dog, Cat, etc." />
           <label for="pet-number">How many pets?</label>
@@ -187,25 +195,25 @@
           <h2>Other Details</h2>
           <label>Additional Occupants</label>
           <div id="occupants-list">
-            <div class="occupant-fields">
-              <input type="text" name="occupant_name_1" placeholder="Name" />
-              <input type="number" name="occupant_age_1" placeholder="Age" min="0" />
-              <input type="tel" name="occupant_phone_1" placeholder="Phone Number" />
+            <div class="occupant-fields" style="display:flex; gap:8px; flex-wrap:wrap;">
+              <input type="text" name="occupant_name_1" placeholder="Name" style="flex:1 1 200px"/>
+              <input type="number" name="occupant_age_1" placeholder="Age" min="0" style="width:120px"/>
+              <input type="tel" name="occupant_phone_1" placeholder="Phone Number" style="flex:1 1 180px"/>
             </div>
           </div>
-          <button type="button" class="btn-mini" id="add-occupant"><span class="plus-symbol">+</span> Add Occupant</button>
+          <button type="button" class="btn-mini plus" id="add-occupant" style="margin-top:10px;"><span class="plus-symbol">+</span> Add Occupant</button>
 
-          <label>References</label>
+          <label style="margin-top:12px">References</label>
           <div id="references-list">
-            <div class="reference-fields">
-              <input type="text" name="reference_name_1" placeholder="Name" />
-              <input type="tel" name="reference_phone_1" placeholder="Phone Number" />
-              <input type="text" name="reference_relationship_1" placeholder="Relationship" />
+            <div class="reference-fields" style="display:flex; gap:8px; flex-wrap:wrap;">
+              <input type="text" name="reference_name_1" placeholder="Name" style="flex:1 1 200px"/>
+              <input type="tel" name="reference_phone_1" placeholder="Phone Number" style="width:160px"/>
+              <input type="text" name="reference_relationship_1" placeholder="Relationship" style="flex:1 1 160px"/>
             </div>
           </div>
-          <button type="button" class="btn-mini" id="add-reference"><span class="plus-symbol">+</span> Add Reference</button>
+          <button type="button" class="btn-mini plus" id="add-reference" style="margin-top:10px;"><span class="plus-symbol">+</span> Add Reference</button>
 
-          <label for="emergency-contact">Emergency Contact Name</label>
+          <label for="emergency-contact" style="margin-top:12px">Emergency Contact Name</label>
           <input type="text" id="emergency-contact" name="emergency_contact" />
           <label for="emergency-phone">Emergency Contact Phone</label>
           <input type="tel" id="emergency-phone" name="emergency_phone" />
@@ -222,7 +230,7 @@
           <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
         </fieldset>
 
-        <div class="form-actions" style="text-align:center; margin-bottom:2rem;">
+        <div class="form-actions">
           <button type="submit" class="btn-submit">Submit Application</button>
         </div>
       </form>
@@ -235,61 +243,167 @@
         <img class="icon" src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
         <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
       </div>
-
       <div class="social-link">
         <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
         <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
       </div>
     </div>
-
     <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
 
   <script>
-    // Per-page mobile menu behavior
+    // Mobile menu behavior (keeps original)
     (function () {
       const toggle = document.querySelector('.nav-toggle');
       const wrap = document.getElementById('mobile-menu');
       if (!toggle || !wrap) return;
-
-      function open() { toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if (f) f.focus(); }
-      function close(returnFocus=true) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); if (returnFocus) toggle.focus(); }
-
-      toggle.addEventListener('click', () => { if (wrap.classList.contains('visible')) close(); else open(); });
-      toggle.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggle.click(); } if (e.key==='Escape') close(); });
-
-      wrap.addEventListener('click', (e) => { if (e.target.closest('a')) close(false); });
-      window.addEventListener('resize', () => { if (window.innerWidth > 760) close(false); });
+      function open(){ toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if(f) f.focus(); }
+      function close(returnFocus=true){ toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); if(returnFocus) toggle.focus(); }
+      toggle.addEventListener('click', ()=>{ if(wrap.classList.contains('visible')) close(); else open(); });
+      toggle.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle.click(); } if(e.key==='Escape') close(); });
+      wrap.addEventListener('click', (e)=>{ if(e.target.closest('a')) close(false); });
+      window.addEventListener('resize', ()=>{ if(window.innerWidth > 760) close(false); });
     })();
 
-    // file input filename display + dynamic adders
+    // Dynamic add/remove for occupants & references
     (function () {
-      const proofInput = document.getElementById('proof-income');
-      const fileNameSpan = document.getElementById('file-name');
-      if (proofInput && fileNameSpan) {
-        proofInput.addEventListener('change', function() { fileNameSpan.textContent = this.files[0] ? this.files[0].name : 'No file chosen'; });
-      }
-
       const addOccupant = document.getElementById('add-occupant');
       const addReference = document.getElementById('add-reference');
       if (addOccupant) {
         addOccupant.addEventListener('click', function () {
           const list = document.getElementById('occupants-list');
-          const count = list.children.length + 1;
+          const count = list.querySelectorAll('.occupant-fields').length + 1;
           const div = document.createElement('div');
           div.className = 'occupant-fields';
-          div.innerHTML = `<input type="text" name="occupant_name_${count}" placeholder="Name" /><input type="number" name="occupant_age_${count}" placeholder="Age" min="0" /><input type="tel" name="occupant_phone_${count}" placeholder="Phone Number" />`;
+          div.style.display = 'flex';
+          div.style.gap = '8px';
+          div.style.flexWrap = 'wrap';
+          div.innerHTML = `<input type="text" name="occupant_name_${count}" placeholder="Name" style="flex:1 1 200px" /><input type="number" name="occupant_age_${count}" placeholder="Age" min="0" style="width:120px" /><input type="tel" name="occupant_phone_${count}" placeholder="Phone Number" style="flex:1 1 180px" />`;
           list.appendChild(div);
         });
       }
       if (addReference) {
         addReference.addEventListener('click', function () {
           const list = document.getElementById('references-list');
-          const count = list.children.length + 1;
+          const count = list.querySelectorAll('.reference-fields').length + 1;
           const div = document.createElement('div');
           div.className = 'reference-fields';
-          div.innerHTML = `<input type="text" name="reference_name_${count}" placeholder="Name" /><input type="tel" name="reference_phone_${count}" placeholder="Phone Number" /><input type="text" name="reference_relationship_${count}" placeholder="Relationship" />`;
+          div.style.display = 'flex';
+          div.style.gap = '8px';
+          div.style.flexWrap = 'wrap';
+          div.innerHTML = `<input type="text" name="reference_name_${count}" placeholder="Name" style="flex:1 1 200px" /><input type="tel" name="reference_phone_${count}" placeholder="Phone Number" style="width:160px" /><input type="text" name="reference_relationship_${count}" placeholder="Relationship" style="flex:1 1 160px" />`;
           list.appendChild(div);
+        });
+      }
+    })();
+
+    // Pets: clear pet fields when "No" selected
+    (function () {
+      const petRadios = document.querySelectorAll('input[name="pets"]');
+      const petType = document.getElementById('pet-type');
+      const petNumber = document.getElementById('pet-number');
+      const petDetails = document.getElementById('pet-details');
+      function onPetChange(){
+        const yes = document.querySelector('input[name="pets"][value="Yes"]')?.checked;
+        if(!yes){
+          if(petType) petType.value = '';
+          if(petNumber) petNumber.value = '';
+          if(petDetails) petDetails.value = '';
+        }
+      }
+      petRadios.forEach(r=>r.addEventListener('change', onPetChange));
+    })();
+
+    // Proof-of-income behavior: Google Form, paste link helper, email button, and validation
+    (function () {
+      const GOOGLE_FORM_SHORT = 'https://forms.gle/1eoWj53oeUU6LiRk9';
+      const EMAIL_ADDRESS = 'info.newfoundliving@gmail.com';
+
+      const openGoogleBtn = document.getElementById('open-google-form');
+      const pasteBtn = document.getElementById('paste-clipboard');
+      const proofLinkInput = document.getElementById('proof-income-link');
+      const emailProofBtn = document.getElementById('email-proof-btn');
+      const proofOptionRadios = document.querySelectorAll('input[name="proof_option"]');
+      const googleFlow = document.getElementById('google-flow');
+      const emailFlow = document.getElementById('email-flow');
+      const form = document.getElementById('rental-form');
+
+      if(openGoogleBtn){
+        openGoogleBtn.addEventListener('click', ()=> window.open(GOOGLE_FORM_SHORT, '_blank', 'noopener,noreferrer'));
+        openGoogleBtn.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openGoogleBtn.click(); }});
+      }
+
+      if(pasteBtn){
+        pasteBtn.addEventListener('click', async ()=>{
+          if(!navigator.clipboard){ alert('Clipboard API not available. Paste the link manually.'); return; }
+          try{
+            const text = await navigator.clipboard.readText();
+            if(text && /^https?:\/\//i.test(text.trim())){
+              if(proofLinkInput){ proofLinkInput.value = text.trim(); proofLinkInput.focus(); }
+            } else {
+              alert('Clipboard does not contain a URL. Copy the confirmation or Drive link and try again.');
+            }
+          }catch(err){
+            console.error('Clipboard read failed', err);
+            alert('Could not read clipboard. Please paste the link manually.');
+          }
+        });
+      }
+
+      if(emailProofBtn){
+        emailProofBtn.addEventListener('click', ()=>{
+          const name = (document.getElementById('full-name') || {}).value || '[applicant name]';
+          const email = (document.getElementById('email') || {}).value || '';
+          const phone = (document.getElementById('phone') || {}).value || '';
+          const subject = encodeURIComponent(`Proof of income from ${name}`);
+          const bodyLines = [
+            `Applicant: ${name}`,
+            `Email: ${email}`,
+            `Phone: ${phone}`,
+            '',
+            'Attached: (please attach your proof of income to this email)',
+            '',
+            'Property (if applicable):',
+            ''
+          ];
+          const body = encodeURIComponent(bodyLines.join('\n'));
+          window.location.href = `mailto:${EMAIL_ADDRESS}?subject=${subject}&body=${body}`;
+        });
+      }
+
+      function updateFlows(){
+        const selected = document.querySelector('input[name="proof_option"]:checked')?.value;
+        if(googleFlow) googleFlow.style.display = selected === 'google_form' ? 'flex' : 'none';
+        if(emailFlow) emailFlow.style.display = selected === 'email' ? 'flex' : 'none';
+      }
+      proofOptionRadios.forEach(r=>r.addEventListener('change', updateFlows));
+      updateFlows();
+
+      if(form){
+        form.addEventListener('submit', function(e){
+          const selected = document.querySelector('input[name="proof_option"]:checked')?.value;
+          const link = (proofLinkInput && proofLinkInput.value || '').trim();
+          if(selected === 'google_form'){
+            if(!link){
+              e.preventDefault();
+              alert('You selected Google Form upload. Please paste the confirmation or Drive link from the Google Form into the field so we can locate your file (or upload now and then paste the link).');
+              if(proofLinkInput) proofLinkInput.focus();
+              return false;
+            }
+            // basic URL check
+            if(link && !/^https?:\/\//i.test(link)){
+              e.preventDefault();
+              alert('The link you provided does not look like a valid URL. Please paste the Google Form confirmation or Drive share link.');
+              if(proofLinkInput) proofLinkInput.focus();
+              return false;
+            }
+          } else if(selected === 'email'){
+            if(!confirm('You selected Email. After submitting this application, please send an email with your attachment to info.newfoundliving@gmail.com including your full name and property address so we can match it. Click OK to submit.')){
+              e.preventDefault();
+              return false;
+            }
+          }
+          return true;
         });
       }
     })();
