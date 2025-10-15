@@ -6,13 +6,9 @@
   <title>Rental Application - Newfound Living</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* minor page-level fallbacks */
-    :root{ --brand:#21706A; --white:#ffffff; }
-    .form-actions { margin-top: 0.8rem; }
-  </style>
 </head>
 <body>
+  <!-- NAVBAR (consistent with other pages) -->
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
       <div class="nav-left-placeholder" aria-hidden="true"></div>
@@ -30,17 +26,18 @@
 
     <div id="mobile-menu" class="mobile-menu-wrap hidden" aria-hidden="true">
       <nav class="mobile-menu" role="menu" aria-label="Mobile menu">
-        <a role="menuitem" href="index.html" class="mobile-link">Home</a>
-        <a role="menuitem" href="rental-application.html" class="mobile-link">Application</a>
-        <a role="menuitem" href="about.html" class="mobile-link">About</a>
+        <a role="menuitem" href="index.html">Home</a>
+        <a role="menuitem" href="rental-application.html" class="active">Application</a>
+        <a role="menuitem" href="about.html">About</a>
       </nav>
     </div>
   </nav>
 
   <main>
-    <div class="container">
+    <div class="container rental-container">
       <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo" />
-      <h1>Rental Application</h1>
+
+      <h1 class="centered-title">Rental Application</h1>
 
       <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" novalidate>
         <fieldset class="form-section" aria-label="Personal information">
@@ -86,11 +83,11 @@
           <input type="text" id="employer-name" name="employer_name" required />
 
           <label><strong>Proof of Income / Financial Assistance</strong></label>
-          <p class="helper" style="text-align:center; max-width:760px;">
-            Either upload using the Google Form and paste the confirmation/Drive link below, or open your mail client and attach documents manually.
+          <p class="helper">
+            Upload via Google Form and paste the confirmation/Drive link, or choose Email to attach documents to an outgoing message.
           </p>
 
-          <div class="option-group" role="radiogroup" aria-label="Proof submission method" style="display:flex; gap:1rem; justify-content:center; margin-top:.6rem;">
+          <div class="option-group" role="radiogroup" aria-label="Proof submission method">
             <label style="display:inline-flex; gap:.5rem; align-items:center;">
               <input type="radio" name="proof_option" value="google_form" checked />
               <span>Google Form</span>
@@ -102,23 +99,21 @@
             </label>
           </div>
 
-          <div id="google-flow" class="proof-flow" aria-hidden="false" style="text-align:center; margin-top:.8rem;">
-            <button type="button" id="open-google-form" class="btn-brand" aria-label="Open Google Form to upload proof of income">Open Google Form to upload proof</button>
+          <div id="google-flow" class="proof-flow" aria-hidden="false" style="text-align:center; margin-top:.6rem;">
+            <button type="button" id="open-google-form" class="btn-brand" aria-label="Open Google Form to upload proof of income">Open Google Form</button>
 
-            <div style="margin-top:10px;">
-              <input type="url" id="proof-income-link" name="proof_income_link" placeholder="Paste Google Form confirmation or Drive link here" aria-label="Paste proof link" style="width:80%; padding:.6em; border-radius:8px; border:1px solid #444; background:rgba(255,255,255,0.04); color:#fff;" />
+            <div class="inline-row" style="margin-top:.8rem;">
+              <input type="url" id="proof-income-link" name="proof_income_link" placeholder="Paste Google Form confirmation or Drive link here" aria-label="Paste proof link" />
             </div>
 
-            <div style="margin-top:8px;">
-              <button type="button" id="paste-clipboard" class="paste-centered" title="Paste URL from clipboard" aria-label="Paste link from clipboard">Paste link</button>
+            <div style="margin-top:.6rem;">
+              <button type="button" id="paste-clipboard" class="paste-centered" title="Paste URL from clipboard">Paste link</button>
             </div>
           </div>
 
-          <div id="email-flow" class="proof-flow" style="display:none; margin-top:.8rem;" aria-hidden="true">
-            <p class="helper" style="text-align:center; max-width:760px;">
-              Click the button below to open your email client. Attach your proof of income and include your full name &amp; property address in the message so we can match it to your application.
-            </p>
-            <div style="text-align:center; margin-top:12px;">
+          <div id="email-flow" class="proof-flow" style="display:none; margin-top:.6rem;" aria-hidden="true">
+            <p class="helper">Click the button to open your email client, attach proof, and include your name & property address.</p>
+            <div style="text-align:center; margin-top:8px;">
               <button type="button" id="email-proof-btn" class="btn-mini" title="Email proof">Email Proof of Income</button>
             </div>
           </div>
@@ -127,19 +122,19 @@
         <fieldset class="form-section" aria-label="Pets">
           <h2>PETS</h2>
 
-          <div class="pets-center-block" aria-hidden="false" style="margin-top:.6rem;">
+          <div class="pets-center-block" style="margin-top:.6rem;">
             <div class="pets-question-label" style="font-weight:600; margin-bottom:10px; text-align:center;">Do you have pets?</div>
 
-            <div class="pet-radio-group" role="radiogroup" aria-label="Do you have pets?" style="margin-bottom:8px;">
+            <div class="pet-radio-group" role="radiogroup" aria-label="Do you have pets?">
               <label class="pet-option" tabindex="0">
                 <input type="radio" name="pets" value="Yes" />
-                <span class="radio-square yes" aria-hidden="true"><span class="icon check-icon">✓</span></span>
+                <span class="radio-square yes"><span class="icon check-icon">✓</span></span>
                 <span class="pet-label-text">Yes</span>
               </label>
 
               <label class="pet-option" tabindex="0">
                 <input type="radio" name="pets" value="No" checked />
-                <span class="radio-square no" aria-hidden="true"><span class="icon x-icon">✕</span></span>
+                <span class="radio-square no"><span class="icon x-icon">✕</span></span>
                 <span class="pet-label-text">No</span>
               </label>
             </div>
@@ -160,23 +155,23 @@
 
           <label>Additional Occupants</label>
           <div id="occupants-list">
-            <div class="occupant-fields" data-index="1" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:.6rem;">
+            <div class="occupant-fields" data-index="1">
               <input type="text" name="occupant_name_1" placeholder="Name" style="flex:1 1 200px"/>
               <input type="number" name="occupant_age_1" placeholder="Age" min="0" style="width:120px"/>
               <input type="tel" name="occupant_phone_1" placeholder="Phone Number" style="flex:1 1 180px"/>
             </div>
           </div>
-          <button type="button" class="btn-mini plus" id="add-occupant" style="margin-top:10px;"><span class="plus-symbol">+</span> Add Occupant</button>
+          <button type="button" class="btn-mini" id="add-occupant" style="margin-top:10px;">+ Add Occupant</button>
 
           <label style="margin-top:12px; display:block;">References</label>
           <div id="references-list">
-            <div class="reference-fields" data-index="1" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:.6rem;">
+            <div class="reference-fields" data-index="1">
               <input type="text" name="reference_name_1" placeholder="Name" style="flex:1 1 200px"/>
               <input type="tel" name="reference_phone_1" placeholder="Phone Number" style="width:160px"/>
               <input type="text" name="reference_relationship_1" placeholder="Relationship" style="flex:1 1 160px"/>
             </div>
           </div>
-          <button type="button" class="btn-mini plus" id="add-reference" style="margin-top:10px;"><span class="plus-symbol">+</span> Add Reference</button>
+          <button type="button" class="btn-mini" id="add-reference" style="margin-top:10px;">+ Add Reference</button>
 
           <label for="emergency-contact" style="margin-top:12px">Emergency Contact Name</label>
           <input type="text" id="emergency-contact" name="emergency_contact" />
@@ -190,7 +185,8 @@
 
         <fieldset class="form-section" aria-label="Declaration">
           <h2>Declaration</h2>
-          <p class="declaration-text" style="color:#dfeee9;">I declare that the information provided is true and complete. I authorize Newfound Living to verify this application.</p>
+          <p class="helper">I declare that the information provided is true and complete. I authorize Newfound Living to verify this application.</p>
+
           <label for="applicant-signature">Signature</label>
           <input type="text" id="applicant-signature" name="applicant_signature" required />
 
@@ -198,193 +194,161 @@
           <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
         </fieldset>
 
-        <div class="form-actions" style="text-align:center;">
+        <div style="text-align:center; margin:1.2rem 0;">
           <button type="submit" class="btn-submit">Submit Application</button>
         </div>
       </form>
     </div>
   </main>
 
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-row">
-      <div class="email-link">
-        <img class="icon" src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
-        <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
-      </div>
-
-      <div class="social-link">
-        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
-        <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
-      </div>
-    </div>
-
-    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
-  </footer>
+  <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
   <script>
-    // Mobile menu behavior (shared pattern)
-    (function () {
-      const toggle = document.querySelector('.nav-toggle');
-      const wrap = document.getElementById('mobile-menu');
-      if (!toggle || !wrap) return;
+  // Mobile menu
+  (function () {
+    const toggle = document.querySelector('.nav-toggle');
+    const wrap = document.getElementById('mobile-menu');
+    if (!toggle || !wrap) return;
+    function open() { toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if (f) f.focus(); }
+    function close(returnFocus=true) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); if (returnFocus) toggle.focus(); }
+    toggle.addEventListener('click', () => { if (wrap.classList.contains('visible')) close(); else open(); });
+    toggle.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggle.click(); } if (e.key==='Escape') close(); });
+    wrap.addEventListener('click', (e) => { if (e.target.closest('a')) close(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 760) close(false); });
+  })();
 
-      function open() {
-        toggle.classList.add('open');
-        toggle.setAttribute('aria-expanded','true');
-        wrap.classList.remove('hidden');
-        wrap.classList.add('visible');
-        wrap.setAttribute('aria-hidden','false');
-        const first = wrap.querySelector('a');
-        if (first) first.focus();
+  // Occupant / Reference dynamic adders
+  (function () {
+    let occupantCount = 1;
+    const addOccupantBtn = document.getElementById('add-occupant');
+    const occupantsList = document.getElementById('occupants-list');
+    if (addOccupantBtn) {
+      addOccupantBtn.addEventListener('click', () => {
+        occupantCount++;
+        const div = document.createElement('div');
+        div.className = 'occupant-fields';
+        div.dataset.index = occupantCount;
+        div.style.display = 'flex';
+        div.style.gap = '8px';
+        div.style.flexWrap = 'wrap';
+        div.style.marginTop = '.6rem';
+        div.innerHTML = `
+          <input type="text" name="occupant_name_${occupantCount}" placeholder="Name" style="flex:1 1 200px"/>
+          <input type="number" name="occupant_age_${occupantCount}" placeholder="Age" min="0" style="width:120px"/>
+          <input type="tel" name="occupant_phone_${occupantCount}" placeholder="Phone Number" style="flex:1 1 180px"/>
+          <button type="button" class="btn-mini remove-entry" aria-label="Remove occupant" style="margin-left:6px;">Remove</button>
+        `;
+        occupantsList.appendChild(div);
+        div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
+      });
+    }
+
+    let referenceCount = 1;
+    const addReferenceBtn = document.getElementById('add-reference');
+    const referencesList = document.getElementById('references-list');
+    if (addReferenceBtn) {
+      addReferenceBtn.addEventListener('click', () => {
+        referenceCount++;
+        const div = document.createElement('div');
+        div.className = 'reference-fields';
+        div.dataset.index = referenceCount;
+        div.style.display = 'flex';
+        div.style.gap = '8px';
+        div.style.flexWrap = 'wrap';
+        div.style.marginTop = '.6rem';
+        div.innerHTML = `
+          <input type="text" name="reference_name_${referenceCount}" placeholder="Name" style="flex:1 1 200px"/>
+          <input type="tel" name="reference_phone_${referenceCount}" placeholder="Phone Number" style="width:160px"/>
+          <input type="text" name="reference_relationship_${referenceCount}" placeholder="Relationship" style="flex:1 1 160px"/>
+          <button type="button" class="btn-mini remove-entry" aria-label="Remove reference" style="margin-left:6px;">Remove</button>
+        `;
+        referencesList.appendChild(div);
+        div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
+      });
+    }
+  })();
+
+  // Proof of income flow + clipboard/paste + email helper
+  (function () {
+    const proofRadios = Array.from(document.querySelectorAll('input[name="proof_option"]'));
+    const googleFlow = document.getElementById('google-flow');
+    const emailFlow = document.getElementById('email-flow');
+    const openGoogleBtn = document.getElementById('open-google-form');
+    const pasteBtn = document.getElementById('paste-clipboard');
+    const proofLinkInput = document.getElementById('proof-income-link');
+    const emailProofBtn = document.getElementById('email-proof-btn');
+    const GOOGLE_FORM_URL = ''; // set your form URL here if you have one
+
+    function showFlow() {
+      const r = document.querySelector('input[name="proof_option"]:checked');
+      const val = r ? r.value : 'google_form';
+      if (val === 'google_form') {
+        if (googleFlow) { googleFlow.style.display = ''; googleFlow.setAttribute('aria-hidden','false'); }
+        if (emailFlow) { emailFlow.style.display = 'none'; emailFlow.setAttribute('aria-hidden','true'); }
+      } else {
+        if (googleFlow) { googleFlow.style.display = 'none'; googleFlow.setAttribute('aria-hidden','true'); }
+        if (emailFlow) { emailFlow.style.display = ''; emailFlow.setAttribute('aria-hidden','false'); }
       }
-      function close(returnFocus = true) {
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded','false');
-        wrap.classList.remove('visible');
-        wrap.classList.add('hidden');
-        wrap.setAttribute('aria-hidden','true');
-        if (returnFocus) toggle.focus();
-      }
+    }
+    proofRadios.forEach(r => r.addEventListener('change', showFlow));
+    showFlow();
 
-      toggle.addEventListener('click', function () {
-        if (wrap.classList.contains('visible')) close(); else open();
-      });
+    if (openGoogleBtn) openGoogleBtn.addEventListener('click', () => {
+      window.open(GOOGLE_FORM_URL || 'https://docs.google.com/forms', '_blank', 'noopener');
+    });
 
-      toggle.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); }
-        if (e.key === 'Escape') close();
-      });
+    if (pasteBtn) pasteBtn.addEventListener('click', async () => {
+      if (!navigator.clipboard) { alert('Clipboard API not available. Please paste manually.'); return; }
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text && text.trim()) { proofLinkInput.value = text.trim(); proofLinkInput.focus(); } else { alert('No URL text found in clipboard.'); }
+      } catch (err) { console.error(err); alert('Unable to read clipboard.'); }
+    });
 
-      wrap.addEventListener('click', function (e) {
-        const a = e.target.closest('a');
-        if (a) close(false);
-      });
+    if (emailProofBtn) emailProofBtn.addEventListener('click', () => {
+      const to = 'info.newfoundliving@gmail.com';
+      const fullName = (document.getElementById('full-name') || {value:''}).value;
+      const property = (document.getElementById('property-address') || {value:''}).value;
+      const subject = `Proof of Income for ${fullName || '[Your Name]'} - ${property || '[Property]'}`;
+      const bodyLines = ['Hello Newfound Living,', '', 'I am attaching proof of income for my rental application.', '', `Name: ${fullName || ''}`, `Property: ${property || ''}`, '', 'Please confirm receipt.', '', 'Thank you.'];
+      const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+      window.location.href = mailto;
+    });
+  })();
 
-      window.addEventListener('resize', function () {
-        if (window.innerWidth > 760) close(false);
-      });
-    })();
-
-    // Occupant / Reference adders, proof flow, pet keyboard handling, and form validation
-    (function () {
-      // Add occupant/reference functionality (same as previous)
-      let occupantCount = 1;
-      const addOccupantBtn = document.getElementById('add-occupant');
-      const occupantsList = document.getElementById('occupants-list');
-      if (addOccupantBtn) {
-        addOccupantBtn.addEventListener('click', () => {
-          occupantCount++;
-          const div = document.createElement('div');
-          div.className = 'occupant-fields';
-          div.dataset.index = occupantCount;
-          div.style.display = 'flex';
-          div.style.gap = '8px';
-          div.style.flexWrap = 'wrap';
-          div.style.marginTop = '.6rem';
-          div.innerHTML = `
-            <input type="text" name="occupant_name_${occupantCount}" placeholder="Name" style="flex:1 1 200px"/>
-            <input type="number" name="occupant_age_${occupantCount}" placeholder="Age" min="0" style="width:120px"/>
-            <input type="tel" name="occupant_phone_${occupantCount}" placeholder="Phone Number" style="flex:1 1 180px"/>
-            <button type="button" class="btn-mini remove-entry" aria-label="Remove occupant" style="margin-left:6px;">Remove</button>
-          `;
-          occupantsList.appendChild(div);
-          div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
-        });
-      }
-
-      let referenceCount = 1;
-      const addReferenceBtn = document.getElementById('add-reference');
-      const referencesList = document.getElementById('references-list');
-      if (addReferenceBtn) {
-        addReferenceBtn.addEventListener('click', () => {
-          referenceCount++;
-          const div = document.createElement('div');
-          div.className = 'reference-fields';
-          div.dataset.index = referenceCount;
-          div.style.display = 'flex';
-          div.style.gap = '8px';
-          div.style.flexWrap = 'wrap';
-          div.style.marginTop = '.6rem';
-          div.innerHTML = `
-            <input type="text" name="reference_name_${referenceCount}" placeholder="Name" style="flex:1 1 200px"/>
-            <input type="tel" name="reference_phone_${referenceCount}" placeholder="Phone Number" style="width:160px"/>
-            <input type="text" name="reference_relationship_${referenceCount}" placeholder="Relationship" style="flex:1 1 160px"/>
-            <button type="button" class="btn-mini remove-entry" aria-label="Remove reference" style="margin-left:6px;">Remove</button>
-          `;
-          referencesList.appendChild(div);
-          div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
-        });
-      }
-
-      // Proof of income flow
-      const proofRadios = Array.from(document.querySelectorAll('input[name="proof_option"]'));
-      const googleFlow = document.getElementById('google-flow');
-      const emailFlow = document.getElementById('email-flow');
-      const openGoogleBtn = document.getElementById('open-google-form');
-      const pasteBtn = document.getElementById('paste-clipboard');
-      const proofLinkInput = document.getElementById('proof-income-link');
-      const emailProofBtn = document.getElementById('email-proof-btn');
-      const GOOGLE_FORM_URL = '';
-
-      function showFlow() {
-        const r = document.querySelector('input[name="proof_option"]:checked');
-        const val = r ? r.value : 'google_form';
-        if (val === 'google_form') {
-          if (googleFlow) { googleFlow.style.display = ''; googleFlow.setAttribute('aria-hidden','false'); }
-          if (emailFlow) { emailFlow.style.display = 'none'; emailFlow.setAttribute('aria-hidden','true'); }
-        } else {
-          if (googleFlow) { googleFlow.style.display = 'none'; googleFlow.setAttribute('aria-hidden','true'); }
-          if (emailFlow) { emailFlow.style.display = ''; emailFlow.setAttribute('aria-hidden','false'); }
-        }
-      }
-      proofRadios.forEach(r => r.addEventListener('change', showFlow));
-      showFlow();
-      if (openGoogleBtn) openGoogleBtn.addEventListener('click', () => { window.open(GOOGLE_FORM_URL || 'https://docs.google.com/forms', '_blank', 'noopener'); });
-      if (pasteBtn) pasteBtn.addEventListener('click', async () => {
-        if (!navigator.clipboard) { alert('Clipboard API not available. Please paste manually (Ctrl/Cmd+V).'); return; }
-        try {
-          const text = await navigator.clipboard.readText();
-          if (text && text.trim()) { proofLinkInput.value = text.trim(); proofLinkInput.focus(); } else { alert('No URL text found in clipboard.'); }
-        } catch (err) { console.error(err); alert('Unable to read clipboard. Your browser may require permission.'); }
-      });
-      if (emailProofBtn) emailProofBtn.addEventListener('click', () => {
-        const to = 'info.newfoundliving@gmail.com';
-        const fullName = (document.getElementById('full-name') || {value:''}).value;
-        const property = (document.getElementById('property-address') || {value:''}).value;
-        const subject = `Proof of Income for ${fullName || '[Your Name]'} - ${property || '[Property]'}`;
-        const bodyLines = ['Hello Newfound Living,', '', 'I am attaching proof of income for my rental application.', '', `Name: ${fullName || ''}`, `Property: ${property || ''}`, '', 'Please confirm receipt.', '', 'Thank you.'];
-        const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
-        window.location.href = mailto;
-      });
-
-      // pet-option keyboard support
-      const petOptions = Array.from(document.querySelectorAll('.pet-option'));
-      petOptions.forEach(el => {
-        el.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            const input = el.querySelector('input[type="radio"]');
-            if (input) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
-          }
-        });
-        el.addEventListener('click', (e) => {
+  // Pet option keyboard/click handling
+  (function () {
+    const petOptions = Array.from(document.querySelectorAll('.pet-option'));
+    petOptions.forEach(el => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
           const input = el.querySelector('input[type="radio"]');
-          if (input && e.target.tagName.toLowerCase() !== 'input') { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
-        });
+          if (input) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
+        }
       });
+      el.addEventListener('click', (e) => {
+        const input = el.querySelector('input[type="radio"]');
+        if (input && e.target.tagName.toLowerCase() !== 'input') {
+          input.checked = true;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    });
+  })();
 
-      // basic submit UX
-      const form = document.getElementById('rental-form');
-      if (form) {
-        form.addEventListener('submit', (e) => {
-          if (!form.checkValidity()) {
-            const firstInvalid = form.querySelector(':invalid');
-            if (firstInvalid) firstInvalid.focus();
-            e.preventDefault();
-          }
-        });
+  // Form submit handler: focus first invalid field
+  (function () {
+    const form = document.getElementById('rental-form');
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+      if (!form.checkValidity()) {
+        const firstInvalid = form.querySelector(':invalid');
+        if (firstInvalid) firstInvalid.focus();
+        e.preventDefault();
       }
-    })();
+    });
+  })();
   </script>
 </body>
 </html>
