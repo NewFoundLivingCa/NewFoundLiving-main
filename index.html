@@ -7,9 +7,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Page-specific tweaks kept minimal; most styling lives in styles.css */
+    /* page-specific minimal tweaks kept here (most styling in styles.css) */
     .centered-title { margin-top:0.4rem; }
-    .listing-gallery img { cursor:pointer; }
   </style>
 </head>
 <body>
@@ -49,6 +48,7 @@
           <p class="listing-announcement">We heard your feedback and have adjusted the price on this beautiful main floor unit at 16 Carlow Place to <strong>$1,950/month (P.O.U.)</strong>.</p>
         </div>
 
+        <!-- Gallery thumbnails (restored to original thumbnail sizing and layout) -->
         <div class="listing-gallery" aria-label="Listing images">
           <img src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main" data-index="0">
           <img src="16carlowmain/Half Bath.jpg" alt="Half Bath" data-index="1">
@@ -105,9 +105,14 @@
     <div class="lightbox" role="document">
       <div class="lightbox-main" role="region" aria-label="Image viewer">
         <button class="close" aria-label="Close gallery" onclick="closeModal()">×</button>
+
+        <!-- Prev/Next positioned left and right of picture -->
         <button class="lb-btn lb-prev" aria-label="Previous image" onclick="prevImage()">❮</button>
         <button class="lb-btn lb-next" aria-label="Next image" onclick="nextImage()">❯</button>
-        <button id="slideshowToggle" class="slideshow-toggle" aria-pressed="false" title="Start slideshow">▶</button>
+
+        <!-- slideshow toggle -->
+        <button id="slideshowToggle" class="slideshow-toggle" aria-pressed="false" title="Start slideshow" style="position:absolute; left:50%; transform:translateX(-50%); bottom:18px; z-index:10002; background: rgba(255,255,255,0.08); color:#fff; border:none; padding:8px 12px; border-radius:8px;">▶</button>
+
         <img id="modalImg" src="" alt="">
       </div>
 
@@ -177,7 +182,7 @@
   </script>
 
   <script>
-  // Gallery / lightbox functionality
+  // Gallery / lightbox functionality with prev/next buttons located left & right of picture
   (function () {
     const gallerySelector = '.listing-gallery img';
     const galleryImgs = Array.from(document.querySelectorAll(gallerySelector));
