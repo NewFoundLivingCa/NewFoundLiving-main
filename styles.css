@@ -3,6 +3,7 @@
      * left-aligned form fields with centered section titles
      * pet question (Do you have pets?) centered
      * desktop widening overrides at the end
+     * intro section styling added
    Paste this entire file to replace your existing styles.css
 */
 
@@ -48,6 +49,26 @@ body { background: #222 url('Logos/city.png') no-repeat center center fixed; bac
 img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; }
 .centered-title { font-size:2.2rem; font-weight:700; margin:.4rem 0 1rem; color:#fff; text-align:center; }
 @media (max-width:500px) { .centered-title { font-size:1.45rem; } }
+
+/* ===== INTRO (new) =====
+   centered intro block under the logo that fits the site's theme
+*/
+.intro {
+  max-width: 760px;
+  margin: 1.6rem auto 2rem;
+  text-align: center;
+  color: #dfeee9; /* light, harmonious with the dark site background */
+}
+.intro-text {
+  font-size: 1.06rem;
+  line-height: 1.6;
+  margin-bottom: 0.9rem;
+  color: inherit;
+}
+@media (max-width:700px) {
+  .intro { margin: 1rem auto 1.5rem; padding: 0 1rem; }
+  .intro-text { font-size: 1rem; line-height: 1.5; }
+}
 
 /* ===== NAV ===== */
 .nav-left-placeholder,
@@ -96,71 +117,6 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; }
 
 /* force hamburger visible on small screens */
 @media (max-width:760px) { .nav-links { display:none; } .nav-toggle { display:inline-flex; } }
-
-/* ===== MOBILE MENU (floating panel) =====
-   Appears below/near the hamburger, modern elevated look,
-   white text, no purple visited color, keyboard accessible.
-*/
-.mobile-menu-wrap {
-  position: absolute;
-  top: calc(100% + 8px); /* sits just below the navbar */
-  right: 12px;            /* aligns near the hamburger */
-  z-index: 1300;
-  min-width: 220px;
-  background: var(--nav-bg-strong);
-  border-radius: 12px;
-  padding: 6px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-  border: 1px solid rgba(255,255,255,0.04);
-  display: none; /* shown when .visible is applied by JS */
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: opacity .18s ease, transform .18s ease;
-  opacity: 0;
-  transform: translateY(-6px);
-  will-change: opacity, transform;
-}
-
-.mobile-menu-wrap.visible {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* inner mobile menu */
-.mobile-menu { display:flex; flex-direction:column; gap:6px; padding:6px; }
-
-.mobile-menu a,
-.mobile-menu a:visited {
-  color: var(--white);
-  background: transparent;
-  padding: 10px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: background .12s, transform .12s;
-  display: block;
-}
-
-.mobile-menu a:hover,
-.mobile-menu a:focus {
-  background: rgba(255,255,255,0.06);
-  transform: translateY(-2px);
-  outline: none;
-}
-
-.mobile-menu a.active {
-  background: linear-gradient(180deg, var(--brand-green-1), var(--brand-green-2));
-  box-shadow: 0 8px 24px rgba(33,112,106,0.12);
-  color: #fff;
-  transform: none;
-}
-
-/* responsive inset on very small screens */
-@media (max-width:420px) {
-  .mobile-menu-wrap { right:8px; left:8px; min-width:unset; }
-}
 
 /* ===== CAROUSEL ===== */
 .carousel-wrap { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:1.2rem; flex-wrap:wrap; position:relative; }
