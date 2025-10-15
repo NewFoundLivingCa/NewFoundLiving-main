@@ -1,10 +1,5 @@
 /* styles.css - Full consolidated site stylesheet
-   - Mobile menu: floating, branded, accessible
-   - Unified branded button system (primary + small) with stationary hover
-   - Carousel, lightbox, forms, pet controls, and utility styles retained
-   - Lease-term select and option visibility fixed
-   - White bullets for features list
-   Paste this entire file to replace your existing styles.css
+   (Updated: pet question and radio boxes remain centered while other form fields are left-aligned)
 */
 
 /* ===== variables ===== */
@@ -356,6 +351,51 @@ textarea { min-height:120px; resize:vertical; }
 /* small inline rows used in form - left aligned */
 .inline-row { display:flex; gap:8px; align-items:center; justify-content:flex-start; }
 
+/* ===== PETS ===== */
+/* Keep the pet question and radio boxes centered while other pet fields remain left aligned */
+.pets-center-block {
+  display:flex;
+  flex-direction:column;
+  align-items:center;   /* centers the question label and the radio group horizontally */
+  gap:8px;
+  width:100%;
+}
+
+/* Center the question label text and ensure it spans full width */
+.pets-center-block .pets-question-label {
+  text-align:center;
+  width:100%;
+  font-weight:600;
+  margin-bottom:10px;
+}
+
+/* Center the small radio-group horizontally */
+.pet-radio-group {
+  display:flex;
+  gap:16px;
+  align-items:center;
+  justify-content:center; /* keep the Yes/No boxes centered within the fieldset */
+}
+
+/* Make the option boxes align their internal content centrally */
+.pet-option { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; user-select:none; position:relative; }
+
+/* Keep pet label text centered beneath the square */
+.pet-label-text { color:#F7F7F7; font-weight:700; font-size:.95rem; text-align:center; }
+
+/* Keep the radio square styles as before */
+.pet-option input[type="radio"] { position:absolute; opacity:0; width:0; height:0; }
+.radio-square { width:44px; height:44px; border-radius:10px; border:2px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); display:flex; align-items:center; justify-content:center; font-size:18px; color:transparent; transition: transform .10s, box-shadow .12s, background .10s, border-color .10s; box-shadow: 0 6px 14px rgba(0,0,0,0.12); }
+.radio-square .icon { font-weight:700; font-size:18px; color:#fff; opacity:0; transform:scale(.95); transition: opacity .10s, transform .10s; }
+.pet-option input[type="radio"]:checked + .radio-square { border-color: var(--brand-green-2); background: linear-gradient(180deg, rgba(33,112,106,0.12), rgba(31,143,128,0.06)); }
+.pet-option input[type="radio"]:checked + .radio-square .icon { opacity:1; transform:scale(1); color:#fff; }
+
+@media (max-width:480px) {
+  .radio-square { width:40px; height:40px; font-size:16px; }
+  /* On very narrow screens, keep the radio group centered but allow wrapping */
+  .pet-radio-group { flex-wrap:wrap; gap:10px; }
+}
+
 /* ===== SELECT (lease term) visibility fix =====
    Keep the select and options readable on dark theme
 */
@@ -399,19 +439,6 @@ select::-ms-expand { display: none; }
   background-repeat: no-repeat;
   padding-right: 2.6rem;
 }
-
-/* ===== PETS ===== */
-.pets-center-block { display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
-.pet-radio-group { display:flex; gap:16px; align-items:center; justify-content:flex-start; }
-.pet-option input[type="radio"] { position:absolute; opacity:0; width:0; height:0; }
-.pet-option { display:flex; flex-direction:column; align-items:flex-start; gap:8px; cursor:pointer; user-select:none; position:relative; }
-.radio-square { width:44px; height:44px; border-radius:10px; border:2px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); display:flex; align-items:center; justify-content:center; font-size:18px; color:transparent; transition: transform .10s, box-shadow .12s, background .10s, border-color .10s; box-shadow: 0 6px 14px rgba(0,0,0,0.12); }
-.radio-square .icon { font-weight:700; font-size:18px; color:#fff; opacity:0; transform:scale(.95); transition: opacity .10s, transform .10s; }
-.pet-label-text { color:#F7F7F7; font-weight:700; font-size:.95rem; text-align:left; }
-.pet-option input[type="radio"]:checked + .radio-square { border-color: var(--brand-green-2); background: linear-gradient(180deg, rgba(33,112,106,0.12), rgba(31,143,128,0.06)); }
-.pet-option input[type="radio"]:checked + .radio-square .icon { opacity:1; transform:scale(1); color:#fff; }
-
-@media (max-width:480px) { .radio-square { width:40px; height:40px; font-size:16px; } }
 
 /* ===== utilities & footer ===== */
 .hidden { display:none !important; }
