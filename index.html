@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Small page-level tweaks kept minimal; main carousel styling lives in styles.css */
+    /* page-level minimal overrides kept small */
     .centered-title { margin-top:0.4rem; }
   </style>
 </head>
@@ -51,8 +51,8 @@
           </p>
         </div>
 
-        <!-- Stylized slideshow / carousel -->
-        <div class="carousel-wrap" aria-label="Property slideshow" data-autoplay="true">
+        <!-- Carousel: autoplay explicitly disabled (data-autoplay="false") so it won't auto-scroll -->
+        <div class="carousel-wrap" aria-label="Property slideshow" data-autoplay="false">
           <button class="carousel-arrow carousel-arrow-left" aria-label="Previous image">❮</button>
 
           <div class="carousel-main" role="region" aria-label="Current image">
@@ -84,10 +84,9 @@
           </div>
         </div>
 
-        <!-- Listing details made more visually pleasing -->
         <div class="listing-details">
           <ul class="features-list" aria-label="Property features">
-            <li><strong>3 Bedrooms</strong> — freshly painted, new flooring planned before move-in.</li>
+            <li><strong>3 Bedrooms</strong> — freshly painted, flooring updates before move-in.</li>
             <li><strong>1.5 Bathrooms</strong> — modern fixtures and bright lighting.</li>
             <li><strong>In-unit washer & dryer</strong> — convenience included.</li>
             <li><strong>Updated kitchen</strong> — dishwasher, fridge & stove included.</li>
@@ -191,24 +190,20 @@
   </script>
 
   <script>
-  // Stylized slideshow + lightbox behavior
+  // Carousel behavior (autoplay disabled, and thumbnail scrollIntoView removed to avoid page auto-scroll)
   (function () {
-    // Elements
     const mainImg = document.getElementById('carouselImage');
     const thumbs = Array.from(document.querySelectorAll('.carousel-thumbs img'));
     const leftBtn = document.querySelector('.carousel-arrow-left');
     const rightBtn = document.querySelector('.carousel-arrow-right');
     const playBtn = document.getElementById('carouselPlay');
-    const modal = document.getElementById('galleryModal');
-    const modalImg = document.getElementById('modalImg');
+    const wrap = document.querySelector('.carousel-wrap');
 
-    // lightbox reuse: we'll use same gallery images inside modal (thumbStrip will be built by lightbox script)
     const galleryImgs = thumbs.map(t => ({ src: t.src, alt: t.alt }));
-
     let current = 0;
     const AUTOPLAY_DELAY = 4000;
-    let autoplay = true;
     let autoplayInterval = null;
+    let autoplay = false;
 
     function show(index, {updateThumbs=true} = {}) {
       index = (index + galleryImgs.length) % galleryImgs.length;
@@ -218,11 +213,8 @@
       mainImg.alt = item.alt || (`Image ${index+1}`);
       current = index;
       if (updateThumbs) {
-        thumbs.forEach((t, i) => {
-          t.classList.toggle('active', i === index);
-        });
-        // ensure active thumbnail is visible
-        try { const active = thumbs[index]; if (active) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); } catch (e) {}
+        thumbs.forEach((t, i) => t.classList.toggle('active', i === index));
+        // removed scrollIntoView to prevent automatic page scrolling
       }
     }
 
@@ -242,78 +234,60 @@
       playBtn.setAttribute('aria-pressed','false');
       if (autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
     }
-    // initialize autoplay based on data attribute
-    const wrap = document.querySelector('.carousel-wrap');
-    if (wrap && wrap.dataset.autoplay === 'true') startAutoplay(); else stopAutoplay();
 
-    // Wire buttons
-    if (leftBtn) {
-      leftBtn.addEventListener('click', () => {
-        stopAutoplay();
-        prev();
-      });
-      leftBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); leftBtn.click(); } });
-    }
-    if (rightBtn) {
-      rightBtn.addEventListener('click', () => {
-        stopAutoplay();
-        next();
-      });
-      rightBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); rightBtn.click(); } });
-    }
-    if (playBtn) {
-      playBtn.addEventListener('click', () => {
-        if (autoplay) stopAutoplay(); else startAutoplay();
-      });
-    }
+    // IMPORTANT: enforce autoplay OFF by default
+    const shouldAutoplay = (wrap && wrap.dataset.autoplay === 'true');
+    if (shouldAutoplay) startAutoplay(); else stopAutoplay();
 
-    // Thumbnails click
+    // wire arrows
+    if (leftBtn) leftBtn.addEventListener('click', () => { stopAutoplay(); prev(); });
+    if (rightBtn) rightBtn.addEventListener('click', () => { stopAutoplay(); next(); });
+
+    if (playBtn) playBtn.addEventListener('click', () => { if (autoplay) stopAutoplay(); else startAutoplay(); });
+
+    // thumbnails click
     thumbs.forEach((t, i) => {
       t.addEventListener('click', () => { stopAutoplay(); show(i); });
       t.tabIndex = 0;
       t.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); } });
     });
 
-    // Main image click opens modal at current index (re-uses existing lightbox functionality)
-    mainImg.addEventListener('click', () => {
-      if (typeof window.openModalAtIndex === 'function') {
-        window.openModalAtIndex(current);
-      } else {
-        // fallback: open modal and set the image
-        modal.style.display = 'flex'; modal.setAttribute('aria-hidden','false'); modalImg.src = galleryImgs[current].src;
-      }
-    });
+    // main image opens modal (lightbox) if available
+    if (mainImg) {
+      mainImg.addEventListener('click', () => {
+        if (typeof window.openModalAtIndex === 'function') {
+          window.openModalAtIndex(current);
+        }
+      });
+    }
 
-    // Keyboard support for carousel (left/right when focus inside the carousel area)
-    const carouselRegion = document.querySelector('.carousel-wrap');
-    carouselRegion.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') { e.preventDefault(); stopAutoplay(); prev(); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); stopAutoplay(); next(); }
-      if (e.key === ' ' || e.key === 'Spacebar') {
-        // space toggles play/pause when carousel is focused
-        if (playBtn) { e.preventDefault(); playBtn.click(); }
-      }
-    });
-    carouselRegion.tabIndex = 0; // make region focusable for keyboard events
+    // keyboard navigation when carousel focused
+    if (wrap) {
+      wrap.tabIndex = 0;
+      wrap.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); stopAutoplay(); prev(); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); stopAutoplay(); next(); }
+        if (e.key === ' ' || e.key === 'Spacebar') { if (playBtn) { e.preventDefault(); playBtn.click(); } }
+      });
+    }
 
-    // init display
+    // initialize
     show(0);
 
-    // expose prev/next for lightbox controls already implemented
-    window.prevImage = function() { prev(); if (typeof window.closeModal === 'function') window.openModalAtIndex(current); };
-    window.nextImage = function() { next(); if (typeof window.closeModal === 'function') window.openModalAtIndex(current); };
-
-    // stop autoplay when page hidden
+    // stop autoplay on visibility change
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) stopAutoplay(); else if (wrap && wrap.dataset.autoplay === 'true') startAutoplay();
+      if (document.hidden) stopAutoplay(); else if (shouldAutoplay) startAutoplay();
     });
+
+    // expose helpers for the modal script (no-op if modal uses its own prev/next)
+    window._carouselPrev = prev;
+    window._carouselNext = next;
   })();
   </script>
 
-  <!-- Existing lightbox script (keeps the full-size modal functionality) -->
+  <!-- lightbox script (unchanged) -->
   <script>
   (function () {
-    // build modal thumbs and wire modal navigation, re-using images from the page
     const gallerySelector = '.carousel-thumbs img';
     const galleryImgs = Array.from(document.querySelectorAll(gallerySelector));
     const modal = document.getElementById('galleryModal');
@@ -346,9 +320,7 @@
     function setActiveThumb(idx) {
       if (!thumbStrip) return;
       const thumbsModal = Array.from(thumbStrip.querySelectorAll('img'));
-      thumbsModal.forEach((t, i) => {
-        t.classList.toggle('active', i === idx);
-      });
+      thumbsModal.forEach((t, i) => t.classList.toggle('active', i === idx));
     }
 
     function showImage(index) {
@@ -404,12 +376,8 @@
 
     if (slideshowToggle) slideshowToggle.addEventListener('click', () => { if (autoplay) stopAutoplay(); else startAutoplay(); });
 
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => { window.prevImage(); });
-    }
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => { window.nextImage(); });
-    }
+    if (prevBtn) prevBtn.addEventListener('click', () => { window.prevImage(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { window.nextImage(); });
 
     if (modal) modal.addEventListener('click', function (e) {
       if (e.target === modal) closeModal();
