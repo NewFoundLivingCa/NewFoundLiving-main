@@ -7,30 +7,15 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    :root{
-      --brand:#21706A;
-      --brand-hover:#1b5c53;
-      --white:#ffffff;
-    }
-    html,body{height:100%; margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:var(--white); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
-    body{background-color:#111;}
-    .container{max-width:980px; margin:0 auto; padding:1.6rem; box-sizing:border-box; position:relative; z-index:1;}
-    .logo{display:block; margin:1rem auto; max-width:220px;}
-    /* small page-scoped controls (fallback if styles.css doesn't include them) */
-    .btn-brand{background:var(--brand); color:#fff; border:0; padding:.8em 1.2em; border-radius:8px; cursor:pointer; box-shadow:0 6px 18px rgba(33,112,106,0.14);}
-    .paste-centered{display:inline-block; margin-top:8px; background:#444; color:#fff; border:0; padding:.55em .9em; border-radius:8px; cursor:pointer;}
-    .form-section{margin-bottom:1.4rem; padding:1.2rem; background:rgba(255,255,255,0.03); border-radius:0.9rem;}
-    .helper{color:#dfeee9; font-size:0.98em;}
-    .btn-mini{background:var(--brand); color:#fff; border:0; padding:.5em .8em; border-radius:6px; cursor:pointer;}
-    .occupant-fields input, .reference-fields input { padding:.6em; border-radius:6px; border:1px solid #444; background:rgba(255,255,255,0.06); color:#fff; }
-    textarea { min-height:110px; padding:.8em; border-radius:8px; border:1px solid #444; background:rgba(255,255,255,0.06); color:#fff; width:100%; box-sizing:border-box; }
+    /* minor page-level fallbacks */
+    :root{ --brand:#21706A; --white:#ffffff; }
+    .form-actions { margin-top: 0.8rem; }
   </style>
 </head>
 <body>
-  <!-- Nav: matches Home/About pages -->
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
-      <div aria-hidden="true" style="width:34px;height:1px;"></div>
+      <div class="nav-left-placeholder" aria-hidden="true"></div>
 
       <ul class="nav-links" role="menubar" aria-hidden="false">
         <li><a role="menuitem" href="index.html" class="nav-link">Home</a></li>
@@ -55,10 +40,11 @@
   <main>
     <div class="container">
       <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo" />
-      <h1 style="text-align:center; margin-top:0.4rem;">Rental Application</h1>
+      <h1>Rental Application</h1>
 
       <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" novalidate>
         <fieldset class="form-section" aria-label="Personal information">
+          <h2>Personal Information</h2>
           <label for="full-name">Full Name</label>
           <input type="text" id="full-name" name="full_name" required />
 
@@ -100,17 +86,17 @@
           <input type="text" id="employer-name" name="employer_name" required />
 
           <label><strong>Proof of Income / Financial Assistance</strong></label>
-          <p class="helper" style="max-width:760px; text-align:center;">
+          <p class="helper" style="text-align:center; max-width:760px;">
             Either upload using the Google Form and paste the confirmation/Drive link below, or open your mail client and attach documents manually.
           </p>
 
-          <div class="option-group" role="radiogroup" aria-label="Proof submission method" style="display:flex; gap:1rem; justify-content:center;">
-            <label class="option-label" style="display:inline-flex; gap:.5rem; align-items:center;">
+          <div class="option-group" role="radiogroup" aria-label="Proof submission method" style="display:flex; gap:1rem; justify-content:center; margin-top:.6rem;">
+            <label style="display:inline-flex; gap:.5rem; align-items:center;">
               <input type="radio" name="proof_option" value="google_form" checked />
               <span>Google Form</span>
             </label>
 
-            <label class="option-label" style="display:inline-flex; gap:.5rem; align-items:center;">
+            <label style="display:inline-flex; gap:.5rem; align-items:center;">
               <input type="radio" name="proof_option" value="email" />
               <span>Email</span>
             </label>
@@ -119,7 +105,7 @@
           <div id="google-flow" class="proof-flow" aria-hidden="false" style="text-align:center; margin-top:.8rem;">
             <button type="button" id="open-google-form" class="btn-brand" aria-label="Open Google Form to upload proof of income">Open Google Form to upload proof</button>
 
-            <div class="inline-row" style="margin-top:10px;">
+            <div style="margin-top:10px;">
               <input type="url" id="proof-income-link" name="proof_income_link" placeholder="Paste Google Form confirmation or Drive link here" aria-label="Paste proof link" style="width:80%; padding:.6em; border-radius:8px; border:1px solid #444; background:rgba(255,255,255,0.04); color:#fff;" />
             </div>
 
@@ -129,7 +115,7 @@
           </div>
 
           <div id="email-flow" class="proof-flow" style="display:none; margin-top:.8rem;" aria-hidden="true">
-            <p class="helper" style="max-width:760px; text-align:center;">
+            <p class="helper" style="text-align:center; max-width:760px;">
               Click the button below to open your email client. Attach your proof of income and include your full name &amp; property address in the message so we can match it to your application.
             </p>
             <div style="text-align:center; margin-top:12px;">
@@ -139,22 +125,27 @@
         </fieldset>
 
         <fieldset class="form-section" aria-label="Pets">
-          <h2 style="text-align:center;">PETS</h2>
-          <div class="pets-center-block" style="display:flex; flex-direction:column; align-items:center;">
-            <label class="pets-question-label" style="font-weight:600; margin-bottom:.6rem;">Do you have pets?</label>
-            <div class="pet-yesno" role="radiogroup" aria-label="Do you have pets?" style="display:flex; gap:1.2rem;">
-              <label class="pet-option" style="display:inline-flex; gap:.5rem; align-items:center;">
+          <h2>PETS</h2>
+
+          <div class="pets-center-block" aria-hidden="false" style="margin-top:.6rem;">
+            <div class="pets-question-label" style="font-weight:600; margin-bottom:10px; text-align:center;">Do you have pets?</div>
+
+            <div class="pet-radio-group" role="radiogroup" aria-label="Do you have pets?" style="margin-bottom:8px;">
+              <label class="pet-option" tabindex="0">
                 <input type="radio" name="pets" value="Yes" />
-                <span>Yes</span>
+                <span class="radio-square yes" aria-hidden="true"><span class="icon check-icon">✓</span></span>
+                <span class="pet-label-text">Yes</span>
               </label>
-              <label class="pet-option" style="display:inline-flex; gap:.5rem; align-items:center;">
+
+              <label class="pet-option" tabindex="0">
                 <input type="radio" name="pets" value="No" checked />
-                <span>No</span>
+                <span class="radio-square no" aria-hidden="true"><span class="icon x-icon">✕</span></span>
+                <span class="pet-label-text">No</span>
               </label>
             </div>
           </div>
 
-          <label for="pet-type" style="margin-top:12px;">Other / Breed (if applicable)</label>
+          <label for="pet-type" style="margin-top:8px;">Other / Breed (if applicable)</label>
           <input type="text" id="pet-type" name="pet_type_text" placeholder="e.g., Beagle, Medium / Other details" />
 
           <label for="pet-number">How many pets?</label>
@@ -207,14 +198,13 @@
           <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
         </fieldset>
 
-        <div class="form-actions" style="text-align:center; margin:1.2rem 0;">
+        <div class="form-actions" style="text-align:center;">
           <button type="submit" class="btn-submit">Submit Application</button>
         </div>
       </form>
     </div>
   </main>
 
-  <!-- Footer: matched to Home/About pages -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-row">
       <div class="email-link">
@@ -232,7 +222,7 @@
   </footer>
 
   <script>
-    // Mobile menu behavior (shared pattern used on Home/About)
+    // Mobile menu behavior (shared pattern)
     (function () {
       const toggle = document.querySelector('.nav-toggle');
       const wrap = document.getElementById('mobile-menu');
@@ -275,61 +265,58 @@
       });
     })();
 
-    // Occupant / Reference dynamic adders
+    // Occupant / Reference adders, proof flow, pet keyboard handling, and form validation
     (function () {
+      // Add occupant/reference functionality (same as previous)
       let occupantCount = 1;
       const addOccupantBtn = document.getElementById('add-occupant');
       const occupantsList = document.getElementById('occupants-list');
-
-      addOccupantBtn.addEventListener('click', () => {
-        occupantCount++;
-        const div = document.createElement('div');
-        div.className = 'occupant-fields';
-        div.dataset.index = occupantCount;
-        div.style.display = 'flex';
-        div.style.gap = '8px';
-        div.style.flexWrap = 'wrap';
-        div.style.marginTop = '.6rem';
-
-        div.innerHTML = `
-          <input type="text" name="occupant_name_${occupantCount}" placeholder="Name" style="flex:1 1 200px"/>
-          <input type="number" name="occupant_age_${occupantCount}" placeholder="Age" min="0" style="width:120px"/>
-          <input type="tel" name="occupant_phone_${occupantCount}" placeholder="Phone Number" style="flex:1 1 180px"/>
-          <button type="button" class="btn-mini remove-entry" aria-label="Remove occupant" style="margin-left:6px;">Remove</button>
-        `;
-        occupantsList.appendChild(div);
-
-        div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
-      });
+      if (addOccupantBtn) {
+        addOccupantBtn.addEventListener('click', () => {
+          occupantCount++;
+          const div = document.createElement('div');
+          div.className = 'occupant-fields';
+          div.dataset.index = occupantCount;
+          div.style.display = 'flex';
+          div.style.gap = '8px';
+          div.style.flexWrap = 'wrap';
+          div.style.marginTop = '.6rem';
+          div.innerHTML = `
+            <input type="text" name="occupant_name_${occupantCount}" placeholder="Name" style="flex:1 1 200px"/>
+            <input type="number" name="occupant_age_${occupantCount}" placeholder="Age" min="0" style="width:120px"/>
+            <input type="tel" name="occupant_phone_${occupantCount}" placeholder="Phone Number" style="flex:1 1 180px"/>
+            <button type="button" class="btn-mini remove-entry" aria-label="Remove occupant" style="margin-left:6px;">Remove</button>
+          `;
+          occupantsList.appendChild(div);
+          div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
+        });
+      }
 
       let referenceCount = 1;
       const addReferenceBtn = document.getElementById('add-reference');
       const referencesList = document.getElementById('references-list');
+      if (addReferenceBtn) {
+        addReferenceBtn.addEventListener('click', () => {
+          referenceCount++;
+          const div = document.createElement('div');
+          div.className = 'reference-fields';
+          div.dataset.index = referenceCount;
+          div.style.display = 'flex';
+          div.style.gap = '8px';
+          div.style.flexWrap = 'wrap';
+          div.style.marginTop = '.6rem';
+          div.innerHTML = `
+            <input type="text" name="reference_name_${referenceCount}" placeholder="Name" style="flex:1 1 200px"/>
+            <input type="tel" name="reference_phone_${referenceCount}" placeholder="Phone Number" style="width:160px"/>
+            <input type="text" name="reference_relationship_${referenceCount}" placeholder="Relationship" style="flex:1 1 160px"/>
+            <button type="button" class="btn-mini remove-entry" aria-label="Remove reference" style="margin-left:6px;">Remove</button>
+          `;
+          referencesList.appendChild(div);
+          div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
+        });
+      }
 
-      addReferenceBtn.addEventListener('click', () => {
-        referenceCount++;
-        const div = document.createElement('div');
-        div.className = 'reference-fields';
-        div.dataset.index = referenceCount;
-        div.style.display = 'flex';
-        div.style.gap = '8px';
-        div.style.flexWrap = 'wrap';
-        div.style.marginTop = '.6rem';
-
-        div.innerHTML = `
-          <input type="text" name="reference_name_${referenceCount}" placeholder="Name" style="flex:1 1 200px"/>
-          <input type="tel" name="reference_phone_${referenceCount}" placeholder="Phone Number" style="width:160px"/>
-          <input type="text" name="reference_relationship_${referenceCount}" placeholder="Relationship" style="flex:1 1 160px"/>
-          <button type="button" class="btn-mini remove-entry" aria-label="Remove reference" style="margin-left:6px;">Remove</button>
-        `;
-        referencesList.appendChild(div);
-
-        div.querySelector('.remove-entry').addEventListener('click', () => div.remove());
-      });
-    })();
-
-    // Proof of income flow (Google form / Email)
-    (function () {
+      // Proof of income flow
       const proofRadios = Array.from(document.querySelectorAll('input[name="proof_option"]'));
       const googleFlow = document.getElementById('google-flow');
       const emailFlow = document.getElementById('email-flow');
@@ -337,87 +324,66 @@
       const pasteBtn = document.getElementById('paste-clipboard');
       const proofLinkInput = document.getElementById('proof-income-link');
       const emailProofBtn = document.getElementById('email-proof-btn');
-
-      // Set your Google Form URL here (optional). If empty, the button will open Google Forms homepage.
-      const GOOGLE_FORM_URL = ''; // e.g. 'https://forms.gle/yourFormId'
+      const GOOGLE_FORM_URL = '';
 
       function showFlow() {
-        const val = document.querySelector('input[name="proof_option"]:checked').value;
+        const r = document.querySelector('input[name="proof_option"]:checked');
+        const val = r ? r.value : 'google_form';
         if (val === 'google_form') {
-          googleFlow.style.display = '';
-          googleFlow.setAttribute('aria-hidden','false');
-          emailFlow.style.display = 'none';
-          emailFlow.setAttribute('aria-hidden','true');
+          if (googleFlow) { googleFlow.style.display = ''; googleFlow.setAttribute('aria-hidden','false'); }
+          if (emailFlow) { emailFlow.style.display = 'none'; emailFlow.setAttribute('aria-hidden','true'); }
         } else {
-          googleFlow.style.display = 'none';
-          googleFlow.setAttribute('aria-hidden','true');
-          emailFlow.style.display = '';
-          emailFlow.setAttribute('aria-hidden','false');
+          if (googleFlow) { googleFlow.style.display = 'none'; googleFlow.setAttribute('aria-hidden','true'); }
+          if (emailFlow) { emailFlow.style.display = ''; emailFlow.setAttribute('aria-hidden','false'); }
         }
       }
-
       proofRadios.forEach(r => r.addEventListener('change', showFlow));
       showFlow();
-
-      openGoogleBtn.addEventListener('click', () => {
-        if (GOOGLE_FORM_URL && GOOGLE_FORM_URL.trim() !== '') {
-          window.open(GOOGLE_FORM_URL, '_blank', 'noopener');
-        } else {
-          window.open('https://docs.google.com/forms', '_blank', 'noopener');
-        }
-      });
-
-      pasteBtn.addEventListener('click', async () => {
-        if (!navigator.clipboard) {
-          alert('Clipboard API not available. Please paste manually (Ctrl/Cmd+V).');
-          return;
-        }
+      if (openGoogleBtn) openGoogleBtn.addEventListener('click', () => { window.open(GOOGLE_FORM_URL || 'https://docs.google.com/forms', '_blank', 'noopener'); });
+      if (pasteBtn) pasteBtn.addEventListener('click', async () => {
+        if (!navigator.clipboard) { alert('Clipboard API not available. Please paste manually (Ctrl/Cmd+V).'); return; }
         try {
           const text = await navigator.clipboard.readText();
-          if (text && text.trim()) {
-            proofLinkInput.value = text.trim();
-            proofLinkInput.focus();
-          } else {
-            alert('No URL text found in clipboard.');
-          }
-        } catch (err) {
-          console.error(err);
-          alert('Unable to read clipboard. Your browser may require permission.');
-        }
+          if (text && text.trim()) { proofLinkInput.value = text.trim(); proofLinkInput.focus(); } else { alert('No URL text found in clipboard.'); }
+        } catch (err) { console.error(err); alert('Unable to read clipboard. Your browser may require permission.'); }
       });
-
-      emailProofBtn.addEventListener('click', () => {
+      if (emailProofBtn) emailProofBtn.addEventListener('click', () => {
         const to = 'info.newfoundliving@gmail.com';
         const fullName = (document.getElementById('full-name') || {value:''}).value;
         const property = (document.getElementById('property-address') || {value:''}).value;
         const subject = `Proof of Income for ${fullName || '[Your Name]'} - ${property || '[Property]'}`;
-        const bodyLines = [
-          'Hello Newfound Living,',
-          '',
-          'I am attaching proof of income for my rental application.',
-          '',
-          `Name: ${fullName || ''}`,
-          `Property: ${property || ''}`,
-          '',
-          'Please confirm receipt and that this is matched to my application.',
-          '',
-          'Thank you.'
-        ];
+        const bodyLines = ['Hello Newfound Living,', '', 'I am attaching proof of income for my rental application.', '', `Name: ${fullName || ''}`, `Property: ${property || ''}`, '', 'Please confirm receipt.', '', 'Thank you.'];
         const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
         window.location.href = mailto;
       });
-    })();
 
-    // Accessible form submit handler
-    (function () {
-      const form = document.getElementById('rental-form');
-      form.addEventListener('submit', (e) => {
-        if (!form.checkValidity()) {
-          const firstInvalid = form.querySelector(':invalid');
-          if (firstInvalid) firstInvalid.focus();
-          e.preventDefault();
-        }
+      // pet-option keyboard support
+      const petOptions = Array.from(document.querySelectorAll('.pet-option'));
+      petOptions.forEach(el => {
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const input = el.querySelector('input[type="radio"]');
+            if (input) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
+          }
+        });
+        el.addEventListener('click', (e) => {
+          const input = el.querySelector('input[type="radio"]');
+          if (input && e.target.tagName.toLowerCase() !== 'input') { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
+        });
       });
+
+      // basic submit UX
+      const form = document.getElementById('rental-form');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          if (!form.checkValidity()) {
+            const firstInvalid = form.querySelector(':invalid');
+            if (firstInvalid) firstInvalid.focus();
+            e.preventDefault();
+          }
+        });
+      }
     })();
   </script>
 </body>
