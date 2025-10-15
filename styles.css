@@ -1,30 +1,26 @@
-/* styles.css - updated site styles (includes stylized carousel on index) */
-
-/* ========== variables ========== */
+/* styles.css - fixed: enforce carousel & thumbnail sizes and keep stylized slideshow */
 :root{
-  --brand-green-1: #1f8f80;
-  --brand-green-2: #21706A;
-  --accent-red-1: #e53935;
-  --accent-red-2: #c62828;
+  --brand-green-1:#1f8f80;
+  --brand-green-2:#21706A;
+  --accent-red-1:#e53935;
+  --accent-red-2:#c62828;
   --nav-bg: rgba(0,0,0,0.70);
   --nav-bg-strong: rgba(0,0,0,0.78);
   --nav-overlay: rgba(0,0,0,0.96);
-  --white: #ffffff;
-
-  --container-max-width: 980px;
-  --container-padding: 2.5rem;
+  --white:#ffffff;
+  --container-max-width:980px;
+  --container-padding:2.5rem;
   --container-bg: rgba(0,0,0,0.82);
-
-  --navbar-padding: 1rem;
-  --navbar-min-height: 64px;
+  --navbar-padding:1rem;
+  --navbar-min-height:64px;
 }
 
-/* ========== base ========== */
+/* ===== Reset / base ===== */
 * { box-sizing: border-box; }
 html,body { height:100%; margin:0; padding:0; font-family: 'Segoe UI','Arial',sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; color:var(--white); }
 body { background: #222 url('Logos/city.png') no-repeat center center fixed; background-size: cover; }
 
-/* ========== container (consistent) ========== */
+/* ===== Container (consistent largest translucent background) ===== */
 .container, .rental-container, .about-container {
   max-width: var(--container-max-width);
   margin: 2.5rem auto;
@@ -35,97 +31,41 @@ body { background: #222 url('Logos/city.png') no-repeat center center fixed; bac
   box-shadow: 0 2px 20px rgba(0,0,0,0.19);
   text-align: center;
 }
-@media (max-width:700px) { .container, .rental-container, .about-container { padding: 1.1em 5vw; } }
-@media (max-width:400px) { .container, .rental-container, .about-container { padding: 0.6em 4vw; } }
+@media (max-width:700px) { .container, .rental-container, .about-container { padding:1.1em 5vw; } }
+@media (max-width:400px) { .container, .rental-container, .about-container { padding:0.6em 4vw; } }
 
-/* ========== logo/title ========== */
+/* ===== Logo / Title ===== */
 img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; background:none; }
 .container > h1, .centered-title { text-align:center; font-size:2.2rem; font-weight:700; margin:0.2rem auto 0.8rem; color:#F7F7F7; line-height:1.08; }
 @media (max-width:500px) { .container > h1, .centered-title { font-size:1.45rem; } }
 
-/* ========== navbar (centered pills) ========== */
+/* ===== Navbar (centered pills) ===== */
 .navbar-minimal {
-  width:100%;
-  background: var(--nav-bg-strong);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  box-shadow:0 2px 12px rgba(0,0,0,0.15);
-  padding: var(--navbar-padding) 0;
-  margin-bottom:1.5em;
-  position:relative;
-  z-index:1200;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-  min-height: var(--navbar-min-height);
+  width:100%; background:var(--nav-bg-strong); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  box-shadow:0 2px 12px rgba(0,0,0,0.15); padding:var(--navbar-padding) 0; margin-bottom:1.5em;
+  position:relative; z-index:1200; border-bottom:1px solid rgba(255,255,255,0.04); min-height:var(--navbar-min-height);
 }
-.nav-center {
-  max-width: var(--container-max-width);
-  margin:0 auto;
-  padding:0 12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  position:relative;
-  height:100%;
-}
-.nav-links {
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  display:flex;
-  gap:18px;
-  list-style:none;
-  margin:0;
-  padding:0;
-  align-items:center;
-  justify-content:center;
-  white-space:nowrap;
-  z-index:10;
-}
+.nav-center { max-width:var(--container-max-width); margin:0 auto; padding:0 12px; display:flex; align-items:center; justify-content:space-between; gap:12px; position:relative; height:100%; }
+.nav-links { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; gap:18px; list-style:none; margin:0; padding:0; align-items:center; justify-content:center; white-space:nowrap; z-index:10; }
 .nav-links a, .nav-link {
-  color:var(--white);
-  text-decoration:none;
-  padding:12px 18px;
-  border-radius:12px;
-  background: rgba(255,255,255,0.06);
-  font-weight:700;
-  font-size:1.12rem;
-  display:inline-block;
-  transition: background .15s, transform .12s, box-shadow .12s;
-  line-height:1;
+  color:var(--white); text-decoration:none; padding:12px 18px; border-radius:12px;
+  background: rgba(255,255,255,0.06); font-weight:700; font-size:1.12rem; display:inline-block;
+  transition: background .15s, transform .12s, box-shadow .12s; line-height:1;
 }
-.nav-links a:hover, .nav-links a:focus, .nav-link:hover, .nav-link:focus {
-  background: rgba(255,255,255,0.12);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-  outline:none;
-}
-.nav-links a.active, .nav-link.active {
-  background: linear-gradient(180deg,var(--brand-green-1),var(--brand-green-2));
-  color:#fff;
-  box-shadow:0 10px 26px rgba(33,112,106,0.18);
-  transform:none;
-}
+.nav-links a:hover, .nav-links a:focus, .nav-link:hover, .nav-link:focus { background: rgba(255,255,255,0.12); transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,0.12); outline:none; }
+.nav-links a.active, .nav-link.active { background: linear-gradient(180deg,var(--brand-green-1),var(--brand-green-2)); color:#fff; box-shadow:0 10px 26px rgba(33,112,106,0.18); transform:none; }
 .nav-left-placeholder { width:36px; height:1px; display:block; }
-
-/* mobile */
 .nav-toggle { display:none; background:transparent; border:none; padding:8px; border-radius:8px; cursor:pointer; }
 .hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; transition: transform .18s, background .18s; }
 .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; transition: transform .18s, top .18s, opacity .18s; }
 .hamburger::before { top:-7px } .hamburger::after { top:7px }
-@media (max-width:760px) { .nav-links { display:none; } .nav-toggle { display:inline-flex; } }
+@media (max-width:760px) { .nav-links { display:none; } .nav-toggle { display:inline-flex; } .mobile-menu-wrap.hidden { display:none; } .mobile-menu-wrap.visible { display:block; max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch; } }
 
-/* ========== carousel / slideshow styles (index) ========== */
-.carousel-wrap {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-  margin-bottom:1.2rem;
-  flex-wrap:wrap;
-  position:relative;
-}
+/* ===== Carousel / Slideshow (index) ===== */
+/* Layout wrapper */
+.carousel-wrap { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:1.2rem; flex-wrap:wrap; position:relative; }
+
+/* Main image container - keep a fixed aspect box so image sizes are stable */
 .carousel-main {
   position:relative;
   width:680px;
@@ -139,14 +79,19 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; background:none
   align-items:center;
   justify-content:center;
 }
+
+/* IMPORTANT: enforce sizing for the main carousel image to prevent external overrides */
 .carousel-main img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  object-fit:cover !important;
   display:block;
   cursor:pointer;
   transition: transform .35s ease;
 }
+
+/* Caption styles */
 .carousel-caption {
   position:absolute;
   left:20px;
@@ -160,43 +105,19 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; background:none
 .carousel-caption .caption-title { font-weight:800; font-size:1.05rem; letter-spacing:0.01em; }
 .carousel-caption .caption-sub { font-size:0.92rem; opacity:0.92; margin-top:4px; }
 
-/* Play/pause button overlay */
-.carousel-play {
-  position:absolute;
-  right:14px;
-  bottom:14px;
-  background: rgba(255,255,255,0.08);
-  color:#fff;
-  border:none;
-  border-radius:8px;
-  padding:8px 10px;
-  cursor:pointer;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-  font-size:14px;
-}
+/* Play control overlay */
+.carousel-play { position:absolute; right:14px; bottom:14px; background: rgba(255,255,255,0.08); color:#fff; border:none; border-radius:8px; padding:8px 10px; cursor:pointer; backdrop-filter: blur(4px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); font-size:14px; }
 
-/* Arrows beside the carousel */
+/* Arrows beside carousel */
 .carousel-arrow {
-  background: none;
-  border: none;
-  width:44px;
-  height:44px;
-  border-radius:8px;
-  background: rgba(0,0,0,0.48);
-  color:#fff;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-size:26px;
-  cursor:pointer;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.32);
-  transition: transform .12s, background .12s;
+  background: none; border: none; width:44px; height:44px; border-radius:8px;
+  background: rgba(0,0,0,0.48); color:#fff; display:inline-flex; align-items:center; justify-content:center;
+  font-size:26px; cursor:pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.32); transition: transform .12s, background .12s;
 }
 .carousel-arrow:hover { transform: translateY(-2px); background: rgba(0,0,0,0.62); }
 @media (max-width:540px) { .carousel-arrow { display:none; } }
 
-/* thumbnail strip */
+/* ===== Thumbnails row - enforce sizes ===== */
 .carousel-thumbs {
   margin-top:12px;
   display:flex;
@@ -206,34 +127,30 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; background:none
   justify-content:center;
   width:100%;
 }
+
+/* enforce thumbnail sizes to avoid giant images caused by other CSS */
 .carousel-thumbs img {
-  width:110px;
-  height:70px;
-  object-fit:cover;
+  width:110px !important;
+  height:70px !important;
+  max-width:none !important;
+  object-fit:cover !important;
   border-radius:8px;
   cursor:pointer;
   border:2px solid transparent;
   transition: transform .12s, box-shadow .12s, border-color .12s;
 }
-.carousel-thumbs img.active {
-  transform: translateY(-4px);
-  border-color: var(--brand-green-2);
-  box-shadow: 0 10px 28px rgba(33,112,106,0.12);
-}
-@media (max-width:760px) {
-  .carousel-main { height:260px; }
-  .carousel-thumbs img { width:86px; height:56px; }
-}
+.carousel-thumbs img.active { transform: translateY(-4px); border-color: var(--brand-green-2); box-shadow: 0 10px 28px rgba(33,112,106,0.12); }
+@media (max-width:760px) { .carousel-main { height:260px; } .carousel-thumbs img { width:86px !important; height:56px !important; } }
 
-/* ========== listing details (pleasing bullets) ========== */
-.listing-details { margin-top: 14px; }
+/* ===== Listing features - nicer bullets ===== */
+.listing-details { margin-top:14px; }
 .features-list {
   list-style:none;
-  margin: 0 auto;
-  padding: 0;
+  margin:0 auto;
+  padding:0;
   max-width:820px;
   columns:2;
-  gap: 1.1rem;
+  gap:1.1rem;
 }
 .features-list li {
   position:relative;
@@ -249,13 +166,11 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; background:none
   left:0;
   top:2px;
   font-size:22px;
-  line-height:1;
   color: var(--brand-green-1);
-  transform: translateY(0);
   text-shadow: 0 1px 0 rgba(0,0,0,0.4);
 }
 
-/* ========== price styling (original red strikethrough restored) ========== */
+/* ===== Price styling (red strikethrough restored) ===== */
 .original-price {
   text-decoration: line-through;
   color: var(--accent-red-1);
@@ -275,23 +190,7 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; background:none
   box-shadow:0 10px 30px rgba(198,40,40,0.12);
 }
 
-/* deposit/lease notes */
-.deposit-note, .lease-note { color:#d8efe9; margin-top:.5rem; }
-
-/* contact button */
-.contact-btn {
-  padding:.8em 1.6em;
-  background: linear-gradient(180deg,var(--brand-green-1),var(--brand-green-2));
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow: 0 10px 26px rgba(33,112,106,0.14);
-}
-
-/* ========== modal / lightbox ========== */
-/* (kept similar to previous implementation) */
+/* ===== Modal / lightbox (full size) ===== */
 .modal { position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; padding:1.5rem; box-sizing:border-box; }
 .lightbox { max-width:1100px; width:100%; height:86vh; background:#fff; border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
 .lightbox-main { width:100%; height:calc(100% - 110px); display:flex; align-items:center; justify-content:center; background:#000; position:relative; }
@@ -304,7 +203,7 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; background:none
 .lb-prev { left:12px; } .lb-next { right:12px; }
 .close { position:absolute; top:16px; right:16px; z-index:10003; width:40px; height:40px; border-radius:8px; border:none; background: rgba(0,0,0,0.45); color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
 
-/* ========== footer ========== */
+/* ===== Footer ===== */
 footer { background: rgba(0,0,0,0.60); color:#fff; text-align:center; padding:2em 1em; margin:3em auto 0 auto; border-radius:1.2em; max-width: var(--container-max-width); box-shadow:0 1px 12px rgba(0,0,0,0.13); }
 footer .email-link, footer .social-link, footer .privacy { margin:0.8em 0; display:flex; align-items:center; justify-content:center; gap:0.5em; }
 footer img { height:22px; vertical-align:middle; }
