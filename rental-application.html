@@ -196,7 +196,7 @@
 
           <label><strong>Proof of Income / Financial Assistance</strong></label>
           <p class="helper">
-            Upload via Google Form and paste the confirmation/Drive link, or choose Email to attach documents to an outgoing message.
+            Upload via Google Form, or choose Email to attach documents to an outgoing message.
           </p>
 
           <div class="option-group" role="radiogroup" aria-label="Proof submission method" style="text-align:center;">
@@ -214,11 +214,7 @@
           <div id="google-flow" class="proof-flow" aria-hidden="false" style="text-align:center; margin-top:.6rem;">
             <a id="open-google-form" class="btn-primary" href="https://forms.gle/DQZHf9fBEhqGBFzs8" target="_blank" rel="noopener noreferrer" role="button" aria-label="Open Google Form to upload proof of income">Open Google Form</a>
 
-            <div class="inline-row" style="margin-top:.8rem;">
-              <input type="url" id="proof-income-link" name="proof_income_link" placeholder="Paste Google Form confirmation or Drive link here" aria-label="Paste proof link" />
-            </div>
-
-            <!-- Paste button removed per request -->
+            <!-- Confirmation/link input removed per request -->
           </div>
 
           <div id="email-flow" class="proof-flow" style="display:none; margin-top:.6rem;" aria-hidden="true">
@@ -308,7 +304,7 @@
           <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
         </fieldset>
 
-        <!-- Submit button removed per request -->
+        <!-- Submit button intentionally removed -->
       </form>
     </div>
   </main>
@@ -381,14 +377,12 @@
     }
   })();
 
-  // Proof of income flow + email helper (paste button removed)
+  // Proof of income flow + email helper (paste/link input removed)
   (function () {
     const proofRadios = Array.from(document.querySelectorAll('input[name="proof_option"]'));
     const googleFlow = document.getElementById('google-flow');
     const emailFlow = document.getElementById('email-flow');
-    const openGoogleBtn = document.getElementById('open-google-form');
     const emailProofBtn = document.getElementById('email-proof-btn');
-    const proofLinkInput = document.getElementById('proof-income-link');
 
     function showFlow() {
       const r = document.querySelector('input[name="proof_option"]:checked');
