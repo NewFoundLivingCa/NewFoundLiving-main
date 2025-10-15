@@ -35,7 +35,7 @@
   <main>
     <div class="container">
 
-      <!-- Panel 1: Logo + Intro -->
+      <!-- Panel: Logo + Intro -->
       <div class="panel panel-intro" role="region" aria-label="Welcome">
         <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
 
@@ -52,7 +52,7 @@
         </section>
       </div>
 
-      <!-- Visual break: new translucent panel for listing & slideshow -->
+      <!-- Break visually separates the intro from the listing content -->
       <div class="panel panel-listing" role="region" aria-label="Current rental listing">
         <h1 class="centered-title">For Rent — 16 Carlow Place (Main Floor Unit)</h1>
 
@@ -62,7 +62,7 @@
             <p class="listing-announcement">We listened — price updated for this bright, family friendly main-floor unit. Preview the space below.</p>
           </div>
 
-          <!-- Carousel (existing markup preserved) -->
+          <!-- Carousel (autoplay removed; play button removed) -->
           <div class="carousel-wrap" aria-label="Property slideshow">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous slide">❮</button>
 
@@ -94,7 +94,7 @@
             </div>
           </div>
 
-          <!-- Listing details (preserved) -->
+          <!-- Details -->
           <div class="listing-details">
             <ul class="features-list" aria-label="Property features">
               <li><strong>3 Bedrooms</strong> — fresh paint; flooring updated before move-in.</li>
@@ -129,8 +129,170 @@
 
   <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
-  <!-- Modal/Lightbox and scripts left unchanged (assume your existing inline scripts remain here) -->
-  <!-- ...existing modal and scripts... -->
+  <!-- Modal / Lightbox -->
+  <div id="galleryModal" class="modal" aria-hidden="true" role="dialog" aria-label="Image gallery">
+    <div class="lightbox" role="document">
+      <div class="lightbox-main" role="region" aria-label="Image viewer">
+        <button class="close" aria-label="Close gallery" onclick="closeModal()">×</button>
+        <button class="lb-btn lb-prev" aria-label="Previous image" onclick="prevImage()">❮</button>
+        <button class="lb-btn lb-next" aria-label="Next image" onclick="nextImage()">❯</button>
+        <button id="slideshowToggle" class="slideshow-toggle" aria-pressed="false" title="Toggle slideshow">▶</button>
+        <img id="modalImg" src="" alt="">
+      </div>
+      <div class="lightbox-thumbs" id="thumbStrip" aria-label="Image thumbnails"></div>
+    </div>
+  </div>
 
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-row">
+      <div class="email-link">
+        <img class="icon" src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
+        <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+      </div>
+      <div class="social-link">
+        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
+        <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
+      </div>
+    </div>
+    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
+  </footer>
+
+  <script>
+  // Mobile menu
+  (function () {
+    const toggle = document.querySelector('.nav-toggle');
+    const wrap = document.getElementById('mobile-menu');
+    if (!toggle || !wrap) return;
+    function open(){ toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if(f) f.focus(); }
+    function close(){ toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); toggle.focus(); }
+    toggle.addEventListener('click', ()=> { if(wrap.classList.contains('visible')) close(); else open(); });
+    toggle.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggle.click(); } if(e.key==='Escape') close(); });
+    wrap.addEventListener('click', (e)=> { if(e.target.closest('a')) close(); });
+    window.addEventListener('resize', ()=> { if(window.innerWidth > 760) close(); });
+  })();
+
+  // Carousel and thumbnails (autoplay removed; play button removed)
+  (function () {
+    const wrap = document.querySelector('.carousel-wrap');
+    if (!wrap) return;
+    const mainImg = document.getElementById('carouselImage');
+    const thumbs = Array.from(document.querySelectorAll('.carousel-thumbs img'));
+    const leftBtn = document.querySelector('.carousel-arrow-left');
+    const rightBtn = document.querySelector('.carousel-arrow-right');
+
+    const gallery = thumbs.map(t => ({ src: t.src, alt: t.alt }));
+    let current = 0;
+    function show(i){
+      if(!gallery.length) return;
+      i = (i + gallery.length) % gallery.length;
+      const it = gallery[i];
+      mainImg.src = it.src;
+      mainImg.alt = it.alt || `Image ${i+1}`;
+      current = i;
+      thumbs.forEach((t, idx)=> t.classList.toggle('active', idx===i));
+    }
+    function prev(){ show(current-1); }
+    function next(){ show(current+1); }
+
+    if(leftBtn) leftBtn.addEventListener('click', ()=> prev());
+    if(rightBtn) rightBtn.addEventListener('click', ()=> next());
+
+    thumbs.forEach((t, i)=> {
+      t.tabIndex = 0;
+      t.addEventListener('click', ()=> show(i));
+      t.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); t.click(); } });
+    });
+
+    mainImg.addEventListener('click', ()=> { if(typeof window.openModalAtIndex==='function') window.openModalAtIndex(current); });
+
+    wrap.tabIndex = 0;
+    wrap.addEventListener('keydown', (e)=> {
+      if(e.key==='ArrowLeft'){ e.preventDefault(); prev(); }
+      if(e.key==='ArrowRight'){ e.preventDefault(); next(); }
+      // NOTE: spacebar no longer toggles play (there is no play)
+    });
+
+    // Start on "Main Outside.jpg" if present
+    try {
+      const preferred = thumbs.find(t => (t.getAttribute('src') || '').toLowerCase().includes('main outside') ||
+                                        (t.getAttribute('alt') || '').toLowerCase().includes('main outside'));
+      if (preferred) {
+        const idx = thumbs.indexOf(preferred);
+        if (idx >= 0) show(idx);
+      } else {
+        show(0);
+      }
+    } catch (err) {
+      show(0);
+    }
+  })();
+
+  // Lightbox (unchanged)
+  (function () {
+    const gallerySelector = '.carousel-thumbs img';
+    const galleryImgs = Array.from(document.querySelectorAll(gallerySelector));
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('modalImg');
+    const thumbStrip = document.getElementById('thumbStrip');
+    const slideshowToggle = document.getElementById('slideshowToggle');
+    const prevBtn = document.querySelector('.lb-prev');
+    const nextBtn = document.querySelector('.lb-next');
+    if (!modal) return;
+
+    let idx = 0, autoplay = false, autoplayInterval = null, DELAY = 3000;
+
+    function buildThumbs(){
+      if(!thumbStrip) return;
+      thumbStrip.innerHTML = '';
+      galleryImgs.forEach((imgEl, i)=> {
+        const t = document.createElement('img');
+        t.src = imgEl.src;
+        t.alt = imgEl.alt || ('Image '+(i+1));
+        t.dataset.index = i;
+        t.tabIndex = 0;
+        t.addEventListener('click', ()=> showImage(i));
+        t.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); showImage(i); } });
+        thumbStrip.appendChild(t);
+      });
+    }
+    function setActiveThumb(i){
+      if(!thumbStrip) return;
+      const thumbs = Array.from(thumbStrip.querySelectorAll('img'));
+      thumbs.forEach((t, j)=> t.classList.toggle('active', j===i));
+    }
+    function showImage(i){
+      const img = galleryImgs[i];
+      if(!img) return;
+      modalImg.src = img.src; modalImg.alt = img.alt || ('Image '+(i+1)); idx = i; setActiveThumb(idx);
+    }
+    window.openModalAtIndex = function(i){
+      if(!galleryImgs.length) return;
+      idx = (typeof i==='number')? i : 0;
+      buildThumbs(); showImage(idx);
+      modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+      if(prevBtn) prevBtn.focus();
+    };
+    window.closeModal = function(){
+      if(autoplayInterval){ clearInterval(autoplayInterval); autoplayInterval=null; autoplay=false; slideshowToggle.textContent='▶'; slideshowToggle.setAttribute('aria-pressed','false'); }
+      modal.style.display='none'; modal.setAttribute('aria-hidden','true'); document.body.style.overflow='';
+    };
+    window.prevImage = function(){ if(!galleryImgs.length) return; showImage((idx-1+galleryImgs.length)%galleryImgs.length); };
+    window.nextImage = function(){ if(!galleryImgs.length) return; showImage((idx+1)%galleryImgs.length); };
+    function startAuto(){ if(autoplayInterval) return; autoplay=true; slideshowToggle.textContent='⏸'; slideshowToggle.setAttribute('aria-pressed','true'); autoplayInterval=setInterval(()=>window.nextImage(), DELAY); }
+    function stopAuto(){ autoplay=false; slideshowToggle.textContent='▶'; slideshowToggle.setAttribute('aria-pressed','false'); if(autoplayInterval){ clearInterval(autoplayInterval); autoplayInterval=null; } }
+
+    if(slideshowToggle) slideshowToggle.addEventListener('click', ()=> autoplay ? stopAuto() : startAuto());
+    if(prevBtn) prevBtn.addEventListener('click', ()=> window.prevImage());
+    if(nextBtn) nextBtn.addEventListener('click', ()=> window.nextImage());
+    if(modal) modal.addEventListener('click', (e)=> { if(e.target===modal) closeModal(); });
+    document.addEventListener('keydown', (e)=> {
+      if(modal.style.display==='flex'){
+        if(e.key==='Escape') closeModal();
+        else if(e.key==='ArrowLeft') window.prevImage();
+        else if(e.key==='ArrowRight') window.nextImage();
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
