@@ -86,7 +86,7 @@
   </nav>
 
   <main>
-    <div class="container">
+    <div class="container about-container">
       <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
       <h1>About Newfound Living</h1>
 
@@ -166,7 +166,7 @@
   </footer>
 
   <script>
-    // Same mobile menu script as index (keeps behavior consistent)
+    // Mobile menu script (keeps behavior consistent with index page)
     (function () {
       const toggle = document.querySelector('.nav-toggle');
       const wrap = document.getElementById('mobile-menu');
@@ -174,7 +174,7 @@
       function open() { toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if (f) f.focus(); }
       function close(returnFocus=true) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); if (returnFocus) toggle.focus(); }
       toggle.addEventListener('click', () => { if (wrap.classList.contains('visible')) close(); else open(); });
-      toggle.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggle.click(); } if (e.key==='Escape') close(); });
+      toggle.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); } if (e.key === 'Escape') close(); });
       wrap.addEventListener('click', (e) => { if (e.target.closest('a')) close(false); });
       window.addEventListener('resize', () => { if (window.innerWidth > 760) close(false); });
     })();
