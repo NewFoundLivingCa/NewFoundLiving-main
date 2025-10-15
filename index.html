@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* page-specific minimal tweaks kept here (most styling in styles.css) */
+    /* Page-specific minimal tweaks; gallery arrows positioned by CSS in styles.css */
     .centered-title { margin-top:0.4rem; }
   </style>
 </head>
@@ -48,22 +48,28 @@
           <p class="listing-announcement">We heard your feedback and have adjusted the price on this beautiful main floor unit at 16 Carlow Place to <strong>$1,950/month (P.O.U.)</strong>.</p>
         </div>
 
-        <!-- Gallery thumbnails (restored to original thumbnail sizing and layout) -->
-        <div class="listing-gallery" aria-label="Listing images">
-          <img src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main" data-index="0">
-          <img src="16carlowmain/Half Bath.jpg" alt="Half Bath" data-index="1">
-          <img src="16carlowmain/Kitchen 1.jpg" alt="Kitchen 1" data-index="2">
-          <img src="16carlowmain/Kitchen 2.jpg" alt="Kitchen 2" data-index="3">
-          <img src="16carlowmain/Kitchen 3.jpg" alt="Kitchen 3" data-index="4">
-          <img src="16carlowmain/Living Room 1.jpg" alt="Living Room 1" data-index="5">
-          <img src="16carlowmain/Living Room 2.jpg" alt="Living Room 2" data-index="6">
-          <img src="16carlowmain/Main Far.jpg" alt="Main Far" data-index="7">
-          <img src="16carlowmain/Main Outside.jpg" alt="Main Outside" data-index="8">
-          <img src="16carlowmain/Rec Room 2.jpg" alt="Rec Room 2" data-index="9">
-          <img src="16carlowmain/Rec Room.jpg" alt="Rec Room" data-index="10">
-          <img src="16carlowmain/Room 1.jpg" alt="Room 1" data-index="11">
-          <img src="16carlowmain/Room 2.jpg" alt="Room 2" data-index="12">
-          <img src="16carlowmain/Room 3.jpg" alt="Room 3" data-index="13">
+        <!-- Gallery thumbnails container with left/right arrows for quick navigation -->
+        <div class="listing-gallery-wrap">
+          <button class="gallery-arrow gallery-arrow-left" aria-label="Previous image" title="Previous">❮</button>
+
+          <div class="listing-gallery" aria-label="Listing images" role="list">
+            <img src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main" data-index="0" role="listitem">
+            <img src="16carlowmain/Half Bath.jpg" alt="Half Bath" data-index="1" role="listitem">
+            <img src="16carlowmain/Kitchen 1.jpg" alt="Kitchen 1" data-index="2" role="listitem">
+            <img src="16carlowmain/Kitchen 2.jpg" alt="Kitchen 2" data-index="3" role="listitem">
+            <img src="16carlowmain/Kitchen 3.jpg" alt="Kitchen 3" data-index="4" role="listitem">
+            <img src="16carlowmain/Living Room 1.jpg" alt="Living Room 1" data-index="5" role="listitem">
+            <img src="16carlowmain/Living Room 2.jpg" alt="Living Room 2" data-index="6" role="listitem">
+            <img src="16carlowmain/Main Far.jpg" alt="Main Far" data-index="7" role="listitem">
+            <img src="16carlowmain/Main Outside.jpg" alt="Main Outside" data-index="8" role="listitem">
+            <img src="16carlowmain/Rec Room 2.jpg" alt="Rec Room 2" data-index="9" role="listitem">
+            <img src="16carlowmain/Rec Room.jpg" alt="Rec Room" data-index="10" role="listitem">
+            <img src="16carlowmain/Room 1.jpg" alt="Room 1" data-index="11" role="listitem">
+            <img src="16carlowmain/Room 2.jpg" alt="Room 2" data-index="12" role="listitem">
+            <img src="16carlowmain/Room 3.jpg" alt="Room 3" data-index="13" role="listitem">
+          </div>
+
+          <button class="gallery-arrow gallery-arrow-right" aria-label="Next image" title="Next">❯</button>
         </div>
 
         <div class="listing-details">
@@ -106,7 +112,7 @@
       <div class="lightbox-main" role="region" aria-label="Image viewer">
         <button class="close" aria-label="Close gallery" onclick="closeModal()">×</button>
 
-        <!-- Prev/Next positioned left and right of picture -->
+        <!-- Prev/Next in modal -->
         <button class="lb-btn lb-prev" aria-label="Previous image" onclick="prevImage()">❮</button>
         <button class="lb-btn lb-next" aria-label="Next image" onclick="nextImage()">❯</button>
 
@@ -285,6 +291,7 @@
       imgEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModalAtIndex(i); } });
     });
 
+    // Prev/Next buttons keyboard support + click handlers (modal buttons)
     if (prevBtn) {
       prevBtn.addEventListener('click', prevImage);
       prevBtn.addEventListener('keydown', (e) => {
@@ -310,6 +317,7 @@
       }
     });
 
+    // focus containment: if modal open and focus leaves, keep it inside
     document.addEventListener('focusin', (e) => {
       if (modal.style.display === 'flex') {
         if (!modal.contains(e.target)) {
@@ -317,6 +325,48 @@
         }
       }
     });
+
+    // ---------- New: gallery arrows (left / right) on the main page ----------
+    // They navigate images by opening the modal (if closed) and moving prev/next.
+    function wireGalleryArrows() {
+      const left = document.querySelector('.gallery-arrow-left');
+      const right = document.querySelector('.gallery-arrow-right');
+
+      if (!left || !right) return;
+
+      left.addEventListener('click', () => {
+        if (modal.style.display === 'flex') {
+          prevImage();
+        } else {
+          // if modal closed, open at previous image (one step back from currentIndex)
+          const idx = (currentIndex - 1 + galleryImgs.length) % galleryImgs.length;
+          openModalAtIndex(idx);
+        }
+      });
+
+      right.addEventListener('click', () => {
+        if (modal.style.display === 'flex') {
+          nextImage();
+        } else {
+          const idx = (currentIndex + 1) % galleryImgs.length;
+          openModalAtIndex(idx);
+        }
+      });
+
+      // keyboard accessibility for the arrow buttons
+      [left, right].forEach(btn => {
+        btn.tabIndex = 0;
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            btn.click();
+          }
+        });
+      });
+    }
+
+    // run wiring after initial setup
+    wireGalleryArrows();
   })();
   </script>
 </body>
