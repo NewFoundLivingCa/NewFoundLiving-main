@@ -6,115 +6,19 @@
   <title>Rental Application - Newfound Living</title>
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Page-local styles: custom select (lease term) + narrow-scope tweaks -->
   <style>
-    /* Keep native select available for form submission but hidden visually once JS enhances it */
-    .select-hidden-keep {
-      position: absolute !important;
-      left: -9999px !important;
-      top: auto !important;
-      width: 1px !important;
-      height: 1px !important;
-      overflow: hidden !important;
-      clip: rect(0 0 0 0);
-      white-space: nowrap;
-    }
-
-    /* Custom select shell - made wider */
-    .custom-select { position: relative; width: 100%; max-width: 640px; margin: 0.35rem auto 0; }
-    .custom-select__control {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding: .95rem 1rem;
-      border-radius: 10px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.06);
-      color: #fff;
-      font-weight:700;
-      cursor:pointer;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    }
-    .custom-select__control:focus { outline: none; box-shadow: 0 10px 30px rgba(31,143,128,0.06); border-color: rgba(31,143,128,0.9); }
-
-    .custom-select__placeholder { color: #fff; font-weight:700; }
-
-    /* SVG arrow in the control */
-    .custom-select__svg {
-      width:18px;
-      height:18px;
-      flex: 0 0 18px;
-      transition: transform 160ms ease;
-      display:block;
-      opacity:0.95;
-    }
-
-    /* rotate the arrow when control open */
-    .custom-select__control.open .custom-select__svg { transform: rotate(180deg); }
-
-    .custom-select__panel {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: calc(100% + 10px);
-      z-index: 2200;
-      background: linear-gradient(180deg, rgba(12,12,12,0.99), rgba(8,8,8,0.99));
-      border-radius: 10px;
-      padding: 6px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.03);
-      max-height: 260px;
-      overflow: auto;
-      transform-origin: top center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 160ms ease, transform 160ms ease;
-      transform: translateY(-6px);
-    }
-    .custom-select__panel.open { opacity: 1; visibility: visible; transform: translateY(0); }
-
-    .custom-select__option {
-      padding: .82rem 1rem;
-      border-radius: 8px;
-      color: #fff;
-      font-weight:700;
-      cursor: pointer;
-      margin: 4px 2px;
-    }
-    .custom-select__option[aria-selected="true"] {
-      background: linear-gradient(180deg, rgba(31,143,128,0.14), rgba(31,143,128,0.08));
-      box-shadow: inset 0 -6px 16px rgba(0,0,0,0.18);
-    }
-    .custom-select__option:hover { background: rgba(255,255,255,0.03); }
-
-    /* Small responsive tweak */
-    @media (max-width:520px) {
-      .custom-select { max-width: 100%; }
-      .custom-select__panel { max-height: 180px; }
-    }
-
-    /* Native select fallback styling (visible briefly if JS not loaded) */
-    select#term {
-      background-image:
-        linear-gradient(45deg, transparent 50%, #ffffff 50%),
-        linear-gradient(135deg, #ffffff 50%, transparent 50%),
-        linear-gradient(to right, rgba(255,255,255,0.02), rgba(255,255,255,0.02));
-      background-position: calc(100% - 18px) calc(50% - 6px),
-                           calc(100% - 12px) calc(50% - 6px),
-                           100% 0;
-      background-size: 6px 6px, 6px 6px, 1px 36px;
-      background-repeat: no-repeat;
-      padding-right: 2.6rem;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-    }
+    /* Page-local tweaks:
+       - Ensure fieldsets remain centered while labels and inputs are left-aligned.
+       - This complements the site stylesheet; it's deliberately minimal and non-destructive.
+    */
+    form#rental-form { display:flex; flex-direction:column; gap:1rem; align-items:center; width:100%; }
+    fieldset.form-section { width:100%; max-width:700px; text-align:left; } /* centered block, left-aligned contents */
+    fieldset.form-section h2 { text-align:center; } /* keep section titles centered */
+    label { text-align:left; display:block; }
   </style>
 </head>
 <body>
-  <!-- NAVBAR (unchanged) -->
+  <!-- NAVBAR -->
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
       <div class="nav-left-placeholder" aria-hidden="true"></div>
@@ -185,8 +89,6 @@
             <option value="12 months">12 months</option>
             <option value="month-to-month">Month-to-month</option>
           </select>
-
-          <!-- Custom UI is injected below by the inline script — it includes a down-arrow SVG -->
         </fieldset>
 
         <fieldset class="form-section" aria-label="Employment and proof of income">
@@ -213,8 +115,6 @@
 
           <div id="google-flow" class="proof-flow" aria-hidden="false" style="text-align:center; margin-top:.6rem;">
             <a id="open-google-form" class="btn-primary" href="https://forms.gle/DQZHf9fBEhqGBFzs8" target="_blank" rel="noopener noreferrer" role="button" aria-label="Open Google Form to upload proof of income">Open Google Form</a>
-
-            <!-- Confirmation/link input removed per request -->
           </div>
 
           <div id="email-flow" class="proof-flow" style="display:none; margin-top:.6rem;" aria-hidden="true">
@@ -267,7 +167,7 @@
               <input type="tel" name="occupant_phone_1" placeholder="Phone Number" style="flex:1 1 180px"/>
             </div>
           </div>
-          <div style="margin-top:10px;">
+          <div style="margin-top:10px; display:flex; justify-content:flex-start; width:100%; max-width:700px;">
             <button type="button" class="btn-primary" id="add-occupant" aria-label="Add occupant">+ Add Occupant</button>
           </div>
 
@@ -279,7 +179,7 @@
               <input type="text" name="reference_relationship_1" placeholder="Relationship" style="flex:1 1 160px"/>
             </div>
           </div>
-          <div style="margin-top:10px;">
+          <div style="margin-top:10px; display:flex; justify-content:flex-start; width:100%; max-width:700px;">
             <button type="button" class="btn-primary" id="add-reference" aria-label="Add reference">+ Add Reference</button>
           </div>
 
@@ -309,9 +209,26 @@
     </div>
   </main>
 
+  <!-- Footer (added back) -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-row">
+      <div class="email-link">
+        <img class="icon" src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
+        <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+      </div>
+
+      <div class="social-link">
+        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
+        <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
+      </div>
+    </div>
+
+    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
+  </footer>
+
   <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
-  <!-- Page scripts -->
+  <!-- Page scripts (kept as in previous working page) -->
   <script>
   // Mobile menu
   (function () {
@@ -377,7 +294,7 @@
     }
   })();
 
-  // Proof of income flow + email helper (paste/link input removed)
+  // Proof of income flow + email helper
   (function () {
     const proofRadios = Array.from(document.querySelectorAll('input[name="proof_option"]'));
     const googleFlow = document.getElementById('google-flow');
@@ -441,159 +358,6 @@
         e.preventDefault();
       }
     });
-  })();
-  </script>
-
-  <!-- Inline custom select script (adds down arrow SVG and injects UI) -->
-  <script>
-  (function () {
-    const native = document.getElementById('term');
-    if (!native) return;
-
-    // Create root/custom UI
-    const root = document.createElement('div');
-    root.className = 'custom-select';
-    root.setAttribute('aria-hidden','false');
-
-    // Control (button)
-    const control = document.createElement('button');
-    control.type = 'button';
-    control.className = 'custom-select__control';
-    control.setAttribute('aria-haspopup', 'listbox');
-    control.setAttribute('aria-expanded', 'false');
-    control.setAttribute('aria-label', native.getAttribute('aria-label') || 'Lease term');
-
-    const labelSpan = document.createElement('span');
-    labelSpan.className = 'custom-select__placeholder';
-    labelSpan.textContent = native.options[native.selectedIndex]?.textContent || 'Select';
-
-    // Down arrow SVG
-    const svgNS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('viewBox', '0 0 24 24');
-    svg.className = 'custom-select__svg';
-    svg.setAttribute('aria-hidden', 'true');
-    const path = document.createElementNS(svgNS, 'path');
-    path.setAttribute('d', 'M7 10l5 5 5-5');
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', 'currentColor');
-    path.setAttribute('stroke-width', '2');
-    path.setAttribute('stroke-linecap', 'round');
-    path.setAttribute('stroke-linejoin', 'round');
-    svg.appendChild(path);
-
-    control.appendChild(labelSpan);
-    control.appendChild(svg);
-    root.appendChild(control);
-
-    // Panel (options)
-    const panel = document.createElement('div');
-    panel.className = 'custom-select__panel';
-    panel.setAttribute('role', 'listbox');
-    panel.setAttribute('tabindex', '-1');
-
-    Array.from(native.options).forEach((opt, idx) => {
-      const item = document.createElement('div');
-      item.className = 'custom-select__option';
-      item.setAttribute('role', 'option');
-      item.dataset.value = opt.value;
-      item.dataset.index = idx;
-      item.textContent = opt.textContent;
-      if (opt.disabled) {
-        item.setAttribute('aria-disabled', 'true');
-        item.style.opacity = '.5';
-      }
-      if (opt.selected) item.setAttribute('aria-selected', 'true');
-      else item.setAttribute('aria-selected', 'false');
-      panel.appendChild(item);
-    });
-
-    root.appendChild(panel);
-
-    // Insert root after native select and visually hide native select (keeps it for form submit)
-    native.parentNode.insertBefore(root, native.nextSibling);
-    native.classList.add('select-hidden-keep');
-
-    const options = Array.from(panel.querySelectorAll('.custom-select__option'));
-    let open = false;
-    let focusedIndex = native.selectedIndex >= 0 ? native.selectedIndex : 0;
-
-    function openPanel() {
-      panel.classList.add('open');
-      control.classList.add('open');
-      control.setAttribute('aria-expanded','true');
-      open = true;
-      panel.focus();
-      options.forEach((o, i) => o.classList.toggle('focused', i === focusedIndex));
-    }
-    function closePanel() {
-      panel.classList.remove('open');
-      control.classList.remove('open');
-      control.setAttribute('aria-expanded','false');
-      open = false;
-      control.focus();
-    }
-    function setValue(index) {
-      const opt = native.options[index];
-      if (!opt || opt.disabled) return;
-      native.selectedIndex = index;
-      labelSpan.textContent = opt.textContent;
-      options.forEach((o, i) => o.setAttribute('aria-selected', i === index ? 'true' : 'false'));
-      focusedIndex = index;
-      native.dispatchEvent(new Event('change', { bubbles: true }));
-    }
-
-    // Control click toggles panel
-    control.addEventListener('click', function (e) {
-      e.preventDefault();
-      if (open) closePanel(); else openPanel();
-    });
-
-    // Click outside closes
-    document.addEventListener('click', function (e) {
-      if (!root.contains(e.target)) closePanel();
-    });
-
-    // Option click
-    panel.addEventListener('click', function (e) {
-      const opt = e.target.closest('.custom-select__option');
-      if (!opt || opt.getAttribute('aria-disabled') === 'true') return;
-      const idx = Number(opt.dataset.index);
-      setValue(idx);
-      closePanel();
-    });
-
-    // Keyboard navigation on control
-    control.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (!open) openPanel();
-        focusedIndex = (e.key === 'ArrowDown') ? Math.min(focusedIndex + 1, options.length - 1) : Math.max(focusedIndex - 1, 0);
-        options.forEach((o, i) => {
-          o.classList.toggle('focused', i === focusedIndex);
-          if (i === focusedIndex) o.scrollIntoView({ block: 'nearest' });
-        });
-      } else if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        if (!open) openPanel();
-        else { setValue(focusedIndex); closePanel(); }
-      } else if (e.key === 'Escape') { e.preventDefault(); closePanel(); }
-    });
-
-    // Keyboard in panel
-    panel.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowDown') { e.preventDefault(); focusedIndex = Math.min(focusedIndex + 1, options.length - 1); }
-      else if (e.key === 'ArrowUp') { e.preventDefault(); focusedIndex = Math.max(focusedIndex - 1, 0); }
-      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setValue(focusedIndex); closePanel(); }
-      else if (e.key === 'Escape') { e.preventDefault(); closePanel(); }
-      options.forEach((o, i) => {
-        o.classList.toggle('focused', i === focusedIndex);
-        if (i === focusedIndex) o.scrollIntoView({ block: 'nearest' });
-      });
-    });
-
-    // initialize label text
-    setValue(native.selectedIndex >= 0 ? native.selectedIndex : 0);
   })();
   </script>
 </body>
