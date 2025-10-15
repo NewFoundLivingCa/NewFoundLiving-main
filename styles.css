@@ -1,9 +1,7 @@
 /* styles.css - Full site stylesheet for Newfound Living
-   - Consolidated and updated for:
-     * left-aligned form fields with centered section titles
-     * pet question (Do you have pets?) centered
-     * desktop widening overrides at the end
-     * intro section styling added
+   - Updated: larger, framed intro box for the homepage
+   - Preserves: left-aligned form fields, centered section titles, pet question centered
+   - Desktop widening overrides at the end
    Paste this entire file to replace your existing styles.css
 */
 
@@ -25,6 +23,14 @@
   --btn-padding-regular: .85em 1.6em;
   --btn-padding-small: .45em .8em;
   --btn-radius: 8px;
+
+  /* intro sizing tokens */
+  --intro-max-width: 840px;
+  --intro-padding: 1.6rem;
+  --intro-font-size: 1.18rem; /* desktop base for intro */
+  --intro-line-height: 1.6;
+  --intro-bg: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  --intro-border: rgba(255,255,255,0.06);
 }
 
 /* ===== base/reset ===== */
@@ -51,23 +57,52 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; }
 @media (max-width:500px) { .centered-title { font-size:1.45rem; } }
 
 /* ===== INTRO (new) =====
-   centered intro block under the logo that fits the site's theme
+   Framed, slightly translucent box to sit under the logo.
+   Larger type for better hierarchy on the page.
 */
 .intro {
-  max-width: 760px;
+  max-width: var(--intro-max-width);
   margin: 1.6rem auto 2rem;
+  padding: var(--intro-padding);
+  background: var(--intro-bg);                 /* subtle translucent panel */
+  border: 1px solid var(--intro-border);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   text-align: center;
-  color: #dfeee9; /* light, harmonious with the dark site background */
+  color: #e6f5ef; /* light, harmonious with the dark site background */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  overflow: hidden;
 }
+
+/* Intro text: larger, airy, and readable */
 .intro-text {
-  font-size: 1.06rem;
-  line-height: 1.6;
+  font-size: var(--intro-font-size);
+  line-height: var(--intro-line-height);
   margin-bottom: 0.9rem;
   color: inherit;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
-@media (max-width:700px) {
-  .intro { margin: 1rem auto 1.5rem; padding: 0 1rem; }
-  .intro-text { font-size: 1rem; line-height: 1.5; }
+
+/* Slight emphasis styling for the strong element inside intro */
+.intro-text strong {
+  color: #ffffff;
+  font-weight:900;
+  letter-spacing: 0.2px;
+}
+
+/* Responsive adjustments: keep intro prominent on smaller screens but scaled */
+@media (max-width:900px) {
+  :root { --intro-font-size: 1.04rem; }
+  .intro { padding: 1.1rem; margin: 1rem auto 1.5rem; border-radius: 12px; }
+  .intro-text { font-size: var(--intro-font-size); line-height:1.55; }
+}
+@media (max-width:480px) {
+  :root { --intro-font-size: 1rem; }
+  .intro { padding: 0.9rem; margin: 0.9rem auto 1rem; }
+  .intro-text { font-size: var(--intro-font-size); }
 }
 
 /* ===== NAV ===== */
