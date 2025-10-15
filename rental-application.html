@@ -21,7 +21,6 @@
   </style>
 </head>
 <body>
-  <!-- Nav copied from index page so the application page uses the same nav bar -->
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
       <div aria-hidden="true" style="width:34px;height:1px;"></div>
@@ -83,7 +82,7 @@
           </select>
         </fieldset>
 
-        <!-- Employment / Income (integrated style) -->
+        <!-- Employment / Income -->
         <fieldset class="form-section">
           <h2>Employment / Income</h2>
           <label for="employer-name">Employer Name</label>
@@ -92,12 +91,18 @@
           <label><strong>Proof of Income / Financial Assistance</strong></label>
           <p class="helper" style="max-width:760px; text-align:center;">Please either upload using our Google Form (you may need to sign in) then paste the confirmation/Drive link below, or click "Email Proof of Income" to open your mail client and attach your documents manually.</p>
 
-          <div class="proof-options" role="radiogroup" aria-label="Proof submission method">
-            <label style="display:flex; align-items:center; gap:8px;">
-              <input type="radio" name="proof_option" value="google_form" checked /> Google Form
+          <!-- Centered option group with matching styles -->
+          <div class="option-group" role="radiogroup" aria-label="Proof submission method">
+            <label class="option-label">
+              <input type="radio" name="proof_option" value="google_form" checked />
+              <span class="option-indicator"></span>
+              <span class="option-text">Google Form</span>
             </label>
-            <label style="display:flex; align-items:center; gap:8px;">
-              <input type="radio" name="proof_option" value="email" /> Email
+
+            <label class="option-label">
+              <input type="radio" name="proof_option" value="email" />
+              <span class="option-indicator"></span>
+              <span class="option-text">Email</span>
             </label>
           </div>
 
@@ -113,28 +118,37 @@
 
           <div id="email-flow" class="proof-flow" style="display:none;">
             <p class="helper" style="max-width:760px; text-align:center;">Click the button below to open your email client. Attach your proof of income and include your full name &amp; property address in the message so we can match it to your application.</p>
-            <button type="button" id="email-proof-btn" class="btn-mini" title="Email proof">Email Proof of Income</button>
+            <!-- Centered email button -->
+            <div style="text-align:center; margin-top:12px;">
+              <button type="button" id="email-proof-btn" class="btn-mini" title="Email proof">Email Proof of Income</button>
+            </div>
           </div>
         </fieldset>
 
         <!-- PETS -->
         <fieldset class="form-section">
-          <h2>PETS</h2>
+          <h2 style="text-align:center;">PETS</h2>
+
           <div class="pets-center-block">
             <label class="pets-question-label">Do you have pets?</label>
-            <div class="pet-radio-group pets-radio-center" style="display:flex; gap:12px; margin-top:8px;">
-              <label style="display:flex; align-items:center; gap:8px;"><input type="radio" name="pets" value="Yes" /> Yes</label>
-              <label style="display:flex; align-items:center; gap:8px;"><input type="radio" name="pets" value="No" checked /> No</label>
+
+            <!-- Styled yes/no options (mutually exclusive radios) -->
+            <div class="pet-yesno" role="radiogroup" aria-label="Do you have pets?">
+              <label class="pet-option">
+                <input type="radio" name="pets" value="Yes" />
+                <span class="pet-indicator" aria-hidden="true"></span>
+                <span class="pet-label-text">Yes</span>
+              </label>
+
+              <label class="pet-option">
+                <input type="radio" name="pets" value="No" checked />
+                <span class="pet-indicator" aria-hidden="true"></span>
+                <span class="pet-label-text">No</span>
+              </label>
             </div>
           </div>
 
-          <div id="pet-types" class="pet-type-checkboxes" style="display:none; margin-top:10px; justify-content:center;">
-            <label><input type="checkbox" name="pet_types[]" value="Dog" /> Dog</label>
-            <label><input type="checkbox" name="pet_types[]" value="Cat" /> Cat</label>
-            <label><input type="checkbox" name="pet_types[]" value="Bird" /> Bird</label>
-            <label><input type="checkbox" name="pet_types[]" value="Reptile" /> Reptile</label>
-            <label><input type="checkbox" name="pet_types[]" value="Other" /> Other</label>
-          </div>
+          <!-- Removed the Dog/Cat/Bird/Reptile checkbox group as requested -->
 
           <label for="pet-type" style="margin-top:12px;">Other / Breed (if applicable)</label>
           <input type="text" id="pet-type" name="pet_type_text" placeholder="e.g., Beagle, Medium / Other details" />
@@ -247,9 +261,7 @@
         if (window.innerWidth > 760) close(false);
       });
     })();
-  </script>
 
-  <script>
     // Dynamic adders for occupants & references
     (function () {
       const addOccupant = document.getElementById('add-occupant');
@@ -282,19 +294,17 @@
       }
     })();
 
-    // Pets: show/hide pet type checkboxes and clear fields when No
+    // Pets: show/hide fields and clear when No
     (function () {
       const petRadios = document.querySelectorAll('input[name="pets"]');
-      const petTypes = document.getElementById('pet-types');
       const petTypeText = document.getElementById('pet-type');
       const petNumber = document.getElementById('pet-number');
       const petDetails = document.getElementById('pet-details');
 
       function updatePetUI() {
         const yes = document.querySelector('input[name="pets"][value="Yes"]')?.checked;
-        if (petTypes) petTypes.style.display = yes ? 'flex' : 'none';
+        // No separate pet-types list to show (removed per request)
         if (!yes) {
-          petTypes && petTypes.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
           if (petTypeText) petTypeText.value = '';
           if (petNumber) petNumber.value = '';
           if (petDetails) petDetails.value = '';
@@ -386,7 +396,7 @@
               return false;
             }
           } else if(selected === 'email'){
-            if(!confirm('You selected Email. After submitting this application, please send an email with your attachment to info.newfoundliving@gmail.com including your full name and property address so we can match it. Click OK to submit.')){
+            if(!confirm('You selected Email. After submitting this application, please send an email with your attachment to info.newfoundliving@gmail.com including your full name and property address so we can match it to your application. Click OK to submit.')){
               e.preventDefault();
               return false;
             }
