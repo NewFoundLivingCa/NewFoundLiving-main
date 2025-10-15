@@ -1,6 +1,5 @@
-/* styles.css - centralized site styles (updated to absolutely-center the main nav links)
-   This version keeps the hamburger and left placeholder in the normal flow while
-   centering the visible nav link group perfectly regardless of those elements.
+/* styles.css - centralized site styles (navbar centered + mobile optimized)
+   Replace your existing styles.css with this file.
 */
 
 :root{
@@ -11,22 +10,13 @@
   --white: #ffffff;
 }
 
-html,body{
-  height:100%;
-  margin:0;
-  padding:0;
-  font-family: 'Segoe UI','Arial',sans-serif;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  color:var(--white);
-  background: #222 url('Logos/city.png') no-repeat center center fixed;
-  background-size: cover;
-}
+/* Base */
+* { box-sizing: border-box; }
+html,body{ height:100%; margin:0; padding:0; font-family: 'Segoe UI','Arial',sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; color:var(--white); }
+body { background: #222 url('Logos/city.png') no-repeat center center fixed; background-size: cover; }
 
 /* Container */
-.container,
-.rental-container,
-.about-container {
+.container, .rental-container, .about-container {
   max-width: 980px;
   margin: 2.5rem auto;
   padding: 2.5rem;
@@ -38,237 +28,135 @@ html,body{
 }
 
 /* Logo */
-img.logo {
-  max-width: 240px;
-  display:block;
-  margin: 0 auto 1.5rem;
-  background: none;
-}
+img.logo { max-width: 240px; display:block; margin: 0 auto 1.5rem; background: none; }
+@media (max-width:500px) { img.logo { max-width:150px; margin-bottom:0.7rem; } }
 
-/* NAVBAR (centralized; nav-links are absolutely centered) */
+/* NAVBAR */
 .navbar-minimal {
-  width: 100%;
+  width:100%;
   background: var(--nav-semi);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-  padding: 0.6em 0;
-  margin-bottom: 1.5em;
-  position: relative;
-  z-index: 1200;
+  box-shadow:0 2px 12px rgba(0,0,0,0.15);
+  padding:0.6em 0;
+  margin-bottom:1.5em;
+  position:relative;
+  z-index:1200;
 }
-
-/* nav-center remains the layout container; we make it position:relative so
-   the .nav-links can be absolutely centered inside it. */
 .nav-center {
   max-width:980px;
   margin:0 auto;
+  padding:0 12px;
   display:flex;
   align-items:center;
-  justify-content:space-between; /* keeps left placeholder and toggle to edges */
+  justify-content:space-between;
   gap:12px;
-  padding:0 12px;
-  box-sizing:border-box;
-  position: relative; /* IMPORTANT: anchors absolute centering of .nav-links */
+  position:relative; /* anchor for absolute-centered .nav-links */
 }
 
-/* The visible link group is absolutely centered in the .nav-center.
-   This prevents the links from shifting to the right when there is a left
-   placeholder or an asymmetric toggle. */
+/* Center the link group absolutely to guarantee visual centering */
 .nav-links {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
   display:flex;
-  gap:18px;
+  gap:16px;
   list-style:none;
   margin:0;
   padding:0;
   align-items:center;
   justify-content:center;
   white-space:nowrap;
-  z-index: 10; /* keep links above background / other elements */
+  z-index:10;
 }
+.nav-links li { list-style:none; }
 
-/* Link styling (larger and more prominent) */
-.nav-links a {
+/* Nav link styling */
+.nav-link, .nav-links a {
   color:var(--white);
   text-decoration:none;
-  padding:10px 16px;
+  padding:10px 14px;
   border-radius:10px;
-  background:rgba(255,255,255,0.07);
+  background:rgba(255,255,255,0.06);
   font-weight:700;
-  font-size:1.18rem;
+  font-size:1.12rem;
   display:inline-block;
   transition: background .15s, transform .12s;
 }
-.nav-links a:hover,
-.nav-links a:focus {
-  background:rgba(255,255,255,0.14);
-  transform:translateY(-1px);
-  outline:none;
-}
-.nav-links a.active {
-  background:#256D67;
-  color:#fff;
-  box-shadow:0 8px 22px rgba(0,0,0,0.18);
-  transform:none;
-}
+.nav-link:hover, .nav-link:focus, .nav-links a:hover, .nav-links a:focus { background:rgba(255,255,255,0.12); transform:translateY(-1px); outline:none; }
+.nav-links a.active, .nav-link.active { background:#256D67; color:#fff; box-shadow:0 8px 22px rgba(0,0,0,0.18); transform:none; }
 
-/* Mobile hamburger (keeps being shown at right on small screens) */
-.nav-toggle {
-  display:none;
-  background:transparent;
-  border:none;
-  padding:8px;
-  border-radius:8px;
-  cursor:pointer;
-  align-items:center;
-  justify-content:center;
-}
-.hamburger {
-  width:22px;
-  height:2px;
-  background:var(--white);
-  position:relative;
-  display:block;
-  border-radius:2px;
-  transition: transform .18s, background .18s;
-}
-.hamburger::before,
-.hamburger::after {
-  content:"";
-  position:absolute;
-  left:0;
-  width:100%;
-  height:2px;
-  background:var(--white);
-  border-radius:2px;
-  transition: transform .18s, top .18s, opacity .18s;
-}
-.hamburger::before { top:-7px; }
-.hamburger::after  { top:7px; }
-.nav-toggle.open .hamburger { background:transparent; }
-.nav-toggle.open .hamburger::before { transform:rotate(45deg); top:0; }
-.nav-toggle.open .hamburger::after  { transform:rotate(-45deg); top:0; }
+/* Hamburger / mobile */
+.nav-toggle { display:none; background:transparent; border:none; padding:8px; border-radius:8px; cursor:pointer; align-items:center; justify-content:center; }
+.hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; transition: transform .18s, background .18s; }
+.hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; transition: transform .18s, top .18s, opacity .18s; }
+.hamburger::before{ top:-7px } .hamburger::after{ top:7px }
+.nav-toggle.open .hamburger { background:transparent; } .nav-toggle.open .hamburger::before { transform:rotate(45deg); top:0 } .nav-toggle.open .hamburger::after { transform:rotate(-45deg); top:0 }
 
 .mobile-menu-wrap { display:none; }
-.mobile-menu {
-  display:flex;
-  flex-direction:column;
-  gap:0;
-  width:100vw;
-  position:absolute;
-  left:0;
-  right:0;
-  top:100%;
-  box-sizing:border-box;
-  z-index:1150;
-}
-.mobile-menu a {
-  display:block;
-  padding:16px 18px;
-  font-weight:700;
-  font-size:18px;
-  color:var(--white);
-  text-decoration:none;
-  background:var(--nav-overlay);
-  border-bottom:1px solid rgba(255,255,255,0.04);
-}
+.mobile-menu { display:flex; flex-direction:column; gap:0; width:100vw; position:absolute; left:0; right:0; top:100%; box-sizing:border-box; z-index:1150; }
+.mobile-menu a { display:block; padding:16px 18px; font-weight:700; font-size:18px; color:var(--white); text-decoration:none; background:var(--nav-overlay); border-bottom:1px solid rgba(255,255,255,0.04); }
 
-/* Responsive behavior: hide the centered desktop links on small screens */
+/* Responsive: switch to mobile menu */
 @media (max-width:760px) {
-  .nav-links { display:none; }          /* mobile menu used instead */
-  .nav-toggle { display:inline-flex; } /* show hamburger */
+  .nav-links { display:none; }
+  .nav-toggle { display:inline-flex; }
   .mobile-menu-wrap.hidden { display:none; }
   .mobile-menu-wrap.visible { display:block; max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch; }
 }
 
-/* Page title styles (larger and centered) */
-.container > h1,
-.centered-title {
-  text-align:center;
-  font-size:2.2rem;
-  font-weight:700;
-  margin:0.2rem auto 0.8rem;
-  color:#F7F7F7;
-  line-height:1.08;
-}
-@media (max-width:500px) {
-  .container > h1, .centered-title { font-size:1.5rem; }
-  .nav-links a { font-size:1rem; padding:10px 12px; }
-}
+/* Page Title */
+.container > h1, .centered-title { text-align:center; font-size:2.2rem; font-weight:700; margin:0.2rem auto 0.8rem; color:#F7F7F7; line-height:1.08; }
+@media (max-width:500px) { .container > h1, .centered-title { font-size:1.5rem; } .nav-links a { font-size:1rem; padding:10px 12px; } }
 
-/* Form styles and other site styles (kept from previous version) */
+/* Form area */
 form { display:flex; flex-direction:column; align-items:center; gap:1rem; }
 fieldset.form-section {
   margin-bottom:3em;
-  padding:2.5em 2em 2em 2em;
-  background: rgba(255,255,255,0.055);
-  border-radius: 1.5em;
-  border: 2px solid rgba(255,255,255,0.23);
-  box-shadow: 0 6px 28px rgba(0,0,0,0.14);
-  max-width: 700px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  transition: box-shadow 0.2s, border-color 0.2s;
-  text-align: left;
-  position: relative;
+  padding:2.2em 1.6em;
+  background: rgba(255,255,255,0.045);
+  border-radius: 1.2em;
+  border: 1px solid rgba(255,255,255,0.08);
+  max-width:700px;
+  width:100%;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:left;
 }
-.form-section h2 { margin-top:0; margin-bottom:1em; font-size:1.44em; color:#F7F7F7; letter-spacing:0.04em; text-align:center; }
-label { text-align:left; margin-left:3px; margin-bottom:0.4em; font-weight:500; color:#F7F7F7; display:block; }
+.form-section h2 { margin-top:0; margin-bottom:1em; font-size:1.44em; color:#F7F7F7; text-align:center; }
+label { display:block; margin-bottom:0.4em; font-weight:600; color:#F7F7F7; }
 input, textarea, select {
-  width:100%; max-width:620px; min-width:120px; padding:1em; border-radius:8px; border:1px solid #444; background:rgba(255,255,255,0.12); color:#fff; font-size:1.05rem; margin-bottom:1em; box-sizing:border-box;
+  width:100%; max-width:620px; padding:0.95em; border-radius:8px; border:1px solid #444; background:rgba(255,255,255,0.12); color:#fff; font-size:1rem; margin-bottom:1em;
 }
 textarea { min-height:110px; }
-input::placeholder, textarea::placeholder { color:#F7F7F7; }
-select { background:#222; color:#fff; border:1px solid #444; border-radius:7px; padding:1em; }
+button, .btn-submit { background: var(--brand-green-2); color:#fff; border:none; border-radius:8px; padding:0.9em 1.8em; font-size:1rem; cursor:pointer; box-shadow:0 4px 18px rgba(0,0,0,0.14); }
+button:hover, .btn-submit:hover { transform: translateY(-2px); background:#1f6e66; }
 
-button, .btn-submit, .custom-file-upload {
-  background: var(--brand-green-2);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 0.9em 1.8em;
-  font-size: 1.05rem;
-  cursor: pointer;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.14);
-  transition: background .15s, transform .08s;
-}
-button:hover, .btn-submit:hover, .custom-file-upload:hover { transform: translateY(-2px); background: #1f6e66; }
+/* Occupant and Reference */
+.occupant-fields, .reference-fields { display:flex; gap:0.8em; flex-wrap:wrap; }
+.occupant-fields input, .reference-fields input { padding:0.6em; border-radius:6px; border:1px solid #444; background:rgba(255,255,255,0.06); color:#fff; }
 
-/* PETS stylized controls (kept from previous implementation) */
+/* PETS stylized controls */
 .pets-center-block { display:flex; flex-direction:column; align-items:center; gap:8px; }
 .pets-question-label { font-size:1.05rem; font-weight:600; color:#F7F7F7; }
 .pet-radio-group { display:flex; gap:20px; align-items:center; justify-content:center; }
 .pet-option input[type="radio"] { position:absolute; opacity:0; width:0; height:0; }
-.pet-option { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; user-select:none; position:relative; outline:none; }
-.radio-square { width:48px; height:48px; border-radius:10px; border:2px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.03); display:flex; align-items:center; justify-content:center; font-size:20px; color:transparent; transition: transform .10s ease, box-shadow .12s ease, background .10s ease, border-color .10s ease; box-shadow: 0 6px 14px rgba(0,0,0,0.12); }
-.radio-square .icon { font-weight:700; font-size:20px; line-height:1; color:#fff; display:block; opacity:0; transform:scale(.95); transition: opacity .10s, transform .10s; }
+.pet-option { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; user-select:none; position:relative; }
+.radio-square { width:48px; height:48px; border-radius:10px; border:2px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.03); display:flex; align-items:center; justify-content:center; font-size:20px; color:transparent; transition: transform .10s, box-shadow .12s, background .10s, border-color .10s; box-shadow:0 6px 14px rgba(0,0,0,0.12); }
+.radio-square .icon { font-weight:700; font-size:20px; line-height:1; color:#fff; opacity:0; transform:scale(.95); transition: opacity .10s, transform .10s; }
 .pet-label-text { color:#F7F7F7; font-weight:700; font-size:0.96rem; text-align:center; }
 .pet-option input[type="radio"]:checked + .radio-square.yes { background: linear-gradient(180deg,#2dd06e,#23d160); border-color: rgba(20,150,90,0.95); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(35,209,96,0.16); }
 .pet-option input[type="radio"]:checked + .radio-square.no  { background: linear-gradient(180deg,#ff6b6b,#e74c3c); border-color: rgba(200,60,50,0.95); transform: translateY(-3px); box-shadow: 0 8px 22px rgba(231,76,60,0.16); }
 .pet-option input[type="radio"]:checked + .radio-square .icon { opacity:1; transform:scale(1); }
 .pet-option input[type="radio"]:focus + .radio-square { box-shadow: 0 0 0 4px rgba(33,112,106,0.12), 0 10px 22px rgba(0,0,0,0.12); }
 .pet-option:hover .radio-square { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,0,0,0.14); }
-@media (max-width:480px) {
-  .radio-square { width:44px; height:44px; font-size:18px; border-radius:10px; }
-  .pet-label-text { font-size:0.92rem; }
-  .pet-radio-group { gap:14px; }
-}
+
+/* Listing thumbnails (simple) */
+.listing-gallery img { width:180px; height:120px; object-fit:cover; border-radius:10px; cursor:pointer; }
+@media (max-width:760px) { .listing-gallery img { width:100px; height:70px; } }
 
 /* Footer */
-footer {
-  background: rgba(0,0,0,0.60);
-  color: #fff;
-  text-align: center;
-  padding: 2em 1em;
-  margin: 3em auto 0 auto;
-  border-radius: 1.2em;
-  max-width: 980px;
-  box-shadow: 0 1px 12px rgba(0,0,0,0.13);
-}
-footer .email-link, footer .social-link, footer .privacy { margin: 0.8em 0; display:flex; align-items:center; justify-content:center; gap:0.5em; }
+footer { background: rgba(0,0,0,0.60); color:#fff; text-align:center; padding:2em 1em; margin:3em auto 0 auto; border-radius:1.2em; max-width:980px; box-shadow:0 1px 12px rgba(0,0,0,0.13); }
+footer .email-link, footer .social-link, footer .privacy { margin:0.8em 0; display:flex; align-items:center; justify-content:center; gap:0.5em; }
 footer img { height:22px; vertical-align:middle; }
 footer a { color:#fff; text-decoration:underline; }
 footer .privacy { font-size:0.93em; opacity:0.85; }
