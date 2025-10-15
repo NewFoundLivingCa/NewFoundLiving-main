@@ -7,11 +7,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Page-local styles: modern, accessible custom select (lease term) + small helper styles
-       These are intentionally narrow in scope so you can paste the page without needing to
-       change your main styles.css unless you want to. -->
+  <!-- Page-local styles: custom select (lease term) + narrow-scope tweaks -->
   <style>
-    /* Keep native select available for form submission but hidden visually */
+    /* Keep native select available for form submission but hidden visually once JS enhances it */
     .select-hidden-keep {
       position: absolute !important;
       left: -9999px !important;
@@ -23,14 +21,14 @@
       white-space: nowrap;
     }
 
-    /* Custom select shell */
-    .custom-select { position: relative; width: 100%; max-width: 460px; margin: 0 auto; }
+    /* Custom select shell - made wider */
+    .custom-select { position: relative; width: 100%; max-width: 640px; margin: 0.35rem auto 0; }
     .custom-select__control {
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      padding: .9rem 1rem;
+      padding: .95rem 1rem;
       border-radius: 10px;
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border: 1px solid rgba(255,255,255,0.06);
@@ -42,16 +40,19 @@
     .custom-select__control:focus { outline: none; box-shadow: 0 10px 30px rgba(31,143,128,0.06); border-color: rgba(31,143,128,0.9); }
 
     .custom-select__placeholder { color: #fff; font-weight:700; }
-    .custom-select__arrow {
-      width:18px; height:18px; display:inline-block;
-      background-image:
-        linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.95) 50%),
-        linear-gradient(135deg, rgba(255,255,255,0.95) 50%, transparent 50%);
-      background-size: 6px 6px, 6px 6px;
-      background-repeat: no-repeat;
-      transform: translateY(0);
-      opacity: .95;
+
+    /* SVG arrow in the control */
+    .custom-select__svg {
+      width:18px;
+      height:18px;
+      flex: 0 0 18px;
+      transition: transform 160ms ease;
+      display:block;
+      opacity:0.95;
     }
+
+    /* rotate the arrow when control open */
+    .custom-select__control.open .custom-select__svg { transform: rotate(180deg); }
 
     .custom-select__panel {
       position: absolute;
@@ -64,7 +65,7 @@
       padding: 6px;
       box-shadow: 0 24px 80px rgba(0,0,0,0.6);
       border: 1px solid rgba(255,255,255,0.03);
-      max-height: 220px;
+      max-height: 260px;
       overflow: auto;
       transform-origin: top center;
       opacity: 0;
@@ -93,10 +94,27 @@
       .custom-select { max-width: 100%; }
       .custom-select__panel { max-height: 180px; }
     }
+
+    /* Native select fallback styling (visible briefly if JS not loaded) */
+    select#term {
+      background-image:
+        linear-gradient(45deg, transparent 50%, #ffffff 50%),
+        linear-gradient(135deg, #ffffff 50%, transparent 50%),
+        linear-gradient(to right, rgba(255,255,255,0.02), rgba(255,255,255,0.02));
+      background-position: calc(100% - 18px) calc(50% - 6px),
+                           calc(100% - 12px) calc(50% - 6px),
+                           100% 0;
+      background-size: 6px 6px, 6px 6px, 1px 36px;
+      background-repeat: no-repeat;
+      padding-right: 2.6rem;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
   </style>
 </head>
 <body>
-  <!-- NAVBAR (consistent with other pages) -->
+  <!-- NAVBAR (unchanged) -->
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
       <div class="nav-left-placeholder" aria-hidden="true"></div>
@@ -161,18 +179,14 @@
 
           <label for="term">Lease Term</label>
 
-          <!-- Native select kept for form submission, visually hidden -->
+          <!-- Native select kept for form submission (visually hidden by the script after enhancement) -->
           <select id="term" name="lease_term" aria-label="Lease term">
             <option value="">Select</option>
             <option value="12 months">12 months</option>
             <option value="month-to-month">Month-to-month</option>
-            <option value="6 months">6 months</option>
-            <option value="other">Other</option>
           </select>
 
-          <!-- The custom UI is injected by the script at the end of the page.
-               It uses the native select for values and submission, but provides
-               a modern, stylized dropdown UI that is consistent across browsers. -->
+          <!-- Custom UI is injected below by the inline script — it includes a down-arrow SVG -->
         </fieldset>
 
         <fieldset class="form-section" aria-label="Employment and proof of income">
@@ -307,7 +321,7 @@
 
   <!-- Page scripts -->
   <script>
-  // Mobile menu (unchanged)
+  // Mobile menu
   (function () {
     const toggle = document.querySelector('.nav-toggle');
     const wrap = document.getElementById('mobile-menu');
@@ -320,7 +334,7 @@
     window.addEventListener('resize', () => { if (window.innerWidth > 760) close(false); });
   })();
 
-  // Occupant / Reference dynamic adders (unchanged)
+  // Occupant / Reference dynamic adders
   (function () {
     let occupantCount = 1;
     const addOccupantBtn = document.getElementById('add-occupant');
@@ -449,18 +463,18 @@
   })();
   </script>
 
-  <!-- Custom select (lease term) script - injected inline so you can copy/paste the page only -->
+  <!-- Inline custom select script (adds down arrow SVG and injects UI) -->
   <script>
   (function () {
     const native = document.getElementById('term');
     if (!native) return;
 
-    // Create root
+    // Create root/custom UI
     const root = document.createElement('div');
     root.className = 'custom-select';
     root.setAttribute('aria-hidden','false');
 
-    // Create control
+    // Control (button)
     const control = document.createElement('button');
     control.type = 'button';
     control.className = 'custom-select__control';
@@ -472,20 +486,31 @@
     labelSpan.className = 'custom-select__placeholder';
     labelSpan.textContent = native.options[native.selectedIndex]?.textContent || 'Select';
 
-    const arrow = document.createElement('span');
-    arrow.className = 'custom-select__arrow';
+    // Down arrow SVG
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.className = 'custom-select__svg';
+    svg.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', 'M7 10l5 5 5-5');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    svg.appendChild(path);
 
     control.appendChild(labelSpan);
-    control.appendChild(arrow);
+    control.appendChild(svg);
     root.appendChild(control);
 
-    // Create panel
+    // Panel (options)
     const panel = document.createElement('div');
     panel.className = 'custom-select__panel';
     panel.setAttribute('role', 'listbox');
     panel.setAttribute('tabindex', '-1');
 
-    // Build options
     Array.from(native.options).forEach((opt, idx) => {
       const item = document.createElement('div');
       item.className = 'custom-select__option';
@@ -493,38 +518,36 @@
       item.dataset.value = opt.value;
       item.dataset.index = idx;
       item.textContent = opt.textContent;
-
       if (opt.disabled) {
         item.setAttribute('aria-disabled', 'true');
         item.style.opacity = '.5';
       }
       if (opt.selected) item.setAttribute('aria-selected', 'true');
       else item.setAttribute('aria-selected', 'false');
-
       panel.appendChild(item);
     });
 
     root.appendChild(panel);
 
-    // Insert root after native select and hide native select visually but keep in DOM
+    // Insert root after native select and visually hide native select (keeps it for form submit)
     native.parentNode.insertBefore(root, native.nextSibling);
     native.classList.add('select-hidden-keep');
 
-    // Interaction logic
     const options = Array.from(panel.querySelectorAll('.custom-select__option'));
     let open = false;
     let focusedIndex = native.selectedIndex >= 0 ? native.selectedIndex : 0;
 
     function openPanel() {
       panel.classList.add('open');
+      control.classList.add('open');
       control.setAttribute('aria-expanded','true');
       open = true;
-      options.forEach((o, i) => o.classList.toggle('focused', i === focusedIndex));
-      // focus panel so keyboard events work
       panel.focus();
+      options.forEach((o, i) => o.classList.toggle('focused', i === focusedIndex));
     }
     function closePanel() {
       panel.classList.remove('open');
+      control.classList.remove('open');
       control.setAttribute('aria-expanded','false');
       open = false;
       control.focus();
@@ -539,12 +562,13 @@
       native.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
+    // Control click toggles panel
     control.addEventListener('click', function (e) {
       e.preventDefault();
       if (open) closePanel(); else openPanel();
     });
 
-    // Click outside closes panel
+    // Click outside closes
     document.addEventListener('click', function (e) {
       if (!root.contains(e.target)) closePanel();
     });
@@ -572,28 +596,15 @@
         e.preventDefault();
         if (!open) openPanel();
         else { setValue(focusedIndex); closePanel(); }
-      } else if (e.key === 'Escape') {
-        e.preventDefault();
-        closePanel();
-      }
+      } else if (e.key === 'Escape') { e.preventDefault(); closePanel(); }
     });
 
     // Keyboard in panel
     panel.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        focusedIndex = Math.min(focusedIndex + 1, options.length - 1);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        focusedIndex = Math.max(focusedIndex - 1, 0);
-      } else if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        setValue(focusedIndex);
-        closePanel();
-      } else if (e.key === 'Escape') {
-        e.preventDefault();
-        closePanel();
-      }
+      if (e.key === 'ArrowDown') { e.preventDefault(); focusedIndex = Math.min(focusedIndex + 1, options.length - 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); focusedIndex = Math.max(focusedIndex - 1, 0); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setValue(focusedIndex); closePanel(); }
+      else if (e.key === 'Escape') { e.preventDefault(); closePanel(); }
       options.forEach((o, i) => {
         o.classList.toggle('focused', i === focusedIndex);
         if (i === focusedIndex) o.scrollIntoView({ block: 'nearest' });
