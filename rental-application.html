@@ -102,8 +102,16 @@
           </div>
 
           <div id="google-flow" class="proof-flow" aria-hidden="false" style="text-align:center; margin-top:.6rem;">
-            <!-- Anchor used to ensure proper focus/navigation and direct opening of the Google Form -->
-            <a id="open-google-form" class="btn-primary" href="https://forms.gle/DQZHf9fBEhqGBFzs8" target="_blank" rel="noopener" aria-label="Open Google Form to upload proof of income">Open Google Form</a>
+            <!-- Branded anchor styled as the primary button -->
+            <a id="open-google-form"
+               class="btn-primary"
+               href="https://forms.gle/DQZHf9fBEhqGBFzs8"
+               target="_blank"
+               rel="noopener noreferrer"
+               role="button"
+               aria-label="Open Google Form to upload proof of income">
+               Open Google Form
+            </a>
 
             <div class="inline-row" style="margin-top:.8rem;">
               <input type="url" id="proof-income-link" name="proof_income_link" placeholder="Paste Google Form confirmation or Drive link here" aria-label="Paste proof link" />
@@ -285,6 +293,7 @@
     const proofLinkInput = document.getElementById('proof-income-link');
     const emailProofBtn = document.getElementById('email-proof-btn');
 
+    // show/hide flows based on radio selection
     function showFlow() {
       const r = document.querySelector('input[name="proof_option"]:checked');
       const val = r ? r.value : 'google_form';
@@ -299,14 +308,16 @@
     proofRadios.forEach(r => r.addEventListener('change', showFlow));
     showFlow();
 
-    // The open-google-form is an anchor already; keep a fallback
+    // openGoogleBtn is an anchor (btn-primary) with href already set to the branded Google Form link.
+    // keep a JS fallback in case the element becomes a button in future edits:
     if (openGoogleBtn && openGoogleBtn.tagName.toLowerCase() === 'button') {
       const GOOGLE_FORM_URL = 'https://forms.gle/DQZHf9fBEhqGBFzs8';
       openGoogleBtn.addEventListener('click', () => window.open(GOOGLE_FORM_URL, '_blank', 'noopener'));
     }
 
     if (pasteBtn) pasteBtn.addEventListener('click', async () => {
-      if (!navigator.clipboard) { alert('Clipboard API not available. Please paste manually.'); return; }
+      if (!navigator.clipboard) { alert('Clipboard API not available. Please paste manually.'); return;
+      }
       try {
         const text = await navigator.clipboard.readText();
         if (text && text.trim()) { proofLinkInput.value = text.trim(); proofLinkInput.focus(); } else { alert('No URL text found in clipboard.'); }
