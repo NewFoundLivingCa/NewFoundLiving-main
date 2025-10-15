@@ -20,9 +20,19 @@
       --card-max: 760px;
     }
 
-    /* Page base */
-    html,body{height:100%; margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:var(--white); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; background: url('city.png') center/cover no-repeat fixed;}
-    .overlay{position:fixed; inset:0; background: rgba(0,0,0,0.45); z-index:0;}
+    /* Page base / background */
+    html,body{height:100%; margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; color:var(--white); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+    body{
+      background-color:#111; /* fallback */
+      background-image: url('city.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    /* overlay darkener - not interactive so it won't block clicks */
+    .overlay{position:fixed; inset:0; background: rgba(0,0,0,0.48); z-index:0; pointer-events: none;}
+
     .container{max-width:980px; margin:0 auto; padding:1.6rem; box-sizing:border-box; position:relative; z-index:1;}
     .logo{display:block; margin:1rem auto; max-width:220px;}
 
@@ -71,11 +81,13 @@
     .proof-flow .inline-row{display:flex; gap:8px; max-width:760px; align-items:center; width:100%;}
     .proof-flow input[type="url"]{flex:1;}
 
-    /* PETS centered group */
+    /* PETS centered group + checkboxes for types */
     .pet-question{font-weight:700; margin-bottom:8px; text-align:center;}
     .pet-radio-group{display:flex; gap:18px; justify-content:center; align-items:center; margin:8px 0;}
     .pet-radio{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; background:rgba(255,255,255,0.02); cursor:pointer; user-select:none;}
     .pet-radio input{transform:scale(1.05);}
+    .pet-type-checkboxes{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px; width:100%;}
+    .pet-type-checkboxes label{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; background:rgba(255,255,255,0.02); border-radius:8px;}
 
     .form-actions{text-align:center; margin-bottom:2rem;}
     .btn-submit{background:var(--brand); color:#fff; padding:0.8rem 1.2rem; border-radius:10px; border:none; cursor:pointer; font-weight:700; box-shadow:0 6px 18px rgba(33,112,106,0.14);}
@@ -83,7 +95,7 @@
 
     footer.site-footer{max-width:980px; margin:2rem auto; padding:1.2rem; text-align:center; color:#fff; background: rgba(0,0,0,0.35); border-radius:0.8rem; box-shadow:0 1px 12px rgba(0,0,0,0.12);}
     footer a{color:#fff; text-decoration:underline;}
-    @media (max-width:560px){ .container{padding:1rem;} .paste-centered{width:52%;} }
+    @media (max-width:560px){ .container{padding:1rem;} .paste-centered{width:52%;} .pet-type-checkboxes{justify-content:flex-start;} }
   </style>
 </head>
 <body>
@@ -183,11 +195,20 @@
             <label class="pet-radio"><input type="radio" name="pets" value="No" checked /> No</label>
           </div>
 
-          <label for="pet-type">Type(s) of pet(s)</label>
-          <input type="text" id="pet-type" name="pet_type" placeholder="e.g., Dog, Cat, etc." />
+          <!-- Checkbox group for pet types; shown only when "Yes" -->
+          <div id="pet-types" class="pet-type-checkboxes" style="display:none;">
+            <label><input type="checkbox" name="pet_type[]" value="Dog" /> Dog</label>
+            <label><input type="checkbox" name="pet_type[]" value="Cat" /> Cat</label>
+            <label><input type="checkbox" name="pet_type[]" value="Bird" /> Bird</label>
+            <label><input type="checkbox" name="pet_type[]" value="Reptile" /> Reptile</label>
+            <label><input type="checkbox" name="pet_type[]" value="Other" /> Other</label>
+          </div>
+
+          <label for="pet-type">Other / Breed (if applicable)</label>
+          <input type="text" id="pet-type" name="pet_type_text" placeholder="e.g., Beagle, Medium / Other details" />
           <label for="pet-number">How many pets?</label>
           <input type="number" id="pet-number" name="pet_number" min="0" />
-          <label for="pet-details">Description (breed, age, etc.)</label>
+          <label for="pet-details">Description (age, vaccinated, etc.)</label>
           <textarea id="pet-details" name="pet_details" placeholder="Describe your pets"></textarea>
         </fieldset>
 
@@ -252,7 +273,7 @@
   </footer>
 
   <script>
-    // Mobile menu behavior (keeps original)
+    // Mobile menu behavior
     (function () {
       const toggle = document.querySelector('.nav-toggle');
       const wrap = document.getElementById('mobile-menu');
@@ -297,24 +318,31 @@
       }
     })();
 
-    // Pets: clear pet fields when "No" selected
+    // Pets: show/hide pet type checkboxes and clear fields when No
     (function () {
       const petRadios = document.querySelectorAll('input[name="pets"]');
-      const petType = document.getElementById('pet-type');
+      const petTypes = document.getElementById('pet-types');
+      const petTypeText = document.getElementById('pet-type');
       const petNumber = document.getElementById('pet-number');
       const petDetails = document.getElementById('pet-details');
-      function onPetChange(){
+
+      function updatePetUI() {
         const yes = document.querySelector('input[name="pets"][value="Yes"]')?.checked;
-        if(!yes){
-          if(petType) petType.value = '';
-          if(petNumber) petNumber.value = '';
-          if(petDetails) petDetails.value = '';
+        if (petTypes) petTypes.style.display = yes ? 'flex' : 'none';
+        if (!yes) {
+          // clear checkboxes
+          petTypes && petTypes.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+          if (petTypeText) petTypeText.value = '';
+          if (petNumber) petNumber.value = '';
+          if (petDetails) petDetails.value = '';
         }
       }
-      petRadios.forEach(r=>r.addEventListener('change', onPetChange));
+      petRadios.forEach(r => r.addEventListener('change', updatePetUI));
+      // initialize
+      updatePetUI();
     })();
 
-    // Proof-of-income behavior: Google Form, paste link helper, email button, and validation
+    // Proof-of-income behavior: Google Form, paste helper, email button, and validation
     (function () {
       const GOOGLE_FORM_SHORT = 'https://forms.gle/1eoWj53oeUU6LiRk9';
       const EMAIL_ADDRESS = 'info.newfoundliving@gmail.com';
@@ -390,7 +418,6 @@
               if(proofLinkInput) proofLinkInput.focus();
               return false;
             }
-            // basic URL check
             if(link && !/^https?:\/\//i.test(link)){
               e.preventDefault();
               alert('The link you provided does not look like a valid URL. Please paste the Google Form confirmation or Drive share link.');
