@@ -1,5 +1,6 @@
 /* styles.css - consolidated site styles (full rewrite)
-   - Includes original site styles plus mobile hamburger/menu fixes and button utilities.
+   - Buttons updated to remain visually stationary on hover (no translate/translateY).
+   - Hover will still provide a subtle visual cue via shadow/opacity/color but without movement.
    - Paste this entire file to replace your current styles.css.
 */
 
@@ -16,6 +17,11 @@
   --container-padding: 2.5rem;
   --container-bg: rgba(0,0,0,0.82);
   --muted: rgba(255,255,255,0.12);
+
+  /* button sizing */
+  --btn-padding-regular: .85em 1.6em;
+  --btn-padding-small: .45em .8em;
+  --btn-radius: 8px;
 }
 
 /* ===== base/reset ===== */
@@ -66,7 +72,7 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; }
 /* hamburger (visible on mobile) */
 .nav-toggle {
   display:none;
-  background:transparent; border:none; padding:8px; border-radius:8px; cursor:pointer; align-items:center; justify-content:center;
+  background:transparent; border:none; padding:8px; border-radius:var(--btn-radius); cursor:pointer; align-items:center; justify-content:center;
   position:relative; z-index:1400;
 }
 .hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; transition: transform .18s, background .18s; }
@@ -199,35 +205,135 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; }
 .original-price { text-decoration: line-through; color: var(--accent-red-1); font-weight:800; margin-right:0.6rem; font-size:1.05rem; vertical-align:middle; text-shadow: 0 1px 0 rgba(0,0,0,0.25); }
 .price-badge { display:inline-block; background: linear-gradient(180deg,var(--accent-red-2),var(--accent-red-1)); color:#fff; padding:.45em .9em; border-radius:12px; font-weight:800; box-shadow:0 10px 30px rgba(198,40,40,0.12); }
 
-/* ===== CONTACT BUTTONS ===== */
-.contact-us-btn { display:inline-block; background: linear-gradient(180deg,var(--brand-green-2), #1b6b62); color:#fff; padding:.85em 1.6em; border-radius:8px; font-weight:800; text-decoration:none; border: 2px solid rgba(0,0,0,0.06); box-shadow: 0 14px 36px rgba(33,112,106,0.18); transition: transform .12s ease, box-shadow .12s ease; }
-.contact-us-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 46px rgba(33,112,106,0.22); }
+/* ===== BUTTON STYLES (UNIFIED) =====
+   The "Contact Us" button look is used as the primary brand button.
+   All interactive buttons on the application page are mapped to these classes
+   so they share color, hover, focus and shadow behavior.
+*/
 
-/* floating contact pill */
+/* Primary branded button (same visual as Index "Contact Us") */
+.btn-primary,
+.contact-us-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background: linear-gradient(180deg, var(--brand-green-2), #1b6b62);
+  color: #fff;
+  padding: var(--btn-padding-regular);
+  border-radius: var(--btn-radius);
+  font-weight: 800;
+  text-decoration: none;
+  border: 2px solid rgba(0,0,0,0.06);
+  box-shadow: 0 14px 36px rgba(33,112,106,0.18);
+  transition: box-shadow .12s ease, opacity .12s ease, filter .12s ease;
+  cursor: pointer;
+}
+
+/* smaller variant for inline / mini buttons */
+.btn-primary.btn-small,
+.btn-primary--small,
+.btn-mini,
+.paste-centered,
+.remove-entry {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  background: linear-gradient(180deg, var(--brand-green-2), #1b6b62);
+  color: #fff;
+  padding: var(--btn-padding-small);
+  border-radius: calc(var(--btn-radius) - 2px);
+  font-weight: 800;
+  text-decoration: none;
+  border: 2px solid rgba(0,0,0,0.06);
+  box-shadow: 0 8px 22px rgba(33,112,106,0.14);
+  transition: box-shadow .10s ease, opacity .10s ease, filter .10s ease;
+  cursor: pointer;
+  font-size:0.92rem;
+}
+
+/* specifically style submit button to be prominent (same brand) */
+.btn-submit {
+  /* keep the same brand look but slightly larger and bolder */
+  background: linear-gradient(180deg,var(--brand-green-1), var(--brand-green-2));
+  color:#fff;
+  padding: calc(var(--btn-padding-regular));
+  border-radius: 12px;
+  border: none;
+  font-weight: 900;
+  font-size: 1.02rem;
+  box-shadow: 0 18px 46px rgba(33,112,106,0.20);
+  cursor: pointer;
+  transition: box-shadow .12s ease, opacity .12s ease, filter .12s ease;
+}
+
+/* hover/active/focus states shared — stationary on hover (no translate) */
+.btn-primary:hover,
+.btn-primary.btn-small:hover,
+.btn-primary--small:hover,
+.btn-mini:hover,
+.btn-submit:hover,
+.paste-centered:hover,
+.remove-entry:hover,
+.contact-us-btn:hover {
+  /* remove transform/translate to keep button visually stationary */
+  box-shadow: 0 20px 50px rgba(33,112,106,0.26);
+  opacity: 0.98;
+  filter: saturate(1.04);
+}
+
+/* active state (mouse down) */
+.btn-primary:active,
+.btn-primary.btn-small:active,
+.btn-mini:active,
+.btn-submit:active,
+.paste-centered:active,
+.remove-entry:active,
+.contact-us-btn:active {
+  /* slight visual press via inset shadow without moving */
+  box-shadow: inset 0 3px 8px rgba(0,0,0,0.12), 0 8px 26px rgba(33,112,106,0.14);
+  opacity: 0.96;
+}
+
+/* focus outline for accessibility */
+.btn-primary:focus,
+.btn-primary--small:focus,
+.btn-mini:focus,
+.btn-submit:focus,
+.paste-centered:focus,
+.remove-entry:focus,
+.contact-us-btn:focus {
+  outline: 3px solid rgba(31,143,128,0.18);
+  outline-offset: 3px;
+}
+
+/* legacy button look fallback (if an element uses the old "btn-brand" name) */
+.btn-brand { /* alias to primary */
+  all: unset;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background: linear-gradient(180deg, var(--brand-green-2), #1b6b62);
+  color:#fff;
+  padding: var(--btn-padding-regular);
+  border-radius: var(--btn-radius);
+  font-weight:800;
+  border: 2px solid rgba(0,0,0,0.06);
+  box-shadow: 0 14px 36px rgba(33,112,106,0.18);
+  transition: box-shadow .12s ease, opacity .12s ease;
+  cursor:pointer;
+}
+
+/* ensure icon-only small controls (remove buttons) look OK */
+.remove-entry { font-size:0.9rem; padding: .38em .6em; }
+
+/* floating contact pill (keeps same brand) */
 .floating-contact { position: fixed; right: 18px; bottom: 18px; z-index: 2000; display:inline-flex; align-items:center; gap:10px; background: linear-gradient(180deg,var(--brand-green-2),#1b6b62); color:#fff; padding:12px 14px; border-radius:12px; text-decoration:none; box-shadow:0 12px 34px rgba(33,112,106,0.18); font-weight:800; font-size:0.95rem; }
 .floating-contact::before { content: "✉"; display:inline-block; font-size:16px; opacity:0.95; }
-.floating-contact:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(33,112,106,0.22); }
+.floating-contact:hover { /* stationary on hover */ box-shadow:0 18px 40px rgba(33,112,106,0.22); filter: saturate(1.03); }
 @media (max-width:540px) { .floating-contact { display:none !important; } }
-
-/* ===== BUTTON UTILITIES (used in HTML) ===== */
-.btn-brand {
-  background: linear-gradient(180deg,var(--brand-green-2), #1b6b62);
-  color:#fff; padding:.6em .9em; border-radius:10px; border:1px solid rgba(0,0,0,0.08); font-weight:800; cursor:pointer;
-  box-shadow:0 8px 22px rgba(33,112,106,0.12); transition: transform .12s, box-shadow .12s;
-}
-.btn-brand:hover { transform: translateY(-3px); box-shadow:0 16px 40px rgba(33,112,106,0.16); }
-
-.btn-mini {
-  background: rgba(255,255,255,0.06); color:var(--white); padding:.45em .7em; border-radius:8px; border: none; font-weight:700; cursor:pointer;
-  transition: background .12s, transform .12s;
-}
-.btn-mini:hover { background: rgba(255,255,255,0.10); transform: translateY(-2px); }
-
-.btn-submit {
-  background: linear-gradient(180deg,var(--brand-green-1), var(--brand-green-2)); color:#fff; padding:.9em 1.4em; border-radius:12px; border:none; font-weight:900; font-size:1.02rem; cursor:pointer;
-  box-shadow: 0 14px 36px rgba(33,112,106,0.18);
-}
-.btn-submit:hover { transform: translateY(-3px); box-shadow: 0 22px 50px rgba(33,112,106,0.22); }
 
 /* ===== RENTAL FORM ===== */
 form#rental-form, form { display:flex; flex-direction:column; gap:1rem; align-items:center; width:100%; }
