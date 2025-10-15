@@ -218,9 +218,7 @@
               <input type="url" id="proof-income-link" name="proof_income_link" placeholder="Paste Google Form confirmation or Drive link here" aria-label="Paste proof link" />
             </div>
 
-            <div style="margin-top:.6rem;">
-              <button type="button" id="paste-clipboard" class="btn-primary paste-centered" title="Paste URL from clipboard">Paste link</button>
-            </div>
+            <!-- Paste button removed per request -->
           </div>
 
           <div id="email-flow" class="proof-flow" style="display:none; margin-top:.6rem;" aria-hidden="true">
@@ -310,9 +308,7 @@
           <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
         </fieldset>
 
-        <div style="text-align:center; margin:1.2rem 0;">
-          <button type="submit" class="btn-primary" aria-label="Submit application">Submit Application</button>
-        </div>
+        <!-- Submit button removed per request -->
       </form>
     </div>
   </main>
@@ -385,15 +381,14 @@
     }
   })();
 
-  // Proof of income flow + clipboard/paste + email helper
+  // Proof of income flow + email helper (paste button removed)
   (function () {
     const proofRadios = Array.from(document.querySelectorAll('input[name="proof_option"]'));
     const googleFlow = document.getElementById('google-flow');
     const emailFlow = document.getElementById('email-flow');
     const openGoogleBtn = document.getElementById('open-google-form');
-    const pasteBtn = document.getElementById('paste-clipboard');
-    const proofLinkInput = document.getElementById('proof-income-link');
     const emailProofBtn = document.getElementById('email-proof-btn');
+    const proofLinkInput = document.getElementById('proof-income-link');
 
     function showFlow() {
       const r = document.querySelector('input[name="proof_option"]:checked');
@@ -408,14 +403,6 @@
     }
     proofRadios.forEach(r => r.addEventListener('change', showFlow));
     showFlow();
-
-    if (pasteBtn) pasteBtn.addEventListener('click', async () => {
-      if (!navigator.clipboard) { alert('Clipboard API not available. Please paste manually.'); return; }
-      try {
-        const text = await navigator.clipboard.readText();
-        if (text && text.trim()) { proofLinkInput.value = text.trim(); proofLinkInput.focus(); } else { alert('No URL text found in clipboard.'); }
-      } catch (err) { console.error(err); alert('Unable to read clipboard.'); }
-    });
 
     if (emailProofBtn) emailProofBtn.addEventListener('click', () => {
       const to = 'info.newfoundliving@gmail.com';
