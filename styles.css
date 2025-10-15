@@ -343,16 +343,18 @@ img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; }
 @media (max-width:540px) { .floating-contact { display:none !important; } }
 
 /* ===== RENTAL FORM ===== */
+/* Keep fieldsets centered on the page but left-align their internal fields */
 form#rental-form, form { display:flex; flex-direction:column; gap:1rem; align-items:center; width:100%; }
-fieldset.form-section { margin-bottom:2.4rem; padding:1.6rem; background: rgba(255,255,255,0.03); border-radius:1rem; border:1px solid rgba(255,255,255,0.06); max-width:700px; width:100%; box-shadow: 0 6px 24px rgba(0,0,0,0.12); }
+/* Fieldsets remain centered (via the form flex alignment), but the content inside them is left-aligned */
+fieldset.form-section { margin-bottom:2.4rem; padding:1.6rem; background: rgba(255,255,255,0.03); border-radius:1rem; border:1px solid rgba(255,255,255,0.06); max-width:700px; width:100%; box-shadow: 0 6px 24px rgba(0,0,0,0.12); text-align: left; }
 fieldset.form-section h2 { margin-top:0; margin-bottom:0.8rem; font-size:1.25rem; text-align:center; color:#F7F7F7; }
-label { display:block; color:#F7F7F7; font-weight:600; margin-bottom:0.35rem; }
-input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="url"], textarea, select, input[type="number"] { width:100%; max-width:640px; padding:0.9em; border-radius:8px; border:1px solid var(--muted); background: rgba(255,255,255,0.06); color:#fff; font-size:1rem; margin-bottom:0.9rem; box-sizing:border-box; }
+label { display:block; color:#F7F7F7; font-weight:600; margin-bottom:0.35rem; text-align:left; }
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="url"], textarea, select, input[type="number"] { width:100%; max-width:640px; padding:0.9em; border-radius:8px; border:1px solid var(--muted); background: rgba(255,255,255,0.06); color:#fff; font-size:1rem; margin-bottom:0.9rem; box-sizing:border-box; text-align:left; }
 textarea { min-height:120px; resize:vertical; }
-.helper { color:#dfeee9; font-size:0.95rem; text-align:center; margin:0.4rem 0; }
+.helper { color:#dfeee9; font-size:0.95rem; text-align:left; margin:0.4rem 0; }
 
-/* small inline rows used in form */
-.inline-row { display:flex; gap:8px; align-items:center; justify-content:center; }
+/* small inline rows used in form - left aligned */
+.inline-row { display:flex; gap:8px; align-items:center; justify-content:flex-start; }
 
 /* ===== SELECT (lease term) visibility fix =====
    Keep the select and options readable on dark theme
@@ -399,13 +401,13 @@ select::-ms-expand { display: none; }
 }
 
 /* ===== PETS ===== */
-.pets-center-block { display:flex; flex-direction:column; align-items:center; gap:8px; }
-.pet-radio-group { display:flex; gap:16px; align-items:center; justify-content:center; }
+.pets-center-block { display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+.pet-radio-group { display:flex; gap:16px; align-items:center; justify-content:flex-start; }
 .pet-option input[type="radio"] { position:absolute; opacity:0; width:0; height:0; }
-.pet-option { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; user-select:none; position:relative; }
+.pet-option { display:flex; flex-direction:column; align-items:flex-start; gap:8px; cursor:pointer; user-select:none; position:relative; }
 .radio-square { width:44px; height:44px; border-radius:10px; border:2px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); display:flex; align-items:center; justify-content:center; font-size:18px; color:transparent; transition: transform .10s, box-shadow .12s, background .10s, border-color .10s; box-shadow: 0 6px 14px rgba(0,0,0,0.12); }
 .radio-square .icon { font-weight:700; font-size:18px; color:#fff; opacity:0; transform:scale(.95); transition: opacity .10s, transform .10s; }
-.pet-label-text { color:#F7F7F7; font-weight:700; font-size:.95rem; text-align:center; }
+.pet-label-text { color:#F7F7F7; font-weight:700; font-size:.95rem; text-align:left; }
 .pet-option input[type="radio"]:checked + .radio-square { border-color: var(--brand-green-2); background: linear-gradient(180deg, rgba(33,112,106,0.12), rgba(31,143,128,0.06)); }
 .pet-option input[type="radio"]:checked + .radio-square .icon { opacity:1; transform:scale(1); color:#fff; }
 
