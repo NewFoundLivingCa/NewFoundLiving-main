@@ -1,561 +1,298 @@
-/* styles.css - Full site stylesheet for Newfound Living
-   - Updated: larger, framed intro box for the homepage
-   - Preserves: left-aligned form fields, centered section titles, pet question centered
-   - Desktop widening overrides at the end
-   Paste this entire file to replace your existing styles.css
-*/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NewFound Living — Home</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="Logos/tinylogo1.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
+    <div class="nav-center">
+      <div class="nav-left-placeholder" aria-hidden="true"></div>
 
-/* ===== variables ===== */
-:root{
-  --brand-green-1: #1f8f80;
-  --brand-green-2: #21706A;
-  --accent-red-1: #e53935;
-  --accent-red-2: #c62828;
-  --nav-bg-strong: rgba(0,0,0,0.78);
-  --white: #ffffff;
+      <ul class="nav-links" role="menubar">
+        <li><a href="index.html" class="nav-link active" role="menuitem">Home</a></li>
+        <li><a href="rental-application.html" class="nav-link" role="menuitem">Application</a></li>
+        <li><a href="about.html" class="nav-link" role="menuitem">About</a></li>
+      </ul>
 
-  --container-max-width: 1280px; /* widened for desktop by default (override safe) */
-  --container-padding: 2.5rem;
-  --container-bg: rgba(0,0,0,0.82);
-  --muted: rgba(255,255,255,0.12);
+      <button class="nav-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+    </div>
 
-  /* button sizing */
-  --btn-padding-regular: .85em 1.6em;
-  --btn-padding-small: .45em .8em;
-  --btn-radius: 8px;
+    <div id="mobile-menu" class="mobile-menu-wrap hidden" aria-hidden="true">
+      <nav class="mobile-menu" role="menu" aria-label="Mobile menu">
+        <a role="menuitem" href="index.html">Home</a>
+        <a role="menuitem" href="rental-application.html">Application</a>
+        <a role="menuitem" href="about.html">About</a>
+      </nav>
+    </div>
+  </nav>
 
-  /* intro sizing tokens */
-  --intro-max-width: 840px;
-  --intro-padding: 1.6rem;
-  --intro-font-size: 1.18rem; /* desktop base for intro */
-  --intro-line-height: 1.6;
-  --intro-bg: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  --intro-border: rgba(255,255,255,0.06);
-}
+  <main>
+    <div class="container">
 
-/* ===== base/reset ===== */
-* { box-sizing: border-box; }
-html,body { height:100%; margin:0; padding:0; font-family:'Segoe UI','Arial',sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; color:var(--white); }
-body { background: #222 url('Logos/city.png') no-repeat center center fixed; background-size:cover; }
+      <!-- Panel: Logo + Intro -->
+      <div class="panel panel-intro" role="region" aria-label="Welcome">
+        <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
 
-/* ===== container ===== */
-.container, .rental-container, .about-container {
-  max-width: var(--container-max-width);
-  margin: 2.5rem auto;
-  padding: var(--container-padding);
-  background: var(--container-bg);
-  color:#fff;
-  border-radius:1.2rem;
-  box-shadow:0 2px 20px rgba(0,0,0,0.19);
-  text-align:center;
-}
-@media (max-width:700px) { .container, .rental-container, .about-container { padding:1.1em 5vw; } }
+        <section class="intro" aria-label="About Newfound Living">
+          <p class="intro-text">
+            Welcome to <strong>Newfound Living</strong> — a locally owned rental company based in Newfoundland.
+            We take pride in offering clean, comfortable homes that people are proud to live in.
+            All our properties are personally owned and maintained, ensuring quality, trust, and quick communication with the owner.
+          </p>
+          <p class="intro-text">
+            Explore our available rentals below or submit a rental application directly through our website.
+            Your next home might be closer than you think.
+          </p>
+        </section>
+      </div>
 
-/* logo + title */
-img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; }
-.centered-title { font-size:2.2rem; font-weight:700; margin:.4rem 0 1rem; color:#fff; text-align:center; }
-@media (max-width:500px) { .centered-title { font-size:1.45rem; } }
+      <!-- Break visually separates the intro from the listing content -->
+      <div class="panel panel-listing" role="region" aria-label="Current rental listing">
+        <h1 class="centered-title">For Rent — 16 Carlow Place (Main Floor Unit)</h1>
 
-/* ===== INTRO (new) =====
-   Framed, slightly translucent box to sit under the logo.
-   Larger type for better hierarchy on the page.
-*/
-.intro {
-  max-width: var(--intro-max-width);
-  margin: 1.6rem auto 2rem;
-  padding: var(--intro-padding);
-  background: var(--intro-bg);                 /* subtle translucent panel */
-  border: 1px solid var(--intro-border);
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-  text-align: center;
-  color: #e6f5ef; /* light, harmonious with the dark site background */
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  overflow: hidden;
-}
+        <section class="rental-listing" aria-labelledby="listing-title">
+          <div id="listing-top" class="listing-top">
+            <p class="available"><strong>Available November 1st</strong></p>
+            <p class="listing-announcement">We listened — price updated for this bright, family friendly main-floor unit. Preview the space below.</p>
+          </div>
 
-/* Intro text: larger, airy, and readable */
-.intro-text {
-  font-size: var(--intro-font-size);
-  line-height: var(--intro-line-height);
-  margin-bottom: 0.9rem;
-  color: inherit;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
+          <!-- Carousel (autoplay removed; play button removed) -->
+          <div class="carousel-wrap" aria-label="Property slideshow">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous slide">❮</button>
 
-/* Slight emphasis styling for the strong element inside intro */
-.intro-text strong {
-  color: #ffffff;
-  font-weight:900;
-  letter-spacing: 0.2px;
-}
+            <div class="carousel-main" role="region" aria-label="Current slide">
+              <img id="carouselImage" src="16carlowmain/Bathroom Main.jpg" alt="Main slide">
+              <div class="carousel-caption">
+                <div class="caption-title">16 Carlow Place — Main Floor</div>
+                <div class="caption-sub">3 bed · 1.5 bath · Family friendly</div>
+              </div>
+            </div>
 
-/* Responsive adjustments: keep intro prominent on smaller screens but scaled */
-@media (max-width:900px) {
-  :root { --intro-font-size: 1.04rem; }
-  .intro { padding: 1.1rem; margin: 1rem auto 1.5rem; border-radius: 12px; }
-  .intro-text { font-size: var(--intro-font-size); line-height:1.55; }
-}
-@media (max-width:480px) {
-  :root { --intro-font-size: 1rem; }
-  .intro { padding: 0.9rem; margin: 0.9rem auto 1rem; }
-  .intro-text { font-size: var(--intro-font-size); }
-}
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next slide">❯</button>
 
-/* ===== NAV ===== */
-.nav-left-placeholder,
-.nav-center > [aria-hidden="true"] {
-  width: 40px;
-  height: 36px;
-  background: transparent !important;
-  border: none !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  line-height: 0 !important;
-}
+            <div class="carousel-thumbs" role="list" aria-label="Slide thumbnails">
+              <img src="16carlowmain/Bathroom Main.jpg" alt="Bathroom Main" data-index="0" role="listitem">
+              <img src="16carlowmain/Half Bath.jpg" alt="Half Bath" data-index="1" role="listitem">
+              <img src="16carlowmain/Kitchen 1.jpg" alt="Kitchen 1" data-index="2" role="listitem">
+              <img src="16carlowmain/Kitchen 2.jpg" alt="Kitchen 2" data-index="3" role="listitem">
+              <img src="16carlowmain/Kitchen 3.jpg" alt="Kitchen 3" data-index="4" role="listitem">
+              <img src="16carlowmain/Living Room 1.jpg" alt="Living Room 1" data-index="5" role="listitem">
+              <img src="16carlowmain/Living Room 2.jpg" alt="Living Room 2" data-index="6" role="listitem">
+              <img src="16carlowmain/Main Far.jpg" alt="Main Far" data-index="7" role="listitem">
+              <img src="16carlowmain/Main Outside.jpg" alt="Main Outside" data-index="8" role="listitem">
+              <img src="16carlowmain/Rec Room 2.jpg" alt="Rec Room 2" data-index="9" role="listitem">
+              <img src="16carlowmain/Rec Room.jpg" alt="Rec Room" data-index="10" role="listitem">
+              <img src="16carlowmain/Room 1.jpg" alt="Room 1" data-index="11" role="listitem">
+              <img src="16carlowmain/Room 2.jpg" alt="Room 2" data-index="12" role="listitem">
+              <img src="16carlowmain/Room 3.jpg" alt="Room 3" data-index="13" role="listitem">
+            </div>
+          </div>
 
-.navbar-minimal {
-  width:100%;
-  background:var(--nav-bg-strong);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  box-shadow:0 2px 12px rgba(0,0,0,0.15);
-  padding:.9rem 0;
-  margin-bottom:1.5em;
-  position:relative;
-  z-index:1200;
-  border-bottom:1px solid rgba(255,255,255,0.04);
-}
-.nav-center { max-width: var(--container-max-width); margin:0 auto; padding:0 12px; display:flex; align-items:center; justify-content:space-between; position:relative; height:100%; }
-.nav-links { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; gap:18px; list-style:none; margin:0; padding:0; align-items:center; justify-content:center; white-space:nowrap; z-index:10; }
-.nav-links a { color:var(--white); text-decoration:none; padding:12px 18px; border-radius:12px; background: rgba(255,255,255,0.06); font-weight:700; font-size:1.05rem; transition: background .15s, transform .12s; }
-.nav-links a:hover, .nav-links a:focus { background: rgba(255,255,255,0.12); transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,0.12); outline:none; }
-.nav-links a.active { background: linear-gradient(180deg,var(--brand-green-1),var(--brand-green-2)); color:#fff; box-shadow: 0 10px 26px rgba(33,112,106,0.18); transform:none; }
+          <!-- Details -->
+          <div class="listing-details">
+            <ul class="features-list" aria-label="Property features">
+              <li><strong>3 Bedrooms</strong> — fresh paint; flooring updated before move-in.</li>
+              <li><strong>1.5 Bathrooms</strong> — modern fixtures and bright lighting.</li>
+              <li><strong>In-unit washer & dryer</strong> — convenience included.</li>
+              <li><strong>Updated kitchen</strong> — dishwasher, fridge & stove included.</li>
+              <li><strong>Fenced backyard</strong> — safe space for kids and pets.</li>
+              <li><strong>Parking for 2 vehicles</strong> + 8×12 storage shed.</li>
+              <li><strong>Transit & play areas</strong> — quick bus access, two nearby playgrounds.</li>
+              <li><strong>Pet friendly</strong> — pets considered with approval.</li>
+            </ul>
 
-/* hamburger (visible on mobile) */
-.nav-toggle {
-  display:none;
-  background:transparent; border:none; padding:8px; border-radius:var(--btn-radius); cursor:pointer; align-items:center; justify-content:center;
-  position:relative; z-index:1400;
-}
-.hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; transition: transform .18s, background .18s; }
-.hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; transition: transform .18s, top .18s, opacity .18s; }
-.hamburger::before { top:-7px } .hamburger::after { top:7px }
+            <div class="price-row" aria-live="polite">
+              <strong>
+                <span class="original-price">$2,100/month (P.O.U.)</span>
+                <span class="price-badge">Reduced — Now $1,950/month (P.O.U.)</span>
+              </strong>
+            </div>
 
-/* open state -> X */
-.nav-toggle.open .hamburger { background: transparent; }
-.nav-toggle.open .hamburger::before { transform: rotate(45deg) translate(5px, 5px); top:0; }
-.nav-toggle.open .hamburger::after { transform: rotate(-45deg) translate(5px, -5px); top:0; }
+            <p class="deposit-note">1/2 month rent deposit required</p>
+            <p class="lease-note">Flexible lease: Month-to-Month or 1 Year</p>
 
-/* force hamburger visible on small screens */
-@media (max-width:760px) { .nav-links { display:none; } .nav-toggle { display:inline-flex; } }
+            <div class="cta-row">
+              <a class="contact-us-btn" href="mailto:info.newfoundliving@gmail.com?subject=Rental Inquiry: 16 Carlow Place">Contact Us</a>
+            </div>
+          </div>
+        </section>
+      </div>
 
-/* ===== CAROUSEL ===== */
-.carousel-wrap { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:1.2rem; flex-wrap:wrap; position:relative; }
-.carousel-main { position:relative; width:680px; max-width:92vw; height:420px; background:#111; border-radius:12px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
-.carousel-main img { width:100% !important; height:100% !important; object-fit:cover !important; display:block !important; }
-.carousel-caption { position:absolute; left:20px; bottom:18px; background: linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.48)); padding:10px 14px; border-radius:10px; color:#fff; text-align:left; }
-.carousel-arrow { background:none; border:none; width:44px; height:44px; border-radius:8px; background: rgba(0,0,0,0.48); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:26px; cursor:pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.32); transition: transform .12s, background .12s; }
-.carousel-arrow:hover { transform: translateY(-2px); background: rgba(0,0,0,0.62); }
-@media (max-width:540px) { .carousel-arrow { display:none; } }
+    </div>
+  </main>
 
-.carousel-thumbs { margin-top:12px; display:flex; gap:10px; overflow:hidden; white-space:nowrap; padding:6px 4px; justify-content:center; width:100%; }
-.carousel-thumbs img { width:110px !important; height:70px !important; object-fit:cover !important; border-radius:8px; cursor:pointer; border:2px solid transparent; transition: transform .12s, box-shadow .12s, border-color .12s; display:inline-block; }
-.carousel-thumbs img.active { transform: translateY(-4px); border-color: var(--brand-green-2); box-shadow: 0 10px 28px rgba(33,112,106,0.12); }
+  <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
-/* ===== LIGHTBOX ===== */
-.modal { position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; padding:1.5rem; box-sizing:border-box; }
-.lightbox { max-width:1100px; width:100%; height:86vh; background:#fff; border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
-.lightbox-main { width:100%; height:calc(100% - 110px); display:flex; align-items:center; justify-content:center; background:#000; position:relative; }
-.lightbox-main img { max-width:100%; max-height:100%; object-fit:contain; display:block; margin:0 auto; }
-.lightbox-thumbs { width:100%; padding:10px; box-sizing:border-box; background:#fafafa; display:flex; gap:.6rem; overflow-x:auto; border-top:1px solid rgba(0,0,0,0.06); }
-.lightbox-thumbs img { width:110px; height:70px; object-fit:cover; border-radius:6px; cursor:pointer; border:2px solid transparent; }
-.lightbox-thumbs img.active { border-color:var(--brand-green-2); box-shadow:0 6px 18px rgba(0,0,0,0.12); }
-.lb-btn { position:absolute; top:50%; transform:translateY(-50%); width:56px; height:56px; border-radius:8px; border:none; background: rgba(0,0,0,0.48); color:#fff; display:flex; align-items:center; justify-content:center; font-size:28px; cursor:pointer; z-index:10002; box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
-.lb-btn:hover { background: rgba(0,0,0,0.62); transform: translateY(-50%) scale(1.03); }
-.lb-prev { left:12px; } .lb-next { right:12px; }
-.close { position:absolute; top:16px; right:16px; z-index:10003; width:40px; height:40px; border-radius:8px; border:none; background: rgba(0,0,0,0.45); color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  <!-- Modal / Lightbox -->
+  <div id="galleryModal" class="modal" aria-hidden="true" role="dialog" aria-label="Image gallery">
+    <div class="lightbox" role="document">
+      <div class="lightbox-main" role="region" aria-label="Image viewer">
+        <button class="close" aria-label="Close gallery" onclick="closeModal()">×</button>
+        <button class="lb-btn lb-prev" aria-label="Previous image" onclick="prevImage()">❮</button>
+        <button class="lb-btn lb-next" aria-label="Next image" onclick="nextImage()">❯</button>
+        <button id="slideshowToggle" class="slideshow-toggle" aria-pressed="false" title="Toggle slideshow">▶</button>
+        <img id="modalImg" src="" alt="">
+      </div>
+      <div class="lightbox-thumbs" id="thumbStrip" aria-label="Image thumbnails"></div>
+    </div>
+  </div>
 
-/* slideshow toggle style in modal */
-.slideshow-toggle {
-  position:absolute;
-  bottom:18px;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:10002;
-  width:40px;
-  height:40px;
-  border-radius:8px;
-  background: rgba(255,255,255,0.92);
-  color:#111;
-  border:none;
-  font-size:16px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.12);
-  cursor:pointer;
-}
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-row">
+      <div class="email-link">
+        <img class="icon" src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email icon" />
+        <a href="mailto:info.newfoundliving@gmail.com">info.newfoundliving@gmail.com</a>
+      </div>
+      <div class="social-link">
+        <img class="icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook logo" />
+        <a href="https://www.facebook.com/profile.php?id=61577097797242" target="_blank" rel="noopener">Visit our Facebook page</a>
+      </div>
+    </div>
+    <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
+  </footer>
 
-/* ===== DETAILS & PRICING ===== */
-.features-list { list-style:none; margin:0 auto; padding:0; max-width:980px; columns:2; gap:1.1rem; }
-.features-list li { position:relative; padding-left:32px; margin-bottom:0.9rem; font-size:1.03rem; line-height:1.36; color:#eef7f4; }
-/* white bullet for property/features lists */
-.features-list li::before { content: "•"; position:absolute; left:0; top:2px; font-size:22px; color: var(--white); text-shadow: 0 1px 0 rgba(0,0,0,0.4); }
+  <script>
+  // Mobile menu
+  (function () {
+    const toggle = document.querySelector('.nav-toggle');
+    const wrap = document.getElementById('mobile-menu');
+    if (!toggle || !wrap) return;
+    function open(){ toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if(f) f.focus(); }
+    function close(){ toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); toggle.focus(); }
+    toggle.addEventListener('click', ()=> { if(wrap.classList.contains('visible')) close(); else open(); });
+    toggle.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggle.click(); } if(e.key==='Escape') close(); });
+    wrap.addEventListener('click', (e)=> { if(e.target.closest('a')) close(); });
+    window.addEventListener('resize', ()=> { if(window.innerWidth > 760) close(); });
+  })();
 
-.original-price { text-decoration: line-through; color: var(--accent-red-1); font-weight:800; margin-right:0.6rem; font-size:1.05rem; vertical-align:middle; text-shadow: 0 1px 0 rgba(0,0,0,0.25); }
-.price-badge { display:inline-block; background: linear-gradient(180deg,var(--accent-red-2),var(--accent-red-1)); color:#fff; padding:.45em .9em; border-radius:12px; font-weight:800; box-shadow:0 10px 30px rgba(198,40,40,0.12); }
+  // Carousel and thumbnails (autoplay removed; play button removed)
+  (function () {
+    const wrap = document.querySelector('.carousel-wrap');
+    if (!wrap) return;
+    const mainImg = document.getElementById('carouselImage');
+    const thumbs = Array.from(document.querySelectorAll('.carousel-thumbs img'));
+    const leftBtn = document.querySelector('.carousel-arrow-left');
+    const rightBtn = document.querySelector('.carousel-arrow-right');
 
-/* ===== BUTTON STYLES (UNIFIED) =====
-   Primary branded button + small variant. Hover is stationary (no translate).
-*/
+    const gallery = thumbs.map(t => ({ src: t.src, alt: t.alt }));
+    let current = 0;
+    function show(i){
+      if(!gallery.length) return;
+      i = (i + gallery.length) % gallery.length;
+      const it = gallery[i];
+      mainImg.src = it.src;
+      mainImg.alt = it.alt || `Image ${i+1}`;
+      current = i;
+      thumbs.forEach((t, idx)=> t.classList.toggle('active', idx===i));
+    }
+    function prev(){ show(current-1); }
+    function next(){ show(current+1); }
 
-/* Primary branded button (fills and links) */
-.btn-primary,
-.contact-us-btn {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  background: linear-gradient(180deg, var(--brand-green-2), #1b6b62);
-  color: #fff;
-  padding: var(--btn-padding-regular);
-  border-radius: var(--btn-radius);
-  font-weight: 800;
-  text-decoration: none;
-  border: 2px solid rgba(0,0,0,0.06);
-  box-shadow: 0 14px 36px rgba(33,112,106,0.18);
-  transition: box-shadow .12s ease, opacity .12s ease, filter .12s ease;
-  cursor: pointer;
-  line-height:1;
-  white-space:nowrap;
-}
+    if(leftBtn) leftBtn.addEventListener('click', ()=> prev());
+    if(rightBtn) rightBtn.addEventListener('click', ()=> next());
 
-/* Small / inline variant for compact controls */
-.btn-primary--small,
-.btn-primary.btn-small,
-.btn-mini,
-.paste-centered,
-.remove-entry {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  background: linear-gradient(180deg, var(--brand-green-2), #1b6b62);
-  color: #fff;
-  padding: var(--btn-padding-small);
-  border-radius: calc(var(--btn-radius) - 2px);
-  font-weight: 800;
-  text-decoration: none;
-  border: 2px solid rgba(0,0,0,0.06);
-  box-shadow: 0 8px 22px rgba(33,112,106,0.14);
-  transition: box-shadow .10s ease, opacity .10s ease, filter .10s ease;
-  cursor: pointer;
-  font-size:0.92rem;
-}
+    thumbs.forEach((t, i)=> {
+      t.tabIndex = 0;
+      t.addEventListener('click', ()=> show(i));
+      t.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); t.click(); } });
+    });
 
-/* Make submit visually the same as other primary buttons if someone uses .btn-submit */
-.btn-submit { /* keep same brand look for any submit element using this class */
-  background: linear-gradient(180deg, var(--brand-green-2), #1b6b62);
-  color:#fff;
-  padding: var(--btn-padding-regular);
-  border-radius: var(--btn-radius);
-  border: 2px solid rgba(0,0,0,0.06);
-  box-shadow: 0 14px 36px rgba(33,112,106,0.18);
-  font-weight:900;
-  cursor:pointer;
-  transition: box-shadow .12s ease, opacity .12s ease, filter .12s ease;
-}
+    mainImg.addEventListener('click', ()=> { if(typeof window.openModalAtIndex==='function') window.openModalAtIndex(current); });
 
-/* Shared hover — STATIONARY (no translate) */
-.btn-primary:hover,
-.btn-primary--small:hover,
-.btn-primary.btn-small:hover,
-.btn-mini:hover,
-.btn-submit:hover,
-.paste-centered:hover,
-.remove-entry:hover,
-.contact-us-btn:hover {
-  box-shadow: 0 20px 50px rgba(33,112,106,0.26);
-  opacity: 0.98;
-  filter: saturate(1.04);
-}
+    wrap.tabIndex = 0;
+    wrap.addEventListener('keydown', (e)=> {
+      if(e.key==='ArrowLeft'){ e.preventDefault(); prev(); }
+      if(e.key==='ArrowRight'){ e.preventDefault(); next(); }
+      // NOTE: spacebar no longer toggles play (there is no play)
+    });
 
-/* Active (press) state — visual "press" without movement */
-.btn-primary:active,
-.btn-primary--small:active,
-.btn-mini:active,
-.btn-submit:active,
-.paste-centered:active,
-.remove-entry:active,
-.contact-us-btn:active {
-  box-shadow: inset 0 3px 8px rgba(0,0,0,0.12), 0 8px 26px rgba(33,112,106,0.14);
-  opacity: 0.96;
-}
+    // Start on "Main Outside.jpg" if present
+    try {
+      const preferred = thumbs.find(t => (t.getAttribute('src') || '').toLowerCase().includes('main outside') ||
+                                        (t.getAttribute('alt') || '').toLowerCase().includes('main outside'));
+      if (preferred) {
+        const idx = thumbs.indexOf(preferred);
+        if (idx >= 0) show(idx);
+      } else {
+        show(0);
+      }
+    } catch (err) {
+      show(0);
+    }
+  })();
 
-/* Focus outlines for accessibility */
-.btn-primary:focus,
-.btn-primary--small:focus,
-.btn-mini:focus,
-.btn-submit:focus,
-.paste-centered:focus,
-.remove-entry:focus,
-.contact-us-btn:focus {
-  outline: 3px solid rgba(31,143,128,0.18);
-  outline-offset: 3px;
-}
+  // Lightbox (unchanged)
+  (function () {
+    const gallerySelector = '.carousel-thumbs img';
+    const galleryImgs = Array.from(document.querySelectorAll(gallerySelector));
+    const modal = document.getElementById('galleryModal');
+    const modalImg = document.getElementById('modalImg');
+    const thumbStrip = document.getElementById('thumbStrip');
+    const slideshowToggle = document.getElementById('slideshowToggle');
+    const prevBtn = document.querySelector('.lb-prev');
+    const nextBtn = document.querySelector('.lb-next');
+    if (!modal) return;
 
-/* .btn-brand kept as alias for backward compatibility */
-.btn-brand {
-  all: unset;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  background: linear-gradient(180deg, var(--brand-green-2), #1b6b62);
-  color:#fff;
-  padding: var(--btn-padding-regular);
-  border-radius: var(--btn-radius);
-  font-weight:800;
-  border: 2px solid rgba(0,0,0,0.06);
-  box-shadow: 0 14px 36px rgba(33,112,106,0.18);
-  transition: box-shadow .12s ease, opacity .12s ease;
-  cursor:pointer;
-}
+    let idx = 0, autoplay = false, autoplayInterval = null, DELAY = 3000;
 
-/* icon-only small adjustments */
-.remove-entry { font-size:0.9rem; padding:.36em .6em; }
+    function buildThumbs(){
+      if(!thumbStrip) return;
+      thumbStrip.innerHTML = '';
+      galleryImgs.forEach((imgEl, i)=> {
+        const t = document.createElement('img');
+        t.src = imgEl.src;
+        t.alt = imgEl.alt || ('Image '+(i+1));
+        t.dataset.index = i;
+        t.tabIndex = 0;
+        t.addEventListener('click', ()=> showImage(i));
+        t.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); showImage(i); } });
+        thumbStrip.appendChild(t);
+      });
+    }
+    function setActiveThumb(i){
+      if(!thumbStrip) return;
+      const thumbs = Array.from(thumbStrip.querySelectorAll('img'));
+      thumbs.forEach((t, j)=> t.classList.toggle('active', j===i));
+    }
+    function showImage(i){
+      const img = galleryImgs[i];
+      if(!img) return;
+      modalImg.src = img.src; modalImg.alt = img.alt || ('Image '+(i+1)); idx = i; setActiveThumb(idx);
+    }
+    window.openModalAtIndex = function(i){
+      if(!galleryImgs.length) return;
+      idx = (typeof i==='number')? i : 0;
+      buildThumbs(); showImage(idx);
+      modal.style.display='flex'; modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+      if(prevBtn) prevBtn.focus();
+    };
+    window.closeModal = function(){
+      if(autoplayInterval){ clearInterval(autoplayInterval); autoplayInterval=null; autoplay=false; slideshowToggle.textContent='▶'; slideshowToggle.setAttribute('aria-pressed','false'); }
+      modal.style.display='none'; modal.setAttribute('aria-hidden','true'); document.body.style.overflow='';
+    };
+    window.prevImage = function(){ if(!galleryImgs.length) return; showImage((idx-1+galleryImgs.length)%galleryImgs.length); };
+    window.nextImage = function(){ if(!galleryImgs.length) return; showImage((idx+1)%galleryImgs.length); };
+    function startAuto(){ if(autoplayInterval) return; autoplay=true; slideshowToggle.textContent='⏸'; slideshowToggle.setAttribute('aria-pressed','true'); autoplayInterval=setInterval(()=>window.nextImage(), DELAY); }
+    function stopAuto(){ autoplay=false; slideshowToggle.textContent='▶'; slideshowToggle.setAttribute('aria-pressed','false'); if(autoplayInterval){ clearInterval(autoplayInterval); autoplayInterval=null; } }
 
-/* floating contact pill (branded) */
-.floating-contact { position: fixed; right: 18px; bottom: 18px; z-index: 2000; display:inline-flex; align-items:center; gap:10px; background: linear-gradient(180deg,var(--brand-green-2),#1b6b62); color:#fff; padding:12px 14px; border-radius:12px; text-decoration:none; box-shadow:0 12px 34px rgba(33,112,106,0.18); font-weight:800; font-size:0.95rem; }
-.floating-contact::before { content: "✉"; display:inline-block; font-size:16px; opacity:0.95; }
-.floating-contact:hover { box-shadow:0 18px 40px rgba(33,112,106,0.22); filter: saturate(1.03); }
-@media (max-width:540px) { .floating-contact { display:none !important; } }
-
-/* ===== RENTAL FORM ===== */
-/* Keep fieldsets centered on the page but left-align their internal fields */
-form#rental-form, form { display:flex; flex-direction:column; gap:1rem; align-items:center; width:100%; }
-
-/* Fieldsets remain centered (via the form flex alignment), but the content inside them is left-aligned */
-fieldset.form-section {
-  margin-bottom:2.4rem;
-  padding:1.6rem;
-  background: rgba(255,255,255,0.03);
-  border-radius:1rem;
-  border:1px solid rgba(255,255,255,0.06);
-  max-width:980px; /* widened for desktop */
-  width:100%;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.12);
-  text-align: left; /* left-align internal content while maintaining centered fieldset overall */
-}
-fieldset.form-section h2 {
-  margin-top:0;
-  margin-bottom:0.8rem;
-  font-size:1.25rem;
-  text-align:center; /* keep section titles centered as requested */
-  color:#F7F7F7;
-}
-
-label { display:block; color:#F7F7F7; font-weight:600; margin-bottom:0.35rem; text-align:left; }
-input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="url"], textarea, select, input[type="number"] {
-  width:100%;
-  max-width:900px; /* increased to match wider fieldsets */
-  padding:0.9em;
-  border-radius:8px;
-  border:1px solid var(--muted);
-  background: rgba(255,255,255,0.06);
-  color:#fff;
-  font-size:1rem;
-  margin-bottom:0.9rem;
-  box-sizing:border-box;
-  text-align:left;
-}
-textarea { min-height:120px; resize:vertical; }
-.helper { color:#dfeee9; font-size:0.95rem; text-align:left; margin:0.4rem 0; }
-
-/* small inline rows used in form - left aligned */
-.inline-row { display:flex; gap:8px; align-items:center; justify-content:flex-start; }
-
-/* Keep native-select hidden helper if script enhances it (used by custom select enhancement) */
-.select-hidden-keep {
-  position: absolute !important;
-  left: -9999px !important;
-  top: auto !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
-/* ===== SELECT (lease term) visibility fix =====
-   Keep the select and options readable on dark theme
-*/
-select {
-  background: rgba(255,255,255,0.06); /* match inputs */
-  color: #ffffff;                     /* selected text color */
-  border: 1px solid var(--muted);
-  border-radius: 8px;
-  padding: 0.85em 1rem;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  cursor: pointer;
-}
-
-/* Focus outline */
-select:focus {
-  outline: 3px solid rgba(31,143,128,0.12);
-  outline-offset: 3px;
-}
-
-/* Option styling — may be ignored by some native UIs but helps in browsers that support it */
-select option {
-  background: #111; /* dark background for options */
-  color: #fff;
-}
-
-/* Remove IE/Edge native expand arrow so custom arrow can be used */
-select::-ms-expand { display: none; }
-
-/* Optional custom arrow helper (apply class .select-with-arrow to select if desired) */
-.select-with-arrow {
-  background-image:
-    linear-gradient(45deg, transparent 50%, #ffffff 50%),
-    linear-gradient(135deg, #ffffff 50%, transparent 50%),
-    linear-gradient(to right, rgba(255,255,255,0.02), rgba(255,255,255,0.02));
-  background-position: calc(100% - 18px) calc(50% - 6px),
-                       calc(100% - 12px) calc(50% - 6px),
-                       100% 0;
-  background-size: 6px 6px, 6px 6px, 1px 36px;
-  background-repeat: no-repeat;
-  padding-right: 2.6rem;
-}
-
-/* ===== PETS ===== */
-/* Keep the pet question and radio boxes centered while other pet fields remain left aligned */
-.pets-center-block {
-  display:flex;
-  flex-direction:column;
-  align-items:center;   /* centers the question label and the radio group horizontally */
-  gap:8px;
-  width:100%;
-}
-
-/* Center the question label text and ensure it spans full width */
-.pets-center-block .pets-question-label {
-  text-align:center;
-  width:100%;
-  font-weight:600;
-  margin-bottom:10px;
-}
-
-/* Center the small radio-group horizontally */
-.pet-radio-group {
-  display:flex;
-  gap:16px;
-  align-items:center;
-  justify-content:center; /* keep the Yes/No boxes centered within the fieldset */
-}
-
-/* Make the option boxes align their internal content centrally */
-.pet-option { display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; user-select:none; position:relative; }
-
-/* Keep pet label text centered beneath the square */
-.pet-label-text { color:#F7F7F7; font-weight:700; font-size:.95rem; text-align:center; }
-
-/* Keep the radio square styles as before */
-.pet-option input[type="radio"] { position:absolute; opacity:0; width:0; height:0; }
-.radio-square { width:44px; height:44px; border-radius:10px; border:2px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); display:flex; align-items:center; justify-content:center; font-size:18px; color:transparent; transition: transform .10s, box-shadow .12s, background .10s, border-color .10s; box-shadow: 0 6px 14px rgba(0,0,0,0.12); }
-.radio-square .icon { font-weight:700; font-size:18px; color:#fff; opacity:0; transform:scale(.95); transition: opacity .10s, transform .10s; }
-.pet-option input[type="radio"]:checked + .radio-square { border-color: var(--brand-green-2); background: linear-gradient(180deg, rgba(33,112,106,0.12), rgba(31,143,128,0.06)); }
-.pet-option input[type="radio"]:checked + .radio-square .icon { opacity:1; transform:scale(1); color:#fff; }
-
-@media (max-width:480px) { .radio-square { width:40px; height:40px; font-size:16px; } }
-
-/* ===== utilities & footer ===== */
-.hidden { display:none !important; }
-.visible { display:block !important; }
-
-footer { background: rgba(0,0,0,0.60); color:#fff; text-align:center; padding:2em 1em; margin:3em auto 0 auto; border-radius:1.2em; max-width: var(--container-max-width); box-shadow:0 1px 12px rgba(0,0,0,0.13); }
-footer .email-link, footer .social-link, footer .privacy { margin:0.8em 0; display:flex; align-items:center; justify-content:center; gap:0.5em; }
-footer img { height:22px; vertical-align:middle; }
-footer a { color:#fff; text-decoration:underline; }
-footer .privacy { font-size:0.93em; opacity:0.85; }
-
-/* small helpers for focus visibility (accessibility) */
-a:focus, button:focus, input:focus, select:focus, textarea:focus {
-  outline: 3px solid rgba(31,143,128,0.12);
-  outline-offset: 3px;
-}
-
-/* responsiveness */
-@media (max-width:880px) {
-  .features-list { columns:1; }
-  .carousel-main { height:320px; }
-}
-
-/* final small tweaks */
-@media (max-width:700px) {
-  .container, .rental-container, .about-container { margin:1rem 1rem; border-radius:1rem; padding:1.1rem; }
-  .pets-center-block { align-items:center; } /* keep pet question centered on mobile too */
-}
-
-/* ---------- Desktop widening overrides ----------
-   This block increases the desktop measure for a less "mobile-narrow" feel.
-   Adjust values if you want even wider or tighter layouts.
-*/
-@media (min-width:1100px) {
-  .container, .rental-container, .about-container {
-    max-width: var(--container-max-width);
-    padding: var(--container-padding);
-  }
-
-  /* Let fieldsets use more horizontal space so the form doesn't look narrow */
-  fieldset.form-section {
-    max-width: 1040px;
-    padding: 1.8rem;
-  }
-
-  /* Make inputs and selects expand to match the wider fieldsets */
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="date"],
-  input[type="url"],
-  textarea,
-  select,
-  input[type="number"] {
-    max-width: 980px;
-  }
-
-  /* Wider custom select control */
-  .custom-select { max-width: 920px; }
-
-  /* Wider carousel for desktop listings */
-  .carousel-main {
-    width: 920px;
-    max-width: 92vw;
-    height: 520px;
-  }
-  .carousel-thumbs img { width: 140px !important; height: 90px !important; }
-
-  /* Slightly larger price / CTA area spacing */
-  .price-row { margin-top: 0.6rem; }
-  .cta-row { margin-top: 1rem; }
-
-  /* Keep add buttons left-aligned but line up with form inputs */
-  #add-occupant, #add-reference {
-    margin-left: 0;
-    padding-left: 0;
-  }
-
-  /* Move floating contact out a bit so it does not overlap wider container */
-  .floating-contact { right: 28px; bottom: 28px; }
-}
-
-/* Subtle tweak for very large displays */
-@media (min-width:1500px) {
-  .carousel-main { width: 980px; height: 560px; }
-  fieldset.form-section { max-width: 1180px; }
-}
+    if(slideshowToggle) slideshowToggle.addEventListener('click', ()=> autoplay ? stopAuto() : startAuto());
+    if(prevBtn) prevBtn.addEventListener('click', ()=> window.prevImage());
+    if(nextBtn) nextBtn.addEventListener('click', ()=> window.nextImage());
+    if(modal) modal.addEventListener('click', (e)=> { if(e.target===modal) closeModal(); });
+    document.addEventListener('keydown', (e)=> {
+      if(modal.style.display==='flex'){
+        if(e.key==='Escape') closeModal();
+        else if(e.key==='ArrowLeft') window.prevImage();
+        else if(e.key==='ArrowRight') window.nextImage();
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
