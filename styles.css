@@ -1,33 +1,34 @@
-/* styles.css - enforced sizing + autoplay disabled by default
-   Paste / replace your site's styles.css with this file, then hard-refresh the browser.
-   Key fixes:
-   - strong, specific rules for carousel and thumbnail images (USE !important to override other rules)
-   - no automatic scrolling of the page (removed scrollIntoView)
-   - carousel autoplay disabled by default; enabled only when data-autoplay="true"
+/* styles.css
+   Full stylesheet for site with enforced carousel + thumbnail sizing,
+   autoplay off by default and no auto-scrolling.
+   Replace your existing styles.css with this file, then hard-refresh the browser.
 */
 
+/* ===== variables ===== */
 :root{
-  --brand-green-1:#1f8f80;
-  --brand-green-2:#21706A;
-  --accent-red-1:#e53935;
-  --accent-red-2:#c62828;
+  --brand-green-1: #1f8f80;
+  --brand-green-2: #21706A;
+  --accent-red-1: #e53935;
+  --accent-red-2: #c62828;
   --nav-bg: rgba(0,0,0,0.70);
   --nav-bg-strong: rgba(0,0,0,0.78);
   --nav-overlay: rgba(0,0,0,0.96);
-  --white:#ffffff;
-  --container-max-width:980px;
-  --container-padding:2.5rem;
+  --white: #ffffff;
+
+  --container-max-width: 980px;
+  --container-padding: 2.5rem;
   --container-bg: rgba(0,0,0,0.82);
-  --navbar-padding:1rem;
-  --navbar-min-height:64px;
+
+  --navbar-padding: 1rem;
+  --navbar-min-height: 64px;
 }
 
-/* reset */
+/* ===== base ===== */
 * { box-sizing: border-box; }
-html,body { height:100%; margin:0; padding:0; font-family: 'Segoe UI','Arial',sans-serif; color:var(--white); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+html, body { height:100%; margin:0; padding:0; font-family: 'Segoe UI','Arial',sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; color:var(--white); }
 body { background: #222 url('Logos/city.png') no-repeat center center fixed; background-size: cover; }
 
-/* container */
+/* ===== container (consistent) ===== */
 .container, .rental-container, .about-container {
   max-width: var(--container-max-width);
   margin: 2.5rem auto;
@@ -38,21 +39,78 @@ body { background: #222 url('Logos/city.png') no-repeat center center fixed; bac
   box-shadow: 0 2px 20px rgba(0,0,0,0.19);
   text-align: center;
 }
-@media (max-width:700px) { .container, .rental-container, .about-container { padding:1.1em 5vw; } }
+@media (max-width:700px) { .container, .rental-container, .about-container { padding: 1.1em 5vw; } }
+@media (max-width:400px) { .container, .rental-container, .about-container { padding: 0.6em 4vw; } }
 
-/* common nav / header (kept compact here) */
-.navbar-minimal { width:100%; background:var(--nav-bg-strong); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); box-shadow:0 2px 12px rgba(0,0,0,0.15); padding:var(--navbar-padding) 0; margin-bottom:1.5em; position:relative; z-index:1200; border-bottom:1px solid rgba(255,255,255,0.04); min-height:var(--navbar-min-height); }
-.nav-center { max-width:var(--container-max-width); margin:0 auto; padding:0 12px; display:flex; align-items:center; justify-content:space-between; gap:12px; position:relative; height:100%; }
-.nav-links { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; gap:18px; list-style:none; margin:0; padding:0; align-items:center; justify-content:center; white-space:nowrap; z-index:10; }
-.nav-links a, .nav-link { color:var(--white); text-decoration:none; padding:12px 18px; border-radius:12px; background: rgba(255,255,255,0.06); font-weight:700; font-size:1.12rem; display:inline-block; transition: background .15s, transform .12s, box-shadow .12s; line-height:1; }
+/* ===== logo / title ===== */
+img.logo { max-width:240px; display:block; margin:0 auto 1.5rem; background:none; }
+.container > h1, .centered-title { text-align:center; font-size:2.2rem; font-weight:700; margin:0.2rem auto 0.8rem; color:#F7F7F7; line-height:1.08; }
+@media (max-width:500px) { .container > h1, .centered-title { font-size:1.45rem; } }
+
+/* ===== NAVBAR ===== */
+.navbar-minimal {
+  width:100%;
+  background: var(--nav-bg-strong);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  padding: var(--navbar-padding) 0;
+  margin-bottom: 1.5em;
+  position: relative;
+  z-index: 1200;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  min-height: var(--navbar-min-height);
+}
+.nav-center {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  position: relative;
+  height:100%;
+}
+.nav-links {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  display:flex;
+  gap:18px;
+  list-style:none;
+  margin:0;
+  padding:0;
+  align-items:center;
+  justify-content:center;
+  white-space:nowrap;
+  z-index:10;
+}
+.nav-links a, .nav-link {
+  color:var(--white);
+  text-decoration:none;
+  padding:12px 18px;
+  border-radius:12px;
+  background: rgba(255,255,255,0.06);
+  font-weight:700;
+  font-size:1.12rem;
+  display:inline-block;
+  transition: background .15s, transform .12s, box-shadow .12s;
+  line-height:1;
+}
+.nav-links a:hover, .nav-links a:focus, .nav-link:hover, .nav-link:focus { background: rgba(255,255,255,0.12); transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,0.12); outline:none; }
 .nav-links a.active, .nav-link.active { background: linear-gradient(180deg,var(--brand-green-1),var(--brand-green-2)); color:#fff; box-shadow:0 10px 26px rgba(33,112,106,0.18); transform:none; }
-.nav-toggle { display:none; }
-@media (max-width:760px) { .nav-links { display:none; } .nav-toggle { display:inline-flex; } }
+.nav-left-placeholder { width:36px; height:1px; display:block; }
 
-/* ===== CAROUSEL ENFORCED SIZING ===== */
-/* wrapper */
+.nav-toggle { display:none; background:transparent; border:none; padding:8px; border-radius:8px; cursor:pointer; }
+.hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; transition: transform .18s, background .18s; }
+.hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; transition: transform .18s, top .18s, opacity .18s; }
+.hamburger::before { top:-7px; } .hamburger::after { top:7px; }
+@media (max-width:760px) { .nav-links { display:none; } .nav-toggle { display:inline-flex; } .mobile-menu-wrap.hidden { display:none; } .mobile-menu-wrap.visible { display:block; max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch; } }
+
+/* ===== CAROUSEL / SLIDESHOW ===== */
 .carousel-wrap { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:1.2rem; flex-wrap:wrap; position:relative; }
-/* main box: fixed aspect box */
 .carousel-main {
   position:relative;
   width:680px;
@@ -64,70 +122,54 @@ body { background: #222 url('Logos/city.png') no-repeat center center fixed; bac
   box-shadow: 0 10px 40px rgba(0,0,0,0.4);
   display:flex; align-items:center; justify-content:center;
 }
-/* strong enforcement so other global img rules don't break it */
-.carousel-main img {
-  width:100% !important;
-  height:100% !important;
-  max-width:none !important;
-  object-fit:cover !important;
-  display:block !important;
-}
+/* enforce sizing to avoid external overrides */
+.carousel-main img { width:100% !important; height:100% !important; max-width:none !important; object-fit:cover !important; display:block !important; }
 
-/* caption and play */
+/* caption + play */
 .carousel-caption { position:absolute; left:20px; bottom:18px; background: linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.48)); padding:10px 14px; border-radius:10px; color:#fff; text-align:left; }
-.carousel-play { position:absolute; right:14px; bottom:14px; background: rgba(255,255,255,0.08); color:#fff; border:none; border-radius:8px; padding:8px 10px; cursor:pointer; }
+.carousel-caption .caption-title { font-weight:800; font-size:1.05rem; }
+.carousel-caption .caption-sub { font-size:0.92rem; opacity:0.92; margin-top:4px; }
+.carousel-play { position:absolute; right:14px; bottom:14px; background: rgba(255,255,255,0.08); color:#fff; border:none; border-radius:8px; padding:8px 10px; cursor:pointer; backdrop-filter: blur(4px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); font-size:14px; }
 
 /* arrows */
-.carousel-arrow { background: none; border: none; width:44px; height:44px; border-radius:8px; background: rgba(0,0,0,0.48); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:26px; cursor:pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.32); transition: transform .12s, background .12s; }
+.carousel-arrow { background:none; border:none; width:44px; height:44px; border-radius:8px; background: rgba(0,0,0,0.48); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:26px; cursor:pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.32); transition: transform .12s, background .12s; }
 .carousel-arrow:hover { transform: translateY(-2px); background: rgba(0,0,0,0.62); }
 @media (max-width:540px) { .carousel-arrow { display:none; } }
 
-/* ===== THUMBNAILS ENFORCED SIZING ===== */
-/* thumbnail strip */
+/* thumbnails (enforced sizes) */
 .carousel-thumbs { margin-top:12px; display:flex; gap:10px; overflow:auto; padding:6px 4px; justify-content:center; width:100%; }
-/* ENFORCED sizes here to prevent other CSS from making them huge */
-.carousel-thumbs img {
-  width:110px !important;
-  height:70px !important;
-  max-width:none !important;
-  object-fit:cover !important;
-  border-radius:8px;
-  cursor:pointer;
-  border:2px solid transparent;
-  transition: transform .12s, box-shadow .12s, border-color .12s;
-}
+.carousel-thumbs img { width:110px !important; height:70px !important; max-width:none !important; object-fit:cover !important; border-radius:8px; cursor:pointer; border:2px solid transparent; transition: transform .12s, box-shadow .12s, border-color .12s; }
 .carousel-thumbs img.active { transform: translateY(-4px); border-color: var(--brand-green-2); box-shadow: 0 10px 28px rgba(33,112,106,0.12); }
 @media (max-width:760px) { .carousel-main { height:260px; } .carousel-thumbs img { width:86px !important; height:56px !important; } }
 
-/* ===== LISTING GALLERY (if present elsewhere) ===== */
-/* also enforce listing-gallery thumbnails so index and other pages match */
+/* ===== listing-gallery fallback (in case it's used elsewhere) ===== */
 .listing-gallery { display:flex; flex-wrap:wrap; gap:1em; justify-content:center; margin-bottom:1.2rem; }
-.listing-gallery img {
-  width:180px !important;
-  height:120px !important;
-  object-fit:cover !important;
-  border-radius:10px;
-  cursor:pointer;
-  box-shadow:0 2px 16px rgba(0,0,0,0.14);
-  transition: transform .22s, box-shadow .22s;
-  background: rgba(255,255,255,0.06);
-  border:2px solid rgba(0,0,0,0.06);
-}
+.listing-gallery img { width:180px !important; height:120px !important; object-fit:cover !important; border-radius:10px; cursor:pointer; box-shadow:0 2px 16px rgba(0,0,0,0.14); transition: transform .22s, box-shadow .22s; background: rgba(255,255,255,0.06); border:2px solid rgba(0,0,0,0.06); }
 @media (max-width:760px) { .listing-gallery img { width:100px !important; height:70px !important; } }
 
-/* ===== modal (full-size) ===== */
-/* modal images are intentionally allowed to grow within the lightbox, so do not force them smaller here */
+/* ===== modal/lightbox (allow full-size images) ===== */
 .modal { position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); display:none; align-items:center; justify-content:center; padding:1.5rem; box-sizing:border-box; }
 .lightbox { max-width:1100px; width:100%; height:86vh; background:#fff; border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
 .lightbox-main { width:100%; height:calc(100% - 110px); display:flex; align-items:center; justify-content:center; background:#000; position:relative; }
 .lightbox-main img { max-width:100%; max-height:100%; object-fit:contain; display:block; margin:0 auto; }
+.lightbox-thumbs { width:100%; padding:10px; box-sizing:border-box; background:#fafafa; display:flex; gap:.6rem; overflow-x:auto; border-top:1px solid rgba(0,0,0,0.06); }
+.lightbox-thumbs img { width:110px; height:70px; object-fit:cover; border-radius:6px; cursor:pointer; border:2px solid transparent; }
+.lightbox-thumbs img.active { border-color:var(--brand-green-2); box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+.lb-btn { position:absolute; top:50%; transform:translateY(-50%); width:56px; height:56px; border-radius:8px; border:none; background: rgba(0,0,0,0.48); color:#fff; display:flex; align-items:center; justify-content:center; font-size:28px; cursor:pointer; z-index:10002; box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+.lb-btn:hover { background: rgba(0,0,0,0.62); transform: translateY(-50%) scale(1.03); }
+.lb-prev { left:12px; } .lb-next { right:12px; }
+.close { position:absolute; top:16px; right:16px; z-index:10003; width:40px; height:40px; border-radius:8px; border:none; background: rgba(0,0,0,0.45); color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
 
-/* rest of styles (price, bullets, footer) kept concise or unchanged */
+/* ===== features, price, footer ===== */
 .features-list { list-style:none; margin:0 auto; padding:0; max-width:820px; columns:2; gap:1.1rem; }
 .features-list li { position:relative; padding-left:32px; margin-bottom:0.9rem; font-size:1.03rem; line-height:1.36; color:#eef7f4; }
-.features-list li::before { content:"•"; position:absolute; left:0; top:2px; font-size:22px; color: var(--brand-green-1); }
+.features-list li::before { content:"•"; position:absolute; left:0; top:2px; font-size:22px; color: var(--brand-green-1); text-shadow: 0 1px 0 rgba(0,0,0,0.4); }
 
 .original-price { text-decoration: line-through; color: var(--accent-red-1); font-weight:800; margin-right:0.6rem; font-size:1.05rem; vertical-align:middle; text-shadow: 0 1px 0 rgba(0,0,0,0.25); }
 .price-badge { display:inline-block; background: linear-gradient(180deg,var(--accent-red-2),var(--accent-red-1)); color:#fff; padding:.45em .9em; border-radius:12px; font-weight:800; box-shadow:0 10px 30px rgba(198,40,40,0.12); }
 
 footer { background: rgba(0,0,0,0.60); color:#fff; text-align:center; padding:2em 1em; margin:3em auto 0 auto; border-radius:1.2em; max-width: var(--container-max-width); box-shadow:0 1px 12px rgba(0,0,0,0.13); }
+footer .email-link, footer .social-link, footer .privacy { margin:0.8em 0; display:flex; align-items:center; justify-content:center; gap:0.5em; }
+footer img { height:22px; vertical-align:middle; }
+footer a { color:#fff; text-decoration:underline; }
+.footer .privacy, footer .privacy { font-size:0.93em; opacity:0.85; }
