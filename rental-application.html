@@ -8,17 +8,19 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* Page-local tweaks:
-       - Ensure fieldsets remain centered while labels and inputs are left-aligned.
-       - This complements the site stylesheet; it's deliberately minimal and non-destructive.
+       - Keep each fieldset centered (max-width) while left-aligning labels and inputs inside it.
+       - Keep section titles centered.
+       These are minimal, non-destructive rules to ensure the form looks as requested.
     */
     form#rental-form { display:flex; flex-direction:column; gap:1rem; align-items:center; width:100%; }
-    fieldset.form-section { width:100%; max-width:700px; text-align:left; } /* centered block, left-aligned contents */
-    fieldset.form-section h2 { text-align:center; } /* keep section titles centered */
-    label { text-align:left; display:block; }
+    fieldset.form-section { width:100%; max-width:700px; text-align:left; margin: 0 auto; }
+    fieldset.form-section h2 { text-align:center; margin-top:0; }
+    label { display:block; text-align:left; margin-bottom:.35rem; color: #F7F7F7; font-weight:600; }
+    .occupant-fields input,
+    .reference-fields input { box-sizing:border-box; }
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
   <nav class="navbar-minimal" role="navigation" aria-label="Main navigation">
     <div class="nav-center">
       <div class="nav-left-placeholder" aria-hidden="true"></div>
@@ -82,8 +84,6 @@
           <input type="date" id="move-in-date" name="move_in_date" required />
 
           <label for="term">Lease Term</label>
-
-          <!-- Native select kept for form submission (visually hidden by the script after enhancement) -->
           <select id="term" name="lease_term" aria-label="Lease term">
             <option value="">Select</option>
             <option value="12 months">12 months</option>
@@ -152,8 +152,8 @@
           <label for="pet-number">How many pets?</label>
           <input type="number" id="pet-number" name="pet_number" min="0" />
 
-          <label for="pet-details">Description (age, vaccinated, etc.)</label>
-          <textarea id="pet-details" name="pet_details" placeholder="Describe your pets"></textarea>
+          <label for="pet-details">Age, size etc</label>
+          <textarea id="pet-details" name="pet_details" placeholder="e.g., 3 years, medium, vaccinated"></textarea>
         </fieldset>
 
         <fieldset class="form-section" aria-label="Other details">
