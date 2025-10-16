@@ -7,14 +7,41 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Page-local layout tweaks and small helpers */
+    /* Page-local layout tweaks and inline error styles */
     form#rental-form { display:flex; flex-direction:column; gap:1rem; align-items:center; width:100%; }
     fieldset.form-section { width:100%; max-width:700px; text-align:left; margin: 0 auto; }
     fieldset.form-section h2 { text-align:center; margin-top:0; }
     label { display:block; text-align:left; margin-bottom:.35rem; color: #F7F7F7; font-weight:600; }
     .occupant-fields input, .reference-fields input { box-sizing:border-box; }
+
     .form-actions { text-align:center; margin: 0.6rem 0 1.2rem; }
     .submit-success { background: rgba(31,143,128,0.12); color: #dff7ef; padding: 12px 14px; border-radius: 8px; margin-bottom: 1rem; display:none; }
+
+    /* Inline field error bubble */
+    .field-error {
+      background: rgba(228, 76, 76, 0.12);
+      color: #ffdede;
+      border: 1px solid rgba(228, 76, 76, 0.26);
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-top: 6px;
+      font-size: 0.95rem;
+      max-width: 640px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+    }
+    /* Small pointer for error when inserted after inputs (visual hint) */
+    .field-error::before {
+      content: "";
+      display: block;
+      width: 10px;
+      height: 10px;
+      background: rgba(228, 76, 76, 0.12);
+      border-left: 1px solid rgba(228, 76, 76, 0.26);
+      border-bottom: 1px solid rgba(228, 76, 76, 0.26);
+      transform: rotate(45deg);
+      margin: -8px 0 6px 14px;
+    }
+
     .required-note { font-size:0.95rem; color: #dfeee9; text-align:center; margin-bottom:0.6rem; }
   </style>
 </head>
@@ -250,7 +277,7 @@
     function open() { toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if (f) f.focus(); }
     function close(returnFocus=true) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); if (returnFocus) toggle.focus(); }
     toggle.addEventListener('click', () => { if (wrap.classList.contains('visible')) close(); else open(); });
-    toggle.addEventListener('keydown', (e) => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggle.click(); } if (e.key==='Escape') close(); });
+    toggle.addEventListener('keydown', (e) => { if (e.key==='Enter' || e.key===' ') { e.preventDefault(); toggle.click(); } if (e.key==='Escape') close(); });
     wrap.addEventListener('click', (e) => { if (e.target.closest('a')) close(false); });
     window.addEventListener('resize', () => { if (window.innerWidth > 760) close(false); });
   })();
@@ -340,7 +367,6 @@
 
   // Pet option keyboard/click handling + required toggles
   (function () {
-    const petOptions = Array.from(document.querySelectorAll('.pet-option'));
     const petRadios = Array.from(document.querySelectorAll('input[name="pets"]'));
     const petType = document.getElementById('pet-type');
     const petNumber = document.getElementById('pet-number');
@@ -349,7 +375,6 @@
     function updatePetRequireds() {
       const selected = document.querySelector('input[name="pets"]:checked');
       const isYes = selected && selected.value === 'Yes';
-      // make pet fields required only if "Yes"
       petType.required = isYes;
       petNumber.required = isYes;
       petDetails.required = isYes;
@@ -357,26 +382,9 @@
 
     petRadios.forEach(r => r.addEventListener('change', updatePetRequireds));
     updatePetRequireds();
-
-    petOptions.forEach(el => {
-      el.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const input = el.querySelector('input[type="radio"]');
-          if (input) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); }
-        }
-      });
-      el.addEventListener('click', (e) => {
-        const input = el.querySelector('input[type="radio"]');
-        if (input && e.target.tagName.toLowerCase() !== 'input') {
-          input.checked = true;
-          input.dispatchEvent(new Event('change', { bubbles: true }));
-        }
-      });
-    });
   })();
 
-  // Formspree integration: populate _subject, _replyto and _next; show success on redirect
+  // Formspree integration + improved validation with inline error and auto-scroll/focus
   (function () {
     const form = document.getElementById('rental-form');
     const subjInput = document.getElementById('_subject');
@@ -390,8 +398,70 @@
     }
     setNextUrl();
 
+    // Remove any existing inline error
+    function clearInlineErrors() {
+      const errors = form.querySelectorAll('.field-error');
+      errors.forEach(e => e.remove());
+    }
+
+    // Place an inline error message near the specified element (or group)
+    function showInlineError(elem, message) {
+      clearInlineErrors();
+      const wrapper = document.createElement('div');
+      wrapper.className = 'field-error';
+      wrapper.setAttribute('role', 'alert');
+      wrapper.textContent = message || 'Please fill out this field.';
+      // Determine insertion point:
+      // - For radio/checkbox groups, find nearest group container (role=radiogroup or .pet-radio-group or .option-group)
+      // - Otherwise insert after the form control
+      let insertAfter = elem;
+      if (elem && elem.type === 'radio') {
+        const rg = elem.closest('[role="radiogroup"]') || elem.closest('.pet-radio-group') || elem.closest('.option-group');
+        if (rg) insertAfter = rg;
+      } else {
+        // If the field is inside .occupant-fields or .reference-fields, target that block
+        const block = elem.closest('.occupant-fields') || elem.closest('.reference-fields') || elem.closest('fieldset');
+        if (block) insertAfter = block;
+      }
+
+      // Insert after chosen element
+      if (insertAfter && insertAfter.parentNode) {
+        insertAfter.parentNode.insertBefore(wrapper, insertAfter.nextSibling);
+        // smooth scroll wrapper into view
+        wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // fallback: append near top of form
+        form.insertBefore(wrapper, form.firstChild);
+        wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      // Remove error once field becomes valid
+      const removeOnValid = function () {
+        if (elem.checkValidity && elem.checkValidity()) {
+          wrapper.remove();
+          elem.removeEventListener('input', removeOnValid);
+          elem.removeEventListener('change', removeOnValid);
+        }
+      };
+      elem.addEventListener('input', removeOnValid);
+      elem.addEventListener('change', removeOnValid);
+    }
+
+    // Determine best element to focus for a :invalid element (handle radio groups too)
+    function focusInvalidElement(invalidEl) {
+      if (!invalidEl) return;
+      if (invalidEl.type === 'radio') {
+        // focus first radio in group
+        const groupName = invalidEl.name;
+        const first = form.querySelector(`input[type="radio"][name="${groupName}"]`);
+        if (first) first.focus();
+      } else {
+        invalidEl.focus();
+      }
+    }
+
     form.addEventListener('submit', function (e) {
-      // Ensure email is copied to _replyto for Formspree reply-to header
+      // Populate _replyto for Formspree
       const emailVal = (document.getElementById('email') || {value:''}).value.trim();
       replyInput.value = emailVal || '';
 
@@ -403,30 +473,44 @@
       if (property) subjectParts.push(property);
       subjInput.value = subjectParts.join(' - ');
 
-      // Let browser run built-in validity checks first
+      // Clear previous errors
+      clearInlineErrors();
+
+      // Let browser run built-in validation first
       if (!form.checkValidity()) {
-        const firstInvalid = form.querySelector(':invalid');
-        if (firstInvalid) firstInvalid.focus();
         e.preventDefault();
+
+        // Find first invalid control
+        const firstInvalid = form.querySelector(':invalid');
+        if (!firstInvalid) return;
+
+        // Use the browser's validation message if available; fallback to custom text
+        const message = firstInvalid.validationMessage || 'Please fill out this field.';
+
+        // Show inline error next to appropriate control and focus it
+        showInlineError(firstInvalid, message);
+        focusInvalidElement(firstInvalid);
         return;
       }
 
-      // Additional check: pet conditional requireds (should be covered by required attr already)
+      // Pet conditional check: if pets=yes, ensure pet fields are non-empty (safety)
       const petSelected = document.querySelector('input[name="pets"]:checked');
       if (petSelected && petSelected.value === 'Yes') {
-        const petDetails = document.getElementById('pet-details');
-        if (!petDetails.value.trim()) {
-          petDetails.focus();
+        const petDetailsField = document.getElementById('pet-details');
+        if (petDetailsField && !petDetailsField.value.trim()) {
           e.preventDefault();
+          showInlineError(petDetailsField, 'Please describe your pet (age, size, etc.)');
+          focusInvalidElement(petDetailsField);
           return;
         }
       }
 
-      // allow the normal submit to Formspree (do not preventDefault here)
+      // Normal submit proceeds to Formspree
+      // (no preventDefault)
     });
 
-    // If the page loads with ?submitted=1, show a success message
-    function checkSuccessQuery() {
+    // Show success message when redirected back with ?submitted=1
+    (function checkSuccessQuery() {
       const params = new URLSearchParams(window.location.search);
       if (params.get('submitted') === '1') {
         successEl.textContent = 'Thank you — your application has been submitted. We will be in touch soon.';
@@ -437,18 +521,21 @@
         }
         successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-    }
-    checkSuccessQuery();
+    })();
+
   })();
 
-  // Form validation helper: focus first invalid field on submit (redundant safety)
+  // Accessibility helper: focus the first invalid field on 'invalid' event (redundant safety)
   (function () {
     const form = document.getElementById('rental-form');
     if (!form) return;
     form.addEventListener('invalid', function (e) {
       e.preventDefault();
       const firstInvalid = form.querySelector(':invalid');
-      if (firstInvalid) firstInvalid.focus();
+      if (firstInvalid) {
+        // already handled above, but ensure focus
+        try { firstInvalid.focus(); } catch (err) {}
+      }
     }, true);
   })();
   </script>
