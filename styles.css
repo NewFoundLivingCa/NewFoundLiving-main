@@ -1,7 +1,7 @@
 /* styles.css - Consolidated stylesheet for Newfound Living
    - Preserves working layout and behaviors
    - Adds intro/listing panels and ensures footer contact links stack (email above social)
-   - Responsive and accessibility-focused
+   - Fixed footer spacing inconsistency across pages (about page double-spacing)
    Replace your current styles.css with this file (backup first), then hard-refresh.
 */
 
@@ -205,17 +205,55 @@ select:focus { outline:3px solid rgba(31,143,128,0.12); outline-offset:3px; }
 .pet-option input[type="radio"]:checked + .radio-square .icon { opacity:1; transform:scale(1); color:#fff; }
 @media (max-width:480px) { .radio-square { width:40px; height:40px; font-size:16px; } }
 
-/* ===== Utilities & Footer ===== */
+/* ===== Utilities ===== */
 .hidden { display:none !important; }
 .visible { display:block !important; }
 
-/* Footer: stacked order by default (email above social link) to match index & application */
-footer { background: rgba(0,0,0,0.60); color:#fff; text-align:center; padding:2em 1em; margin:3em auto 0 auto; border-radius:1.2em; max-width: var(--container-max-width); box-shadow:0 1px 12px rgba(0,0,0,0.13); }
-footer .footer-row { display:flex; flex-direction:column; gap:0.6rem; align-items:center; justify-content:center; margin-bottom:0.6rem; }
-footer .email-link, footer .social-link { display:flex; gap:.6rem; align-items:center; justify-content:center; }
+/* ===== Footer (fixed spacing and stacked order) =====
+   Ensures the about page matches index & application (email above Facebook),
+   and eliminates the extra/double spacing that appeared on about.
+*/
+footer {
+  background: rgba(0,0,0,0.60);
+  color:#fff;
+  text-align:center;
+  padding:2em 1em;
+  margin:3em auto 0 auto;
+  border-radius:1.2em;
+  max-width: var(--container-max-width);
+  box-shadow:0 1px 12px rgba(0,0,0,0.13);
+}
+
+/* Force consistent stacked layout and remove extra margins that caused double spacing */
+footer .footer-row {
+  display:flex !important;
+  flex-direction:column !important; /* email above social link */
+  gap:0.6rem !important;
+  align-items:center;
+  justify-content:center;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+/* contact link blocks */
+footer .email-link, footer .social-link {
+  display:flex;
+  gap:.6rem;
+  align-items:center;
+  justify-content:center;
+}
+
+/* privacy text */
+footer .privacy {
+  font-size:0.93em;
+  opacity:0.85;
+  text-align:center;
+  margin-top:0.6rem;
+}
+
+/* footer images / links */
 footer img { height:22px; vertical-align:middle; }
 footer a { color:#fff; text-decoration:underline; }
-footer .privacy { font-size:0.93em; opacity:0.85; text-align:center; }
 
 /* focus helpers */
 a:focus, button:focus, input:focus, select:focus, textarea:focus { outline: 3px solid rgba(31,143,128,0.12); outline-offset: 3px; }
