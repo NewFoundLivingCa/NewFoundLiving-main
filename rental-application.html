@@ -10,7 +10,7 @@
     /* Page-local tweaks:
        - Keep each fieldset centered (max-width) while left-aligning labels and inputs inside it.
        - Keep section titles centered.
-       These are minimal, non-destructive rules to ensure the form looks as requested.
+       - Small helper to center the form actions and give spacing
     */
     form#rental-form { display:flex; flex-direction:column; gap:1rem; align-items:center; width:100%; }
     fieldset.form-section { width:100%; max-width:700px; text-align:left; margin: 0 auto; }
@@ -18,9 +18,8 @@
     label { display:block; text-align:left; margin-bottom:.35rem; color: #F7F7F7; font-weight:600; }
     .occupant-fields input,
     .reference-fields input { box-sizing:border-box; }
-
-    /* Small helper to center the form actions and give spacing */
     .form-actions { text-align:center; margin: 0.6rem 0 1.2rem; }
+    .submit-success { background: rgba(31,143,128,0.12); color: #dff7ef; padding: 12px 14px; border-radius: 8px; margin-bottom: 1rem; display:none; }
   </style>
 </head>
 <body>
@@ -54,7 +53,21 @@
 
       <h1 class="centered-title">Rental Application</h1>
 
-      <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" novalidate>
+      <!-- Success message (shown after redirect from Formspree when ?submitted=1 is present) -->
+      <div id="submitSuccess" class="submit-success" role="status" aria-live="polite"></div>
+
+      <!-- NOTE:
+           - action points to your Formspree endpoint
+           - method POST and enctype allow file uploads if you add file inputs later
+           - hidden fields (_subject and _next) are populated by JS before submit so subject includes applicant name & property
+      -->
+      <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data" novalidate>
+        <!-- Hidden fields Formspree recognizes; JS will set _subject and _next dynamically -->
+        <input type="hidden" name="_subject" id="_subject" value="Rental Application" />
+        <input type="hidden" name="_next" id="_next" value="" />
+        <!-- optional: keep Formspree captcha on (true) or disable (set false) -->
+        <input type="hidden" name="_captcha" value="true" />
+
         <fieldset class="form-section" aria-label="Personal information">
           <h2>Personal Information</h2>
 
@@ -354,7 +367,50 @@
     });
   })();
 
-  // Form submit handler: focus first invalid field
+  // Form submit enhancements for Formspree: populate hidden _subject and _next and show success after redirect
+  (function () {
+    const form = document.getElementById('rental-form');
+    const subjInput = document.getElementById('_subject');
+    const nextInput = document.getElementById('_next');
+    const successEl = document.getElementById('submitSuccess');
+
+    // Populate _next to redirect back to this page with a query param that we can detect
+    function setNextUrl() {
+      const base = window.location.origin + window.location.pathname;
+      nextInput.value = base + '?submitted=1';
+    }
+    setNextUrl();
+
+    // Fill a helpful subject with the applicant name + property address (if provided)
+    form.addEventListener('submit', function (e) {
+      const fullName = (document.getElementById('full-name') || {value:''}).value.trim();
+      const property = (document.getElementById('property-address') || {value:''}).value.trim();
+      const subjectParts = ['Rental Application'];
+      if (fullName) subjectParts.push(fullName);
+      if (property) subjectParts.push(property);
+      subjInput.value = subjectParts.join(' - ');
+      // allow normal submit to Formspree
+    });
+
+    // If the page loads with ?submitted=1, show a success message
+    function checkSuccessQuery() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('submitted') === '1') {
+        successEl.textContent = 'Thank you — your application has been submitted. We will be in touch soon.';
+        successEl.style.display = 'block';
+        // Remove the query string from the URL to avoid showing message on refresh
+        if (window.history && window.history.replaceState) {
+          const cleanUrl = window.location.origin + window.location.pathname;
+          window.history.replaceState({}, document.title, cleanUrl);
+        }
+        // Optionally, scroll to success message
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+    checkSuccessQuery();
+  })();
+
+  // Form validation: focus first invalid field when user attempts to submit
   (function () {
     const form = document.getElementById('rental-form');
     if (!form) return;
