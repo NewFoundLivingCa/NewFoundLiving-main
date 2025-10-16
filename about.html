@@ -7,7 +7,13 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Page-specific readability tweaks */
+    /* Page-specific readability tweaks (non-destructive) */
+    .about-container {
+      max-width: 980px;
+      margin: 1.6rem auto;
+      padding: 1.6rem;
+      text-align: center;
+    }
     .about-section {
       max-width: 820px;
       margin: 0.6rem auto 1.4rem;
@@ -18,16 +24,15 @@
     }
 
     /* Keep the logo and page title centered like the rest of the site */
-    .container > img.logo,
-    .container > h1 {
+    .about-container > img.logo,
+    .about-container > h1 {
       display: block;
       margin-left: auto;
       margin-right: auto;
       text-align: center;
     }
-    .container > h1 { margin-top: 0.25rem; margin-bottom: 1rem; font-size: 1.9rem; }
+    .about-container > h1 { margin-top: 0.25rem; margin-bottom: 1rem; font-size: 1.9rem; }
 
-    /* Headings within the about-section */
     .about-section h2 {
       text-align: left;
       margin-top: 1.25rem;
@@ -40,17 +45,26 @@
       padding-left: 1.15rem;
       margin: 0.45rem 0 0.85rem 0;
     }
-    .about-section li {
-      margin-bottom: 0.6rem;
-    }
+    .about-section li { margin-bottom: 0.6rem; }
 
-    /* Footer layout tweaks to match other pages */
-    footer .footer-row { display:flex; gap:1.25rem; flex-wrap:wrap; justify-content:center; align-items:center; }
+    /* Ensure footer contact items stack the same as other pages */
+    footer .footer-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: center;
+    }
     footer .email-link, footer .social-link { display:flex; gap:.6rem; align-items:center; justify-content:center; }
+
+    @media (min-width:1200px) {
+      /* Optional: keep stacked by default but make side-by-side on very wide screens */
+      footer .footer-row { flex-direction: column; }
+    }
 
     @media (max-width:700px) {
       .about-section { padding: 0 1rem; font-size: 1rem; line-height: 1.5; }
-      .container > h1 { font-size: 1.45rem; }
+      .about-container > h1 { font-size: 1.45rem; }
     }
   </style>
 </head>
@@ -143,7 +157,7 @@
     </div>
   </main>
 
-  <!-- Footer updated to match index and rental pages -->
+  <!-- Footer (matches index & application pages; email stacked above social link) -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-row">
       <div class="email-link">
@@ -163,7 +177,7 @@
   <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
   <script>
-    // Mobile menu (same as other pages)
+    // Mobile menu (same script used on index and application pages)
     (function () {
       const toggle = document.querySelector('.nav-toggle');
       const wrap = document.getElementById('mobile-menu');
