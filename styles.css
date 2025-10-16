@@ -1,6 +1,6 @@
 /* styles.css - Consolidated stylesheet for Newfound Living
    - Centralized and unified logo sizing/centering (use --site-logo-width)
-   - Preserves existing layout and behavior; footer icons remain small
+   - Preserves existing layout and behavior; footer icons forced to small size
    Replace your current styles.css with this file (backup first), then hard-refresh.
 */
 
@@ -39,7 +39,7 @@ body { background: #222 url('Logos/city.png') no-repeat center center fixed; bac
 /* ===== Logo helpers: center and unify size across pages =====
    - Targets common logo classes used across your pages so minimal markup changes required.
    - Use .logo-container around your logo (optional) and .site-logo on the <img>.
-   - Footer icons are left alone by the footer img rule below.
+   - Footer icons are handled separately below to avoid being scaled by site-logo rules.
 */
 .logo-container { text-align: center; }
 
@@ -290,8 +290,26 @@ footer .privacy {
   margin-top:0.6rem;
 }
 
-/* footer images / links - keep icons small and unaffected by site-logo width */
+/* ===== Footer icons: force consistent small size (fixes oversized remote SVGs) =====
+   - Targets the specific icon class used in footer markup (.icon) and the
+     footer link images to ensure small, predictable sizing.
+   - Uses !important to override inline SVG attributes from remote files if necessary.
+*/
+footer img.icon,
+footer .email-link img,
+footer .social-link img {
+  width: 22px !important;
+  height: 22px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  vertical-align: middle !important;
+  display: inline-block !important;
+}
+
+/* Backwards-compatible selector: keep older, simpler rule as fallback */
 footer img { height:22px; vertical-align:middle; }
+
+/* footer links */
 footer a { color:#fff; text-decoration:underline; }
 
 /* focus helpers */
