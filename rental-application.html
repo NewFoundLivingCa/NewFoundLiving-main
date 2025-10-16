@@ -18,6 +18,9 @@
     label { display:block; text-align:left; margin-bottom:.35rem; color: #F7F7F7; font-weight:600; }
     .occupant-fields input,
     .reference-fields input { box-sizing:border-box; }
+
+    /* Small helper to center the form actions and give spacing */
+    .form-actions { text-align:center; margin: 0.6rem 0 1.2rem; }
   </style>
 </head>
 <body>
@@ -204,12 +207,16 @@
           <input type="date" id="applicant-signature-date" name="applicant_signature_date" required />
         </fieldset>
 
-        <!-- Submit button intentionally removed -->
+        <!-- Form actions: submit button restored and styled to match site buttons -->
+        <div class="form-actions" role="group" aria-label="Form actions">
+          <button type="submit" class="btn-primary" aria-label="Submit rental application">Submit Application</button>
+        </div>
+
       </form>
     </div>
   </main>
 
-  <!-- Footer (added back) -->
+  <!-- Footer -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-row">
       <div class="email-link">
@@ -228,7 +235,7 @@
 
   <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
-  <!-- Page scripts (kept as in previous working page) -->
+  <!-- Page scripts (kept as before) -->
   <script>
   // Mobile menu
   (function () {
