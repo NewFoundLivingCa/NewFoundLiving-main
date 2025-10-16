@@ -1,8 +1,7 @@
 /* styles.css - Consolidated stylesheet for Newfound Living
-   - Preserves working layout and behaviors
-   - Adds intro/listing panels and ensures footer contact links stack (email above social)
-   - Fixed footer spacing inconsistency across pages (about page double-spacing)
-   Replace your current styles.css with this file (backup first), then hard-refresh.
+   - Restores consistent centered logo sizing across pages
+   - Preserves navbar, panels, carousel, lightbox, forms, footer fixes
+   - Replace your existing styles.css with this file (backup first)
 */
 
 /* ===== variables ===== */
@@ -42,6 +41,40 @@ body { background: #222 url('Logos/city.png') no-repeat center center fixed; bac
 }
 @media (max-width:700px) { .container, .rental-container, .about-container { padding:1.1rem 5vw; } }
 
+/* ===== LOGO sizing & centering (consistent across pages) =====
+   Restore earlier working size and make sure logos are centered.
+   Use specific selectors to avoid accidental overrides.
+*/
+.container img.logo,
+.rental-container img.logo,
+.about-container img.logo,
+header img.logo,
+img.logo {
+  display: block;
+  margin: 0 auto 1.5rem;
+  height: auto;
+  max-width: 240px; /* restored to previous working size */
+  width: 100%;
+  transition: max-width .18s ease;
+}
+
+/* Intro panel logo (use same max-width but allow slightly narrower layout) */
+.intro-panel .intro-logo,
+.panel-intro .intro-logo {
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  max-width: 240px; /* keep consistent with main logo */
+  height: auto;
+}
+
+/* Small screen adjustments (keep logos compact on phones) */
+@media (max-width:540px) {
+  .container img.logo,
+  .intro-panel .intro-logo,
+  .panel-intro .intro-logo { max-width: 160px; }
+}
+
 /* ===== NAV ===== */
 .nav-left-placeholder,
 .nav-center > [aria-hidden="true"] {
@@ -71,7 +104,7 @@ body { background: #222 url('Logos/city.png') no-repeat center center fixed; bac
 .nav-links a:hover, .nav-links a:focus { background: rgba(255,255,255,0.12); transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,0.12); outline:none; }
 .nav-links a.active { background: linear-gradient(180deg,var(--brand-green-1),var(--brand-green-2)); color:#fff; box-shadow: 0 10px 26px rgba(33,112,106,0.18); transform:none; }
 
-/* hamburger */
+/* hamburger (mobile) */
 .nav-toggle { display:none; background:transparent; border:none; padding:8px; border-radius:var(--btn-radius); cursor:pointer; align-items:center; justify-content:center; position:relative; z-index:1400; }
 .hamburger { width:22px; height:2px; background:var(--white); position:relative; display:block; border-radius:2px; transition: transform .18s, background .18s; }
 .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:2px; background:var(--white); border-radius:2px; transition: transform .18s, top .18s, opacity .18s; }
@@ -122,7 +155,6 @@ body { background: #222 url('Logos/city.png') no-repeat center center fixed; bac
   gap:14px;
   padding:22px;
 }
-.intro-logo { width:200px; height:auto; display:block; }
 .intro { max-width:760px; text-align:center; color:#e8f6f1; font-size:1.06rem; line-height:1.6; }
 .intro-text { margin-bottom:0.6rem; }
 .panel-listing { padding:16px; }
@@ -210,8 +242,7 @@ select:focus { outline:3px solid rgba(31,143,128,0.12); outline-offset:3px; }
 .visible { display:block !important; }
 
 /* ===== Footer (fixed spacing and stacked order) =====
-   Ensures the about page matches index & application (email above Facebook),
-   and eliminates the extra/double spacing that appeared on about.
+   Ensures consistent footer spacing and order across pages.
 */
 footer {
   background: rgba(0,0,0,0.60);
@@ -223,37 +254,19 @@ footer {
   max-width: var(--container-max-width);
   box-shadow:0 1px 12px rgba(0,0,0,0.13);
 }
-
-/* Force consistent stacked layout and remove extra margins that caused double spacing */
 footer .footer-row {
-  display:flex !important;
-  flex-direction:column !important; /* email above social link */
-  gap:0.6rem !important;
-  align-items:center;
-  justify-content:center;
-  margin:0 !important;
-  padding:0 !important;
-}
-
-/* contact link blocks */
-footer .email-link, footer .social-link {
   display:flex;
-  gap:.6rem;
+  flex-direction:column; /* email above social link */
+  gap:0.6rem;
   align-items:center;
   justify-content:center;
+  margin:0;
+  padding:0;
 }
-
-/* privacy text */
-footer .privacy {
-  font-size:0.93em;
-  opacity:0.85;
-  text-align:center;
-  margin-top:0.6rem;
-}
-
-/* footer images / links */
+footer .email-link, footer .social-link { display:flex; gap:.6rem; align-items:center; justify-content:center; }
 footer img { height:22px; vertical-align:middle; }
 footer a { color:#fff; text-decoration:underline; }
+footer .privacy { font-size:0.93em; opacity:0.85; text-align:center; margin-top:0.6rem; }
 
 /* focus helpers */
 a:focus, button:focus, input:focus, select:focus, textarea:focus { outline: 3px solid rgba(31,143,128,0.12); outline-offset: 3px; }
