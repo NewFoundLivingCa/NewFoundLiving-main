@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Page-local layout tweaks */
+    /* Page-local layout tweaks and small helpers */
     form#rental-form { display:flex; flex-direction:column; gap:1rem; align-items:center; width:100%; }
     fieldset.form-section { width:100%; max-width:700px; text-align:left; margin: 0 auto; }
     fieldset.form-section h2 { text-align:center; margin-top:0; }
@@ -15,6 +15,7 @@
     .occupant-fields input, .reference-fields input { box-sizing:border-box; }
     .form-actions { text-align:center; margin: 0.6rem 0 1.2rem; }
     .submit-success { background: rgba(31,143,128,0.12); color: #dff7ef; padding: 12px 14px; border-radius: 8px; margin-bottom: 1rem; display:none; }
+    .required-note { font-size:0.95rem; color: #dfeee9; text-align:center; margin-bottom:0.6rem; }
   </style>
 </head>
 <body>
@@ -48,36 +49,40 @@
 
       <h1 class="centered-title">Rental Application</h1>
 
+      <p class="required-note">All fields are required. Please complete every field before submitting.</p>
+
       <!-- Success message area -->
       <div id="submitSuccess" class="submit-success" role="status" aria-live="polite"></div>
 
       <!-- Formspree form: action points to your Formspree endpoint -->
       <form id="rental-form" action="https://formspree.io/f/xldnwbqq" method="POST" enctype="multipart/form-data" novalidate>
-        <!-- Formspree helpers: JS will populate _subject and _next -->
+        <!-- Formspree helpers: JS will populate _subject/_replyto and set _next -->
         <input type="hidden" name="_subject" id="_subject" value="Rental Application" />
         <input type="hidden" name="_next" id="_next" value="" />
+        <input type="hidden" name="_replyto" id="_replyto" value="" />
         <input type="hidden" name="_captcha" value="true" />
+        <input type="hidden" name="Property" value="16 Carlow Place — Main Floor Unit" />
 
         <fieldset class="form-section" aria-label="Personal information">
           <h2>Personal Information</h2>
 
           <label for="full-name">Full Name</label>
-          <input type="text" id="full-name" name="full_name" required />
+          <input type="text" id="full-name" name="full_name" required autocomplete="name" />
 
           <label for="email">Email</label>
-          <input type="email" id="email" name="email_address" required />
+          <input type="email" id="email" name="email_address" required autocomplete="email" />
 
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone_number" required />
+          <input type="tel" id="phone" name="phone_number" required autocomplete="tel" />
 
           <label for="current-address">Current Address</label>
-          <input type="text" id="current-address" name="current_address" required />
+          <textarea id="current-address" name="current_address" rows="2" required></textarea>
 
           <label for="landlord-name">Current Landlord Name</label>
-          <input type="text" id="landlord-name" name="landlord_name" />
+          <input type="text" id="landlord-name" name="landlord_name" required />
 
           <label for="landlord-contact">Landlord Contact (Phone or Email)</label>
-          <input type="text" id="landlord-contact" name="landlord_contact" />
+          <input type="text" id="landlord-contact" name="landlord_contact" required />
         </fieldset>
 
         <fieldset class="form-section" aria-label="Property details">
@@ -90,7 +95,7 @@
           <input type="date" id="move-in-date" name="move_in_date" required />
 
           <label for="term">Lease Term</label>
-          <select id="term" name="lease_term" aria-label="Lease term">
+          <select id="term" name="lease_term" aria-label="Lease term" required>
             <option value="">Select</option>
             <option value="12 months">12 months</option>
             <option value="month-to-month">Month-to-month</option>
@@ -109,12 +114,12 @@
 
           <div class="option-group" role="radiogroup" aria-label="Proof submission method" style="text-align:center;">
             <label style="display:inline-flex; gap:.5rem; align-items:center;">
-              <input type="radio" name="proof_option" value="google_form" checked />
+              <input type="radio" name="proof_option" value="google_form" checked required />
               <span>Google Form</span>
             </label>
 
             <label style="display:inline-flex; gap:.5rem; align-items:center; margin-left:1rem;">
-              <input type="radio" name="proof_option" value="email" />
+              <input type="radio" name="proof_option" value="email" required />
               <span>Email</span>
             </label>
           </div>
@@ -159,7 +164,7 @@
           <input type="number" id="pet-number" name="pet_number" min="0" />
 
           <label for="pet-details">Description (age, size, etc.)</label>
-          <textarea id="pet-details" name="pet_details" placeholder="e.g., 3 years, medium size, vaccinated"></textarea>
+          <textarea id="pet-details" name="pet_details" placeholder="e.g., 3 years, medium size, vaccinated" rows="3"></textarea>
         </fieldset>
 
         <fieldset class="form-section" aria-label="Other details">
@@ -168,9 +173,9 @@
           <label>Additional Occupants</label>
           <div id="occupants-list">
             <div class="occupant-fields" data-index="1" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:.4rem;">
-              <input type="text" name="occupant_name_1" placeholder="Name" style="flex:1 1 200px"/>
-              <input type="number" name="occupant_age_1" placeholder="Age" min="0" style="width:120px"/>
-              <input type="tel" name="occupant_phone_1" placeholder="Phone Number" style="flex:1 1 180px"/>
+              <input type="text" name="occupant_name_1" placeholder="Name" style="flex:1 1 200px" required />
+              <input type="number" name="occupant_age_1" placeholder="Age" min="0" style="width:120px" required />
+              <input type="tel" name="occupant_phone_1" placeholder="Phone Number" style="flex:1 1 180px" required />
             </div>
           </div>
           <div style="margin-top:10px; display:flex; justify-content:flex-start; width:100%; max-width:700px;">
@@ -180,9 +185,9 @@
           <label style="margin-top:12px; display:block;">References</label>
           <div id="references-list">
             <div class="reference-fields" data-index="1" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:.4rem;">
-              <input type="text" name="reference_name_1" placeholder="Name" style="flex:1 1 200px"/>
-              <input type="tel" name="reference_phone_1" placeholder="Phone Number" style="width:160px"/>
-              <input type="text" name="reference_relationship_1" placeholder="Relationship" style="flex:1 1 160px"/>
+              <input type="text" name="reference_name_1" placeholder="Name" style="flex:1 1 200px" required />
+              <input type="tel" name="reference_phone_1" placeholder="Phone Number" style="width:160px" required />
+              <input type="text" name="reference_relationship_1" placeholder="Relationship" style="flex:1 1 160px" required />
             </div>
           </div>
           <div style="margin-top:10px; display:flex; justify-content:flex-start; width:100%; max-width:700px;">
@@ -190,13 +195,13 @@
           </div>
 
           <label for="emergency-contact" style="margin-top:12px">Emergency Contact Name</label>
-          <input type="text" id="emergency-contact" name="emergency_contact" />
+          <input type="text" id="emergency-contact" name="emergency_contact" required />
 
           <label for="emergency-phone">Emergency Contact Phone</label>
-          <input type="tel" id="emergency-phone" name="emergency_phone" />
+          <input type="tel" id="emergency-phone" name="emergency_phone" required />
 
           <label for="other-info">Any other information you'd like to provide?</label>
-          <textarea id="other-info" name="other_info"></textarea>
+          <textarea id="other-info" name="other_info" rows="3" required></textarea>
         </fieldset>
 
         <fieldset class="form-section" aria-label="Declaration">
@@ -266,9 +271,9 @@
         div.style.flexWrap = 'wrap';
         div.style.marginTop = '.6rem';
         div.innerHTML = `
-          <input type="text" name="occupant_name_${occupantCount}" placeholder="Name" style="flex:1 1 200px"/>
-          <input type="number" name="occupant_age_${occupantCount}" placeholder="Age" min="0" style="width:120px"/>
-          <input type="tel" name="occupant_phone_${occupantCount}" placeholder="Phone Number" style="flex:1 1 180px"/>
+          <input type="text" name="occupant_name_${occupantCount}" placeholder="Name" style="flex:1 1 200px" required />
+          <input type="number" name="occupant_age_${occupantCount}" placeholder="Age" min="0" style="width:120px" required />
+          <input type="tel" name="occupant_phone_${occupantCount}" placeholder="Phone Number" style="flex:1 1 180px" required />
           <button type="button" class="btn-primary--small remove-entry" aria-label="Remove occupant" style="margin-left:6px;">Remove</button>
         `;
         occupantsList.appendChild(div);
@@ -290,9 +295,9 @@
         div.style.flexWrap = 'wrap';
         div.style.marginTop = '.6rem';
         div.innerHTML = `
-          <input type="text" name="reference_name_${referenceCount}" placeholder="Name" style="flex:1 1 200px"/>
-          <input type="tel" name="reference_phone_${referenceCount}" placeholder="Phone Number" style="width:160px"/>
-          <input type="text" name="reference_relationship_${referenceCount}" placeholder="Relationship" style="flex:1 1 160px"/>
+          <input type="text" name="reference_name_${referenceCount}" placeholder="Name" style="flex:1 1 200px" required />
+          <input type="tel" name="reference_phone_${referenceCount}" placeholder="Phone Number" style="width:160px" required />
+          <input type="text" name="reference_relationship_${referenceCount}" placeholder="Relationship" style="flex:1 1 160px" required />
           <button type="button" class="btn-primary--small remove-entry" aria-label="Remove reference" style="margin-left:6px;">Remove</button>
         `;
         referencesList.appendChild(div);
@@ -333,9 +338,26 @@
     });
   })();
 
-  // Pet option keyboard/click handling
+  // Pet option keyboard/click handling + required toggles
   (function () {
     const petOptions = Array.from(document.querySelectorAll('.pet-option'));
+    const petRadios = Array.from(document.querySelectorAll('input[name="pets"]'));
+    const petType = document.getElementById('pet-type');
+    const petNumber = document.getElementById('pet-number');
+    const petDetails = document.getElementById('pet-details');
+
+    function updatePetRequireds() {
+      const selected = document.querySelector('input[name="pets"]:checked');
+      const isYes = selected && selected.value === 'Yes';
+      // make pet fields required only if "Yes"
+      petType.required = isYes;
+      petNumber.required = isYes;
+      petDetails.required = isYes;
+    }
+
+    petRadios.forEach(r => r.addEventListener('change', updatePetRequireds));
+    updatePetRequireds();
+
     petOptions.forEach(el => {
       el.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -354,11 +376,12 @@
     });
   })();
 
-  // Formspree integration: populate _subject and _next, show success message on redirect
+  // Formspree integration: populate _subject, _replyto and _next; show success on redirect
   (function () {
     const form = document.getElementById('rental-form');
     const subjInput = document.getElementById('_subject');
     const nextInput = document.getElementById('_next');
+    const replyInput = document.getElementById('_replyto');
     const successEl = document.getElementById('submitSuccess');
 
     function setNextUrl() {
@@ -368,6 +391,10 @@
     setNextUrl();
 
     form.addEventListener('submit', function (e) {
+      // Ensure email is copied to _replyto for Formspree reply-to header
+      const emailVal = (document.getElementById('email') || {value:''}).value.trim();
+      replyInput.value = emailVal || '';
+
       // Build a helpful subject line
       const fullName = (document.getElementById('full-name') || {value:''}).value.trim();
       const property = (document.getElementById('property-address') || {value:''}).value.trim();
@@ -375,9 +402,30 @@
       if (fullName) subjectParts.push(fullName);
       if (property) subjectParts.push(property);
       subjInput.value = subjectParts.join(' - ');
-      // allow normal submit to Formspree (no preventDefault)
+
+      // Let browser run built-in validity checks first
+      if (!form.checkValidity()) {
+        const firstInvalid = form.querySelector(':invalid');
+        if (firstInvalid) firstInvalid.focus();
+        e.preventDefault();
+        return;
+      }
+
+      // Additional check: pet conditional requireds (should be covered by required attr already)
+      const petSelected = document.querySelector('input[name="pets"]:checked');
+      if (petSelected && petSelected.value === 'Yes') {
+        const petDetails = document.getElementById('pet-details');
+        if (!petDetails.value.trim()) {
+          petDetails.focus();
+          e.preventDefault();
+          return;
+        }
+      }
+
+      // allow the normal submit to Formspree (do not preventDefault here)
     });
 
+    // If the page loads with ?submitted=1, show a success message
     function checkSuccessQuery() {
       const params = new URLSearchParams(window.location.search);
       if (params.get('submitted') === '1') {
@@ -393,17 +441,15 @@
     checkSuccessQuery();
   })();
 
-  // Form validation helper: focus first invalid field on submit
+  // Form validation helper: focus first invalid field on submit (redundant safety)
   (function () {
     const form = document.getElementById('rental-form');
     if (!form) return;
-    form.addEventListener('submit', (e) => {
-      if (!form.checkValidity()) {
-        const firstInvalid = form.querySelector(':invalid');
-        if (firstInvalid) firstInvalid.focus();
-        e.preventDefault();
-      }
-    });
+    form.addEventListener('invalid', function (e) {
+      e.preventDefault();
+      const firstInvalid = form.querySelector(':invalid');
+      if (firstInvalid) firstInvalid.focus();
+    }, true);
   })();
   </script>
 </body>
