@@ -7,46 +7,76 @@
   <link rel="icon" type="image/png" sizes="32x32" href="Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Page-local override to guarantee the intro copy is centered and readable.
-       This is non-destructive and keeps existing global styles intact. */
+    /* Increased base font size for this page so the relatively small
+       amount of content reads comfortably across devices. Adjust here
+       if you want slightly larger/smaller text than what I've chosen. */
+    html { font-size: 18px; } /* ~18px base (was likely ~16px) */
+
+    /* Page-local overrides to preserve the site's look while making copy readable */
     .intro {
       text-align: center !important;
-      max-width: 760px;
-      margin: 0.8rem auto;
+      max-width: 860px;
+      margin: 1rem auto;
     }
     .intro-text {
-      margin-bottom: 0.8rem;
-      line-height: 1.6;
+      margin-bottom: 0.9rem;
+      line-height: 1.65;
       color: #e8f6f1;
-      font-size: 1.04rem;
+      font-size: 1.05rem; /* ~19px */
     }
 
-    /* Small helper so the logo + intro stack and are centered even if other CSS interferes */
-    .intro-panel { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 12px 6px; }
-    .logo-container { text-align: center; width:100%; }
-    .site-logo { width: var(--site-logo-width, 160px) !important; max-width:100%; height:auto !important; display:block; margin: 0 auto; }
+    /* Larger page title */
+    .centered-title { font-size: 1.6rem; margin: 0.8rem 0; }
 
-    /* Ensure the main carousel image uses a smooth fade when swapping */
+    /* Make feature list and details easier to read */
+    .features-list li { font-size: 1.05rem; line-height: 1.6; margin-bottom: 0.5rem; }
+
+    /* Logo sizing kept but slightly larger */
+    .site-logo { width: var(--site-logo-width, 180px) !important; max-width:100%; height:auto !important; display:block; margin: 0 auto; }
+
+    /* Ensure carousel main image transitions smoothly */
     #carouselImage { transition: opacity .28s ease; display:block; max-width:100%; height:auto; }
 
-    /* Waitlist form specific */
+    /* Waitlist form styling (keeps readable controls at larger sizes) */
     .waitlist {
       background: rgba(255,255,255,0.04);
       padding: 1.1rem;
       border-radius: 8px;
-      max-width: 760px;
+      max-width: 860px;
       margin: 1rem auto;
       color: #e8f6f1;
+      text-align: center;
     }
-    .waitlist h2 { margin-top: 0; color: #fff; }
-    .waitlist label { display:block; margin-top:0.6rem; font-weight:600; }
+    .waitlist h2 { margin-top: 0; color: #fff; font-size: 1.25rem; }
+    .waitlist p { font-size: 1.05rem; line-height: 1.6; }
+
+    /* Center form controls and limit their width so the page doesn't feel empty */
+    .waitlist-form { max-width: 740px; margin: 0.6rem auto; text-align: left; }
+    .waitlist label { display:block; margin-top:0.6rem; font-weight:600; font-size:1.02rem; }
     .waitlist input[type="email"], .waitlist textarea {
-      width:100%; padding:0.6rem; margin-top:0.25rem; border-radius:6px; border:1px solid rgba(255,255,255,0.08);
-      background: rgba(0,0,0,0.35); color: #fff;
+      width:100%; padding:0.7rem; margin-top:0.25rem; border-radius:8px; border:1px solid rgba(255,255,255,0.10);
+      background: rgba(0,0,0,0.36); color: #fff; font-size:1rem;
+      box-sizing: border-box;
     }
-    .waitlist button { margin-top:0.8rem; background:#2b8a78; color:#fff; border:none; padding:0.6rem 1rem; border-radius:6px; cursor:pointer; }
-    .waitlist .contact-alt { margin-top:0.8rem; font-size:0.95rem; }
-    .waitlist-feedback { margin-top:0.8rem; color:#dff0e6; font-weight:600; }
+
+    /* Center the submit button horizontally (user request: move button to the middle) */
+    .waitlist .button-row { text-align: center; }
+    .waitlist button {
+      display: inline-block;
+      margin: 0.9rem auto 0;
+      background:#2b8a78;
+      color:#fff;
+      border:none;
+      padding:0.7rem 1.1rem;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:1rem;
+    }
+
+    .waitlist-feedback { margin-top:0.8rem; color:#dff0e6; font-weight:600; font-size:1rem; text-align:center; }
+
+    /* Keep footer readable at larger sizes */
+    .footer-row .email-link, .footer-row .social-link { font-size:1rem; }
   </style>
 </head>
 <body>
@@ -77,7 +107,7 @@
   <main>
     <div class="container">
 
-      <!-- Intro panel: logo above the centered intro copy (KEEP this unchanged) -->
+      <!-- Intro panel: logo above the centered intro copy (preserved content & layout) -->
       <section class="intro-panel" aria-label="Welcome to Newfound Living">
         <div class="logo-container" aria-hidden="true">
           <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="site-logo" />
@@ -95,12 +125,13 @@
       </section>
       <!-- /Intro panel -->
 
-      <!-- Rentals full + waitlist (replaces ad/listing area) -->
+      <!-- Rentals full + waitlist: replaces the previous ad/listing area.
+           This keeps the site's header/footer/background identical while making the content larger and easier to read. -->
       <section id="rentals-full" class="waitlist" aria-labelledby="rentals-full-title">
         <h2 id="rentals-full-title">All our rentals are currently full</h2>
-        <p>We're fully booked right now. If you'd like to join our waitlist, please leave your email and any comments below and we'll notify you when something becomes available.</p>
+        <p>We appreciate your interest — at the moment all properties are occupied. If you'd like to join our waitlist, leave your email and any details below and we'll notify you when a suitable property becomes available.</p>
 
-        <!-- Formspree waitlist form (uses your existing endpoint) -->
+        <!-- Formspree waitlist form (uses existing endpoint) -->
         <form id="waitlist-form" action="https://formspree.io/f/xldnwbqq" method="POST" class="waitlist-form" novalidate>
           <input type="hidden" name="_subject" value="Waitlist request — NewFound Living">
           <input type="hidden" name="_captcha" value="true">
@@ -109,12 +140,14 @@
           <input type="email" id="waitlist-email" name="email" required placeholder="you@example.com" autocomplete="email">
 
           <label for="waitlist-message">Comments (optional)</label>
-          <textarea id="waitlist-message" name="message" rows="4" placeholder="Any notes or preferences (move-in date, number of people, pets, etc.)"></textarea>
+          <textarea id="waitlist-message" name="message" rows="5" placeholder="Move-in date, household size, pets, preferred neighbourhood, etc."></textarea>
 
-          <button type="submit">Join Waitlist</button>
+          <div class="button-row">
+            <button type="submit">Join Waitlist</button>
+          </div>
         </form>
 
-        <p class="contact-alt">Prefer email? <a href="mailto:info.newfoundliving@gmail.com?subject=Waitlist%20request">Email us at info.newfoundliving@gmail.com</a></p>
+        <!-- The "Prefer to email" line and duplicate email address have been removed per your request. -->
 
         <div id="waitlist-feedback" class="waitlist-feedback" aria-live="polite" style="display:none;"></div>
       </section>
@@ -125,7 +158,7 @@
 
   <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
-  <!-- Modal / Lightbox (kept intact, will be inert without the previous gallery HTML) -->
+  <!-- Modal / Lightbox (kept for gallery functionality) -->
   <div id="galleryModal" class="modal" aria-hidden="true" role="dialog" aria-label="Image gallery">
     <div class="lightbox" role="document">
       <div class="lightbox-main" role="region" aria-label="Image viewer">
@@ -167,8 +200,7 @@
     window.addEventListener('resize', ()=> { if(window.innerWidth > 760) close(); });
   })();
 
-  // Existing carousel and lightbox scripts remain unchanged below.
-  // They safely exit early if the relevant DOM elements are not present.
+  // Carousel + Thumbnail logic — unchanged; safe-exit if no carousel exists on this page
   (function () {
     const wrap = document.querySelector('.carousel-wrap');
     if (!wrap) return;
@@ -319,7 +351,7 @@
   })();
   </script>
 
-  <!-- Waitlist form AJAX logic (keeps user on the same page and shows inline feedback) -->
+  <!-- Waitlist form AJAX logic (keeps user on same page and shows inline feedback) -->
   <script>
   (function () {
     var form = document.getElementById('waitlist-form');
