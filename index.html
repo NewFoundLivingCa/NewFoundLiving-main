@@ -84,6 +84,20 @@
       .waitlist { padding:1rem; margin-bottom:0; }
       .waitlist button { width:100%; }
     }
+    /* Center the homepage group when the viewport has spare height. */
+    body { display:flex; flex-direction:column; min-height:100vh; min-height:100svh; height:auto; }
+    .navbar-minimal { flex-shrink:0; margin-bottom:0; }
+    .homepage-content {
+      flex:1 0 auto;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:2rem;
+      padding:1.5rem 0;
+    }
+    .homepage-content > main { flex-shrink:0; }
+    .homepage-content .container { margin-top:0; margin-bottom:0; }
+    .homepage-content > footer { flex-shrink:0; width:100%; margin-top:0; margin-bottom:0; }
   </style>
 </head>
 <body>
@@ -111,6 +125,7 @@
     </div>
   </nav>
 
+  <div class="homepage-content">
   <main>
     <div class="container">
 
@@ -173,6 +188,7 @@
     </div>
     <div class="privacy">We never share or sell your information. Your privacy is important to us.</div>
   </footer>
+  </div>
 
   <script src="js/navigation.js" defer></script>
 
