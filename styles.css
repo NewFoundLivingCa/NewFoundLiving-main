@@ -15,7 +15,7 @@
 
   --container-max-width: 980px;
   --container-padding: 2.5rem;
-  --container-bg: rgba(0,0,0,0.82);
+  --container-bg: rgba(16,19,20,0.94);
   --muted: rgba(255,255,255,0.12);
 
   --btn-padding-regular: .85em 1.6em;
@@ -34,7 +34,14 @@
 /* ===== base/reset ===== */
 * { box-sizing: border-box; }
 html,body { height:100%; margin:0; padding:0; font-family:'Segoe UI','Arial',sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; color:var(--white); }
-body { background: #222 url('Logos/city.webp') no-repeat center center fixed; background-size:cover; }
+body {
+  background-color: #222;
+  background-image: linear-gradient(rgba(16,19,20,0.30), rgba(16,19,20,0.30)), url('Logos/city.webp');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
 
 /* ===== Logo helpers: center and unify size across pages =====
    - Targets common logo classes used across your pages so minimal markup changes required.
@@ -244,7 +251,7 @@ select:focus { outline:3px solid rgba(31,143,128,0.12); outline-offset:3px; }
    and eliminates the extra/double spacing that appeared on about.
 */
 footer {
-  background: rgba(0,0,0,0.60);
+  background: rgba(16,19,20,0.90);
   color:#fff;
   text-align:center;
   padding:2em 1em;
