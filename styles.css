@@ -34,7 +34,7 @@
 /* ===== base/reset ===== */
 * { box-sizing: border-box; }
 html,body { height:100%; margin:0; padding:0; font-family:'Segoe UI','Arial',sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; color:var(--white); }
-body { background: #222 url('Logos/city.png') no-repeat center center fixed; background-size:cover; }
+body { background: #222 url('Logos/city.webp') no-repeat center center fixed; background-size:cover; }
 
 /* ===== Logo helpers: center and unify size across pages =====
    - Targets common logo classes used across your pages so minimal markup changes required.
@@ -49,23 +49,14 @@ img.logo,
 .header-logo,
 .brand-logo,
 .listing-logo,
-.rental-logo,
-img[src*="logo"] {
+.rental-logo {
   display: block;
   margin: 0 auto;
-  width: var(--site-logo-width) !important;
+  width: var(--site-logo-width);
   max-width: 100%;
-  height: auto !important;
+  height: auto;
   vertical-align: middle;
   image-rendering: auto;
-}
-
-/* SVG specific handling */
-svg.site-logo,
-.site-logo.svg,
-img.site-logo[role="img"] {
-  width: var(--site-logo-width) !important;
-  height: auto !important;
 }
 
 /* ===== container / site frame ===== */
@@ -207,7 +198,7 @@ img.site-logo[role="img"] {
   font-weight:800; text-decoration:none; border:2px solid rgba(0,0,0,0.06); box-shadow:0 14px 36px rgba(33,112,106,0.18); transition: box-shadow .12s ease, opacity .12s ease, filter .12s ease; cursor:pointer; line-height:1; white-space:nowrap;
 }
 .btn-primary--small, .remove-entry, .btn-mini {
-  display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:var(--btn-padding-small); border-radius: calc(var(--btn-radius)-2px); background: linear-gradient(180deg, var(--brand-green-2), #1b6b62); color:#fff; border:2px solid rgba(0,0,0,0.06); box-shadow:0 8px 22px rgba(33,112,106,0.14); cursor:pointer; font-size:0.92rem;
+  display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:var(--btn-padding-small); border-radius: calc(var(--btn-radius) - 2px); background: linear-gradient(180deg, var(--brand-green-2), #1b6b62); color:#fff; border:2px solid rgba(0,0,0,0.06); box-shadow:0 8px 22px rgba(33,112,106,0.14); cursor:pointer; font-size:0.92rem;
 }
 .btn-primary:hover, .btn-primary--small:hover, .remove-entry:hover, .contact-us-btn:hover { box-shadow: 0 20px 50px rgba(33,112,106,0.26); opacity:0.98; }
 .btn-primary:active, .btn-primary--small:active, .remove-entry:active { box-shadow: inset 0 3px 8px rgba(0,0,0,0.12), 0 8px 26px rgba(33,112,106,0.14); opacity:0.96; }
@@ -290,24 +281,8 @@ footer .privacy {
   margin-top:0.6rem;
 }
 
-/* ===== Footer icons: force consistent small size (fixes oversized remote SVGs) =====
-   - Targets the specific icon class used in footer markup (.icon) and the
-     footer link images to ensure small, predictable sizing.
-   - Uses !important to override inline SVG attributes from remote files if necessary.
-*/
-footer img.icon,
-footer .email-link img,
-footer .social-link img {
-  width: 22px !important;
-  height: 22px !important;
-  max-width: none !important;
-  object-fit: contain !important;
-  vertical-align: middle !important;
-  display: inline-block !important;
-}
-
-/* Backwards-compatible selector: keep older, simpler rule as fallback */
-footer img { height:22px; vertical-align:middle; }
+/* Footer icons */
+footer img.icon { width:22px; height:22px; object-fit:contain; vertical-align:middle; display:inline-block; }
 
 /* footer links */
 footer a { color:#fff; text-decoration:underline; }
@@ -329,4 +304,12 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus { outline: 3px 
 @media (min-width:1100px) {
   .carousel-main { width:780px; height:460px; }
   .carousel-thumbs img { width:120px !important; height:78px !important; }
+}
+
+/* Comfortable mobile controls */
+.nav-toggle { min-width:44px; min-height:44px; }
+fieldset.form-section { min-width:0; }
+@media (max-width:540px) {
+  fieldset.form-section { padding:1rem; }
+  .occupant-fields input, .reference-fields input { min-width:0; }
 }

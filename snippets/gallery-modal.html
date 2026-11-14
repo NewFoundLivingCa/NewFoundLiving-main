@@ -1,0 +1,14 @@
+  <!-- Modal / Lightbox (kept for gallery functionality) -->
+  <div id="galleryModal" class="modal" aria-hidden="true" role="dialog" aria-label="Image gallery">
+    <div class="lightbox" role="document">
+      <div class="lightbox-main" role="region" aria-label="Image viewer">
+        <button class="close" aria-label="Close gallery" onclick="closeModal()">×</button>
+        <button class="lb-btn lb-prev" aria-label="Previous image">❮</button>
+        <button class="lb-btn lb-next" aria-label="Next image">❯</button>
+        <button id="slideshowToggle" class="slideshow-toggle" aria-pressed="false" title="Toggle slideshow">▶</button>
+        <img id="modalImg" src="" alt="">
+      </div>
+      <div class="lightbox-thumbs" id="thumbStrip" aria-label="Image thumbnails"></div>
+    </div>
+  </div>
+

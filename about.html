@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About - Newfound Living</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* Page-specific readability tweaks (non-destructive) */
@@ -47,21 +47,6 @@
     }
     .about-section li { margin-bottom: 0.6rem; }
 
-    /* Ensure footer contact items stack the same as other pages */
-    footer .footer-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      align-items: center;
-      justify-content: center;
-    }
-    footer .email-link, footer .social-link { display:flex; gap:.6rem; align-items:center; justify-content:center; }
-
-    @media (min-width:1200px) {
-      /* Optional: keep stacked by default but make side-by-side on very wide screens */
-      footer .footer-row { flex-direction: column; }
-    }
-
     @media (max-width:700px) {
       .about-section { padding: 0 1rem; font-size: 1rem; line-height: 1.5; }
       .about-container > h1 { font-size: 1.45rem; }
@@ -95,7 +80,7 @@
 
   <main>
     <div class="container about-container">
-      <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo">
+      <img src="Logos/logo.webp" alt="Newfound Living Logo" class="logo">
       <h1>About Newfound Living</h1>
 
       <section class="about-section">
@@ -176,19 +161,7 @@
 
   <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
-  <script>
-    // Mobile menu (same script used on index and application pages)
-    (function () {
-      const toggle = document.querySelector('.nav-toggle');
-      const wrap = document.getElementById('mobile-menu');
-      if (!toggle || !wrap) return;
-      function open() { toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if (f) f.focus(); }
-      function close(returnFocus=true) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); if (returnFocus) toggle.focus(); }
-      toggle.addEventListener('click', () => { if (wrap.classList.contains('visible')) close(); else open(); });
-      toggle.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); } if (e.key === 'Escape') close(); });
-      wrap.addEventListener('click', (e) => { if (e.target.closest('a')) close(false); });
-      window.addEventListener('resize', () => { if (window.innerWidth > 760) close(false); });
-    })();
-  </script>
+
+  <script src="js/navigation.js" defer></script>
 </body>
 </html>

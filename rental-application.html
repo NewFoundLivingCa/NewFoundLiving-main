@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rental Application - Newfound Living</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/Logos/tinylogo1.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="Logos/tinylogo1.png" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* Page-local layout tweaks and inline error styles */
     form#rental-form { display:flex; flex-direction:column; gap:1rem; align-items:center; width:100%; }
     fieldset.form-section { width:100%; max-width:700px; text-align:left; margin: 0 auto; }
-    fieldset.form-section h2 { text-align:center; margin-top:0; }
+    fieldset.form-section h2 { text-align:left; margin-top:0; }
     label { display:block; text-align:left; margin-bottom:.35rem; color: #F7F7F7; font-weight:600; }
     .occupant-fields input, .reference-fields input { box-sizing:border-box; }
 
@@ -72,11 +72,11 @@
 
   <main>
     <div class="container rental-container">
-      <img src="Logos/logo-transparent.png" alt="Newfound Living Logo" class="logo" />
+      <img src="Logos/logo.webp" alt="Newfound Living Logo" class="logo" />
 
       <h1 class="centered-title">Rental Application</h1>
 
-      <p class="required-note">All fields are required. Please complete every field before submitting.</p>
+      <p class="required-note">Complete the required fields. Additional occupants, occupant phone numbers, pet breed, and other information are optional.</p>
 
       <!-- Success message area -->
       <div id="submitSuccess" class="submit-success" role="status" aria-live="polite"></div>
@@ -198,13 +198,7 @@
           <h2>Other Details</h2>
 
           <label>Additional Occupants</label>
-          <div id="occupants-list">
-            <div class="occupant-fields" data-index="1" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:.4rem;">
-              <input type="text" name="occupant_name_1" placeholder="Name" style="flex:1 1 200px" required />
-              <input type="number" name="occupant_age_1" placeholder="Age" min="0" style="width:120px" required />
-              <input type="tel" name="occupant_phone_1" placeholder="Phone Number" style="flex:1 1 180px" required />
-            </div>
-          </div>
+          <div id="occupants-list"></div>
           <div style="margin-top:10px; display:flex; justify-content:flex-start; width:100%; max-width:700px;">
             <button type="button" class="btn-primary" id="add-occupant" aria-label="Add occupant">+ Add Occupant</button>
           </div>
@@ -228,7 +222,7 @@
           <input type="tel" id="emergency-phone" name="emergency_phone" required />
 
           <label for="other-info">Any other information you'd like to provide?</label>
-          <textarea id="other-info" name="other_info" rows="3" required></textarea>
+          <textarea id="other-info" name="other_info" rows="3"></textarea>
         </fieldset>
 
         <fieldset class="form-section" aria-label="Declaration">
@@ -269,22 +263,11 @@
   <a class="floating-contact" href="mailto:info.newfoundliving@gmail.com?subject=General Inquiry" aria-label="Contact Newfound Living">Contact</a>
 
   <script>
-  // Mobile menu
-  (function () {
-    const toggle = document.querySelector('.nav-toggle');
-    const wrap = document.getElementById('mobile-menu');
-    if (!toggle || !wrap) return;
-    function open() { toggle.classList.add('open'); toggle.setAttribute('aria-expanded','true'); wrap.classList.remove('hidden'); wrap.classList.add('visible'); wrap.setAttribute('aria-hidden','false'); const f = wrap.querySelector('a'); if (f) f.focus(); }
-    function close(returnFocus=true) { toggle.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); wrap.classList.remove('visible'); wrap.classList.add('hidden'); wrap.setAttribute('aria-hidden','true'); if (returnFocus) toggle.focus(); }
-    toggle.addEventListener('click', () => { if (wrap.classList.contains('visible')) close(); else open(); });
-    toggle.addEventListener('keydown', (e) => { if (e.key==='Enter' || e.key===' ') { e.preventDefault(); toggle.click(); } if (e.key==='Escape') close(); });
-    wrap.addEventListener('click', (e) => { if (e.target.closest('a')) close(false); });
-    window.addEventListener('resize', () => { if (window.innerWidth > 760) close(false); });
-  })();
+
 
   // Occupant / Reference dynamic adders
   (function () {
-    let occupantCount = 1;
+    let occupantCount = 0;
     const addOccupantBtn = document.getElementById('add-occupant');
     const occupantsList = document.getElementById('occupants-list');
     if (addOccupantBtn) {
@@ -298,9 +281,9 @@
         div.style.flexWrap = 'wrap';
         div.style.marginTop = '.6rem';
         div.innerHTML = `
-          <input type="text" name="occupant_name_${occupantCount}" placeholder="Name" style="flex:1 1 200px" required />
-          <input type="number" name="occupant_age_${occupantCount}" placeholder="Age" min="0" style="width:120px" required />
-          <input type="tel" name="occupant_phone_${occupantCount}" placeholder="Phone Number" style="flex:1 1 180px" required />
+          <input type="text" name="occupant_name_${occupantCount}" aria-label="Occupant name" placeholder="Name" style="flex:1 1 200px" required />
+          <input type="number" name="occupant_age_${occupantCount}" aria-label="Occupant age" placeholder="Age" min="0" style="width:120px" required />
+          <input type="tel" name="occupant_phone_${occupantCount}" aria-label="Occupant phone number (optional)" placeholder="Phone (optional)" style="flex:1 1 180px" />
           <button type="button" class="btn-primary--small remove-entry" aria-label="Remove occupant" style="margin-left:6px;">Remove</button>
         `;
         occupantsList.appendChild(div);
@@ -375,7 +358,8 @@
     function updatePetRequireds() {
       const selected = document.querySelector('input[name="pets"]:checked');
       const isYes = selected && selected.value === 'Yes';
-      petType.required = isYes;
+      petType.required = false;
+      petNumber.min = isYes ? '1' : '0';
       petNumber.required = isYes;
       petDetails.required = isYes;
     }
@@ -420,7 +404,7 @@
         if (rg) insertAfter = rg;
       } else {
         // If the field is inside .occupant-fields or .reference-fields, target that block
-        const block = elem.closest('.occupant-fields') || elem.closest('.reference-fields') || elem.closest('fieldset');
+        const block = elem.closest('.occupant-fields') || elem.closest('.reference-fields');
         if (block) insertAfter = block;
       }
 
@@ -481,7 +465,7 @@
         e.preventDefault();
 
         // Find first invalid control
-        const firstInvalid = form.querySelector(':invalid');
+        const firstInvalid = form.querySelector('input:invalid, select:invalid, textarea:invalid');
         if (!firstInvalid) return;
 
         // Use the browser's validation message if available; fallback to custom text
@@ -531,7 +515,7 @@
     if (!form) return;
     form.addEventListener('invalid', function (e) {
       e.preventDefault();
-      const firstInvalid = form.querySelector(':invalid');
+      const firstInvalid = form.querySelector('input:invalid, select:invalid, textarea:invalid');
       if (firstInvalid) {
         // already handled above, but ensure focus
         try { firstInvalid.focus(); } catch (err) {}
@@ -539,5 +523,6 @@
     }, true);
   })();
   </script>
+  <script src="js/navigation.js" defer></script>
 </body>
 </html>
