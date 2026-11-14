@@ -1,31 +1,28 @@
-# 🏠 Newfound Living – Rental Property Management Website
+# Newfound Living
 
-This is a Flask-based web application for **Newfound Living**, a rental property management company based in St. John's, NL. The site allows users to:
+Static website for a locally owned rental business in Newfoundland.
 
-- View available rental units
-- Submit rental applications
-- Confirm rent payments
-- Join the waitlist for future properties
+## Pages
 
----
+- `index.html` — homepage and availability waitlist.
+- `rental-application.html` — rental application, with Google Form and email options for proof of income.
+- `about.html` — business background and contact details.
+- `styles.css` — shared styling.
+- `js/navigation.js` — shared mobile navigation.
 
-## 🌐 Live Site
+GitHub Pages serves the root directory. `CNAME` configures www.newfoundliving.ca. There is no build step or Flask server. Serve the root with a local static web server to preview changes.
 
-Access the site at: [https://www.newfoundliving.ca](https://www.newfoundliving.ca)
----
+Both forms submit to the existing Formspree endpoint. Proof-of-income files are supplied separately through the Google Form or the applicant's email client.
 
-## 🖼️ Screenshots
+## Images
 
-### Homepage
-![Homepage Screenshot](static/screenshots/screenshot-home.png)
+The pages use `Logos/logo.webp` and `Logos/city.webp`. Original PNGs and previous design assets remain available in `Logos/`. Carlow property photos are in `16carlowmain/`.
 
-### Rental Application Page
-![Application Screenshot](static/screenshots/screenshot-application.png)
+## Restore the Carlow listing
 
----
-
-## 🚀 Features
-
-- 📄 **Rental Application Form** — Collects applicant, employment, and reference details
-- 📬 **Email Notification Signup** — Users can leave their email to be notified of new availability
-- ✉️ **Email Copy Button** — One-click to copy the rent payment address
+1. Copy the section inside the outer HTML comment in `snippets/ad-snippet.html` into `index.html`, replacing the availability waitlist as appropriate.
+2. Review the listing price, dates and description before publishing.
+3. Copy `snippets/gallery-modal.html` before the footer.
+4. Add `<script src="js/gallery.js" defer></script>` before `</body>`.
+5. Keep `styles.css` and the `16carlowmain/` photo folder. Image paths in the snippet are relative to the homepage.
+6. Preview the restored listing and test carousel arrows, thumbnails, the lightbox and slideshow on desktop and mobile.
